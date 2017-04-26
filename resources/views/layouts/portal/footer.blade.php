@@ -1,5 +1,5 @@
 <!-- Footer -->
-  <footer class="site-footer">
+  <footer style="margin-left: 0px !important;" class="site-footer">
     <span class="site-footer-legal">&copy; 2015 Remark</span>
     <div class="site-footer-right">
       Crafted with <i class="red-600 wb wb-heart"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
