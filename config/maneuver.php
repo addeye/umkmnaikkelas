@@ -41,17 +41,17 @@ return array(
             'host'      => 'ftp.umkmnaikkelas.com',
             'user'      => 'umkmnai1',
             'pass'      => 'wt6q7W2Wg0',
-            'path'      => '/public_html/tesumkm/',
+            'path'      => '/public_html/dev/',
             'port'      => 21,
             'passive'   => true
         ),
 
         'production' => array(
             'scheme'    => 'ftp',
-            'host'      => 'yourserver.com',
-            'user'      => 'user',
-            'pass'      => 'myawesomepass',
-            'path'      => '/path/to/server/',
+            'host'      => 'ftp.umkmnaikkelas.com',
+            'user'      => 'umkmnai1',
+            'pass'      => 'wt6q7W2Wg0',
+            'path'      => '/public_html/',
             'port'      => 21,
             'passive'   => true
         ),
