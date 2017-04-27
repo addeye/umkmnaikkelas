@@ -41,7 +41,7 @@ return array(
             'host'      => 'ftp.umkmnaikkelas.com',
             'user'      => 'umkmnai1',
             'pass'      => 'wt6q7W2Wg0',
-            'path'      => '/public_html/dev/',
+            'path'      => '/public_html/dev.umkmnaikkelas.com/',
             'port'      => 21,
             'passive'   => true
         ),
