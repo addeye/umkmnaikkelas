@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse bg-blue-600 navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse bg-white navbar-fixed-top" role="navigation">
             <div class="container-fluid">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle hamburger hamburger-close collapsed" data-target="#example-navbar-search-overlap-collapse" data-toggle="collapse">
@@ -9,7 +9,9 @@
                   <span class="sr-only">Toggle Search</span>
                   <i class="icon wb-search" aria-hidden="true"></i>
                 </button>
-                <a class="navbar-brand navbar-brand-center" href="{{ url('/home') }}">UMKM</a>
+                <a class="navbar-brand navbar-brand-center" href="{{ url('/home') }}">
+                  <img src="{{url('images/logo-small.png')}}">
+                </a>
               </div>
               <div class="collapse navbar-collapse" id="example-navbar-search-overlap-collapse">
                 <ul class="nav navbar-toolbar navbar-right">
@@ -18,8 +20,8 @@
                       <span class="sr-only">Toggle Search</span>
                     </a>
                   </li>
-                  <li><a href="{{ url('/login') }}">Login <span class="sr-only">(current)</span></a></li>
-                  <li><a href="{{ url('/register') }}">Register</a></li>                  
+                  <li><a href="{{ url('/login') }}">MASUK <span class="sr-only">(current)</span></a></li>
+                  <li><a href="{{ url('/register') }}">DAFTAR</a></li>                  
                 </ul>
               </div>
               <div class="navbar-search-overlap collapse" id="example-navbar-search-overlap" aria-expanded="false" style="height: 0px;">

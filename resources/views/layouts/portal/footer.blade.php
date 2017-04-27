@@ -1,7 +1,6 @@
 <!-- Footer -->
-  <footer style="margin-left: 0px !important;" class="site-footer">
-    <span class="site-footer-legal">&copy; 2015 Remark</span>
-    <div class="site-footer-right">
-      Crafted with <i class="red-600 wb wb-heart"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
-    </div>
+  <div class="row">
+  	<footer style="margin-left: 0px !important;" class="site-footer text-center">
+    <span class="site-footer-legal">&copy; 2017 UMKM Naik Kelas</span>   
   </footer>
+  </div>

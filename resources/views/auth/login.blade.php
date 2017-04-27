@@ -1,72 +1,157 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html class="no-js before-run" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+  <title>Login | UMKM NAIK KELAS</title>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+  <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
+    <link rel="shortcut icon" href="{{url('remark/assets/images/favicon.ico')}}">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+    <!-- Stylesheets -->
+    {{Html::style('remark/assets/css/bootstrap.min.css')}}
+    {{Html::style('remark/assets/css/bootstrap-extend.min.css')}}
+    {{Html::style('remark/assets/css/site.min.css')}}
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    {{Html::style('remark/assets/vendor/animsition/animsition.css')}}
+    {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
+    {{Html::style('remark/assets/vendor/switchery/switchery.css')}}
+    {{Html::style('remark/assets/vendor/intro-js/introjs.css')}}
+    {{Html::style('remark/assets/vendor/slidepanel/slidePanel.css')}}
+    {{Html::style('remark/assets/vendor/flag-icon-css/flag-icon.css')}}
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+  <!-- Page -->
+  <link rel="stylesheet" href="{{url('remark/assets/css/pages/login.css')}}">
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+  {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
+    {{Html::style('remark/assets/fonts/brand-icons/brand-icons.min.css')}}
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>  
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+  <!--[if lt IE 9]>
+    <script src="../../assets/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                                <p>
-                                    <a href="redirect/facebook">FB Login</a>
-                                    <a href="redirect/twitter">Twitter Login</a>
-                                </p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <!--[if lt IE 10]>
+    <script src="../../assets/vendor/media-match/media.match.min.js"></script>
+    <script src="../../assets/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+
+  <!-- Scripts -->
+    {{Html::script(asset('remark/assets/vendor/modernizr/modernizr.js'))}}
+    {{Html::script(asset('remark/assets/vendor/breakpoints/breakpoints.js'))}}
+  <script>
+    Breakpoints();
+  </script>
+</head>
+<body class="page-login layout-full">
+  <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+  <!-- Page -->
+  <div class="page animsition vertical-align text-center" data-animsition-in="fade-in"
+  data-animsition-out="fade-out">>
+    <div class="page-content vertical-align-middle">
+      <div class="brand">
+        <img class="brand-img" src="{{url('images/logo-small.png')}}" alt="...">
+      </div>
+      <p>Silahkan Masukkan Akun Anda</p>
+      <form method="post" action="{{ route('login') }}">        
+      {{ csrf_field() }}
+        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+          <label class="sr-only" for="inputEmail">Email</label>
+          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
         </div>
+        <div class="form-group">
+          <label class="sr-only" for="inputPassword">Password</label>
+          <input type="password" class="form-control" id="inputPassword" name="password"
+          placeholder="Password">
+        </div>
+        <div class="form-group clearfix">
+          <div class="checkbox-custom checkbox-inline pull-left">
+            <input type="checkbox" id="inputCheckbox" name="checkbox">
+            <label for="inputCheckbox">Remember me</label>
+          </div>
+          <a class="pull-right" href="{{ route('password.request') }}">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      </form>
+      <p>Still no account? Please go to <a href="{{url('register')}}">Register</a></p>
+      <p>
+      <a href="" class="btn btn-labeled social-facebook">
+                    <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Sign In</a> OR
+        <a href="redirect/twitter" class="btn btn-labeled social-twitter">
+                    <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Sign In</a></p>
+      <footer class="page-copyright">
+        <p>WEBSITE BY PeacBromo</p>
+        <p>© 2017. All RIGHT RESERVED.</p>
+        <div class="social">
+          <a href="javascript:void(0)">
+            <i class="icon bd-twitter" aria-hidden="true"></i>
+          </a>
+          <a href="javascript:void(0)">
+            <i class="icon bd-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="javascript:void(0)">
+            <i class="icon bd-dribbble" aria-hidden="true"></i>
+          </a>
+        </div>
+      </footer>
     </div>
-</div>
-@endsection
+  </div>
+  <!-- End Page -->
+
+
+  <!-- Core  -->
+{{Html::script(asset('remark/assets/vendor/jquery/jquery.js'))}}
+{{Html::script(asset('remark/assets/vendor/bootstrap/bootstrap.js'))}}
+{{Html::script(asset('remark/assets/vendor/animsition/jquery.animsition.js'))}}
+{{Html::script(asset('remark/assets/vendor/asscroll/jquery-asScroll.js'))}}
+{{Html::script(asset('remark/assets/vendor/mousewheel/jquery.mousewheel.js'))}}
+{{Html::script(asset('remark/assets/vendor/asscrollable/jquery.asScrollable.all.js'))}}
+{{Html::script(asset('remark/assets/vendor/ashoverscroll/jquery-asHoverScroll.js'))}}
+
+        <!-- Plugins -->
+{{Html::script(asset('remark/assets/vendor/switchery/switchery.min.js'))}}
+{{Html::script(asset('remark/assets/vendor/intro-js/intro.js'))}}
+{{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
+{{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
+
+        <!-- Scripts -->
+{{Html::script(asset('remark/assets/js/core.js'))}}
+{{Html::script(asset('remark/assets/js/site.js'))}}
+
+{{Html::script(asset('remark/assets/js/sections/menu.js'))}}
+{{Html::script(asset('remark/assets/js/sections/menubar.js'))}}
+{{Html::script(asset('remark/assets/js/sections/sidebar.js'))}}
+
+{{Html::script(asset('remark/assets/js/configs/config-colors.js'))}}
+{{Html::script(asset('remark/assets/js/configs/config-tour.js'))}}
+
+{{Html::script(asset('remark/assets/js/components/asscrollable.js'))}}
+{{Html::script(asset('remark/assets/js/components/animsition.js'))}}
+{{Html::script(asset('remark/assets/js/components/slidepanel.js'))}}
+{{Html::script(asset('remark/assets/js/components/switchery.js'))}}
+  <script src="{{url('remark/assets/js/components/jquery-placeholder.js')}}"></script>
+
+  <script>
+    (function(document, window, $) {
+      'use strict';
+
+      var Site = window.Site;
+      $(document).ready(function() {
+        Site.run();
+      });
+    })(document, window, jQuery);
+  </script>
+
+</body>
+
+</html>
