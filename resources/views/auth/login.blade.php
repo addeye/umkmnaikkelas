@@ -51,6 +51,16 @@
   <script>
     Breakpoints();
   </script>
+  <style type="text/css">
+    a {
+    color: #000000;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+  </style>
 </head>
 <body class="page-login layout-full">
   <!--[if lt IE 8]>
@@ -63,7 +73,9 @@
   data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle">
       <div class="brand">
-        <img class="brand-img" src="{{url('images/logo-small.png')}}" alt="...">
+      <a href="{{url('/')}}">
+        <img class="brand-img" src="{{url('images/logo-small.png')}}" alt="logo">
+      </a>        
       </div>
       <p>Silahkan Masukkan Akun Anda</p>
       <form method="post" action="{{ route('login') }}">        

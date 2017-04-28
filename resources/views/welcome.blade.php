@@ -95,7 +95,7 @@ input {
         data-slide="next">
         <span class="icon wb-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
-    </a>
+        </a>
 </div> 
 </div>        
 <!-- End Example Captions -->
