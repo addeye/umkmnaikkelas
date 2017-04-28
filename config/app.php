@@ -174,6 +174,8 @@ return [
         \Intervention\Image\ImageServiceProvider::class,
         Fadion\Maneuver\ManeuverServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravolt\Indonesia\ServiceProvider::class,
+        Jcf\Geocode\GeocodeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -237,6 +239,8 @@ return [
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Indonesia' => Laravolt\Indonesia\Facade::class,
+        'Geocode' => Jcf\Geocode\Facades\Geocode::class
     ],
 
 ];

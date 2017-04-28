@@ -24,6 +24,9 @@
     {{Html::style('remark/assets/vendor/slidepanel/slidePanel.css')}}
     {{Html::style('remark/assets/vendor/flag-icon-css/flag-icon.css')}}
 
+    <!-- Plugin -->
+  <link rel="stylesheet" href="{{url('remark/assets/vendor/toastr/toastr.css')}}">
+
 
   <!-- Page -->
   <link rel="stylesheet" href="{{url('remark/assets/css/pages/login.css')}}">
@@ -69,7 +72,7 @@
           <label class="sr-only" for="inputEmail">Email</label>
           <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
         </div>
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
           <label class="sr-only" for="inputPassword">Password</label>
           <input type="password" class="form-control" id="inputPassword" name="password"
           placeholder="Password">
@@ -85,7 +88,7 @@
       </form>
       <p>Still no account? Please go to <a href="{{url('register')}}">Register</a></p>
       <p>
-      <a href="" class="btn btn-labeled social-facebook">
+      <a href="redirect/facebook" class="btn btn-labeled social-facebook">
                     <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Sign In</a> OR
         <a href="redirect/twitter" class="btn btn-labeled social-twitter">
                     <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Sign In</a></p>
@@ -123,6 +126,7 @@
 {{Html::script(asset('remark/assets/vendor/intro-js/intro.js'))}}
 {{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
 {{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
+<script src="{{url('remark/assets/vendor/toastr/toastr.js')}}"></script>
 
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
@@ -140,6 +144,7 @@
 {{Html::script(asset('remark/assets/js/components/slidepanel.js'))}}
 {{Html::script(asset('remark/assets/js/components/switchery.js'))}}
   <script src="{{url('remark/assets/js/components/jquery-placeholder.js')}}"></script>
+  <script src="{{url('remark/assets/js/components/toastr.js')}}"></script>
 
   <script>
     (function(document, window, $) {
@@ -147,9 +152,16 @@
 
       var Site = window.Site;
       $(document).ready(function() {
-        Site.run();
+        Site.run();        
       });
     })(document, window, jQuery);
+
+    {{$errors->all()?'error()':''}}    
+
+    function error()
+    {
+      toastr.warning('Email dan Password Salah');
+    }
   </script>
 
 </body>
