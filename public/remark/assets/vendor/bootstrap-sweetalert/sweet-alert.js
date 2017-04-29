@@ -740,5 +740,7 @@
       }
     }
   })();
-
+  $(document).on('page:change',function(){
+       window.sweetAlertInitialize();
+    });
 })(window, document);

@@ -26,6 +26,9 @@
     {{Html::style('remark/assets/vendor/slidepanel/slidePanel.css')}}
     {{Html::style('remark/assets/vendor/flag-icon-css/flag-icon.css')}}
 
+    <!-- Plugin -->
+    {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
+    {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
 
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -168,6 +171,10 @@
 {{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
 {{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/bootbox/bootbox.js'))}}
+{{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
+{{Html::script(asset('remark/assets/vendor/toastr/toastr.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -186,6 +193,23 @@
 
 {{Html::script(asset('remark/assets/vendor/slick-carousel/slick.js'))}}
 
+{{Html::script(asset('remark/assets/js/components/bootbox.js'))}}
+{{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
+{{Html::script(asset('remark/assets/js/components/toastr.js'))}}
+
+<!-- Include this after the sweet alert js file -->
+    <script type="text/javascript">
+        $(window).load(function(){
+  $(document).ready(function () {
+      
+      @if (Session::has('sweet_alert.alert'))
+    
+        swal({!! Session::get('sweet_alert.alert') !!});
+    
+@endif
+    });
+});
+    </script>
 
 <script>
     (function(document, window, $) {

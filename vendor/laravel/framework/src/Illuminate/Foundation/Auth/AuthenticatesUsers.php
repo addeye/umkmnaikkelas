@@ -100,6 +100,8 @@ trait AuthenticatesUsers
 
         $this->clearLoginAttempts($request);
 
+        \Alert::success(\Auth::user()->name, 'Selamat Datang !')->persistent("Tutup");
+
         return $this->authenticated($request, $this->guard()->user())
                 ?: redirect()->intended($this->redirectPath());
     }
@@ -158,6 +160,8 @@ trait AuthenticatesUsers
         $request->session()->flush();
 
         $request->session()->regenerate();
+
+        \Alert::success('Anda sudah logout', 'Sampai Jumpa !')->persistent("Tutup");
 
         return redirect('/');
     }

@@ -176,6 +176,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravolt\Indonesia\ServiceProvider::class,
         Jcf\Geocode\GeocodeServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,7 +241,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Indonesia' => Laravolt\Indonesia\Facade::class,
-        'Geocode' => Jcf\Geocode\Facades\Geocode::class
+        'Geocode' => Jcf\Geocode\Facades\Geocode::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
     ],
 
 ];

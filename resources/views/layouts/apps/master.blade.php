@@ -56,6 +56,25 @@
             margin-bottom: 10px;
             word-break: break-all;
         }
+
+        .site-navbar .navbar-header {
+    color: #fff;
+    background-color: #ffffff;
+}
+
+.site-navbar .navbar-header .navbar-toggle {
+    color: #060606;
+}
+
+.navbar-default .navbar-toolbar>li>a {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-toolbar>.open>a, .navbar-default .navbar-toolbar>.open>a:focus, .navbar-default .navbar-toolbar>.open>a:hover {
+    color: #0e0e0e;
+    background-color: rgba(243,247,249,.6);
+}
+
     </style>
 
     <!--[if lt IE 9]>
@@ -80,6 +99,7 @@
 <![endif]-->
 
 @include('layouts.apps.header')
+
 @include('layouts.apps.menu')
 
 

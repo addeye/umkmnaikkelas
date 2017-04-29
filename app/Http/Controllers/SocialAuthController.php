@@ -18,6 +18,7 @@ class SocialAuthController extends Controller
 
         auth()->login($user);
 
+        \Alert::success(\Auth::user()->name, 'Selamat Datang !')->persistent("Tutup");
         return redirect()->to('/home');
     }
 }

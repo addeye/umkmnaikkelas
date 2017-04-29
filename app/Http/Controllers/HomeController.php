@@ -22,7 +22,11 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('main');
+    {        
+        if(\Auth::user()->role_id==1)
+        {
+            return view('home');
+        }
+        return view('welcome');
     }
 }
