@@ -15,6 +15,13 @@ class PendampingMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if(\Auth::user()->role_id != ROLE_PENDAMPING)
+        {
+            \Alert::warning('Anda Tidak Punya Akses', 'Peringatan');
+            return back();
+        }else{
+        
+            return $next($request);
+        }
     }
 }

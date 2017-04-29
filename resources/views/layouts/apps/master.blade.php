@@ -24,6 +24,10 @@
     {{Html::style('remark/assets/vendor/slidepanel/slidePanel.css')}}
     {{Html::style('remark/assets/vendor/flag-icon-css/flag-icon.css')}}
 
+    <!-- Plugin -->
+    {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
+    {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
+
 
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -73,6 +77,38 @@
 .navbar-default .navbar-toolbar>.open>a, .navbar-default .navbar-toolbar>.open>a:focus, .navbar-default .navbar-toolbar>.open>a:hover {
     color: #0e0e0e;
     background-color: rgba(243,247,249,.6);
+}
+.site-navbar .navbar-header .hamburger .hamburger-bar, .site-navbar .navbar-header .hamburger:after, .site-navbar .navbar-header .hamburger:before {
+    background-color: #040404;
+}
+
+.site-gridmenu-toggle:after {
+    position: relative;
+    top: -1px;
+    right: -3px;
+    display: inline-block;
+    font-family: 'Web Icons';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    content: '\f183';
+    opacity: 0;
+    -webkit-transition: opacity .15s;
+    -o-transition: opacity .15s;
+    transition: opacity .15s;
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+    text-rendering: auto;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: black;
+}
+
+.scrollable-inverse.scrollable .scrollable-bar-handle {
+    background: rgb(233, 143, 46);
 }
 
     </style>
@@ -125,6 +161,10 @@
 {{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
 {{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/bootbox/bootbox.js'))}}
+{{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
+{{Html::script(asset('remark/assets/vendor/toastr/toastr.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -140,6 +180,24 @@
 {{Html::script(asset('remark/assets/js/components/animsition.js'))}}
 {{Html::script(asset('remark/assets/js/components/slidepanel.js'))}}
 {{Html::script(asset('remark/assets/js/components/switchery.js'))}}
+
+{{Html::script(asset('remark/assets/js/components/bootbox.js'))}}
+{{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
+{{Html::script(asset('remark/assets/js/components/toastr.js'))}}
+
+<!-- Include this after the sweet alert js file -->
+    <script type="text/javascript">
+        $(window).load(function(){
+  $(document).ready(function () {
+      
+      @if (Session::has('sweet_alert.alert'))
+    
+        swal({!! Session::get('sweet_alert.alert') !!});
+    
+@endif
+    });
+});
+    </script>
 
 
 <script>

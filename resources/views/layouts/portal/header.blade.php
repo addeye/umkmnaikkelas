@@ -22,7 +22,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">    
                       <li role="presentation">
-                        <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>
+                        <a href="{{route('dashboard')}}" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Dashboard</a>
                       </li>
                       <li class="divider" role="presentation"></li>
                       <li role="presentation">                    

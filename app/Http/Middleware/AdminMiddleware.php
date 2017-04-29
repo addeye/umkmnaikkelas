@@ -15,8 +15,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role_id != PMT_ROLE_ADMIN)
+        if(\Auth::user()->role_id != ROLE_ADMIN)
         {
+            \Alert::warning('Anda Tidak Punya Akses', 'Peringatan');
             return back();
         }else{
         

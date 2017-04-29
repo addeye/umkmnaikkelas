@@ -4,20 +4,20 @@
             <div>
                 <ul class="site-menu">
                     <li class="site-menu-category">General</li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{ set_active(['dashboard'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="dashboard">
                             <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
                             <span class="site-menu-title">Dashboard</span>                        
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../index.html" data-slug="dashboard-v1">
+                            <li class="site-menu-item {{ set_active(['dashboard']) }}">
+                                <a class="animsition-link" href="{{route('dashboard')}}" data-slug="dashboard-v1">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Dashboard</span>
                                 </a>
                             </li>
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="../dashboard/v2.html" data-slug="dashboard-v2">
+                                <a class="animsition-link" href="{{route('portal')}}" data-slug="dashboard-v2">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Portal</span>
                                 </a>

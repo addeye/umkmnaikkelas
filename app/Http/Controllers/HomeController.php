@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,10 +23,19 @@ class HomeController extends Controller
      */
     public function index()
     {        
-        if(\Auth::user()->role_id==1)
+        if(\Auth::user())
         {
-            return view('home');
+            if(\Auth::user()->role_id==ROLE_ADMIN)
+            {
+                return view('home');
+            }
         }
+        return view('welcome');
+         
+    }
+
+    public function portal()
+    {
         return view('welcome');
     }
 }
