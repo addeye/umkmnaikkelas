@@ -9,12 +9,7 @@
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse"
                 data-toggle="collapse">
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
-                data-toggle="collapse">
-            <span class="sr-only">Toggle Search</span>
-            <i class="icon wb-search" aria-hidden="true"></i>
-        </button>
+        </button>        
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
             <img class="navbar-brand-logo" src="{{url('images/logo-small.png')}}" title="UMKM NAIK KELAS"> 
         </div>
@@ -31,16 +26,6 @@
                             <span class="sr-only">Toggle menubar</span>
                             <span class="hamburger-bar"></span>
                         </i>
-                    </a>
-                </li>
-                <li class="hidden-xs" id="toggleFullscreen">
-                    <a class="icon icon-fullscreen" data-toggle="fullscreen" href="#" role="button">
-                        <span class="sr-only">Toggle fullscreen</span>
-                    </a>
-                </li>
-                <li class="hidden-float">
-                    <a class="icon wb-search" data-toggle="collapse" href="#site-navbar-search" role="button">
-                        <span class="sr-only">Toggle Search</span>
                     </a>
                 </li>                
             </ul>
@@ -258,20 +243,5 @@
             <!-- End Navbar Toolbar Right -->
         </div>
         <!-- End Navbar Collapse -->
-
-        <!-- Site Navbar Seach -->
-        <div class="collapse navbar-search-overlap" id="site-navbar-search">
-            <form role="search">
-                <div class="form-group">
-                    <div class="input-search">
-                        <i class="input-search-icon wb-search" aria-hidden="true"></i>
-                        <input type="text" class="form-control" name="site-search" placeholder="Search...">
-                        <button type="button" class="input-search-close icon wb-close" data-target="#site-navbar-search"
-                                data-toggle="collapse" aria-label="Close"></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- End Site Navbar Seach -->
     </div>
 </nav>

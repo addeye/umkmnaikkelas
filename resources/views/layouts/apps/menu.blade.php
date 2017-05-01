@@ -24,15 +24,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="layout">
                             <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
                             <span class="site-menu-title">Master Data</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../layouts/grids.html" data-slug="layout-grids">
+                            <li class="site-menu-item {{ set_active(['bidang-usaha','bidang-usaha/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('bidang-usaha')}}" data-slug="layout-grids">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Bidang Usaha</span>
                                 </a>

@@ -28,6 +28,10 @@
     {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
 
+    {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
+    {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
+    {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
+
 
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -111,6 +115,29 @@
     background: rgb(233, 143, 46);
 }
 
+.navbar-default .hamburger .hamburger-bar, .navbar-default .hamburger:after, .navbar-default .hamburger:before {
+    background: #ffffff;
+}
+
+.floating {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    background-color: #f16f35;
+    transition: all 0.3s ease 0s;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+        }
+    .floating a {
+    display: block;
+    line-height: 53px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    }
+
     </style>
 
     <!--[if lt IE 9]>
@@ -165,6 +192,15 @@
 {{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
 {{Html::script(asset('remark/assets/vendor/toastr/toastr.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/datatables/jquery.dataTables.min.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
+
+{{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
+{{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -184,6 +220,7 @@
 {{Html::script(asset('remark/assets/js/components/bootbox.js'))}}
 {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
+{{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 
 <!-- Include this after the sweet alert js file -->
     <script type="text/javascript">
@@ -194,7 +231,7 @@
     
         swal({!! Session::get('sweet_alert.alert') !!});
     
-@endif
+    @endif
     });
 });
     </script>
@@ -203,7 +240,6 @@
 <script>
     (function(document, window, $) {
         'use strict';
-
         var Site = window.Site;
         $(document).ready(function() {
             Site.run();
@@ -211,6 +247,7 @@
     })(document, window, jQuery);
 </script>
 
+@yield('js')
 </body>
 
 </html>

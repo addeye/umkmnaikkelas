@@ -11,10 +11,9 @@
               <h3 class="panel-title">Standard Mode</h3>
             </div>
             <div class="panel-body">
-              <form class="form-horizontal" method="post" action="{{route('bidang-usaha.edit')}}">
-              <input type="hided" name="_method" value="PUT">
+              <form class="form-horizontal" method="post" action="{{route('bidang-usaha.store')}}">
                 <div class="form-group">
-                  <label class="col-sm-3 control-label">Full name</label>
+                  <label class="col-sm-3 control-label">Nama Bidang Usaha</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" name="standard_fullName" />
                   </div>
