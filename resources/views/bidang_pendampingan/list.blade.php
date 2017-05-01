@@ -33,9 +33,9 @@
                 <td>{{$no++}}</td>
                 <td>{{$row->nama}}</td>
                 <td class="text-nowrap">
-                  <a href="{{route('bidang-keahlian.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>                   
+                  <a href="{{route('bidang-pendampingan.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>                   
                     <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-                        <form id="delete-form" action="{{route('bidang-keahlian.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                        <form id="delete-form" action="{{route('bidang-pendampingan.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         </form>
                 </td>
@@ -44,7 +44,7 @@
             </tbody>
           </table>
           <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
-                <a href="{{url('bidang-keahlian/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
+                <a href="{{url('bidang-pendampingan/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
             </div>
         </div>
       </div>      

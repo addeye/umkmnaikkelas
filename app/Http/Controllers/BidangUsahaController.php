@@ -56,28 +56,52 @@ class BidangUsahaController extends Controller
 
     public function edit($id)
     {
-    	return view('bidang_usaha.edit');
+        $data['data'] = BidangUsaha::find($id);
+    	return view('bidang_usaha.edit',$data);
     }
 
     public function update(Request $request,$id)
     {
-        $rules = [];
+        $rules = [
+        'nama' => 'required'
+        ];
 
-        $messages = [];
+        $messages = [
+        'nama.required' => \Lang::get('validation.required')
+        ];
 
-        $validator = Validator::make($request->all(),$rules,$messages);
+        $validator = \Validator::make($request->all(),$rules,$messages);
 
         if($validator->fails())
         {
-            return redirect()->route('bidang-usaha.edit')
+            return redirect()->route('bidang-usaha.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
-        }    	
+        }
+
+        $bidang = BidangUsaha::find($id);
+        $bidang->nama = $request->nama;
+        $bidang->save();
+
+        if($bidang)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('bidang-usaha.index');
+        }
     }
 
     public function destroy($id)
     {
-    	# code...
+    	$bidang = BidangUsaha::find($id);
+
+        $bidang->delete();
+
+        if($bidang)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('bidang-usaha.index');
+        }
+
     }
 
 }

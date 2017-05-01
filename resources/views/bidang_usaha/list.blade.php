@@ -33,10 +33,11 @@
                 <td>{{$no++}}</td>
                 <td>{{$row->nama}}</td>
                 <td class="text-nowrap">
-              		<button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></button>                   
-                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-
-                        <form id="logout-form" action="{{url('#')}}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+              		<a href="{{route('bidang-usaha.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>                   
+                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
+                        <form id="delete-form" action="{{route('bidang-usaha.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                        </form>
                 </td>
               </tr>
              @endforeach                          
@@ -51,5 +52,33 @@
     </div>
   </div>
   <!-- End Page -->
+@endsection
 
+@section('js')
+<script>
+
+  function ConfirmDelete()
+  {
+  swal({
+  title: "Apakah Yakin?",
+  text: "Data akan benar-benar dihapus!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Iya, Hapus!",
+  cancelButtonText: "Tidak, Batalkan!",
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    document.getElementById('delete-form').submit();
+  } else {
+    swal("Dibatalkan", "Data tidak jadi dihapus", "error");
+  }
+});
+  }
+
+</script>
 @endsection

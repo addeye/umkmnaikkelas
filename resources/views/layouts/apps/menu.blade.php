@@ -24,7 +24,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*'],'active open') }}">
+                    <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*', 'bidang-pendampingan','bidang-pendampingan/*','bidang-keahlian','bidang-keahlian/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="layout">
                             <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
                             <span class="site-menu-title">Master Data</span>
@@ -37,14 +37,14 @@
                                     <span class="site-menu-title">Bidang Usaha</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../layouts/headers.html" data-slug="layout-headers">
+                            <li class="site-menu-item {{ set_active(['bidang-pendampingan','bidang-pendampingan/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('bidang-pendampingan')}}" data-slug="layout-headers">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Bidang Pendampingan</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../layouts/bordered-header.html" data-slug="layout-bordered-header">
+                            <li class="site-menu-item {{ set_active(['bidang-keahlian','bidang-keahlian/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('bidang-keahlian')}}" data-slug="layout-bordered-header">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Bidang Keahlian</span>
                                 </a>

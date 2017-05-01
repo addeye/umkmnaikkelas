@@ -3,33 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\BidangPendampingan;
 
 class BidangPendampinganController extends Controller
 {
     public function index()
     {
-        $data['data'] = BidangUsaha::all();
-    	return view('bidang_usaha.list',$data);
+        $data['data'] = BidangPendampingan::all();
+    	return view('bidang_pendampingan.list',$data);
     }
 
     public function create()
     {
-    	return view('bidang_usaha.add');
+    	return view('bidang_pendampingan.add');
     }
 
     public function store(Request $request)
     {
-        $rules = [];
+        $rules = [
+        'nama' => 'required'
+        ];
 
-        $messages = [];
+        $messages = [
+        'nama.required' => \Lang::get('validation.required')
+        ];
 
-    	$validator = Validator::make($request->all(),$rules,$messages);
+        $validator = \Validator::make($request->all(),$rules,$messages);
 
         if($validator->fails())
         {
-            return redirect()->route('bidang-usaha.create')
+            return redirect()->route('bidang-pendampingan.create')
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        $bidang = New BidangPendampingan();
+        $bidang->nama = $request->nama;
+        $bidang->save();
+
+        if($bidang)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('bidang-pendampingan.index');
         }
 
     }
@@ -41,27 +56,49 @@ class BidangPendampinganController extends Controller
 
     public function edit($id)
     {
-    	return view('bidang_usaha.edit');
+    	$data['data'] = BidangPendampingan::find($id);
+        return view('bidang_pendampingan.edit',$data);
     }
 
     public function update(Request $request,$id)
     {
-        $rules = [];
+        $rules = [
+        'nama' => 'required'
+        ];
 
-        $messages = [];
+        $messages = [
+        'nama.required' => \Lang::get('validation.required')
+        ];
 
-        $validator = Validator::make($request->all(),$rules,$messages);
+        $validator = \Validator::make($request->all(),$rules,$messages);
 
         if($validator->fails())
         {
-            return redirect()->route('bidang-usaha.edit')
+            return redirect()->route('bidang-pendampingan.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
+        }
+        $bidang = BidangPendampingan::find($id);
+        $bidang->nama = $request->nama;
+        $bidang->save();
+
+        if($bidang)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('bidang-pendampingan.index');
         }    	
     }
 
     public function destroy($id)
     {
-    	# code...
+    	$bidang = BidangPendampingan::find($id);
+
+        $bidang->delete();
+
+        if($bidang)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('bidang-pendampingan.index');
+        }
     }
 }

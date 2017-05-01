@@ -8,13 +8,13 @@
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">
-              <h3 class="panel-title"><i class="con wb-plus"></i> Bidang Usaha</h3>
+              <h3 class="panel-title"><i class="con wb-plus"></i> Bidang Pendampingan</h3>
             </div>
             <div class="panel-body">
-              <form class="form-horizontal" method="post" action="{{route('bidang-usaha.store')}}">
+              <form class="form-horizontal" method="post" action="{{route('bidang-pendampingan.store')}}">
               {{ csrf_field()}}
                 <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Nama Bidang Usaha</label>
+                  <label class="col-sm-3 control-label">Nama Bidang Pendampingan</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" name="nama" />
                     <span class="help-block">
@@ -24,7 +24,7 @@
                 </div>              
                 <div class="text-right">
                   <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
-                  <a href="{{route('bidang-usaha.index')}}" class="btn btn-warning">Cancel</a>
+                  <a href="{{route('bidang-pendampingan.index')}}" class="btn btn-warning">Cancel</a>
                 </div>
               </form>
             </div>

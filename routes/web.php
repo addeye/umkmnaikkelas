@@ -20,8 +20,10 @@ Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/home', 'HomeController@index')->name('dashboard');	
 	Route::resource('bidang-usaha','BidangUsahaController');
+	Route::resource('bidang-pendampingan','BidangPendampinganController');
+	Route::resource('bidang-keahlian','BidangKeahlianController');
 
 	Route::group(['middleware' => 'admin'], function() {
-		Route::get('/dashboard', 'HomeController@index')->name('dashboard');	
+		Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 	});
 });
