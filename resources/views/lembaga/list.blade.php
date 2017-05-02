@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page -->
-  <div class="page">
+  <div class="page animsition">
     <div class="page-content">
       <!-- Panel Basic -->
       <div class="panel">
@@ -15,14 +15,30 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>ID Lembaga</th>
+                <th>Nama Lembaga</th>
+                <th>Legalitas</th>
+                <th>Alamat</th>
+                <th>Kab/Kota</th>
+                <th>Telp</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Pimpinan</th>
                 <th>Action</th>                
               </tr>
             </thead>
             <tfoot>
               <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>ID Lembaga</th>
+                <th>Nama Lembaga</th>
+                <th>Legalitas</th>
+                <th>Alamat</th>
+                <th>Kab/Kota</th>
+                <th>Telp</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Pimpinan</th>
                 <th>Action</th>                
               </tr>
             </tfoot>
@@ -31,19 +47,28 @@
             @foreach($data as $row)
               <tr>
                 <td>{{$no++}}</td>
-                <td>{{$row->nama}}</td>
+                <td>{{$row->id_lembaga}}</td>
+                <td>{{$row->nama_lembaga}}</td>
+                <td>{{$row->legalitas}}</td>
+                <td>{{$row->alamat}}</td>
+                <td>{{$row->kab_id}}</td>
+                <td>{{$row->telp}}</td>
+                <td>{{$row->email}}</td>
+                <td>{{$row->website}}</td>
+                <td>{{$row->pimpinan}}</td>
                 <td class="text-nowrap">
-              		<button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></button>                   
-                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-
-                        <form id="logout-form" action="{{url('#')}}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                  <a href="{{route('lembaga.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>                   
+                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
+                        <form id="delete-form" action="{{route('lembaga.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                        </form>
                 </td>
               </tr>
              @endforeach                          
             </tbody>
           </table>
           <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
-                <a href="{{url('bidang-usaha/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
+                <a href="{{url('lembaga/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
             </div>
         </div>
       </div>      
@@ -51,5 +76,34 @@
     </div>
   </div>
   <!-- End Page -->
-
 @endsection
+
+@section('js')
+<script>
+
+  function ConfirmDelete()
+  {
+  swal({
+  title: "Apakah Yakin?",
+  text: "Data akan benar-benar dihapus!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Iya, Hapus!",
+  cancelButtonText: "Tidak, Batalkan!",
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    document.getElementById('delete-form').submit();
+  } else {
+    swal("Dibatalkan", "Data tidak jadi dihapus", "error");
+  }
+});
+  }
+
+</script>
+@endsection
+

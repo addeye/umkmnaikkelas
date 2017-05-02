@@ -24,7 +24,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*', 'bidang-pendampingan','bidang-pendampingan/*','bidang-keahlian','bidang-keahlian/*'],'active open') }}">
+                    <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*', 'bidang-pendampingan','bidang-pendampingan/*','bidang-keahlian','bidang-keahlian/*','provinsi','kabupaten-kota'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="layout">
                             <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
                             <span class="site-menu-title">Master Data</span>
@@ -49,14 +49,14 @@
                                     <span class="site-menu-title">Bidang Keahlian</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../layouts/two-columns.html" data-slug="layout-two-columns">
+                            <li class="site-menu-item {{ set_active(['provinsi','provinsi/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('provinsi')}}" data-slug="layout-two-columns">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Data Provinsi</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../layouts/boxed.html" data-slug="layout-boxed">
+                            <li class="site-menu-item {{ set_active(['kabupaten-kota','kabupaten-kota/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('kabupaten-kota')}}" data-slug="layout-boxed">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Data Kabupaten Kota</span>
                                 </a>
@@ -90,21 +90,21 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{ set_active(['lembaga','lembaga/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">Pendamping</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">                            
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../pages/faq.html" data-slug="page-faq">
+                            <li class="site-menu-item {{ set_active(['lembaga','lembaga/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('lembaga')}}" data-slug="page-faq">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Profil Lembaga</span>
                                 </a>
                             </li>
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="../pages/register.html" data-slug="page-register">
+                                <a class="animsition-link" href="{{url('lembaga')}}" data-slug="page-register">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Profil Pendamping</span>
                                 </a>

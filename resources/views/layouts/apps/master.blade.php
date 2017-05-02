@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="{{url('remark/assets/images/favicon.ico')}}">
 
     <!-- Stylesheets -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {{Html::style('remark/assets/css/bootstrap.min.css')}}
+    {{Html::style('kartika-upload/css/fileinput.min.css')}}
     {{Html::style('remark/assets/css/bootstrap-extend.min.css')}}
     {{Html::style('remark/assets/css/site.min.css')}}
 
@@ -27,11 +29,11 @@
     <!-- Plugin -->
     {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
+    {{Html::style('remark/assets/vendor/select2/select2.css')}}
 
     {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
     {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
     {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
-
 
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -201,6 +203,16 @@
 {{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
 {{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
 
+{{Html::script(asset('kartika-upload/js/plugins/canvas-to-blob.min.js'))}}
+{{Html::script(asset('kartika-upload/js/plugins/sortable.min.js'))}}
+{{Html::script(asset('kartika-upload/js/plugins/purify.min.js'))}}
+{{Html::script(asset('kartika-upload/js/fileinput.min.js'))}}
+
+{{Html::script(asset('kartika-upload/themes/fa/theme.js'))}}
+{{Html::script(asset('kartika-upload/js/locales/id.js'))}}
+
+{{Html::script(asset('remark/assets/vendor/select2/select2.min.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -221,6 +233,7 @@
 {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
 {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
+{{Html::script(asset('remark/assets/js/components/select2.js'))}}
 
 <!-- Include this after the sweet alert js file -->
     <script type="text/javascript">

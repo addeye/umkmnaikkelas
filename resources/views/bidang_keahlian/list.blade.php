@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page -->
-  <div class="page">
+  <div class="page animsition">
     <div class="page-content">
       <!-- Panel Basic -->
       <div class="panel">

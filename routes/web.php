@@ -22,6 +22,9 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('bidang-usaha','BidangUsahaController');
 	Route::resource('bidang-pendampingan','BidangPendampinganController');
 	Route::resource('bidang-keahlian','BidangKeahlianController');
+	Route::resource('provinsi','ProvinsiController');
+	Route::resource('kabupaten-kota','KabupatenController');
+	Route::resource('lembaga','LembagaController');
 
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');

@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page -->
-  <div class="page">
+  <div class="page animsition">
     <div class="page-content">
       <div class="col-md-12">
           <!-- Panel Standard Mode -->
