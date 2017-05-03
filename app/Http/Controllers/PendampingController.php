@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\BidangKeahlian;
+use App\BidangPendampingan;
+use App\Lembaga;
 use App\Pendamping;
 use Illuminate\Http\Request;
+use Laravolt\Indonesia\Indonesia;
 
 class PendampingController extends Controller
 {
@@ -15,7 +19,12 @@ class PendampingController extends Controller
 
     public function create()
     {
-    	return view('pendamping.add');
+        $data=[
+            'BdPendampingan' => BidangPendampingan::all(),
+            'BdKeahlian' => BidangKeahlian::all(),
+            'lembaga' => Lembaga::all(),
+        ];
+    	return view('pendamping.add',$data);
     }
 
     public function store(Request $request)

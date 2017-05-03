@@ -20,3 +20,13 @@ if(!function_exists('legalitas'))
     }
 }
 
+if(!function_exists('pendidikan'))
+{
+    function pendidikan()
+    {
+        return [
+            'Diploma','S1','S2','S3'
+        ];
+    }
+}
+
