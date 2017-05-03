@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('provinsi','ProvinsiController');
 	Route::resource('kabupaten-kota','KabupatenController');
 	Route::resource('lembaga','LembagaController');
+	Route::resource('pendamping','PendampingController');
 
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');

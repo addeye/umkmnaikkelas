@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Pendamping;
 use Illuminate\Http\Request;
 
 class PendampingController extends Controller
 {
     public function index()
     {
-        $data['data'] = BidangUsaha::all();
-    	return view('bidang_usaha.list',$data);
+        $data['data'] = Pendamping::all();
+    	return view('pendamping.list',$data);
     }
 
     public function create()
     {
-    	return view('bidang_usaha.add');
+    	return view('pendamping.add');
     }
 
     public function store(Request $request)

@@ -4,7 +4,8 @@
     <!-- Page -->
   <div class="page animsition">
     <div class="page-content">
-      <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">
@@ -12,7 +13,7 @@
             </div>
             <div class="panel-body">
               <form class="form-horizontal" method="post" action="{{route('bidang-usaha.store')}}">
-              {{ csrf_field()}}
+                {{ csrf_field()}}
                 <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Nama Bidang Usaha</label>
                   <div class="col-sm-9">
@@ -21,7 +22,7 @@
                       <strong>{{ $errors->first('nama') }}</strong>
                     </span>
                   </div>
-                </div>              
+                </div>
                 <div class="text-right">
                   <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
                   <a href="{{route('bidang-usaha.index')}}" class="btn btn-warning">Cancel</a>
@@ -31,6 +32,7 @@
           </div>
           <!-- End Panel Standard Mode -->
         </div>
+      </div>
     </div>
   </div>
   <!-- End Page -->

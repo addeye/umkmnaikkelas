@@ -145,7 +145,7 @@
                 </div>
                 <div class="text-right">
                   <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
-                  <a href="{{route('bidang-usaha.index')}}" class="btn btn-warning">Cancel</a>
+                  <a href="{{route('lembaga.index')}}" class="btn btn-warning">Cancel</a>
                 </div>
               </form>
             </div>
