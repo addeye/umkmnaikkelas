@@ -22,7 +22,7 @@ class CreateLembagasTable extends Migration
             $table->string('kab_id',10);
             $table->string('telp',20);
             $table->string('email',100);
-            $table->string('website',100);
+            $table->string('website',100)->nullable();
             $table->string('pimpinan',50);
             $table->text('layanan');
             $table->string('foto_kantor');

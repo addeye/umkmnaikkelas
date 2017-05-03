@@ -15,25 +15,25 @@
               <form class="form-horizontal" method="post" action="{{route('lembaga.store')}}" enctype="multipart/form-data">
               {!! csrf_field() !!}
                 <div class="form-group {{ $errors->has('id_lembaga') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">ID Lembaga</label>
+                  <label class="col-sm-3 control-label">ID Lembaga *</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="id_lembaga" value="{{old('id_lembaga')}}" />
+                    <input type="text" class="form-control" name="id_lembaga" value="{{old('id_lembaga')}}" placeholder="ID Lembaga (9 digit)"/>
                     <span class="help-block">
                       <strong>{{ $errors->first('id_lembaga') }}</strong>
                     </span>
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('nama_lembaga') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Nama Lembaga</label>
+                  <label class="col-sm-3 control-label">Nama Lembaga * </label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="nama_lembaga" value="{{old('nama_lembaga')}}" />
+                    <input type="text" class="form-control" name="nama_lembaga" value="{{old('nama_lembaga')}}" placeholder="Nama Lembaga.." />
                     <span class="help-block">
                       <strong>{{ $errors->first('nama_lembaga') }}</strong>
                     </span>
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('legalitas') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Legalitas</label>
+                  <label class="col-sm-3 control-label">Legalitas *</label>
                   <div class="col-sm-9">
                     <select class="form-control" name="legalitas">
                       <option value="PT" {{old('legalitas')=='PT'?'selected':''}}>PT</option>
@@ -49,16 +49,16 @@
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Alamat</label>
+                  <label class="col-sm-3 control-label">Alamat *</label>
                   <div class="col-sm-9">
-                    <textarea name="alamat" class="form-control">{{old('alamat')}}</textarea>
+                    <textarea name="alamat" class="form-control" placeholder="Alamat lembaga..">{{old('alamat')}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('alamat') }}</strong>
                     </span>
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('kab_id') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Kabupaten/Kota</label>
+                  <label class="col-sm-3 control-label">Kabupaten/Kota *</label>
                   <div class="col-sm-9">
                     <select name="kab_id" class="form-control" data-plugin="select2">
                     @foreach($kabupaten as $row)
@@ -71,18 +71,18 @@
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Telepon</label>
+                  <label class="col-sm-3 control-label">Telepon *</label>
                   <div class="col-sm-9">
-                    <input type="text" name="telp" class="form-control" value="{{old('telp')}}">
+                    <input type="text" name="telp" class="form-control" value="{{old('telp')}}" placeholder="Telepon..">
                     <span class="help-block">
                       <strong>{{ $errors->first('telp') }}</strong>
                     </span>
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Email</label>
+                  <label class="col-sm-3 control-label">Email *</label>
                   <div class="col-sm-9">
-                    <input type="text" name="email" class="form-control" value="{{old('email')}}">
+                    <input type="text" name="email" class="form-control" value="{{old('email')}}" placeholder="Email lembaga..">
                     <span class="help-block">
                       <strong>{{ $errors->first('email') }}</strong>
                     </span>
@@ -98,18 +98,18 @@
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('pimpinan') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Pimpinan</label>
+                  <label class="col-sm-3 control-label">Pimpinan *</label>
                   <div class="col-sm-9">
-                    <input type="text" name="pimpinan" class="form-control" value="{{old('pimpinan')}}">
+                    <input type="text" name="pimpinan" class="form-control" value="{{old('pimpinan')}}" placeholder="Nama Pimpinan..">
                     <span class="help-block">
                       <strong>{{ $errors->first('pimpinan') }}</strong>
                     </span>
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('layanan') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Layanan</label>
+                  <label class="col-sm-3 control-label">Layanan *</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" name="layanan">{{old('layanan')}}</textarea>
+                    <textarea class="form-control" name="layanan" placeholder="Layanan..">{{old('layanan')}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('layanan') }}</strong>
                     </span>
@@ -138,11 +138,11 @@
                 <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Status</label>
                   <div class="radio-custom radio-default radio-inline">
-                    <input type="radio" id="inputBasicMale" name="status" />
+                    <input type="radio" id="inputBasicMale" name="status" value="Anggota ABDSI" />
                     <label for="inputBasicMale">Anggota ABDSI</label>
                   </div>
                   <div class="radio-custom radio-default radio-inline">
-                    <input type="radio" id="inputBasicFemale" name="status" checked />
+                    <input type="radio" id="inputBasicFemale" name="status" value="Bukan Anggota" checked />
                     <label for="inputBasicFemale">Bukan Anggota</label>
                   </div>
                   <strong>{{ $errors->first('status') }}</strong>
