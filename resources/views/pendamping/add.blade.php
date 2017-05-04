@@ -44,11 +44,11 @@
                 <div class="form-group {{ $errors->has('jenis_kelamin') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Jenis Kelamin *</label>
                   <div class="radio-custom radio-default radio-inline">
-                    <input type="radio" id="inputBasicMale" name="jenis_kelamin" value="Pria" {{old('jenis_kelamin')=='Pria'?'checked':''}} />
+                    <input type="radio" id="inputBasicMale" name="jenis_kelamin" value="L" {{old('jenis_kelamin')=='L'?'checked':''}} />
                     <label for="inputBasicMale">Pria</label>
                   </div>
                   <div class="radio-custom radio-default radio-inline">
-                    <input type="radio" id="inputBasicFemale" name="jenis_kelamin" value="Wanita" {{old('jenis_kelamin')=='Wanita'?'checked':''}}/>
+                    <input type="radio" id="inputBasicFemale" name="jenis_kelamin" value="P" {{old('jenis_kelamin')=='P'?'checked':''}}/>
                     <label for="inputBasicFemale">Wanita</label>
                   </div>
                 </div>
@@ -142,7 +142,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('bidang_keahlian') ? ' has-error' : '' }}">
+                <div class="form-group {{ $errors->has('kabkota_tambahan') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Kab/Kota Tambahan</label>
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" multiple data-plugin="select2" name="kabkota_tambahan[]">
@@ -151,7 +151,7 @@
                       @endforeach
                     </select>
                     <span class="help-block">
-                      <strong>{{ $errors->first('bidang_keahlian') }}</strong>
+                      <strong>{{ $errors->first('kabkota_tambahan') }}</strong>
                     </span>
                   </div>
                 </div>

@@ -40,8 +40,8 @@ class PendampingController extends Controller
             'pendidikan' => 'required',
             'pengalaman' => 'nullable',
             'sertifikat' => 'nullable',
-            'bidang_pendampingan' => 'nullable',
-            'bidang_keahlian' => 'nullable',
+            'bidang_pendampingan' => 'required',
+            'bidang_keahlian' => 'required',
             'kabkota_id' => 'required',
             'kabkota_tambahan' => 'nullable',
             'lembaga_id' => 'required',
@@ -59,7 +59,7 @@ class PendampingController extends Controller
         }
 
         $pendamping = new Pendamping();
-        $pendamping->id_pendamping = $request->pendamping;
+        $pendamping->id_pendamping = $request->id_pendamping;
         $pendamping->nama_pendamping = $request->nama_pendamping;
         $pendamping->alamat_domisili = $request->alamat_domisili;
         $pendamping->lat = 0;
@@ -95,12 +95,22 @@ class PendampingController extends Controller
 
     public function show($id)
     {
-
+        return $id;
     }
 
     public function edit($id)
     {
-    	return view('bidang_usaha.edit');
+        $pendamping = Pendamping::find($id);
+        $data=[
+            'BdPendampingan' => BidangPendampingan::all(),
+            'BdKeahlian' => BidangKeahlian::all(),
+            'lembaga' => Lembaga::all(),
+            'data' => $pendamping,
+            'bd_keahlian_arr' => explode(", ",$pendamping->bidang_keahlian),
+            'bd_pendampingan_arr' => explode(", ", $pendamping->bidang_pendampingan),
+            'kab_tambahan_arr' => explode(", ",$pendamping->kabkota_tambahan)
+        ];
+    	return view('pendamping.edit',$data);
     }
 
     public function update(Request $request,$id)
