@@ -7,7 +7,8 @@ use App\BidangPendampingan;
 use App\Lembaga;
 use App\Pendamping;
 use Illuminate\Http\Request;
-use Laravolt\Indonesia\Indonesia;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class PendampingController extends Controller
 {
@@ -29,19 +30,67 @@ class PendampingController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [];
+        $rules = [
+            'id_pendamping' => 'required|numeric|digits:9',
+            'nama_pendamping' => 'required',
+            'alamat_domisili' => 'required',
+            'jenis_kelamin' => 'required',
+            'telp' => 'required|numeric',
+            'email' => 'required|email',
+            'pendidikan' => 'required',
+            'pengalaman' => 'nullable',
+            'sertifikat' => 'nullable',
+            'bidang_pendampingan' => 'nullable',
+            'bidang_keahlian' => 'nullable',
+            'kabkota_id' => 'required',
+            'kabkota_tambahan' => 'nullable',
+            'lembaga_id' => 'required',
+            'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:300',
+        ];
 
-        $messages = [];
-
-    	$validator = Validator::make($request->all(),$rules,$messages);
+    	$validator = Validator::make($request->all(),$rules);
 
         if($validator->fails())
         {
-            return redirect()->route('bidang-usaha.create')
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pendamping.create')
                 ->withErrors($validator)
                 ->withInput();
         }
 
+        $pendamping = new Pendamping();
+        $pendamping->id_pendamping = $request->pendamping;
+        $pendamping->nama_pendamping = $request->nama_pendamping;
+        $pendamping->alamat_domisili = $request->alamat_domisili;
+        $pendamping->lat = 0;
+        $pendamping->lng = 0;
+        $pendamping->jenis_kelamin = $request->jenis_kelamin;
+        $pendamping->telp = $request->telp;
+        $pendamping->email = $request->email;
+        $pendamping->pendidikan = $request->pendidikan;
+        $pendamping->pengalaman = $request->pengalaman;
+        $pendamping->sertifikat = $request->sertifikat;
+        $pendamping->bidang_pendampingan = implode(", ",$request->bidang_pendampingan);
+        $pendamping->bidang_keahlian = implode(", ",$request->bidang_keahlian);
+        $pendamping->kabkota_id = $request->kabkota_id;
+        $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
+        $pendamping->lembaga_id = $request->lembaga_id;
+        $pendamping->validasi = 0;
+
+        if($request->hasFile('foto_ktp'))
+        {
+            $file = Input::file('foto_ktp');
+            $name = $this->upload_image($file,'uploads/pendamping/images');
+            $pendamping->foto_ktp = $name;
+        }
+
+        $pendamping->save();
+
+        if($pendamping)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('pendamping.index');
+        }
     }
 
     public function show($id)

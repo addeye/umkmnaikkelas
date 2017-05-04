@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'BidangKeahlianTableSeeder' => $baseDir . '/database/seeds/BidangKeahlianTableSeeder.php',
+    'BidangPendampinganTableSeeder' => $baseDir . '/database/seeds/BidangPendampinganTableSeeder.php',
+    'BidangUsahaTableSeeder' => $baseDir . '/database/seeds/BidangUsahaTableSeeder.php',
     'CreateBidangKeahliansTable' => $baseDir . '/database/migrations/2017_04_28_075338_create_bidang_keahlians_table.php',
     'CreateBidangPendampingansTable' => $baseDir . '/database/migrations/2017_04_28_075312_create_bidang_pendampingans_table.php',
     'CreateBidangUsahasTable' => $baseDir . '/database/migrations/2017_04_28_075253_create_bidang_usahas_table.php',
