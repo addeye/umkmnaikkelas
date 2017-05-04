@@ -12,7 +12,8 @@
               <h3 class="panel-title"><i class="con wb-pencil"></i> Pendamping</h3>
             </div>
             <div class="panel-body">
-              <form class="form-horizontal" method="post" action="{{route('pendamping.edit',['id'=>$data->id])}}">
+              <form class="form-horizontal" method="post" action="{{route('pendamping.update',['id'=>$data->id])}}" enctype="multipart/form-data">
+                {{ csrf_field()}}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group {{ $errors->has('id_pendamping') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">ID Pendamping *</label>
