@@ -14,13 +14,13 @@
           <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
             <thead>
               <tr>
-                <th>No</th>
+                <th>ID</th>
                 <th>Nama</th>                           
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th>No</th>
+                <th>ID</th>
                 <th>Nama</th>                            
               </tr>
             </tfoot>
@@ -28,13 +28,13 @@
             <?php $no=1; ?>
             @foreach($data as $row)
               <tr>
-                <td>{{$no++}}</td>
+                <td>{{$row->id}}</td>
                 <td>{{$row->name}}</td>                
               </tr>
              @endforeach                          
             </tbody>
           </table>
-          <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
+          <div style="display: none;" class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
                 <a href="{{url('bidang-usaha/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
             </div>
         </div>

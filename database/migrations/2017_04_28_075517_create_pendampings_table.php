@@ -23,7 +23,7 @@ class CreatePendampingsTable extends Migration
             $table->string('jenis_kelamin',1);
             $table->string('telp',20);
             $table->string('email',50);
-            $table->string('pendidikan',5);
+            $table->string('pendidikan',15);
             $table->text('pengalaman')->nullable();
             $table->text('sertifikat')->nullable();
             $table->text('bidang_pendampingan');
@@ -34,6 +34,8 @@ class CreatePendampingsTable extends Migration
             $table->foreign('lembaga_id')->references('id')->on('lembaga')->onDelete('cascade');
             $table->string('foto_ktp')->nullable();
             $table->integer('validasi')->default(0);
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

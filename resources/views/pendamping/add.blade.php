@@ -178,6 +178,7 @@
                     </span>
                   </div>
                 </div>
+                <div id="map"></div>
                 <div class="text-right">
                   <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
                   <a href="{{route('pendamping.index')}}" class="btn btn-warning">Cancel</a>

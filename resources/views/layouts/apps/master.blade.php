@@ -141,6 +141,7 @@
     }
 
     </style>
+    @yield('css')
 
     <!--[if lt IE 9]>
     {{Html::script(asset('remark/assets/vendor/html5shiv/html5shiv.min.js'))}}
@@ -234,6 +235,9 @@
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
 {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 {{Html::script(asset('remark/assets/js/components/select2.js'))}}
+<script src="http://maps.google.com/maps/api/js"></script>
+{{Html::script(asset('js/gmaps.js'))}}
+
 
 <!-- Include this after the sweet alert js file -->
     <script type="text/javascript">
@@ -256,10 +260,17 @@
         var Site = window.Site;
         $(document).ready(function() {
             Site.run();
+
         });
     })(document, window, jQuery);
 </script>
-
+<script>
+    var map = new GMaps({
+        el: '#map',
+        lat: -12.043333,
+        lng: -77.028333
+    });
+</script>
 @yield('js')
 </body>
 

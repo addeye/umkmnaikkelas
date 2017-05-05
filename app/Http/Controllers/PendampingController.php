@@ -6,6 +6,7 @@ use App\BidangKeahlian;
 use App\BidangPendampingan;
 use App\Lembaga;
 use App\Pendamping;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -36,7 +37,7 @@ class PendampingController extends Controller
             'alamat_domisili' => 'required',
             'jenis_kelamin' => 'required',
             'telp' => 'required|numeric',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'pendidikan' => 'required',
             'pengalaman' => 'nullable',
             'sertifikat' => 'nullable',
@@ -58,6 +59,15 @@ class PendampingController extends Controller
                 ->withInput();
         }
 
+        $user = new User();
+        $user->name = $request->nama_pendamping;
+        $user->email = $request->email;
+        $user->password = bcrypt('password');
+        $user->image = 'default.png';
+        $user->telp = $request->telp;
+        $user->role_id = ROLE_PENDAMPING;
+        $user->save();
+
         $pendamping = new Pendamping();
         $pendamping->id_pendamping = $request->id_pendamping;
         $pendamping->nama_pendamping = $request->nama_pendamping;
@@ -76,6 +86,7 @@ class PendampingController extends Controller
         $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
         $pendamping->lembaga_id = $request->lembaga_id;
         $pendamping->validasi = 0;
+        $pendamping->user_id = $user->id;
 
         if($request->hasFile('foto_ktp'))
         {
