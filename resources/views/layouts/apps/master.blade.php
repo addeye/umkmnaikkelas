@@ -235,6 +235,9 @@
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
 {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 {{Html::script(asset('remark/assets/js/components/select2.js'))}}
+
+{{Html::script(asset('price-format/jquery.priceformat.js'))}}
+
 <script src="http://maps.google.com/maps/api/js"></script>
 {{Html::script(asset('js/gmaps.js'))}}
 

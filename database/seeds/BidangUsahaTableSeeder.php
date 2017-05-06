@@ -11,10 +11,32 @@ class BidangUsahaTableSeeder extends Seeder
      */
     public function run()
     {
-        for($a=1; $a<=10; $a++) {
-            DB::table('bidang_usaha')->insert([
-                'nama' => str_random(10),
-            ]);
-        }
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Pertanian, Peternakan, Kehutanan, Perikanan',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Perdagangan, Hotel dan Restoran',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Pengangkutan & Komunikasi',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Listrik, Gas, Air',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Indusri Pengolahan',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Bangunan',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Pertambangan',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Jasa Swasta',
+        ]);
+        DB::table('bidang_usaha')->insert([
+            'nama' => 'Jasa Lainnya',
+        ]);
     }
 }

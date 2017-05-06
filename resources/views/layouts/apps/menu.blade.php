@@ -63,15 +63,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{ set_active(['umkm','umkm/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">UMKM</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">                            
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../pages/faq.html" data-slug="page-faq">
+                            <li class="site-menu-item {{ set_active(['umkm','umkm/*'],'active') }}">
+                                <a class="animsition-link" href="{{url('umkm')}}" data-slug="page-faq">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Profil UMKM</span>
                                 </a>

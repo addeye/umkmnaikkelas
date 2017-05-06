@@ -11,10 +11,23 @@ class BidangKeahlianTableSeeder extends Seeder
      */
     public function run()
     {
-        for($a=1; $a<=10; $a++) {
-            DB::table('bidang_keahlian')->insert([
-                'nama' => str_random(10),
-            ]);
-        }
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Konsultan',
+        ]);
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Fasilisator',
+        ]);
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Coach',
+        ]);
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Mentor',
+        ]);
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Trainer',
+        ]);
+        DB::table('bidang_keahlian')->insert([
+            'nama' => 'Bidang Keahlian Lainnya',
+        ]);
     }
 }

@@ -177,6 +177,7 @@ return [
         Laravolt\Indonesia\ServiceProvider::class,
         Jcf\Geocode\GeocodeServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -243,6 +244,7 @@ return [
         'Indonesia' => Laravolt\Indonesia\Facade::class,
         'Geocode' => Jcf\Geocode\Facades\Geocode::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

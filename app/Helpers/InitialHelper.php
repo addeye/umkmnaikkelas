@@ -30,3 +30,13 @@ if(!function_exists('pendidikan'))
     }
 }
 
+if(!function_exists('skala_usaha'))
+{
+    function skala_usaha()
+    {
+        return [
+            'Mikro', 'Kecil', 'Menengah'
+        ];
+    }
+}
+
