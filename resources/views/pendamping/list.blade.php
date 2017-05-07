@@ -49,14 +49,14 @@
                 <td>{{$row->telp}}</td>
                 <td>{{$row->email}}</td>
                 <td>{{$row->pendidikan}}</td>
-                <td>{{$row->lembaga->nama_lembaga}}</td>
+                <td>{{$row->lembaga?$row->lembaga->nama_lembaga:'Lainnya'}}</td>
                 <td class="text-nowrap">
                   <a href="{{route('pendamping.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
                   <a href="{{route('pendamping.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>
-                  <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete();" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-                  <form id="delete-form" action="{{route('pendamping.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
-                    <input type="hidden" name="_method" value="DELETE">
-                  </form>
+                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
+                    <form id="delete-form-{{$row->id}}" action="{{route('pendamping.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
                 </td>
               </tr>
             @endforeach
@@ -76,8 +76,9 @@
 @section('js')
   <script>
 
-      function ConfirmDelete()
+      function ConfirmDelete(id)
       {
+          var id = id;
           swal({
                   title: "Apakah Yakin?",
                   text: "Data akan benar-benar dihapus!",
@@ -92,7 +93,7 @@
               function(isConfirm){
                   if (isConfirm) {
                       // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                      document.getElementById('delete-form').submit();
+                      document.getElementById('delete-form-'+id).submit();
                   } else {
                       swal("Dibatalkan", "Data tidak jadi dihapus", "error");
                   }

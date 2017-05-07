@@ -66,21 +66,31 @@
                                         </tr>
                                         <tr>
                                             <th>Kabupaten/Kota Pendampingan</th>
-                                            <td>{{Indonesia::findCity($data->kabkota_id)->name}}</td>
+                                            <td>
+                                                @if($data->kabkota_id)
+                                                {{Indonesia::findCity($data->kabkota_id)->name}}
+                                                    @else
+                                                    -
+                                                    @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Kabupaten/Kota Tambahan</th>
                                             <td>
+                                                @if(count($kabkota_tambahan_arr)>1)
                                                 <ol>
                                                     @foreach($kabkota_tambahan_arr as $row)
                                                         <li>{{Indonesia::findCity($row)->name}}</li>
                                                     @endforeach
                                                 </ol>
+                                                    @else
+                                                Tidak ada
+                                                    @endif
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Lembaga</th>
-                                            <td>{{$data->lembaga->nama_lembaga}}</td>
+                                            <td>{{$data->lembaga?$data->lembaga->nama_lembaga:'Lainnya'}}</td>
                                         </tr>
                                     </table>
                                 </div>

@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PendampingController extends Controller
 {
@@ -206,5 +207,77 @@ class PendampingController extends Controller
             \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
             return redirect()->route('pendamping.index');
         }
+    }
+
+    public function import(Request $request)
+    {
+        $insertuser = 0;
+        $rules = [
+            'file' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pendamping.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        if(Input::hasFile('file'))
+        {
+            $path = Input::file('file')->getRealPath();
+            $data = Excel::load($path, function ($reader){
+
+            })->get();
+
+            if(!empty($data) && $data->count())
+            {
+                foreach ($data as $key => $value) {
+
+                    $user = new User();
+                    $user->name = $value->nama_pendamping;
+                    $user->email = $value->email;
+                    $user->telp = $value->telp;
+                    $user->role_id = ROLE_PENDAMPING;
+                    $user->password = bcrypt('password');
+                    $user->save();
+
+                    if($user)
+                    {
+                        $insertuser++;
+                        $pendamping = new Pendamping();
+                        $pendamping->id_pendamping = $value->id_pendamping;
+                        $pendamping->nama_pendamping = $value->nama_pendamping;
+                        $pendamping->alamat_domisili = $value->alamat_domisili;
+                        $pendamping->lat =0;
+                        $pendamping->lng =0;
+                        $pendamping->jenis_kelamin = 'L';
+                        $pendamping->pendidikan = 'S1';
+                        $pendamping->telp = $value->telp;
+                        $pendamping->email = $value->email;
+                        $pendamping->pengalaman = $value->pengalaman;
+                        $pendamping->lembaga_id = $value->lembaga_id;
+                        $pendamping->user_id = $user->id;
+                        $pendamping->save();
+                    }
+
+                }
+            }
+
+            \Alert::success('Data berhasil Masuk '.$insertuser.' Record', 'Selamat !')->persistent("Tutup");
+
+        }
+
+        else
+        {
+            \Alert::error('Tolong pastikan file sudah benar', 'Kesalahan !')->persistent("Tutup");
+        }
+
+        return redirect()->route('pendamping.index');
+
     }
 }

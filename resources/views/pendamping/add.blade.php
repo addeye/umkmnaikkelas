@@ -6,6 +6,29 @@
     <div class="page-content">
       <div class="row">
         <div class="col-md-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i class="con wb-plus"></i> Import</h3>
+            </div>
+            <div class="panel-body">
+              {!! Form::open(['route' => 'pendamping.import','files'=>true,'class'=>'form']) !!}
+              <div class="form-group {{ $errors->has('file') ? ' has-error' : '' }}">
+                <label class="">Import File</label>
+                  <input id="input-2" name="file" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                <span class="help-block">
+                      <strong>{{ $errors->first('file') }}</strong>
+                    </span>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success">Import</button>
+              </div>
+              {!! Form::close() !!}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">

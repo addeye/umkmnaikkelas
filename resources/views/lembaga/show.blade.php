@@ -50,7 +50,13 @@
                                         </tr>
                                         <tr>
                                             <th>Kabupaten/Kota</th>
-                                            <td>{{Indonesia::findCity($data->kab_id)->name}}</td>
+                                            <td>
+                                                @if($data->kab_id)
+                                                {{Indonesia::findCity($data->kab_id)->name}}
+                                                    @else
+                                                Tidak Ada
+                                                    @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Telepon</th>

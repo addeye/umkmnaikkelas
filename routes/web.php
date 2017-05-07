@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('kabupaten-kota','KabupatenController');
 	Route::resource('lembaga','LembagaController');
 	Route::resource('pendamping','PendampingController');
+	Route::post('pendamping-import','PendampingController@import')->name('pendamping.import');
 	Route::resource('umkm','UmkmController');
 
 	Route::group(['middleware' => 'admin'], function() {
