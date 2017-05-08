@@ -79,21 +79,67 @@
                     </span>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('komunitas_asosiasi') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Komunitas Asosiasi</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="komunitas_asosiasi" placeholder="Komunitas asosiasi" value="{{old('komunitas_asosiasi')}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('komunitas_asosiasi') }}</strong>
-                    </span>
-                </div>
-              </div>
               <div class="form-group {{ $errors->has('omset') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Omset</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control rupiah" name="omset" placeholder="Omset.." value="{{old('omset')}}" />
                   <span class="help-block">
                       <strong>{{ $errors->first('omset') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Alamat</label>
+                <div class="col-sm-9">
+                  <textarea name="alamat" class="form-control" placeholder="Alamat usaha">{{old('alamat')}}</textarea>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('alamat') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Kabupaten/Kota *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select id="kabkota" class="form-control" data-plugin="select2" name="kabkota_id">
+                    <option value="">Pilih Kota</option>
+                    @foreach($kabkota as $row)
+                      <option value="{{$row->id}}">{{$row->name}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('kabkota_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('kecamatan_id') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Kecamatan *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select class="form-control" data-plugin="select2" name="kecamatan_id">
+                    @foreach($bidang_usaha as $row)
+                      <option value="{{$row->id}}">{{$row->nama}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('kecamatan_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('no_ktp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">No KTP</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="no_ktp" placeholder="No KTP" value="{{old('no_ktp')}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('no_ktp') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('path_ktp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Foto KTP</label>
+                <div class="col-sm-9">
+                  <input id="input-2" name="path_ktp" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                  <span class="help-block">
+                    <strong>Jpg, max 300kb</strong>
+                      <strong>{{ $errors->first('path_ktp') }}</strong>
                     </span>
                 </div>
               </div>
@@ -117,6 +163,10 @@
             centsSeparator: ',',
             thousandsSeparator: '.'
         });
+        
+        $('#kabkota').change(function () {
+            alert('deye');
+        })
     })
   </script>
   @endsection

@@ -6,6 +6,7 @@ use App\BidangUsaha;
 use App\Lembaga;
 use App\Umkm;
 use Illuminate\Http\Request;
+use Laravolt\Indonesia\Indonesia;
 
 class UmkmController extends Controller
 {
@@ -30,6 +31,7 @@ class UmkmController extends Controller
         $data = [
             'lembaga' => Lembaga::all(),
             'bidang_usaha' => BidangUsaha::all(),
+            'kabkota' => \Indonesia::allCities(),
         ];
         return view('umkm.add',$data);
     }
@@ -42,7 +44,7 @@ class UmkmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

@@ -98,7 +98,7 @@
                   <div class="col-sm-9">
                     <select class="form-control" name="pendidikan">
                       @foreach(pendidikan() as $key=>$row)
-                        <option value="{{$row}}">{{$row}}</option>
+                        <option value="{{$row}}" {{old('pendidikan')==$row?'selected':''}}>{{$row}}</option>
                         @endforeach
                     </select>
                     <span class="help-block">
@@ -131,7 +131,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" name="bidang_pendampingan[]" multiple data-plugin="select2">
                       @foreach($BdPendampingan as $row)
-                        <option value="{{$row->nama}}">{{$row->nama}}</option>
+                        <option value="{{$row->nama}}" {{in_array($row->nama,old('bidang_pendampingan')?old('bidang_pendampingan'):[])?'selected':''}} >{{$row->nama}}</option>
                         @endforeach
                     </select>
                     <span class="help-block">
@@ -144,7 +144,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" multiple data-plugin="select2" name="bidang_keahlian[]">
                       @foreach($BdKeahlian as $row)
-                        <option value="{{$row->nama}}">{{$row->nama}}</option>
+                        <option value="{{$row->nama}}" {{in_array($row->nama,old('bidang_keahlian')?old('bidang_keahlian'):[])?'selected':''}} >{{$row->nama}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">
@@ -157,7 +157,7 @@
                   <div class="col-sm-9">
                     <select class="form-control" data-plugin="select2" name="kabkota_id">
                       @foreach(Indonesia::allCities() as $row)
-                        <option value="{{$row->id}}">{{$row->name}}</option>
+                        <option value="{{$row->id}}" {{old('kabkota_id')==$row->id?'selected':''}}>{{$row->name}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">
@@ -170,7 +170,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" multiple data-plugin="select2" name="kabkota_tambahan[]">
                       @foreach(Indonesia::allCities() as $row)
-                        <option value="{{$row->id}}">{{$row->name}}</option>
+                        <option value="{{$row->id}}" {{in_array($row->id,old('kabkota_tambahan')?old('kabkota_tambahan'):[])?'selected':''}} >{{$row->name}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">
@@ -183,7 +183,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" data-plugin="select2" name="lembaga_id">
                       @foreach($lembaga as $row)
-                        <option value="{{$row->id}}">{{$row->nama_lembaga}}</option>
+                        <option value="{{$row->id}}" {{old('lembaga_id')==$row->id?'selected':''}} >{{$row->nama_lembaga}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">

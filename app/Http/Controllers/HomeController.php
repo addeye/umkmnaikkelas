@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Laravolt\Indonesia\Indonesia;
 
 class HomeController extends Controller
 {
@@ -37,5 +38,10 @@ class HomeController extends Controller
     public function portal()
     {
         return view('welcome');
+    }
+
+    public function filter_kecamatan($kabkota_id)
+    {
+        return \Indonesia::findCity($kabkota_id, ['districts']);
     }
 }
