@@ -29,6 +29,7 @@
     <!-- Plugin -->
     {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
+    {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
 
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -194,6 +195,7 @@
 {{Html::script(asset('remark/assets/js/components/animsition.js'))}}
 {{Html::script(asset('remark/assets/js/components/slidepanel.js'))}}
 {{Html::script(asset('remark/assets/js/components/switchery.js'))}}
+{{Html::script(asset('remark/assets/js/components/asscrollable.js'))}}
 
 {{Html::script(asset('remark/assets/vendor/slick-carousel/slick.js'))}}
 

@@ -60,11 +60,12 @@
                 </div>
                 <div class="col-md-5 col-xs-12 masonry-item">
                     <!-- Panel Twitter Feed -->
-                    <div class="panel" style="height: 500px;">
+                    <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Info Terkini</h3>
                         </div>
                         <div class="panel-body">
+                            <div class="" data-plugin="">
                             <ul class="list-group list-group-dividered list-group-full">
                                 <li class="list-group-item">
                                     <div class="media">
@@ -115,6 +116,7 @@
                                     </div>
                                 </li>
                             </ul>
+                            </div>
                             <span class="text-info">Selengkapnya</span>
                         </div>
                     </div>
@@ -122,13 +124,14 @@
                 </div>
                 <div class="col-md-4 col-xs-12 masonry-item">
                     <!-- Panel Followers -->
-                    <div class="panel" id="followers" style="height: 500px;">
+                    <div class="panel" id="followers">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <i class="icon wb-check" aria-hidden="true"></i> UMKM <small>Permintaan Pendampingan</small>
                             </h3>
                         </div>
                         <div class="panel-body">
+                            <div class="" data-plugin="">
                             <ul class="list-group list-group-dividered list-group-full">
                                 <li class="list-group-item">
                                     <div class="media">
@@ -182,6 +185,7 @@
                                     </div>
                                 </li>
                             </ul>
+                            </div>
                             <span class="text-info">Selengkapnya</span>
                         </div>
                     </div>
@@ -258,4 +262,5 @@
 @section('js')
     {{Html::script(asset('remark/assets/vendor/raty/jquery.raty.js'))}}
     {{Html::script(asset('remark/assets/js/components/raty.js'))}}
+
 @endsection
