@@ -11,7 +11,7 @@ return array(
     | add here additional files to be ignored.
     |
     */
-    'ignored' => array(),
+    'ignored' => array('/.env','/vendor','/bootstrap','/config','/database','/storage','tests'),
 
     /*
     |--------------------------------------------------------------------------
