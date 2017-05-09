@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravolt\Indonesia\Indonesia;
 
 class HomeController extends Controller
@@ -29,6 +30,10 @@ class HomeController extends Controller
             if(\Auth::user()->role_id==ROLE_ADMIN)
             {
                 return view('home');
+            }
+            elseif (Auth::user()->role_id==ROLE_CALON)
+            {
+                return view('dashboard');
             }
         }
         return view('welcome');

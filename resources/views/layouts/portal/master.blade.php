@@ -119,6 +119,10 @@
     text-align: center;
     color: #fff;
     }
+        .navbar-inverse .navbar-toolbar>.active>a, .navbar-inverse .navbar-toolbar>.active>a:focus, .navbar-inverse .navbar-toolbar>.active>a:hover {
+            color: #fff;
+            background-color: #f16f35;
+        }
     </style>
 
     <!--[if lt IE 9]>

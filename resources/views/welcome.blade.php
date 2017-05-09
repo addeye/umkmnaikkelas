@@ -104,7 +104,7 @@ input {
 <div class="col-md-3 orange-tiles" style="padding: 0px;padding-right: 2.5px;">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
                   <div class="tiles-title bg-blue-800">
-                    <h2>UMKMN NAIK KELAS</h2>
+                    <h2>MANAJEMEN</h2>
                   </div>
                 </div>
                 <div class="col-md-12 col-xs-6 col-tiles">
@@ -263,8 +263,10 @@ input {
               <!-- End Example Autoplay -->
             </div>
           </div>
+    @if(!Auth::user())
             <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="MASUK | DAFTAR">
                 <a href="{{url('login')}}"><i class="icon wb-settings" aria-hidden="true"></i></a>
             </div>
+    @endif
           <div class="padding-10"></div>
 @endsection

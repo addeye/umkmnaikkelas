@@ -98,7 +98,7 @@ a:focus, a:hover {
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
       </form>
-      <p>Still no account? Please go to <a href="{{url('register')}}">Register</a></p>
+      <p>Tidak punya akun ? Silahkan <a style="color: #f16f35;font-weight: bold;" href="{{url('register')}}">Register</a></p>
       <p>
       <a href="redirect/facebook" class="btn btn-labeled social-facebook">
                     <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Sign In</a> OR
