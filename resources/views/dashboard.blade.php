@@ -1,6 +1,8 @@
 @extends('layouts.portal.master')
 
 @section('css')
+    <!-- Plugin -->
+    {{Html::style('remark/assets/vendor/raty/jquery.raty.css')}}
     {{Html::style('remark/assets/css/pages/profile.css')}}
     <style>
         body {
@@ -24,14 +26,17 @@
                                     <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
                                 </a>
                                 <div class="profile-user">{{Auth::user()->name}}</div>
-                                <div class="profile-job">Art director</div>
+                                <div class="example">
+                                    <div class="rating rating-lg" data-score="2" data-number="5" data-read-only="true" data-plugin="rating"></div>
+                                </div>
+                                <div class="profile-job">
+                                    <a href=""><i class="icon wb-pencil"></i> Daftar Sebagai</a>
+                                </div>
                                 <div class="profile-social">
                                     <a class="icon bd-twitter" href="javascript:void(0)"></a>
                                     <a class="icon bd-facebook" href="javascript:void(0)"></a>
-                                    <a class="icon bd-dribbble" href="javascript:void(0)"></a>
-                                    <a class="icon bd-github" href="javascript:void(0)"></a>
                                 </div>
-                                <button type="button" class="btn btn-primary">Follow</button>
+                                <button type="button" class="btn btn-primary">Lihat Profil</button>
                             </div>
                         </div>
                         <div class="widget-footer">
@@ -248,4 +253,9 @@
         </div>
     </div>
     <!-- End Page -->
+@endsection
+
+@section('js')
+    {{Html::script(asset('remark/assets/vendor/raty/jquery.raty.js'))}}
+    {{Html::script(asset('remark/assets/js/components/raty.js'))}}
 @endsection
