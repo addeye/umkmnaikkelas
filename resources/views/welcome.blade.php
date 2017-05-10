@@ -127,7 +127,7 @@ input {
             <div class="col-md-9 green-tiles" style="padding: 0px;padding-left: 2.5px;">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
                   <div class="tiles-title bg-light-green-800">
-                    <h2>PROGRAM UMKM NAIK KELAS</h2>
+                    <h2>PROGRAM</h2>
                   </div>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
