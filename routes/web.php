@@ -28,7 +28,8 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('pendamping','PendampingController');
 	Route::post('pendamping-import','PendampingController@import')->name('pendamping.import');
 	Route::resource('umkm','UmkmController');
-	Route::get('filter/{kabkota_id}/kecamatan','HomeController@filter_kecamatan');
+	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
+	Route::resource('user','UserController');
 
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');

@@ -51,7 +51,7 @@
                 <td>{{$row->nama_lembaga}}</td>
                 <td>{{$row->legalitas}}</td>
                 <td>{{$row->alamat}}</td>
-                <td>{{Indonesia::findCity($row->kab_id)->name}}</td>
+                <td>{{$row->kota}}</td>
                 <td>{{$row->telp}}</td>
                 <td>{{$row->email}}</td>
                 <td>{{$row->website}}</td>

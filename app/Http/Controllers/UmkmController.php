@@ -6,6 +6,7 @@ use App\BidangUsaha;
 use App\Lembaga;
 use App\Umkm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\Indonesia;
 
 class UmkmController extends Controller
@@ -44,7 +45,28 @@ class UmkmController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        $rules = [
+            'nama_usaha' => 'required',
+            'nama_pemilik' => 'required',
+            'lembaga_id' => 'required',
+            'skala_usaha' => 'required',
+            'bidang_usaha'  => 'required',
+            'alamat' => 'required',
+            'kabkota_id' => 'required',
+            'kecamatan_id' => 'required',
+            'no_ktp' => 'required',
+            'telp' => 'required|numeric',
+            'online' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return redirect()->route('umkm.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
     }
 
     /**

@@ -45,8 +45,14 @@ class HomeController extends Controller
         return view('welcome');
     }
 
-    public function filter_kecamatan($kabkota_id)
+    public function filter_kecamatan($kabkota_id,$old='')
     {
-        return \Indonesia::findCity($kabkota_id, ['districts']);
+        $data = \Indonesia::findCity($kabkota_id, ['districts']);
+        foreach ($data->districts as $row)
+        {
+            $txt = $old==$row?'selected':'';
+
+            echo "<option value='$row->id' ".$txt." >".$row->name."</option>";
+        }
     }
 }

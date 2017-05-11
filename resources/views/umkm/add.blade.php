@@ -16,7 +16,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Nama Usaha *</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="nama_usaha" placeholder="Nama Usaha" value="{{old('nama_usaha')}}" />
+                  <input type="text" class="form-control" name="nama_usaha" placeholder="Nama Usaha" value="{{old('nama_usaha')}}" required/>
                   <span class="help-block">
                       <strong>{{ $errors->first('nama_usaha') }}</strong>
                     </span>
@@ -25,7 +25,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Nama Pemilik *</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="nama_pemilik" placeholder="Nama Pemilik" value="{{old('nama_pemilik')}}" />
+                  <input type="text" class="form-control" name="nama_pemilik" placeholder="Nama Pemilik" value="{{old('nama_pemilik')}}" required/>
                   <span class="help-block">
                       <strong>{{ $errors->first('nama_pemilik') }}</strong>
                     </span>
@@ -34,7 +34,7 @@
               <div class="form-group {{ $errors->has('lembaga_id') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Lembaga *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="lembaga_id">
+                  <select class="form-control" data-plugin="select2" name="lembaga_id" required>
                     @foreach($lembaga as $row)
                       <option value="{{$row->id}}">{{$row->nama_lembaga}}</option>
                     @endforeach
@@ -47,7 +47,7 @@
               <div class="form-group {{ $errors->has('skala_usaha') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Skala Usaha *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="skala_usaha">
+                  <select class="form-control" data-plugin="select2" name="skala_usaha" required>
                     @foreach(skala_usaha() as $row)
                       <option value="{{$row}}">{{$row}}</option>
                     @endforeach
@@ -60,7 +60,7 @@
               <div class="form-group {{ $errors->has('bidang_usaha') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Bidang Usaha *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="bidang_usaha">
+                  <select class="form-control" data-plugin="select2" name="bidang_usaha" required>
                     @foreach($bidang_usaha as $row)
                       <option value="{{$row->id}}">{{$row->nama}}</option>
                     @endforeach
@@ -100,10 +100,10 @@
               <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Kabupaten/Kota *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select id="kabkota" class="form-control" data-plugin="select2" name="kabkota_id">
+                  <select id="kabkota" class="form-control" data-plugin="select2" name="kabkota_id" required>
                     <option value="">Pilih Kota</option>
                     @foreach($kabkota as $row)
-                      <option value="{{$row->id}}" >{{$row->name}}</option>
+                      <option value="{{$row->id}}" {{old('kabkota_id')==$row->id?'selected':''}} >{{$row->name}}</option>
                     @endforeach
                   </select>
                   <span class="help-block">
@@ -114,10 +114,8 @@
               <div class="form-group {{ $errors->has('kecamatan_id') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Kecamatan *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="kecamatan_id">
-                    @foreach($bidang_usaha as $row)
-                      <option value="{{$row->id}}" {{old('kecamatan_id')==$row->id?'selected':''}}>{{$row->nama}}</option>
-                    @endforeach
+                  <select id="kecamatan" class="form-control" data-plugin="select2" name="kecamatan_id" required>
+                    <option value="">Pilih Kecamatan</option>
                   </select>
                   <span class="help-block">
                       <strong>{{ $errors->first('kecamatan_id') }}</strong>
@@ -125,16 +123,16 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('no_ktp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">No KTP</label>
+                <label class="col-sm-3 control-label">No KTP *</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="no_ktp" placeholder="No KTP" value="{{old('no_ktp')}}" />
+                  <input type="text" class="form-control" name="no_ktp" placeholder="No KTP" value="{{old('no_ktp')}}" required/>
                   <span class="help-block">
                       <strong>{{ $errors->first('no_ktp') }}</strong>
                     </span>
                 </div>
               </div>
               <div class="form-group {{ $errors->has('path_ktp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Foto KTP</label>
+                <label class="col-sm-3 control-label">Foto KTP *</label>
                 <div class="col-sm-9">
                   <input id="input-2" name="path_ktp" type="file" class="file" data-show-upload="false" data-show-caption="true">
                   <span class="help-block">
@@ -163,9 +161,9 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Telepon</label>
+                <label class="col-sm-3 control-label">Telepon *</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="telp" placeholder="Telepon" value="{{old('telp')}}" />
+                  <input type="text" class="form-control" name="telp" placeholder="Telepon" value="{{old('telp')}}" required/>
                   <span class="help-block">
                       <strong>{{ $errors->first('telp') }}</strong>
                     </span>
@@ -201,11 +199,11 @@
               <div class="form-group {{ $errors->has('online') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Online</label>
                 <div class="radio-custom radio-default radio-inline">
-                  <input type="radio" id="inputBasicMale" name="online" value="Ya" {{old('online')=='Ya'?'checked':''}} />
+                  <input type="radio" id="inputBasicMale" name="online" value="Ya" {{old('online')=='Ya'?'checked':''}} required/>
                   <label for="inputBasicMale">Ya</label>
                 </div>
                 <div class="radio-custom radio-default radio-inline">
-                  <input type="radio" id="inputBasicFemale" name="online" value="Tidak" {{old('online')=='Tidak'?'checked':''}}/>
+                  <input type="radio" id="inputBasicFemale" name="online" value="Tidak" {{old('online')=='Tidak'?'checked':''}} required/>
                   <label for="inputBasicFemale">Tidak</label>
                 </div>
               </div>
@@ -232,20 +230,42 @@
   </div>
   <!-- End Page -->
 
+  <input type="hidden" id="urlkec" value="{{url('filter')}}">
+  <input type="hidden" id="oldkec" value="{{old('kecamatan_id')}}">
+
 @endsection
 
 @section('js')
   <script>
+      var urlkec  = $('#urlkec').val();
+      var valkab = $('#kabkota').val();
+      var oldkec = $("#oldkec").val();
+
+      if(valkab != '')
+      {
+          kecamatan_ajax(urlkec,valkab,oldkec);
+      }
     $(document).ready(function () {
         $('.rupiah').priceFormat({
             prefix: 'Rp. ',
             centsSeparator: ',',
             thousandsSeparator: '.'
         });
+
         
         $('#kabkota').change(function () {
-            alert('deye');
+            kecamatan_ajax(urlkec,this.value,oldkec);
         })
     })
+    
+    function kecamatan_ajax(urlkec,id,old) {
+        $.ajax({
+            url : urlkec+'/'+id+'/kecamatan/'+old,
+            type : 'GET',
+        })
+            .success(function (response) {
+                $('#kecamatan').html(response);
+            })
+    }
   </script>
   @endsection
