@@ -40,3 +40,13 @@ if(!function_exists('skala_usaha'))
     }
 }
 
+if(!function_exists('jangkauan_pemasaran'))
+{
+    function jangkauan_pemasaran()
+    {
+        return [
+            'Lokal Provinsi','Nasional','Ekspor'
+        ];
+    }
+}
+

@@ -50,7 +50,7 @@ class HomeController extends Controller
         $data = \Indonesia::findCity($kabkota_id, ['districts']);
         foreach ($data->districts as $row)
         {
-            $txt = $old==$row?'selected':'';
+            $txt = $old==$row->id?'selected':'';
 
             echo "<option value='$row->id' ".$txt." >".$row->name."</option>";
         }

@@ -89,9 +89,9 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Alamat</label>
+                <label class="col-sm-3 control-label">Alamat *</label>
                 <div class="col-sm-9">
-                  <textarea name="alamat" class="form-control" placeholder="Alamat usaha">{{old('alamat')}}</textarea>
+                  <textarea name="alamat" class="form-control" placeholder="Alamat usaha" required>{{old('alamat')}}</textarea>
                   <span class="help-block">
                       <strong>{{ $errors->first('alamat') }}</strong>
                     </span>
@@ -132,7 +132,7 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('path_ktp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Foto KTP *</label>
+                <label class="col-sm-3 control-label">Foto KTP</label>
                 <div class="col-sm-9">
                   <input id="input-2" name="path_ktp" type="file" class="file" data-show-upload="false" data-show-caption="true">
                   <span class="help-block">
@@ -197,7 +197,7 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('online') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Online</label>
+                <label class="col-sm-3 control-label">Online *</label>
                 <div class="radio-custom radio-default radio-inline">
                   <input type="radio" id="inputBasicMale" name="online" value="Ya" {{old('online')=='Ya'?'checked':''}} required/>
                   <label for="inputBasicMale">Ya</label>
@@ -213,6 +213,19 @@
                   <input type="text" class="form-control" name="jml_tenaga_kerja" placeholder="Jumlah tenaga kerja" value="{{old('jml_tenaga_kerja')}}" />
                   <span class="help-block">
                       <strong>{{ $errors->first('jml_tenaga_kerja') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('jangkauan_pemasaran') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Jangkauan Pemasaran *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select class="form-control" data-plugin="select2" name="jangkauan_pemasaran" required>
+                    @foreach(jangkauan_pemasaran() as $jp)
+                      <option value="{{$jp}}">{{$jp}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('bidang_usaha') }}</strong>
                     </span>
                 </div>
               </div>
