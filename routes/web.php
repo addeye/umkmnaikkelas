@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('umkm','UmkmController');
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 	Route::resource('user','UserController');
+	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
 
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');

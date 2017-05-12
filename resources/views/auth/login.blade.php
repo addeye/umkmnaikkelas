@@ -92,13 +92,13 @@ a:focus, a:hover {
         <div class="form-group clearfix">
           <div class="checkbox-custom checkbox-inline pull-left">
             <input type="checkbox" id="inputCheckbox" name="checkbox">
-            <label for="inputCheckbox">Remember me</label>
+            <label for="inputCheckbox">Ingatkan Saya</label>
           </div>
-          <a class="pull-right" href="{{ route('password.request') }}">Forgot password?</a>
+          <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
       </form>
-      <p>Tidak punya akun ? Silahkan <a style="color: #f16f35;font-weight: bold;" href="{{url('register')}}">Register</a></p>
+      <p>Tidak punya akun ? Silahkan <a style="color: #f16f35;font-weight: bold;" href="{{url('register')}}">Daftar Disini</a></p>
       <p>
       <a href="redirect/facebook" class="btn btn-labeled social-facebook">
                     <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Sign In</a> OR

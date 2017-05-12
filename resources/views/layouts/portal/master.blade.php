@@ -30,8 +30,8 @@
     {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
     {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
-
             <!-- Fonts -->
+    {{Html::style('remark/assets/fonts/font-awesome/font-awesome.css')}}
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
     {{Html::style('remark/assets/fonts/brand-icons/brand-icons.min.css')}}
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
@@ -157,7 +157,7 @@
 <!-- Page -->
 @yield('content')
 <!-- End Page -->
-
+@yield('modal')
 
 @include('layouts.portal.footer')
 

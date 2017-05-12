@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravolt\Indonesia\Indonesia;
+use App\BidangPendampingan;
+use App\BidangKeahlian;
+use App\Lembaga;
 
 class HomeController extends Controller
 {
@@ -54,5 +57,15 @@ class HomeController extends Controller
 
             echo "<option value='$row->id' ".$txt." >".$row->name."</option>";
         }
+    }
+
+    public function reg_pendamping()
+    {
+        $data=[
+            'BdPendampingan' => BidangPendampingan::all(),
+            'BdKeahlian' => BidangKeahlian::all(),
+            'lembaga' => Lembaga::all(),
+        ];
+        return view('registrasi.pendamping',$data);
     }
 }
