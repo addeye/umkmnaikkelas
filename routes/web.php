@@ -18,7 +18,7 @@ Route::get('/callback/{provider}', 'SocialAuthController@callback');
 
 Route::group(['middleware' => 'auth'], function () 
 {
-	Route::get('/home', 'HomeController@index')->name('dashboard');	
+	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('bidang-usaha','BidangUsahaController');
 	Route::resource('bidang-pendampingan','BidangPendampinganController');
 	Route::resource('bidang-keahlian','BidangKeahlianController');
@@ -31,8 +31,11 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 	Route::resource('user','UserController');
 	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
+	Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
+	Route::get('profil-pendamping','HomeController@showProfil')->name('profil.show');
 
-	Route::group(['middleware' => 'admin'], function() {
+	Route::group(['middleware' => 'admin'], function() 
+	{
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 	});
 });

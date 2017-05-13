@@ -19,17 +19,27 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" id="exampleStandardForm" autocomplete="off">
+                        <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('dodaftar.pendamping')}}" enctype="multipart/form-data">
+                            {!! csrf_field() !!}
+                        <div class="form-group {{ $errors->has('id_pendamping') ? ' has-error' : '' }}">
+                        <label class="col-sm-3 control-label">ID Pendamping *</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id_pendamping" placeholder="ID Pendamping" value="{{old('id_pendamping')}}" />
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('id_pendamping') }}</strong>
+                                </span>
+                            </div>
+                        </div>
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Nama Pendamping</label>
+                          <label class="col-sm-3 control-label">Nama Pendamping *</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" name="standard_fullName" />
+                            <input type="text" class="form-control" name="nama_pendamping" placeholder="Nama Pendamping" value="{{$user->name}}"/>
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Domisili</label>
+                          <label class="col-sm-3 control-label">Domisili *</label>
                           <div class="col-sm-9">
-                            <textarea name="alamat_domisili" class="form-control"></textarea>
+                            <textarea name="alamat_domisili" class="form-control" placeholder="Alamat Domisili Lengkap">{{old('alamat_domisili')}}</textarea>
                           </div>
                         </div>
                         <div class="form-group">
@@ -55,7 +65,7 @@
                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Email *</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="email" placeholder="email" value="{{old('email')}}" />
+                    <input type="text" class="form-control" name="email" placeholder="email" value="{{$user->email}}" readonly />
                     <span class="help-block">
                       <strong>{{ $errors->first('email') }}</strong>
                     </span>
@@ -121,7 +131,7 @@
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Kab/Kota Pendampingan</label>
+                  <label class="col-sm-3 control-label">Kab/Kota Pendampingan *</label>
                   <div class="col-sm-9">
                     <select class="form-control" data-plugin="select2" name="kabkota_id">
                       @foreach(Indonesia::allCities() as $row)
@@ -169,21 +179,19 @@
                     </span>
                   </div>
                 </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Email</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" name="standard_email" />
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Content</label>
-                          <div class="col-sm-9">
-                            <textarea class="form-control" name="standard_content" rows="5"></textarea>
-                          </div>
-                        </div>
-                        <div class="text-right">
-                          <button type="submit" class="btn btn-primary" id="validateButton2">Submit</button>
-                        </div>
+                <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
+                    <label class="col-sm-3 control-label">Foto Profil</label>
+                    <div class="col-sm-9">
+                        <input id="input-2" name="image" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        <span class="help-block">
+                            <strong>Jpg, max 300kb</strong>
+                            <strong>{{ $errors->first('image') }}</strong>
+                        </span>
+                    </div>
+                </div>
+                    <div class="text-right">
+                      <button type="submit" class="btn btn-primary" id="validateButton2">Submit</button>
+                    </div>
                       </form>
                     </div>
                 </div>
@@ -209,34 +217,118 @@
           },
           icon: null,
           fields: {
-            standard_fullName: {
+              id_pendamping: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+            nama_pendamping: {
               validators: {
                 notEmpty: {
-                  message: 'The full name is required and cannot be empty'
+                  message: 'Isi dengan benar'
                 }
               }
             },
-            standard_email: {
+              alamat_domisili: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+              nama_pendamping: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+              jenis_kelamin: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+                  telp: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+            email: {
               validators: {
                 notEmpty: {
-                  message: 'The email address is required and cannot be empty'
+                  message: 'Email tidak boleh kosong'
                 },
                 emailAddress: {
-                  message: 'The email address is not valid'
+                  message: 'Alamat email anda salah'
                 }
               }
             },
-            standard_content: {
-              validators: {
-                notEmpty: {
-                  message: 'The content is required and cannot be empty'
-                },
-                stringLength: {
-                  max: 500,
-                  message: 'The content must be less than 500 characters long'
-                }
-              }
-            }
+//              pengalaman: {
+//                  validators: {
+//                      notEmpty: {
+//                          message: 'Isi dengan benar'
+//                      }
+//                  }
+//              },
+//              sertifikat: {
+//                  validators: {
+//                      notEmpty: {
+//                          message: 'Isi dengan benar'
+//                      }
+//                  }
+//              },
+//              bidang_pendampingan: {
+//                  validators: {
+//                      notEmpty: {
+//                          message: 'Isi dengan benar'
+//                      }
+//                  }
+//              },
+//              bidang_keahlian: {
+//                  validators: {
+//                      notEmpty: {
+//                          message: 'Isi dengan benar'
+//                      }
+//                  }
+//              },
+              kabkota_id: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+              kabkota_tambahan: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+              lembaga_id: {
+                  validators: {
+                      notEmpty: {
+                          message: 'Isi dengan benar'
+                      }
+                  }
+              },
+//            standard_content: {
+//              validators: {
+//                notEmpty: {
+//                  message: 'The content is required and cannot be empty'
+//                },
+//                stringLength: {
+//                  max: 500,
+//                  message: 'The content must be less than 500 characters long'
+//                }
+//              }
+//            }
           }
         });
       })();

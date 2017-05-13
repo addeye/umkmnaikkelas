@@ -12,10 +12,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
-    <link rel="shortcut icon" href="{{url('remark/assets/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('remark/assets/images/favicon.ico')}}">
 
     <!-- Stylesheets -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {{Html::style('remark/assets/css/bootstrap.min.css')}}
+    {{Html::style('kartika-upload/css/fileinput.min.css')}}
     {{Html::style('remark/assets/css/bootstrap-extend.min.css')}}
     {{Html::style('remark/assets/css/site.min.css')}}
 
@@ -30,6 +32,7 @@
     {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
     {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
+    {{Html::style('remark/assets/vendor/select2/select2.css')}}
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/font-awesome/font-awesome.css')}}
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -180,6 +183,16 @@
 {{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
 {{Html::script(asset('remark/assets/vendor/toastr/toastr.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/select2/select2.min.js'))}}
+
+{{Html::script(asset('kartika-upload/js/plugins/canvas-to-blob.min.js'))}}
+{{Html::script(asset('kartika-upload/js/plugins/sortable.min.js'))}}
+{{Html::script(asset('kartika-upload/js/plugins/purify.min.js'))}}
+{{Html::script(asset('kartika-upload/js/fileinput.min.js'))}}
+
+{{Html::script(asset('kartika-upload/themes/fa/theme.js'))}}
+{{Html::script(asset('kartika-upload/js/locales/id.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -202,6 +215,8 @@
 {{Html::script(asset('remark/assets/js/components/bootbox.js'))}}
 {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
+
+{{Html::script(asset('remark/assets/js/components/select2.js'))}}
 
 <!-- Include this after the sweet alert js file -->
     <script type="text/javascript">

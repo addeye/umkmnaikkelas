@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function pendamping()
+    {
+        return $this->hasOne('App\Pendamping','user_id');
+    }
+
+    public function umkm()
+    {
+        return $this->hasOne('App\Umkm','user_id');
+    }
+
 }

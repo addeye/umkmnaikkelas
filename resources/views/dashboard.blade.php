@@ -30,13 +30,20 @@
                                     <div class="rating rating-lg" data-score="2" data-number="5" data-read-only="true" data-plugin="rating"></div>
                                 </div>
                                 <div class="profile-job">
-                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalWarning"><i class="icon wb-pencil"></i> Daftar Sebagai</a>
+                                        @if(Auth::user()->role_id == ROLE_CALON)
+                                        <i class="icon wb-pencil"></i> <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalWarning">Daftar Sebagai</a>
+                                            @elseif(Auth::user()->role_id == ROLE_PENDAMPING)
+                                        <label>Pendamping</label>
+                                            @elseif(Auth::user()->role_id == ROLE_UMKM)
+                                    UMKM
+                                            @endif
+
                                 </div>
                                 <div class="profile-social">
                                     <a class="icon bd-twitter" href="javascript:void(0)"></a>
                                     <a class="icon bd-facebook" href="javascript:void(0)"></a>
                                 </div>
-                                <button type="button" class="btn btn-primary">Lihat Profil</button>
+                                <button id="btn-profil" type="button" class="btn btn-primary">Lihat Profil</button>
                             </div>
                         </div>
                         <div class="widget-footer">
@@ -256,6 +263,8 @@
                         </div>
                     </div>
                     <!-- End Page -->
+
+                    <input type="hidden" id="url" value="{{route('profil.show')}}">
                     @endsection
 
                     @section('modal')
@@ -308,14 +317,48 @@
                     </div>
                 </div>
             </div>
-            <!-- End Modal -->
 
-
-            <!-- End Modal -->
+                    <!-- Modal -->
+                    <div class="modal fade modal-warning" id="ModalProfil" aria-hidden="true"
+                         aria-labelledby="exampleModalWarning" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <h4 class="modal-title">Detail Profil Anda</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="example-grid">
+                                        <div id="content-profil"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
             @endsection
 
             @section('js')
             {{Html::script(asset('remark/assets/vendor/raty/jquery.raty.js'))}}
             {{Html::script(asset('remark/assets/js/components/raty.js'))}}
+
+                <script>
+                    var url = $('#url').val();
+                    $('#btn-profil').click(function ()
+                    {
+                        $.ajax({
+                            url : url,
+                            type : 'GET'
+                        })
+                            .success(function (response) {
+                                $('#content-profil').html(response);
+                                $('#ModalProfil').modal('show');
+                            })
+
+                    });
+                </script>
 
             @endsection
