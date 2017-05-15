@@ -141,10 +141,16 @@
     }
 
 .navbar-brand-logo {
-    width: 52%;
+    width: 50px;
     height: auto;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
     margin-top: -19px;
+}
+
+.site-navbar .navbar-header .navbar-brand {
+    font-family: Roboto,sans-serif;
+    color: #e98f2e;
+    cursor: pointer;
 }
 
     </style>
