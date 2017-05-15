@@ -59,32 +59,16 @@ input {
         <!-- Example Captions -->
         <div class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
             <ol class="carousel-indicators carousel-indicators-fillin">
-                <li class="active" data-slide-to="0" data-target="#exampleCarouselCaptions"></li>
-                <li class="" data-slide-to="1" data-target="#exampleCarouselCaptions"></li>
-                <li class="" data-slide-to="2" data-target="#exampleCarouselCaptions"></li>
+                <li class="active" data-slide-to="0" data-target="#exampleCarouselCaptions"></li>                
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img class="width-full" src="{{url('remark/assets/photos/placeholder.png')}}" alt="..." />
+                    <img class="width-full" src="{{asset('images/1.jpg')}}" alt="..." />
                     <div class="carousel-caption">
-                        <h3>First Slide Label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <h3>UMKM NAIK KELAS</h3>
+                        <p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>
                     </div>
-                </div>
-                <div class="item">
-                    <img class="width-full" src="{{url('remark/assets/photos/placeholder.png')}}" alt="..." />
-                    <div class="carousel-caption">
-                        <h3>Second Slide Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img class="width-full" src="{{url('remark/assets/photos/placeholder.png')}}" alt="..." />
-                    <div class="carousel-caption">
-                        <h3>Third Slide Label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                    </div>
-                </div>
+                </div>              
             </div>
             <a class="left carousel-control" href="#exampleCarouselCaptions" role="button"
             data-slide="prev">
@@ -247,10 +231,10 @@ input {
                                 <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
                               </a>
                               <div style="overflow:hidden;">
-                                <small class="pull-right grey-200">Yeserday, 13:48</small>
-                                <div class="font-size-18">Robin Ahrens</div>
-                                <div class="grey-200 font-size-14 margin-bottom-10">Web Designer</div>
-                                <blockquote class="cover-quote font-size-16 white">Oportet magnopere optio ignavia tribuat derigatur, idem, vituperatum.
+                                <small class="pull-right grey-200">Kemarin, 13:48</small>
+                                <div class="font-size-18">Imam</div>
+                                <div class="grey-200 font-size-14 margin-bottom-10">Konsultan</div>
+                                <blockquote class="cover-quote font-size-16 white">Aplikasi lunas sangat membantu dalam menangani kenaikan kelas bagi UMKM. 
                                   </blockquote>
                               </div>
                             </div>

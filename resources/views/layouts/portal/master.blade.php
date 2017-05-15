@@ -127,6 +127,11 @@
             color: #fff;
             background-color: #f16f35;
         }
+
+        .navbar-brand {
+    padding: 7px 20px;
+    font-weight: 500;
+}
     </style>
 
     <!--[if lt IE 9]>

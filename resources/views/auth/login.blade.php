@@ -74,7 +74,7 @@ a:focus, a:hover {
     <div class="page-content vertical-align-middle">
       <div class="brand">
       <a href="{{url('/')}}">
-        <img class="brand-img" src="{{url('images/logo-small.png')}}" alt="logo">
+        <img class="brand-img" src="{{url('images/logo.png')}}" alt="logo">
       </a>        
       </div>
       <p>Silahkan Masukkan Akun Anda</p>
