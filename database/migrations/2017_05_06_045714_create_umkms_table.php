@@ -24,7 +24,7 @@ class CreateUmkmsTable extends Migration
             $table->string('skala_usaha',20);
             $table->integer('bidang_usaha_id');
             $table->string('komunitas_asosiasi',100);
-            $table->integer('omset');
+            $table->integer('omset')->default(0);
             $table->text('alamat');
             $table->integer('kabkota_id');
             $table->integer('kecamatan_id');
@@ -38,7 +38,7 @@ class CreateUmkmsTable extends Migration
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();
             $table->string('online',5);
-            $table->integer('jml_tenaga_kerja');
+            $table->integer('jml_tenaga_kerja')->default(0);
             $table->string('jangkauan_pemasaran');
             $table->timestamps();
         });

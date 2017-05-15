@@ -18,7 +18,8 @@
                 <th>Nama Usaha</th>
                 <th>Nama Pemilik</th>
                 <th>Lembaga</th>
-                <th>Sekala</th>
+                <th>Skala</th>
+                <th>Bidang</th>
                 <th>Telepon</th>
                 <th>Email</th>
                 <th>Action</th>
@@ -30,7 +31,8 @@
                 <th>Nama Usaha</th>
                 <th>Nama Pemilik</th>
                 <th>Lembaga</th>
-                <th>Sekala</th>
+                <th>Skala</th>
+                <th>Bidang</th>
                 <th>Telepon</th>
                 <th>Email</th>
                 <th>Action</th>

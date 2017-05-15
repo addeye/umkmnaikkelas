@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Laravolt\Indonesia\Indonesia;
 
 class UmkmController extends Controller
 {
@@ -51,7 +52,7 @@ class UmkmController extends Controller
             'nama_pemilik' => 'required',
             'lembaga_id' => 'required',
             'skala_usaha' => 'required',
-            'bidang_usaha'  => 'required',
+            'bidang_usaha_id'  => 'required',
             'alamat' => 'required',
             'kabkota_id' => 'required',
             'kecamatan_id' => 'required',
@@ -133,9 +134,12 @@ class UmkmController extends Controller
      * @param  \App\Umkm  $umkm
      * @return \Illuminate\Http\Response
      */
-    public function show(Umkm $umkm)
+    public function show($id)
     {
-        //
+        $data = array(
+            'data' => Umkm::find($id)
+        );
+        return view('umkm.show',$data);
     }
 
     /**
@@ -144,9 +148,19 @@ class UmkmController extends Controller
      * @param  \App\Umkm  $umkm
      * @return \Illuminate\Http\Response
      */
-    public function edit(Umkm $umkm)
+    public function edit($id)
     {
-        //
+        $umkm = Umkm::find($id);
+        $kec_pilih = \Indonesia::findCity($umkm->kabkota_id,['districts']);
+
+        $data = [
+            'lembaga' => Lembaga::all(),
+            'bidang_usaha' => BidangUsaha::all(),
+            'kabkota' => \Indonesia::allCities(),
+            'kec_pilih' => $kec_pilih,
+            'data' => $umkm
+        ];
+        return view('umkm.edit',$data);
     }
 
     /**
@@ -156,9 +170,75 @@ class UmkmController extends Controller
      * @param  \App\Umkm  $umkm
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Umkm $umkm)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'nama_usaha' => 'required',
+            'nama_pemilik' => 'required',
+            'lembaga_id' => 'required',
+            'skala_usaha' => 'required',
+            'bidang_usaha_id'  => 'required',
+            'alamat' => 'required',
+            'kabkota_id' => 'required',
+            'kecamatan_id' => 'required',
+            'no_ktp' => 'required',
+            'telp' => 'required|numeric',
+            'online' => 'required',
+        );
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('umkm.edit',['id'=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $umkm = Umkm::find($id);
+        $umkm->nama_usaha = $request->nama_usaha;
+        $umkm->nama_pemilik = $request->nama_pemilik;
+        $umkm->lembaga_id = $request->lembaga_id;
+        $umkm->skala_usaha = $request->skala_usaha;
+        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
+        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
+        $umkm->omset = $request->omset;
+        $umkm->alamat = $request->alamat;
+        $umkm->kabkota_id = $request->kabkota_id;
+        $umkm->kecamatan_id = $request->kecamatan_id;
+        $umkm->no_ktp = $request->no_ktp;
+        $umkm->no_npwp = $request->no_npwp;
+        $umkm->telp = $request->telp;
+        $umkm->website = $request->website;
+        $umkm->facebook = $request->facebook;
+        $umkm->whatsapp = $request->whatsapp;
+        $umkm->instagram = $request->instagram;
+        $umkm->online = $request->online;
+        $umkm->jml_tenaga_kerja = $request->jml_tenaga_kerja;
+        $umkm->jangkauan_pemasaran = $request->jangkauan_pemasaran;
+
+        if($request->hasFile('path_ktp'))
+        {
+            $file = Input::file('path_ktp');
+            $name = $this->upload_image($file,'uploads/umkm/images',$umkm->path_ktp);
+            $umkm->path_ktp = $name;
+        }
+
+        if($request->hasFile('path_npwp'))
+        {
+            $file = Input::file('path_npwp');
+            $name = $this->upload_image($file,'uploads/umkm/images',$umkm->path_npwp);
+            $umkm->path_npwp = $name;
+        }
+
+        $umkm->save();
+
+        if($umkm)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('umkm.index');
+        }
     }
 
     /**
@@ -167,8 +247,17 @@ class UmkmController extends Controller
      * @param  \App\Umkm  $umkm
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Umkm $umkm)
+    public function destroy($id)
     {
-        //
+        $umkm = Umkm::find($id);
+        $this->delete_image('uploads/umkm/images',$umkm->path_npwp);
+        $this->delete_image('uploads/umkm/images',$umkm->path_ktp);
+        $umkm->delete();
+
+        if($umkm)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('umkm.index');
+        }
     }
 }

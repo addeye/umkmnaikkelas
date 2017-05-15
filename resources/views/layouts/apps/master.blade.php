@@ -251,8 +251,8 @@
 
 {{Html::script(asset('price-format/jquery.priceformat.js'))}}
 
-<script src="http://maps.google.com/maps/api/js"></script>
-{{Html::script(asset('js/gmaps.js'))}}
+{{--<script src="http://maps.google.com/maps/api/js"></script>--}}
+{{--{{Html::script(asset('js/gmaps.js'))}}--}}
 
 
 <!-- Include this after the sweet alert js file -->
@@ -280,13 +280,13 @@
         });
     })(document, window, jQuery);
 </script>
-<script>
-    var map = new GMaps({
-        el: '#map',
-        lat: -12.043333,
-        lng: -77.028333
-    });
-</script>
+{{--<script>--}}
+    {{--var map = new GMaps({--}}
+        {{--el: '#map',--}}
+        {{--lat: -12.043333,--}}
+        {{--lng: -77.028333--}}
+    {{--});--}}
+{{--</script>--}}
 @yield('js')
 </body>
 

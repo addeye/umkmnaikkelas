@@ -57,16 +57,16 @@
                     </span>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('bidang_usaha') ? ' has-error' : '' }}">
+              <div class="form-group {{ $errors->has('bidang_usaha_id') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Bidang Usaha *</label>
                 <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="bidang_usaha" required>
+                  <select class="form-control" data-plugin="select2" name="bidang_usaha_id" required>
                     @foreach($bidang_usaha as $row)
                       <option value="{{$row->id}}">{{$row->nama}}</option>
                     @endforeach
                   </select>
                   <span class="help-block">
-                      <strong>{{ $errors->first('bidang_usaha') }}</strong>
+                      <strong>{{ $errors->first('bidang_usaha_id') }}</strong>
                     </span>
                 </div>
               </div>
@@ -82,7 +82,7 @@
               <div class="form-group {{ $errors->has('omset') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Omset</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control rupiah" name="omset" placeholder="Omset.." value="{{old('omset')}}" />
+                  <input type="number" class="form-control rupiah" name="omset" placeholder="Omset.." value="{{old('omset')}}" />
                   <span class="help-block">
                       <strong>{{ $errors->first('omset') }}</strong>
                     </span>
@@ -259,11 +259,11 @@
           kecamatan_ajax(urlkec,valkab,oldkec);
       }
     $(document).ready(function () {
-        $('.rupiah').priceFormat({
-            prefix: 'Rp. ',
-            centsSeparator: ',',
-            thousandsSeparator: '.'
-        });
+//        $('.rupiah').priceFormat({
+//            prefix: 'Rp. ',
+//            centsSeparator: ',',
+//            thousandsSeparator: '.'
+//        });
 
         
         $('#kabkota').change(function () {
