@@ -140,6 +140,13 @@
     color: #fff;
     }
 
+.navbar-brand-logo {
+    width: 52%;
+    height: auto;
+    margin-left: 50px;
+    margin-top: -19px;
+}
+
     </style>
     @yield('css')
 

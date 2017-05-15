@@ -11,7 +11,7 @@
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
         </button>        
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-            <img class="navbar-brand-logo" src="{{url('images/logo-small.png')}}" title="UMKM NAIK KELAS"> 
+            <img class="navbar-brand-logo" src="{{url('images/logo.png')}}" title="UMKM NAIK KELAS"> 
         </div>
     </div>
 
