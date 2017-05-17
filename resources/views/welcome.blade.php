@@ -51,6 +51,16 @@ input {
     margin-bottom: 0px !important;
 }
 
+.sub-cap {
+    position: absolute;
+    color: #fff;
+    text-align: left;
+    font-size: 14px;
+    top: 145px;
+    padding: 3px 5px;
+    background-color: #00000080;
+}
+
  @media screen and (max-width: 768px) {
      .carousel-inner > .item > img, .carousel-inner > .item > a > img {
          display: block;
@@ -146,7 +156,7 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                     <a href="javascript:void()">
-                   <div class="tile" style="background:url('{{asset('images/box/umkm.jpg')}}') no-repeat center center;background-size: cover;">
+                   <div class="tile" style="background:url('{{asset('images/box/latar-belakang.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-light-green-800">Latar Belakang</h4>
                        <p class="sub-cap">Latar Belakang, Goal dan Strategi</p>
                     </div>
@@ -162,7 +172,7 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                   <a href="javascript:void()">
-                   <div class="tile" style="background:url('{{asset('images/box/procedure.jpg')}}') no-repeat center center;background-size: cover;">
+                   <div class="tile" style="background:url('{{asset('images/box/procedur-umkm.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-light-green-800">Prosedur bagi UMKM</h4>
                        <p class="sub-cap">Galeri Karya UMKM di RKB</p>
                     </div>
@@ -170,7 +180,7 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                    <a href="javascript:void()">
-                     <div class="tile" style="background:url('{{asset('images/box/procedure-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
+                     <div class="tile" style="background:url('{{asset('images/box/procedur-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-light-green-800">Prosedur bagi Pendamping UMKM</h4>
                        <p class="sub-cap">Informasi Mengenai RKB</p>
                     </div>
