@@ -23,7 +23,12 @@
                         <div class="widget-header">
                             <div class="widget-header-content">
                                 <a class="avatar avatar-lg" href="javascript:void(0)">
+                                    @if(!Auth::user()->image)
                                     <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                                        @else
+                                        <img src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
+                                        @endif
+
                                 </a>
                                 <div class="profile-user">{{Auth::user()->name}}</div>
                                 <div class="example">

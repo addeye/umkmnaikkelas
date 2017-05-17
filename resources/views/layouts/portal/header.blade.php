@@ -19,7 +19,11 @@
                           <li class="dropdown">
                               <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                       <span class="avatar avatar-online">
-                        <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                        @if(!Auth::user()->image)
+                              <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                          @else
+                              <img src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
+                          @endif
                         <i></i>
                       </span>
                               </a>
@@ -223,6 +227,7 @@
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Pendampingan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
+                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Jasa Pendampingan</a></li>
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">UMKM Online</a></li>
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">UMKM Offline</a></li>
                               </ul>
