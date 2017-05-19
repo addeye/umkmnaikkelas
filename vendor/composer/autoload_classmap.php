@@ -12,6 +12,7 @@ return array(
     'CreateBidangKeahliansTable' => $baseDir . '/database/migrations/2017_04_28_075338_create_bidang_keahlians_table.php',
     'CreateBidangPendampingansTable' => $baseDir . '/database/migrations/2017_04_28_075312_create_bidang_pendampingans_table.php',
     'CreateBidangUsahasTable' => $baseDir . '/database/migrations/2017_04_28_075253_create_bidang_usahas_table.php',
+    'CreateJasaPendampingansTable' => $baseDir . '/database/migrations/2017_05_19_173654_create_jasa_pendampingans_table.php',
     'CreateLembagaTable' => $baseDir . '/database/migrations/2017_05_07_164954_create_lembaga_table.php',
     'CreateLembagasTable' => $baseDir . '/database/migrations/2017_04_28_075516_create_lembagas_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2017_04_28_073843_create_password_resets_table.php',

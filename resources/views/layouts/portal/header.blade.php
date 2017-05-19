@@ -227,19 +227,17 @@
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Pendampingan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Jasa Pendampingan</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">UMKM Online</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">UMKM Offline</a></li>
+                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Lembaga</a></li>
+                                  <li role="presentation"><a href="{{route('jasa-pendampingan.index')}}" role="menuitem">Jasa Pendampingan</a></li>
                               </ul>
-                          </li>
-                          <li><a href="javascript:void(0)">Lembaga</a></li>
+                          </li>                        
                           <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Layanan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Konsultasi Bisnis</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Info Pasar</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Info Terkini</a></li>
+                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Modul Konsultasi</a></li>
+                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Pasar</a></li>
+                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Terkini</a></li>
                               </ul>
                           </li>
                       </ul>

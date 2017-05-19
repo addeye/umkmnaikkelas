@@ -149,6 +149,7 @@ class PendampingController extends Controller
             'kabkota_tambahan' => 'nullable',
             'lembaga_id' => 'required',
             'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:300',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:300',
         ];
 
         $validator = Validator::make($request->all(),$rules);

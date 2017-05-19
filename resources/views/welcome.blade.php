@@ -197,7 +197,7 @@ input {
             </div>            
             <div class="col-md-6 red-tiles" style="padding: 0px 2.5px;">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
-                  <div class="tiles-title" style="background-image: url('http://www.rkb.id/assets/images/home/infoumum_title.jpg');">
+                  <div class="tiles-title bg-red-800">
                     <h2>LAYANAN</h2>
                   </div>
                 </div>

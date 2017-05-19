@@ -31,8 +31,11 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 	Route::resource('user','UserController');
 	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
+	Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
+	Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
 	Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
 	Route::get('profil-pendamping','HomeController@showProfil')->name('profil.show');
+	Route::resource('jasa-pendampingan','JasaPendampinganController');
 
 	Route::group(['middleware' => 'admin'], function() 
 	{
