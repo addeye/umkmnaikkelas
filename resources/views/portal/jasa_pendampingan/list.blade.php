@@ -1,5 +1,11 @@
 @extends('layouts.portal.master')
 
+@section('css')
+    {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
+    {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
+    {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
+    @endsection
+
 @section('content')
     <!-- Page -->
     <div class="container-fluid page-profile">
@@ -74,6 +80,14 @@
 @endsection
 
 @section('js')
+
+    {{Html::script(asset('remark/assets/vendor/datatables/jquery.dataTables.min.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
+
+    {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
     <script>
 
         function ConfirmDelete(id)
