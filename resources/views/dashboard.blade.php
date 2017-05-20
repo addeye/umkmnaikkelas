@@ -307,8 +307,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="widget widget-radius widget-shadow">
-                                            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom"
-                  data-trigger="click" data-original-title="Click to tooltip" title="Belum Tersedia">
+                                            <a href="{{route('daftar.umkm')}}">
                                                 <div class="widget-header bg-blue-600 padding-30 white text-center">       
                                                     <i class="icon fa-money" aria-hidden="true" style="font-size: 57px; color: white;"></i>
                                             <h4 class="text-center white">UMKM</h4>

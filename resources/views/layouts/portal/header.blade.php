@@ -222,15 +222,19 @@
                           </li>
                       </ul>
                       <ul class="nav navbar-toolbar navbar-right">
-                          <li class="active"><a href="javascript:void(0)">Dashboard <span class="sr-only">(current)</span></a></li>
-                          <li class="dropdown">
+                          <li class="{{set_active(['/','home'],'active')}}"><a href="{{url('/')}}">Dashboard <span class="sr-only">(current)</span></a></li>
+
+                          @if(Auth::user()->role_id==ROLE_PENDAMPING)
+                          <li class="dropdown {{set_active(['lembaga-pendamping','jasa-pendampingan','jasa-pendampingan/*'],'active')}}">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Pendampingan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Lembaga</a></li>
-                                  <li role="presentation"><a href="{{route('jasa-pendampingan.index')}}" role="menuitem">Jasa Pendampingan</a></li>
+                                  <li class="{{set_active('lembaga-pendamping','active')}}" role="presentation"><a href="{{route('lembaga.pendamping')}}" role="menuitem">Lembaga</a></li>
+                                  <li class="{{set_active(['jasa-pendampingan','jasa-pendampinga/*'],'active')}}" role="presentation"><a href="{{route('jasa-pendampingan.index')}}" role="menuitem">Jasa Pendampingan</a></li>
                               </ul>
-                          </li>                        
+                          </li>
+                          @endif
+
                           <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Layanan <span class="caret"></span></a>

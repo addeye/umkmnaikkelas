@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BidangUsaha;
 use App\Pendamping;
 use App\User;
 use Illuminate\Http\Request;
@@ -72,6 +73,16 @@ class HomeController extends Controller
             'user' => Auth::user()
         ];
         return view('registrasi.pendamping',$data);
+    }
+
+    public function reg_umkm()
+    {
+        $data = [
+            'lembaga' => Lembaga::all(),
+            'bidang_usaha' => BidangUsaha::all(),
+            'kabkota' => \Indonesia::allCities(),
+        ];
+        return view('registrasi.umkm',$data);
     }
 
     public function update_pendamping($id)
@@ -249,6 +260,11 @@ class HomeController extends Controller
         }
     }
 
+    public function doRegUmkm()
+    {
+        return 'sipp';
+    }
+
     public function showProfil()
     {
         $user = Auth::user();
@@ -272,5 +288,16 @@ class HomeController extends Controller
         }
 
         return view('pendamping.show-ajax',$data);
+    }
+
+    public function showLembaga()
+    {
+        $user = Auth::user();
+        $lembaga_id = $user->pendamping->lembaga_id;
+
+        $data = array(
+            'data' => Lembaga::find($lembaga_id)
+        );
+        return view('portal.lembaga',$data);
     }
 }

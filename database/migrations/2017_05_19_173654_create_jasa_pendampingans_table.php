@@ -21,9 +21,9 @@ class CreateJasaPendampingansTable extends Migration
             $table->text('bidang_pendampingan')->nullable();
             $table->text('bidang_keahlian')->nullable();
             $table->text('deskripsi');
-            $table->string('hraga');
-            $table->string('disk');
-            $table->string('netto');
+            $table->integer('harga');
+            $table->integer('diskon');
+            $table->integer('netto');
             $table->timestamps();
         });
     }

@@ -33,6 +33,10 @@
     {{Html::style('remark/assets/vendor/toastr/toastr.css')}}
     {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
     {{Html::style('remark/assets/vendor/select2/select2.css')}}
+
+    {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
+    {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
+    {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
             <!-- Fonts -->
     {{Html::style('remark/assets/fonts/font-awesome/font-awesome.css')}}
     {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
@@ -188,6 +192,12 @@
 {{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
 {{Html::script(asset('remark/assets/vendor/toastr/toastr.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/datatables/jquery.dataTables.min.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
+{{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
+
 {{Html::script(asset('remark/assets/vendor/select2/select2.min.js'))}}
 
 {{Html::script(asset('kartika-upload/js/plugins/canvas-to-blob.min.js'))}}
@@ -220,7 +230,7 @@
 {{Html::script(asset('remark/assets/js/components/bootbox.js'))}}
 {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
-
+{{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 {{Html::script(asset('remark/assets/js/components/select2.js'))}}
 
 <!-- Include this after the sweet alert js file -->

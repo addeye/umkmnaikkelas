@@ -130,6 +130,7 @@
                     </span>
                   </div>
                 </div>
+
                 <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Kab/Kota Pendampingan *</label>
                   <div class="col-sm-9">
