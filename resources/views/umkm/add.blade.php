@@ -23,7 +23,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label">Nama Pemilik *</label>
+                <label class="col-sm-3 control-label">Nama Pemilik Usaha*</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" name="nama_pemilik" placeholder="Nama Pemilik" value="{{old('nama_pemilik')}}" required/>
                   <span class="help-block">
@@ -31,19 +31,121 @@
                     </span>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('lembaga_id') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Lembaga *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="lembaga_id" required>
-                    @foreach($lembaga as $row)
-                      <option value="{{$row->id}}">{{$row->nama_lembaga}}</option>
-                    @endforeach
-                  </select>
+
+              <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Alamat *</label>
+                <div class="col-sm-9">
+                  <textarea name="alamat" class="form-control" placeholder="Alamat usaha" required>{{old('alamat')}}</textarea>
                   <span class="help-block">
-                      <strong>{{ $errors->first('lembaga_id') }}</strong>
+                      <strong>{{ $errors->first('alamat') }}</strong>
                     </span>
                 </div>
               </div>
+              <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Kabupaten/Kota *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select id="kabkota" class="form-control" data-plugin="select2" name="kabkota_id" required>
+                    <option value="">Pilih Kota</option>
+                    @foreach($kabkota as $row)
+                      <option value="{{$row->id}}" {{old('kabkota_id')==$row->id?'selected':''}} >{{$row->name}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('kabkota_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('kecamatan_id') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Kecamatan *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select id="kecamatan" class="form-control" data-plugin="select2" name="kecamatan_id" required>
+                    <option value="">Pilih Kecamatan</option>
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('kecamatan_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('no_ktp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">No KTP *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="no_ktp" placeholder="No KTP" value="{{old('no_ktp')}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('no_ktp') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('path_ktp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Foto KTP</label>
+                <div class="col-sm-9">
+                  <input id="input-2" name="path_ktp" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                  <span class="help-block">
+                    <strong>Jpg, max 300kb</strong>
+                      <strong>{{ $errors->first('path_ktp') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('no_npwp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">No NPWP</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="no_npwp" placeholder="No NPWP" value="{{old('no_npwp')}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('no_npwp') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('path_npwp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Foto NPWP</label>
+                <div class="col-sm-9">
+                  <input id="input-2" name="path_npwp" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                  <span class="help-block">
+                    <strong>Jpg, max 300kb</strong>
+                      <strong>{{ $errors->first('path_npwp') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Telepon *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="telp" placeholder="Telepon" value="{{old('telp')}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('telp') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Email *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="email" placeholder="Email" value="{{old('email')}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('badan_hukum') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Badan Hukum</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="badan_hukum" placeholder="Badan Hukum" value="{{old('badan_hukum')}}"/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('badan_hukum') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('tahun_mulai') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Tahun Mulai Usaha *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="tahun_mulai" placeholder="Tahun Mulai" value="{{old('tahun_mulai')}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('tahun_mulai') }}</strong>
+                    </span>
+                </div>
+              </div>
+
               <div class="form-group {{ $errors->has('skala_usaha') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Skala Usaha *</label>
                 <div class="col-sm-9 select2-warning">
@@ -79,96 +181,8 @@
                     </span>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('omset') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Omset</label>
-                <div class="col-sm-9">
-                  <input type="number" class="form-control rupiah" name="omset" placeholder="Omset.." value="{{old('omset')}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('omset') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Alamat *</label>
-                <div class="col-sm-9">
-                  <textarea name="alamat" class="form-control" placeholder="Alamat usaha" required>{{old('alamat')}}</textarea>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('alamat') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Kabupaten/Kota *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select id="kabkota" class="form-control" data-plugin="select2" name="kabkota_id" required>
-                    <option value="">Pilih Kota</option>
-                    @foreach($kabkota as $row)
-                      <option value="{{$row->id}}" {{old('kabkota_id')==$row->id?'selected':''}} >{{$row->name}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('kabkota_id') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('kecamatan_id') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Kecamatan *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select id="kecamatan" class="form-control" data-plugin="select2" name="kecamatan_id" required>
-                    <option value="">Pilih Kecamatan</option>
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('kecamatan_id') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('no_ktp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">No KTP *</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="no_ktp" placeholder="No KTP" value="{{old('no_ktp')}}" required/>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('no_ktp') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('path_ktp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Foto KTP</label>
-                <div class="col-sm-9">
-                  <input id="input-2" name="path_ktp" type="file" class="file" data-show-upload="false" data-show-caption="true">
-                  <span class="help-block">
-                    <strong>Jpg, max 300kb</strong>
-                      <strong>{{ $errors->first('path_ktp') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('no_npwp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">No NPWP</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="no_npwp" placeholder="No NPWP" value="{{old('no_npwp')}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('no_npwp') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('path_npwp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Foto KTP</label>
-                <div class="col-sm-9">
-                  <input id="input-2" name="path_npwp" type="file" class="file" data-show-upload="false" data-show-caption="true">
-                  <span class="help-block">
-                    <strong>Jpg, max 300kb</strong>
-                      <strong>{{ $errors->first('path_npwp') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Telepon *</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="telp" placeholder="Telepon" value="{{old('telp')}}" required/>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('telp') }}</strong>
-                    </span>
-                </div>
-              </div>
+
+
               <div class="form-group {{ $errors->has('website') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Website</label>
                 <div class="col-sm-9">
@@ -184,6 +198,24 @@
                   <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="{{old('facebook')}}" />
                   <span class="help-block">
                       <strong>{{ $errors->first('facebook') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('twitter') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Twitter</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="twitter" placeholder="Twitter" value="{{old('twitter')}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('twitter') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('whatsapp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">WhatsApp</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="whatsapp" placeholder="WhatsApp" value="{{old('whatsapp')}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('whatsapp') }}</strong>
                     </span>
                 </div>
               </div>
@@ -207,26 +239,15 @@
                   <label for="inputBasicFemale">Tidak</label>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('jml_tenaga_kerja') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Jumlah Tenaga Kerja</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="jml_tenaga_kerja" placeholder="Jumlah tenaga kerja" value="{{old('jml_tenaga_kerja')}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('jml_tenaga_kerja') }}</strong>
-                    </span>
+              <div class="form-group {{ $errors->has('sentra_umkm') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Sentra UMKM*</label>
+                <div class="radio-custom radio-default radio-inline">
+                  <input type="radio" id="inputBasicMale" name="sentra_umkm" value="Ya" {{old('sentra_umkm')=='Ya'?'checked':''}} required/>
+                  <label for="inputBasicMale">Ya</label>
                 </div>
-              </div>
-              <div class="form-group {{ $errors->has('jangkauan_pemasaran') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Jangkauan Pemasaran *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="jangkauan_pemasaran" required>
-                    @foreach(jangkauan_pemasaran() as $jp)
-                      <option value="{{$jp}}">{{$jp}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('bidang_usaha') }}</strong>
-                    </span>
+                <div class="radio-custom radio-default radio-inline">
+                  <input type="radio" id="inputBasicFemale" name="sentra_umkm" value="Tidak" {{old('sentra_umkm')=='Tidak'?'checked':''}} required/>
+                  <label for="inputBasicFemale">Tidak</label>
                 </div>
               </div>
               <div class="text-right">

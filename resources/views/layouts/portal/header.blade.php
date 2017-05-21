@@ -9,7 +9,7 @@
                   <span class="sr-only">Toggle Search</span>
                   <i class="icon wb-search" aria-hidden="true"></i>
                 </button>
-                <a class="navbar-brand navbar-brand-center" href="{{ url('/home') }}">
+                <a class="navbar-brand navbar-brand-center" href="{{ url('/') }}">
                   <img src="{{url('images/logo-small.png')}}">
                 </a>
               </div>

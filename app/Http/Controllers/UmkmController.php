@@ -32,7 +32,6 @@ class UmkmController extends Controller
     public function create()
     {
         $data = [
-            'lembaga' => Lembaga::all(),
             'bidang_usaha' => BidangUsaha::all(),
             'kabkota' => \Indonesia::allCities(),
         ];
@@ -50,7 +49,6 @@ class UmkmController extends Controller
         $rules = array(
             'nama_usaha' => 'required',
             'nama_pemilik' => 'required',
-            'lembaga_id' => 'required',
             'skala_usaha' => 'required',
             'bidang_usaha_id'  => 'required',
             'alamat' => 'required',
@@ -59,6 +57,7 @@ class UmkmController extends Controller
             'no_ktp' => 'required',
             'telp' => 'required|numeric',
             'online' => 'required',
+            'sentra_umkm' => 'required'
         );
 
         $validator = Validator::make($request->all(),$rules);
@@ -82,26 +81,28 @@ class UmkmController extends Controller
 
         $umkm = new Umkm();
         $umkm->user_id = $user->id;
+        $umkm->id_umkm = '';
         $umkm->nama_usaha = $request->nama_usaha;
         $umkm->nama_pemilik = $request->nama_pemilik;
-        $umkm->lembaga_id = $request->lembaga_id;
-        $umkm->skala_usaha = $request->skala_usaha;
-        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
-        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
-        $umkm->omset = $request->omset;
         $umkm->alamat = $request->alamat;
         $umkm->kabkota_id = $request->kabkota_id;
         $umkm->kecamatan_id = $request->kecamatan_id;
         $umkm->no_ktp = $request->no_ktp;
         $umkm->no_npwp = $request->no_npwp;
         $umkm->telp = $request->telp;
+        $umkm->email = $request->email;
+        $umkm->badan_hukum = $request->badan_hukum;
+        $umkm->tahun_mulai = $request->tahun_mulai;
+        $umkm->skala_usaha = $request->skala_usaha;
+        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
+        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
         $umkm->website = $request->website;
         $umkm->facebook = $request->facebook;
+        $umkm->twitter = $request->twitter;
         $umkm->whatsapp = $request->whatsapp;
         $umkm->instagram = $request->instagram;
         $umkm->online = $request->online;
-        $umkm->jml_tenaga_kerja = $request->jml_tenaga_kerja;
-        $umkm->jangkauan_pemasaran = $request->jangkauan_pemasaran;
+        $umkm->sentra_umkm = $request->sentra_umkm;
 
         if($request->hasFile('path_ktp'))
         {
@@ -175,7 +176,6 @@ class UmkmController extends Controller
         $rules = array(
             'nama_usaha' => 'required',
             'nama_pemilik' => 'required',
-            'lembaga_id' => 'required',
             'skala_usaha' => 'required',
             'bidang_usaha_id'  => 'required',
             'alamat' => 'required',
@@ -184,6 +184,7 @@ class UmkmController extends Controller
             'no_ktp' => 'required',
             'telp' => 'required|numeric',
             'online' => 'required',
+            'sentra_umkm' => 'required'
         );
 
         $validator = Validator::make($request->all(),$rules);
@@ -199,24 +200,28 @@ class UmkmController extends Controller
         $umkm = Umkm::find($id);
         $umkm->nama_usaha = $request->nama_usaha;
         $umkm->nama_pemilik = $request->nama_pemilik;
-        $umkm->lembaga_id = $request->lembaga_id;
-        $umkm->skala_usaha = $request->skala_usaha;
-        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
-        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
-        $umkm->omset = $request->omset;
         $umkm->alamat = $request->alamat;
         $umkm->kabkota_id = $request->kabkota_id;
         $umkm->kecamatan_id = $request->kecamatan_id;
         $umkm->no_ktp = $request->no_ktp;
         $umkm->no_npwp = $request->no_npwp;
+
         $umkm->telp = $request->telp;
+        $umkm->email = $request->email;
+        $umkm->badan_hukum = $request->badan_hukum;
+        $umkm->tahun_mulai = $request->tahun_mulai;
+
+        $umkm->skala_usaha = $request->skala_usaha;
+        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
+        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
+
         $umkm->website = $request->website;
         $umkm->facebook = $request->facebook;
+        $umkm->twitter = $request->twitter;
         $umkm->whatsapp = $request->whatsapp;
         $umkm->instagram = $request->instagram;
         $umkm->online = $request->online;
-        $umkm->jml_tenaga_kerja = $request->jml_tenaga_kerja;
-        $umkm->jangkauan_pemasaran = $request->jangkauan_pemasaran;
+        $umkm->sentra_umkm = $request->sentra_umkm;
 
         if($request->hasFile('path_ktp'))
         {

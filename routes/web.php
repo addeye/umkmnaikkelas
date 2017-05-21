@@ -16,6 +16,11 @@ Route::get('/portal','HomeController@portal')->name('portal');
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'SocialAuthController@callback');
 
+Route::get('tentang-lunas','PageController@tentang_lunas')->name('tentang.lunas');
+Route::get('prosedur-umkm','PageController@prosedur_umkm')->name('prosedur.umkm');
+Route::get('prosedur-pendamping','PageController@prosedur_pendamping')->name('prosedur.pendamping');
+Route::get('mitra-lunas','PageController@mitra_lunas')->name('mitra.lunas');
+
 Route::group(['middleware' => 'auth'], function () 
 {
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -37,7 +42,11 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
 	Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
 	Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
-	Route::get('profil-pendamping','HomeController@showProfil')->name('profil.show');
+
+	Route::get('profil-user','HomeController@showProfil')->name('profil.show');
+    Route::get('update-umkm/{id}','HomeController@update_umkm')->name('update.umkm');
+    Route::put('update-umkm/{id}','HomeController@doUpdateUmkm')->name('doupdate.umkm');
+
 	Route::resource('jasa-pendampingan','JasaPendampinganController');
 	Route::get('lembaga-pendamping','HomeController@showLembaga')->name('lembaga.pendamping');
 

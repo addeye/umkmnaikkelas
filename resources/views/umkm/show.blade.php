@@ -32,26 +32,6 @@
                                             <td>{{$data->nama_pemilik}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Lembaga</th>
-                                            <td>{{$data->lembaga->nama_lembaga}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Skala Usaha</th>
-                                            <td>{{$data->skala_usaha}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Bidang Usaha</th>
-                                            <td>{{$data->bidang_usaha->nama}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Komunitas Asosiasi</th>
-                                            <td>{{$data->komuitas_asosiasi}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Omset</th>
-                                            <td>{{$data->omset}}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Alamat</th>
                                             <td>{{$data->alamat}}</td>
                                         </tr>
@@ -76,12 +56,40 @@
                                             <td>{{$data->telp}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Email</th>
+                                            <td>{{$data->email}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Badan Hukum</th>
+                                            <td>{{$data->badan_hukum}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tahun Mulai Usaha</th>
+                                            <td>{{$data->tahun_mulai}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Skala Usaha</th>
+                                            <td>{{$data->skala_usaha}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Bidang Usaha</th>
+                                            <td>{{$data->bidang_usaha->nama}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Komunitas Asosiasi</th>
+                                            <td>{{$data->komuitas_asosiasi}}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Website</th>
                                             <td>{{$data->website}}</td>
                                         </tr>
                                         <tr>
                                             <th>Facebook</th>
                                             <td>{{$data->facebook}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Twitter</th>
+                                            <td>{{$data->twitter}}</td>
                                         </tr>
                                         <tr>
                                             <th>Whatsapp</th>
@@ -96,12 +104,8 @@
                                             <td>{{$data->online}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Jumlah Tenaga Kerja</th>
-                                            <td>{{$data->jml_tenaga_kerja}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Jangakuan Pemasaran</th>
-                                            <td>{{$data->jangkauan_pemasaran}}</td>
+                                            <th>Sentra UMKM</th>
+                                            <td>{{$data->sentra_umkm}}</td>
                                         </tr>
                                     </table>
                                 </div>

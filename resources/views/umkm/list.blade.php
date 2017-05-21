@@ -17,7 +17,6 @@
                 <th>No</th>
                 <th>Nama Usaha</th>
                 <th>Nama Pemilik</th>
-                <th>Lembaga</th>
                 <th>Skala</th>
                 <th>Bidang</th>
                 <th>Telepon</th>
@@ -30,7 +29,6 @@
                 <th>No</th>
                 <th>Nama Usaha</th>
                 <th>Nama Pemilik</th>
-                <th>Lembaga</th>
                 <th>Skala</th>
                 <th>Bidang</th>
                 <th>Telepon</th>
@@ -45,7 +43,6 @@
                 <td>{{$no++}}</td>
                 <td>{{$row->nama_usaha}}</td>
                 <td>{{$row->nama_pemilik}}</td>
-                <td>{{$row->lembaga->nama_lembaga}}</td>
                 <td>{{$row->skala_usaha}}</td>
                 <td>{{$row->bidang_usaha->nama}}</td>
                 <td>{{$row->telp}}</td>

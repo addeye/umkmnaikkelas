@@ -15,7 +15,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Update Form Pendamping
+                            Update Profil Pendamping
                         </div>
                     </div>
                     <div class="panel-body">

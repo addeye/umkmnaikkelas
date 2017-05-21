@@ -17,14 +17,9 @@ class CreateUmkmsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('id_umkm');
             $table->string('nama_usaha',100);
             $table->string('nama_pemilik',50);
-            $table->integer('lembaga_id')->unsigned();
-            $table->foreign('lembaga_id')->references('id')->on('lembaga')->onDelete('cascade');
-            $table->string('skala_usaha',20);
-            $table->integer('bidang_usaha_id');
-            $table->string('komunitas_asosiasi',100);
-            $table->integer('omset')->default(0);
             $table->text('alamat');
             $table->integer('kabkota_id');
             $table->integer('kecamatan_id');
@@ -33,13 +28,19 @@ class CreateUmkmsTable extends Migration
             $table->string('no_npwp')->nullable();
             $table->string('path_npwp')->nullable();
             $table->string('telp');
+            $table->string('email');
+            $table->string('badan_hukum')->nullable();
+            $table->string('tahun_mulai');
+            $table->string('skala_usaha',20);
+            $table->integer('bidang_usaha_id');
+            $table->string('komunitas_asosiasi',100)->nullable();
             $table->string('website')->nullable();
             $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();
             $table->string('online',5);
-            $table->integer('jml_tenaga_kerja')->default(0);
-            $table->string('jangkauan_pemasaran');
+            $table->string('sentra_umkm',5);
             $table->timestamps();
         });
     }

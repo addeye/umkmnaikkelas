@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BidangUsaha;
 use App\Pendamping;
+use App\Umkm;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,6 +102,20 @@ class HomeController extends Controller
         return view('registrasi.pendamping_update',$data);
     }
 
+    public function update_umkm($id)
+    {
+        $umkm = Umkm::find($id);
+        $kec_pilih = \Indonesia::findCity($umkm->kabkota_id,['districts']);
+
+        $data = [
+            'bidang_usaha' => BidangUsaha::all(),
+            'kabkota' => \Indonesia::allCities(),
+            'kec_pilih' => $kec_pilih,
+            'data' => $umkm
+        ];
+        return view('registrasi.umkm_update',$data);
+    }
+
     public function doUpdatePendamping(Request $request, $id)
     {
         $rules =
@@ -178,6 +193,96 @@ class HomeController extends Controller
         }
 
     }
+
+    public function doUpdateUmkm(Request $request,$id)
+    {
+        $rules = array(
+            'nama_usaha' => 'required',
+            'nama_pemilik' => 'required',
+            'skala_usaha' => 'required',
+            'bidang_usaha_id'  => 'required',
+            'alamat' => 'required',
+            'kabkota_id' => 'required',
+            'kecamatan_id' => 'required',
+            'no_ktp' => 'required',
+            'telp' => 'required|numeric',
+            'online' => 'required',
+            'sentra_umkm' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:300',
+        );
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('update.umkm',['id'=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $umkm = Umkm::find($id);
+        $umkm->nama_usaha = $request->nama_usaha;
+        $umkm->nama_pemilik = $request->nama_pemilik;
+        $umkm->alamat = $request->alamat;
+        $umkm->kabkota_id = $request->kabkota_id;
+        $umkm->kecamatan_id = $request->kecamatan_id;
+        $umkm->no_ktp = $request->no_ktp;
+        $umkm->no_npwp = $request->no_npwp;
+
+        $umkm->telp = $request->telp;
+        $umkm->email = $request->email;
+        $umkm->badan_hukum = $request->badan_hukum;
+        $umkm->tahun_mulai = $request->tahun_mulai;
+
+        $umkm->skala_usaha = $request->skala_usaha;
+        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
+        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
+
+        $umkm->website = $request->website;
+        $umkm->facebook = $request->facebook;
+        $umkm->twitter = $request->twitter;
+        $umkm->whatsapp = $request->whatsapp;
+        $umkm->instagram = $request->instagram;
+        $umkm->online = $request->online;
+        $umkm->sentra_umkm = $request->sentra_umkm;
+
+        if($request->hasFile('path_ktp'))
+        {
+            $file = Input::file('path_ktp');
+            $name = $this->upload_image($file,'uploads/umkm/images',$umkm->path_ktp);
+            $umkm->path_ktp = $name;
+        }
+
+        if($request->hasFile('path_npwp'))
+        {
+            $file = Input::file('path_npwp');
+            $name = $this->upload_image($file,'uploads/umkm/images',$umkm->path_npwp);
+            $umkm->path_npwp = $name;
+        }
+
+        $umkm->save();
+
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->nama_pemilik;
+        $user->telp = $request->telp;
+
+        if($request->hasFile('image'))
+        {
+            $file = Input::file('image');
+            $name = $this->upload_image($file,'uploads/user/images',$user->image);
+            $user->image = $name;
+        }
+
+        $user->save();
+
+        if($umkm)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('home');
+        }
+    }
+
 
     public function doRegPendamping(Request $request)
     {
@@ -260,9 +365,93 @@ class HomeController extends Controller
         }
     }
 
-    public function doRegUmkm()
+    public function doRegUmkm(Request $request)
     {
-        return 'sipp';
+        $rules = array(
+            'nama_usaha' => 'required',
+            'nama_pemilik' => 'required',
+            'skala_usaha' => 'required',
+            'bidang_usaha_id'  => 'required',
+            'alamat' => 'required',
+            'kabkota_id' => 'required',
+            'kecamatan_id' => 'required',
+            'no_ktp' => 'required',
+            'telp' => 'required|numeric',
+            'online' => 'required',
+            'sentra_umkm' => 'required'
+        );
+
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('daftar.umkm')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user = User::find(Auth::user()->id);
+        $user->role_id = ROLE_UMKM;
+        $user->telp = $request->telp;
+        $user->name = $request->nama_usaha;
+
+        if($request->hasFile('image'))
+        {
+            $file = Input::file('image');
+            $name = $this->upload_image($file,'uploads/user/images');
+            $user->image = $name;
+        }
+
+        $user->save();
+
+
+        $umkm = new Umkm();
+        $umkm->user_id = $user->id;
+        $umkm->id_umkm = '';
+        $umkm->nama_usaha = $request->nama_usaha;
+        $umkm->nama_pemilik = $request->nama_pemilik;
+        $umkm->alamat = $request->alamat;
+        $umkm->kabkota_id = $request->kabkota_id;
+        $umkm->kecamatan_id = $request->kecamatan_id;
+        $umkm->no_ktp = $request->no_ktp;
+        $umkm->no_npwp = $request->no_npwp;
+        $umkm->telp = $request->telp;
+        $umkm->email = $request->email;
+        $umkm->badan_hukum = $request->badan_hukum;
+        $umkm->tahun_mulai = $request->tahun_mulai;
+        $umkm->skala_usaha = $request->skala_usaha;
+        $umkm->bidang_usaha_id = $request->bidang_usaha_id;
+        $umkm->komunitas_asosiasi = $request->komunitas_asosiasi;
+        $umkm->website = $request->website;
+        $umkm->facebook = $request->facebook;
+        $umkm->twitter = $request->twitter;
+        $umkm->whatsapp = $request->whatsapp;
+        $umkm->instagram = $request->instagram;
+        $umkm->online = $request->online;
+        $umkm->sentra_umkm = $request->sentra_umkm;
+
+        if($request->hasFile('path_ktp'))
+        {
+            $file = Input::file('path_ktp');
+            $name = $this->upload_image($file,'uploads/umkm/images');
+            $umkm->path_ktp = $name;
+        }
+
+        if($request->hasFile('path_npwp'))
+        {
+            $file = Input::file('path_npwp');
+            $name = $this->upload_image($file,'uploads/umkm/images');
+            $umkm->path_npwp = $name;
+        }
+
+        $umkm->save();
+
+        if($umkm)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect('/');
+        }
+
     }
 
     public function showProfil()
@@ -277,17 +466,21 @@ class HomeController extends Controller
                 'data' => $pendampingan,
                 'kabkota_tambahan_arr' => $kabkota_tambahan
             ];
+            return view('pendamping.show-ajax',$data);
         }
         elseif ($user->role_id == ROLE_UMKM)
         {
-            $row = $user->umkm;
+            $umkm = $user->umkm;
+            $data = array(
+                'data' => $umkm
+            );
+            return view('umkm.show-ajax',$data);
         }
         elseif ($user->role_id == ROLE_CALON)
         {
             return view('registrasi.info');
         }
 
-        return view('pendamping.show-ajax',$data);
     }
 
     public function showLembaga()

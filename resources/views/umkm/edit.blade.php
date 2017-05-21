@@ -32,63 +32,7 @@
                     </span>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('lembaga_id') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Lembaga *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="lembaga_id" required>
-                    @foreach($lembaga as $row)
-                      <option value="{{$row->id}}" {{$data->lembaga_id==$row->id?'selected':''}} >{{$row->nama_lembaga}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('lembaga_id') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('skala_usaha') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Skala Usaha *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="skala_usaha" required>
-                    @foreach(skala_usaha() as $row)
-                      <option value="{{$row}}" {{$data->skala_usaha==$row?'selected':''}} >{{$row}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('skala_usaha') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('bidang_usaha_id') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Bidang Usaha *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="bidang_usaha_id" required>
-                    @foreach($bidang_usaha as $row)
-                      <option value="{{$row->id}}" {{$data->bidang_usaha_id==$row->id?'selected':''}}>{{$row->nama}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('bidang_usaha_id') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('komunitas_asosiasi') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Komunitas Asosiasi</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="komunitas_asosiasi" placeholder="Komunitas asosiasi" value="{{$data->komunitas_asosiasi}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('komunitas_asosiasi') }}</strong>
-                    </span>
-                </div>
-              </div>
-              <div class="form-group {{ $errors->has('omset') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Omset</label>
-                <div class="col-sm-9">
-                  <input type="number" class="form-control rupiah" name="omset" placeholder="Omset.." value="{{$data->omset}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('omset') }}</strong>
-                    </span>
-                </div>
-              </div>
+
               <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Alamat *</label>
                 <div class="col-sm-9">
@@ -119,7 +63,7 @@
                     <option value="">Pilih Kecamatan</option>
                     @foreach($kec_pilih->districts as $row)
                       <option value="{{$row->id}}" {{$data->kecamatan_id==$row->id?'selected':''}} >{{$row->name}}</option>
-                      @endforeach
+                    @endforeach
                   </select>
                   <span class="help-block">
                       <strong>{{ $errors->first('kecamatan_id') }}</strong>
@@ -164,6 +108,7 @@
                     </span>
                 </div>
               </div>
+
               <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Telepon *</label>
                 <div class="col-sm-9">
@@ -173,6 +118,74 @@
                     </span>
                 </div>
               </div>
+
+              <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">EMail *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="email" placeholder="Telepon" value="{{$data->email}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('badan_hukum') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Badan Hukum</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="badan_hukum" placeholder="Badan Hukum" value="{{$data->badan_hukum}}"/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('badan_hukum') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+              <div class="form-group {{ $errors->has('tahun_mulai') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Tahun Mulai Usaha *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="tahun_mulai" placeholder="Tahun Mulai" value="{{$data->tahun_mulai}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('tahun_mulai') }}</strong>
+                    </span>
+                </div>
+              </div>
+
+
+              <div class="form-group {{ $errors->has('skala_usaha') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Skala Usaha *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select class="form-control" data-plugin="select2" name="skala_usaha" required>
+                    @foreach(skala_usaha() as $row)
+                      <option value="{{$row}}" {{$data->skala_usaha==$row?'selected':''}} >{{$row}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('skala_usaha') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('bidang_usaha_id') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Bidang Usaha *</label>
+                <div class="col-sm-9 select2-warning">
+                  <select class="form-control" data-plugin="select2" name="bidang_usaha_id" required>
+                    @foreach($bidang_usaha as $row)
+                      <option value="{{$row->id}}" {{$data->bidang_usaha_id==$row->id?'selected':''}}>{{$row->nama}}</option>
+                    @endforeach
+                  </select>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('bidang_usaha_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('komunitas_asosiasi') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Komunitas Asosiasi</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="komunitas_asosiasi" placeholder="Komunitas asosiasi" value="{{$data->komunitas_asosiasi}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('komunitas_asosiasi') }}</strong>
+                    </span>
+                </div>
+              </div>
+
               <div class="form-group {{ $errors->has('website') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Website</label>
                 <div class="col-sm-9">
@@ -188,6 +201,24 @@
                   <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="{{$data->facebook}}" />
                   <span class="help-block">
                       <strong>{{ $errors->first('facebook') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('twitter') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Twitter</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="twitter" placeholder="Twitter" value="{{$data->twitter}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('twitter') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('whatsapp') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Whatsapp</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="whatsapp" placeholder="Whatsapp" value="{{$data->whatsapp}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('whatsapp') }}</strong>
                     </span>
                 </div>
               </div>
@@ -211,26 +242,15 @@
                   <label for="inputBasicFemale">Tidak</label>
                 </div>
               </div>
-              <div class="form-group {{ $errors->has('jml_tenaga_kerja') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Jumlah Tenaga Kerja</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="jml_tenaga_kerja" placeholder="Jumlah tenaga kerja" value="{{$data->jml_tenaga_kerja}}" />
-                  <span class="help-block">
-                      <strong>{{ $errors->first('jml_tenaga_kerja') }}</strong>
-                    </span>
+              <div class="form-group {{ $errors->has('sentra_umkm') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Sentra UMKM *</label>
+                <div class="radio-custom radio-default radio-inline">
+                  <input type="radio" id="inputBasicMale" name="sentra_umkm" value="Ya" {{$data->sentra_umkm=='Ya'?'checked':''}} required/>
+                  <label for="inputBasicMale">Ya</label>
                 </div>
-              </div>
-              <div class="form-group {{ $errors->has('jangkauan_pemasaran') ? ' has-error' : '' }}">
-                <label class="col-sm-3 control-label">Jangkauan Pemasaran *</label>
-                <div class="col-sm-9 select2-warning">
-                  <select class="form-control" data-plugin="select2" name="jangkauan_pemasaran" required>
-                    @foreach(jangkauan_pemasaran() as $jp)
-                      <option value="{{$jp}}" {{$data->jangkauan_pemasaran==$jp?'selected':''}}>{{$jp}}</option>
-                    @endforeach
-                  </select>
-                  <span class="help-block">
-                      <strong>{{ $errors->first('jangkauan_pemasaran') }}</strong>
-                    </span>
+                <div class="radio-custom radio-default radio-inline">
+                  <input type="radio" id="inputBasicFemale" name="sentra_umkm" value="Tidak" {{$data->sentra_umkm=='Tidak'?'checked':''}} required/>
+                  <label for="inputBasicFemale">Tidak</label>
                 </div>
               </div>
               <div class="text-right">
