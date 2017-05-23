@@ -132,7 +132,7 @@ input {
                   </div>
                 </div>
                 <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="javascript:void(0);">
+                   <a href="{{route('page.umkm')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-blue-800">UMKM</h4>
                        <p class="sub-cap">Pendaftaran, Data, Produk</p>
@@ -140,7 +140,7 @@ input {
                     </a>
                 </div>
                 <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="javascript:void(0)">
+                   <a href="{{route('page.pendamping')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
                        <p class="sub-cap">Pendafatran, Data, Sertifikasi</p>
@@ -238,28 +238,95 @@ input {
             </div>
             <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">                       
                   <div class="slider" id="exampleAutoplay">
-                  @for($a=1; $a<10; $a++)
-                  <div class="slick-item">
-                      <div class="row">
-                          <div class="col-md-12 col-xs-12">
-                          <div class="widget widget-shadow">
-                            <div class="widget-content padding-20 bg-green-500 white height-full">
-                              <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
-                                <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
-                              </a>
-                              <div style="overflow:hidden;">
-                                <small class="pull-right grey-200">Kemarin, 13:48</small>
-                                <div class="font-size-18">Imam</div>
-                                <div class="grey-200 font-size-14 margin-bottom-10">Konsultan</div>
-                                <blockquote class="cover-quote font-size-16 white">Aplikasi lunas sangat membantu dalam menangani kenaikan kelas bagi UMKM. 
-                                  </blockquote>
+
+                      <div class="slick-item">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="widget widget-shadow">
+                                      <div class="widget-content padding-20 bg-green-500 white height-full">
+                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
+                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
+                                          </a>
+                                          <div style="overflow:hidden;">
+                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
+                                              <div class="font-size-18">Erwin Wijaya</div>
+                                              <div class="grey-200 font-size-14 margin-bottom-10">Pendamping</div>
+                                              <blockquote class="cover-quote font-size-16 white">
+                                                  Aplikasi LUNAS mudah dioperasikan dan sangat membantu dalam manajemen pendampingan
+                                              </blockquote>
+                                          </div>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
-                        </div>
+                          </div>
                       </div>
+
+                      <div class="slick-item">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="widget widget-shadow">
+                                      <div class="widget-content padding-20 bg-green-500 white height-full">
+                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
+                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
+                                          </a>
+                                          <div style="overflow:hidden;">
+                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
+                                              <div class="font-size-18">Supardiono</div>
+                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
+                                              <blockquote class="cover-quote font-size-16 white">
+                                                  LUNAS membantu saya mendapatkan pendamping bisnis yg profesional dibidang desain kemasan.
+                                              </blockquote>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                  @endfor
+
+                      <div class="slick-item">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="widget widget-shadow">
+                                      <div class="widget-content padding-20 bg-green-500 white height-full">
+                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
+                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
+                                          </a>
+                                          <div style="overflow:hidden;">
+                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
+                                              <div class="font-size-18">Wahyu Gumilar</div>
+                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
+                                              <blockquote class="cover-quote font-size-16 white">
+                                                  Saya puas mendapat pendampingan akses pembiayaan ke bank. Terimakasih LUNAS.
+                                              </blockquote>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="slick-item">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="widget widget-shadow">
+                                      <div class="widget-content padding-20 bg-green-500 white height-full">
+                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
+                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
+                                          </a>
+                                          <div style="overflow:hidden;">
+                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
+                                              <div class="font-size-18">Joni Paredes</div>
+                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
+                                              <blockquote class="cover-quote font-size-16 white">
+                                                  Sekarang saya bisa jualan online berkat bantuan LUNAS.
+                                              </blockquote>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
                   </div>            
               <!-- End Example Autoplay -->
             </div>

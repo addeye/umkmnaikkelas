@@ -20,6 +20,8 @@ Route::get('tentang-lunas','PageController@tentang_lunas')->name('tentang.lunas'
 Route::get('prosedur-umkm','PageController@prosedur_umkm')->name('prosedur.umkm');
 Route::get('prosedur-pendamping','PageController@prosedur_pendamping')->name('prosedur.pendamping');
 Route::get('mitra-lunas','PageController@mitra_lunas')->name('mitra.lunas');
+Route::get('laporan-umkm','PageController@umkm')->name('page.umkm');
+Route::get('laporan-pendamping','PageController@pendamping')->name('page.pendamping');
 
 Route::group(['middleware' => 'auth'], function () 
 {

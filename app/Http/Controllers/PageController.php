@@ -25,4 +25,9 @@ class PageController extends Controller
     {
         return view('mitra_lunas');
     }
+
+    public function umkm()
+    {
+        return view('umkm');
+    }
 }
