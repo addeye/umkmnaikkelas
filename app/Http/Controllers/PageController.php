@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\BidangUsaha;
+use App\Umkm;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -28,6 +30,14 @@ class PageController extends Controller
 
     public function umkm()
     {
-        return view('umkm');
+        $bidangusaha = BidangUsaha::with('umkm')->get();
+        $umkm = Umkm::all();
+        $data = array(
+            'total_umkm' => $umkm->count(),
+            'online' => $umkm->where('online','Ya')->count(),
+            'sentra_umkm' => $umkm->where('sentra_umkm','Ya')->count(),
+            'bidang_usaha' => $bidangusaha,
+        );
+        return view('umkm',$data);
     }
 }
