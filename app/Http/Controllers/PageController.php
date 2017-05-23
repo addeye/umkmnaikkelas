@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BidangUsaha;
+use App\Pendamping;
 use App\Umkm;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,14 @@ class PageController extends Controller
             'bidang_usaha' => $bidangusaha,
         );
         return view('umkm',$data);
+    }
+
+    public function pendamping()
+    {
+        $pendamping = Pendamping::all();
+        $data = array(
+            'total_pendamping' => $pendamping->count()
+        );
+        return view('pendamping',$data);
     }
 }

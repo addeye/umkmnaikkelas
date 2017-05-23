@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="animsition">
             <div class="page-header">
-                <h1 class="page-title">UMKM Keseluruhan</h1>
+                <h1 class="page-title">DATA UMKM</h1>
             </div>
             <div class="page-content container-fluid">
                 <div class="row">
