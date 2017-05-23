@@ -10,6 +10,7 @@
             <div class="page-content container-fluid">
                 <div class="row">
                     <div class="col-sm-3">
+
                         <div class="col-md-12">
                             <div class="widget">
                                 <div class="widget-content widget-radius padding-25 bg-blue-600">

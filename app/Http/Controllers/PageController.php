@@ -44,6 +44,7 @@ class PageController extends Controller
 
     public function pendamping()
     {
+//        $pendamping = Pendamping::where('bidang_pendampingan','like','%IT dan Kerjasama%')->get();
         $pendamping = Pendamping::all();
         $data = array(
             'total_pendamping' => $pendamping->count()
