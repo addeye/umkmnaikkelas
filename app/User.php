@@ -37,4 +37,9 @@ class User extends Authenticatable
         return $this->hasOne('App\Umkm','user_id');
     }
 
+    public function role()
+    {
+        return $this->belongsTo('App\Role','role_id');
+    }
+
 }

@@ -118,7 +118,7 @@
                         </ul>
                     </li>
                     <li class="site-menu-category">Feature</li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{set_active(['info-terkini','info-terkini/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="uikit">
                             <i class="site-menu-icon wb-bookmark" aria-hidden="true"></i>
                             <span class="site-menu-title">Layanan</span>
@@ -131,8 +131,8 @@
                                     <span class="site-menu-title">Info Pasar</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../uikit/colors.html" data-slug="uikit-colors">
+                            <li class="site-menu-item {{set_active(['info-terkini','info-terkini/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('info-terkini.index')}}" data-slug="uikit-colors">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Info Terkini</span>
                                 </a>
@@ -145,7 +145,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub">
+                    <li class="site-menu-item has-sub {{set_active(['user','user/*','info-terkini','info-terkini/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="advanced">
                             <i class="site-menu-icon wb-hammer" aria-hidden="true"></i>
                             <span class="site-menu-title">Manajemen Web</span>
@@ -183,13 +183,13 @@
                                 </a>
                             </li>
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/alertify.html" data-slug="advanced-alertify">
+                                <a class="animsition-link" href="#" data-slug="advanced-alertify">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Menu Informasi</span>
+                                    <span class="site-menu-title">Info Terkini</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/toastr.html" data-slug="advanced-toastr">
+                            <li class="site-menu-item {{set_active(['user','user/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('user.index')}}" data-slug="advanced-toastr">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">User Manajemen</span>
                                 </a>

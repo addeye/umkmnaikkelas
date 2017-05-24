@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
-use App\User;
-use Creativeorange\Gravatar\Facades\Gravatar;
+use App\InfoTerkini;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class InfoTerkiniController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +16,9 @@ class UserController extends Controller
     public function index()
     {
         $data = array(
-            'data' => User::with('role')->get()
+            'data' => InfoTerkini::with('user')->get()
         );
-        return view('user.list',$data);
+        return view('info_terkini.list',$data);
     }
 
     /**
@@ -30,11 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $data = array(
-            'role' => Role::where('id',ROLE_ADMIN)->orWhere('id',ROLE_CALON)->get(),
-        );
-
-        return view('user.add',$data);
+        return view('info_terkini.add');
     }
 
     /**
@@ -46,46 +40,42 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
-            'email' => 'required',
-            'role_id' => 'required'
+            'keterangan' => 'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
             \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
-            return redirect()->route('user.create')
+            return redirect()->route('info-terkini.create')
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role_id = $request->role_id;
-
-        if($request->has('password'))
+        $info = new InfoTerkini();
+        $info->keterangan = $request->keterangan;
+        if($request->has('publish'))
         {
-            $user->password = bcrypt($request->password);
+            $info->publish = $request->publish;
         }
+        $info->user_id = $request->user_id;
+        $info->save();
 
-        $user->save();
-
-        if($user)
+        if($info)
         {
             \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
-            return redirect()->route('user.index');
+            return redirect()->route('info-terkini.index');
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\InfoTerkini  $infoTerkini
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(InfoTerkini $infoTerkini)
     {
         //
     }
@@ -93,75 +83,71 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\InfoTerkini  $infoTerkini
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data = array(
-            'data' => User::find($id),
-            'role' => Role::where('id',ROLE_ADMIN)->orWhere('id',ROLE_CALON)->get()
+        $data=array(
+            'data' => InfoTerkini::find($id)
         );
-        return view('user.edit',$data);
+        return view('info_terkini.edit',$data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\InfoTerkini  $infoTerkini
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required',
-            'email' => 'required',
-            'role_id' => 'required'
+            'keterangan' => 'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
             \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
-            return redirect()->route('user.edit',['id'=>$id])
+            return redirect()->route('info-terkini.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telp = $request->telp;
-        $user->role_id = $request->role_id;
-        if($request->has('password'))
+        $info = InfoTerkini::find($id);
+        $info->keterangan = $request->keterangan;
+        if($request->has('publish'))
         {
-            $user->password = bcrypt($request->password);
+            $info->publish = $request->publish;
         }
+        $info->user_id = $request->user_id;
+        $info->save();
 
-        $user->save();
-        if($user)
+        if($info)
         {
             \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
-            return redirect()->route('user.index');
+            return redirect()->route('info-terkini.index');
         }
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\InfoTerkini  $infoTerkini
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        $info = InfoTerkini::find($id);
+        $info->delete();
 
-        if($user)
+        if($info)
         {
             \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
-            return redirect()->route('user.index');
+            return redirect()->route('info-terkini.index');
         }
     }
 }

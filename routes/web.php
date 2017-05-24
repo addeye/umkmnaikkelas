@@ -36,7 +36,9 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::post('pendamping-import','PendampingController@import')->name('pendamping.import');
 	Route::resource('umkm','UmkmController');
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
+
 	Route::resource('user','UserController');
+	Route::resource('info-terkini','InfoTerkiniController');
 
 	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
     Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');

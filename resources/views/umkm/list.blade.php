@@ -70,7 +70,18 @@
   <!-- End Page -->
 @endsection
 
+@section('css')
+    {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
+    {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
+    {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
+@endsection
+
 @section('js')
+    {{Html::script(asset('remark/assets/vendor/datatables/jquery.dataTables.min.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
+    {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
   <script>
 
       function ConfirmDelete(id)
