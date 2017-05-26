@@ -86,7 +86,7 @@ class BidangPendampinganController extends Controller
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
             return redirect()->route('bidang-pendampingan.index');
-        }    	
+        }
     }
 
     public function destroy($id)
