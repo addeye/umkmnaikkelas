@@ -44,11 +44,19 @@ class PageController extends Controller
 
     public function pendamping()
     {
-//        $pendamping = Pendamping::where('bidang_pendampingan','like','%IT dan Kerjasama%')->get();
         $pendamping = Pendamping::all();
         $data = array(
-            'total_pendamping' => $pendamping->count()
+            'total_pendamping' => $pendamping->count(),
+            'total_it' => Pendamping::where('bidang_pendampingan','like','%IT dan Kerjasama%')->count(),
+            'total_kelembagaan' => Pendamping::where('bidang_pendampingan','like','%Kelembagaan%')->count(),
+            'total_sdm' => Pendamping::where('bidang_pendampingan','like','%SDM%')->count(),
+            'total_produksi' => Pendamping::where('bidang_pendampingan','like','%Produksi%')->count(),
+            'total_pembiayaan' => Pendamping::where('bidang_pendampingan','like','%Pembiayaan%')->count(),
+            'total_pemasaran' => Pendamping::where('bidang_pendampingan','like','%Pemasaran%')->count(),
+            'total_lainnya' => Pendamping::where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count(),
+
         );
+
         return view('pendamping',$data);
     }
 }

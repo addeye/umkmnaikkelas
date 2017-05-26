@@ -10,7 +10,7 @@
   <title>Login | UMKM NAIK KELAS</title>
 
   <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
-    <link rel="shortcut icon" href="{{url('remark/assets/images/favicon.ico')}}">
+  <link rel="shortcut icon" href="{{asset('images/logo-small.png')}}">
 
     <!-- Stylesheets -->
     {{Html::style('remark/assets/css/bootstrap.min.css')}}

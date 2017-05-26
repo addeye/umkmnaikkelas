@@ -17,6 +17,13 @@
     <div class="container-fluid page-profile">
         <div class="page-content animsition">
             <div class="row">
+                @if(Auth::user()->role_id == ROLE_CALON)
+                <div class="col-md-12">
+                    <div class="bg-warning well">
+                        <strong>Silahkan klik "Daftar Sebagai" Untuk melengkapi profil anda !</strong>
+                    </div>
+                </div>
+                @endif
                 <div class="col-md-3">
                     <!-- Page Widget -->
                     <div class="widget widget-shadow text-center">
@@ -70,200 +77,182 @@
                     </div>
                     <!-- End Page Widget -->
                 </div>
-                <div class="col-md-5 col-xs-12 masonry-item">
-                    <!-- Panel Twitter Feed -->
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Info Terkini</h3>
+                <div class="col-md-9">
+                    <div class="col-md-6 col-xs-12 masonry-item">
+                        <!-- Panel Twitter Feed -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Info Terkini</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="" data-plugin="">
+                                    <ul class="list-group list-group-dividered list-group-full">
+                                        @if(count($info_terkini))
+                                            @foreach($info_terkini as $row)
+                                                <li class="list-group-item">
+                                                    <div class="media">
+                                                        <div class="media-left">
+                                                            <a class="avatar avatar-online" href="javascript:void(0)">
+                                                                <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
+                                                                <i></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <small class="text-muted pull-right">{{$row->created_at}}</small>
+                                                            <h4 class="media-heading">{{$row->user->name}}</h4>
+                                                            <div>{{$row->keterangan}}</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <h3>Belum Ada Info</h3>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <span class="text-info">Selengkapnya</span>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="" data-plugin="">
+                        <!-- End Panel Last comments -->
+                    </div>
+                    <div class="col-md-6 col-xs-12 masonry-item">
+                        @if(Auth::user()->role_id == ROLE_CALON or Auth::user()->role_id== ROLE_UMKM)
+                            <div class="panel" id="followers">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <i class="icon wb-check" aria-hidden="true"></i> Agenda <small></small>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="" data-plugin="">
+                                        <ul class="list-group list-group-dividered list-group-full">
+                                            <h3>Belum Ada Agenda</h3>
+
+                                            {{--<li class="list-group-item">--}}
+                                            {{--<div class="media">--}}
+                                            {{--<div class="media-left">--}}
+                                            {{--<a class="avatar avatar-online" href="javascript:void(0)">--}}
+                                            {{--<img src="{{asset('remark/assets/portraits/9.jpg')}}" alt="">--}}
+                                            {{--<i></i>--}}
+                                            {{--</a>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                            {{--<div class="pull-right">--}}
+                                            {{--<button type="button" class="btn btn-outline btn-default btn-sm">Follow</button>--}}
+                                            {{--</div>--}}
+                                            {{--<div><a class="name" href="javascript:void(0)">Willard Wood</a></div>--}}
+                                            {{--<small>@heavybutterfly920</small>--}}
+                                            {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--</li>--}}
+
+
+                                        </ul>
+                                    </div>
+                                    <span class="text-info">Selengkapnya</span>
+                                </div>
+                            </div>
+                        @else
+                        <!-- Panel Followers -->
+                            <div class="panel" id="followers">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <i class="icon wb-check" aria-hidden="true"></i> UMKM <small>Permintaan Pendampingan</small>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="" data-plugin="">
+                                        <ul class="list-group list-group-dividered list-group-full">
+
+                                            <li class="list-group-item">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a class="avatar avatar-online" href="javascript:void(0)">
+                                                            <img src="{{asset('remark/assets/portraits/9.jpg')}}" alt="">
+                                                            <i></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <div class="pull-right">
+                                                            <button type="button" class="btn btn-outline btn-default btn-sm">Follow</button>
+                                                        </div>
+                                                        <div><a class="name" href="javascript:void(0)">Willard Wood</a></div>
+                                                        <small>@heavybutterfly920</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+                                    <span class="text-info">Selengkapnya</span>
+                                </div>
+                            </div>
+                            <!-- End Panel Followers -->
+                        @endif
+                    </div>
+                    <div class="col-md-12 col-xs-12 masonry-item">
+                        <!-- Panel Last threads -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i> Forum</h3>
+                            </div>
+                            <div class="panel-body">
                                 <ul class="list-group list-group-dividered list-group-full">
                                     <li class="list-group-item">
                                         <div class="media">
                                             <div class="media-left">
                                                 <a class="avatar avatar-online" href="javascript:void(0)">
-                                                    <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
+                                                    <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
                                                     <i></i>
                                                 </a>
                                             </div>
                                             <div class="media-body">
-                                                <small class="text-muted pull-right">Just now</small>
-                                                <h4 class="media-heading">@Ramon Dunn</h4>
-                                                <div>Lorem ipsum Veniam aliquip culpa laboris minim tempor labore
-                                                    commodo officia veniam non in in in.</div>
-                                                </div>
+                                                <small class="pull-right">20 hours ago</small>
+                                                <h4 class="media-heading">Indoctum legendum legimus. Faciam mei</h4>
+                                                <small>started by <a href="javascript:void(0)" title="">Crystal Bates</a>                        in <a class="label label-outline label-default" href="javascript:void(0)"
+                                                                                                                                                       title="">Best Practices</a></small>
                                             </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a class="avatar avatar-busy" href="javascript:void(0)">
-                                                        <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
-                                                        <i></i>
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <small class="text-muted pull-right">38 minutes ago</small>
-                                                    <h4 class="media-heading">@Scott Sanders</h4>
-                                                    <div>Lorem ipsum Laborum sit laborum cillum proident dolore culpa
-                                                        reprehenderit qui enim labore do mollit in.</div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a class="avatar avatar-online" href="javascript:void(0)">
-                                                            <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
-                                                            <i></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <small class="text-muted pull-right">2 hours ago</small>
-                                                        <h4 class="media-heading">@Nina Wells</h4>
-                                                        <div>Lorem ipsum Culpa mollit ex mollit magna dolore dolore dolore
-                                                            tempor velit magna enim ad dolore dolore dolore.</div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
                                         </div>
-                                        <span class="text-info">Selengkapnya</span>
-                                    </div>
-                                </div>
-                                <!-- End Panel Last comments -->
-                            </div>
-                            <div class="col-md-4 col-xs-12 masonry-item">
-                                <!-- Panel Followers -->
-                                <div class="panel" id="followers">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            <i class="icon wb-check" aria-hidden="true"></i> UMKM <small>Permintaan Pendampingan</small>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="" data-plugin="">
-                                            <ul class="list-group list-group-dividered list-group-full">
-                                                <li class="list-group-item">
-                                                    <div class="media">
-                                                        <div class="media-left">
-                                                            <a class="avatar avatar-online" href="javascript:void(0)">
-                                                                <img src="{{asset('remark/assets/portraits/9.jpg')}}" alt="">
-                                                                <i></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="pull-right">
-                                                                <button type="button" class="btn btn-outline btn-default btn-sm">Follow</button>
-                                                            </div>
-                                                            <div><a class="name" href="javascript:void(0)">Willard Wood</a></div>
-                                                            <small>@heavybutterfly920</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <div class="media">
-                                                        <div class="media-left">
-                                                            <a class="avatar avatar-away" href="javascript:void(0)">
-                                                                <img src="{{asset('remark/assets/portraits/9.jpg')}}" alt="">
-                                                                <i></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="pull-right">
-                                                                <button type="button" class="btn btn-success btn-default btn-sm"><i class="icon wb-check" aria-hidden="true"></i>Following</button>
-                                                            </div>
-                                                            <div><a class="name" href="javascript:void(0)">Ronnie Ellis</a></div>
-                                                            <small>@kingronnie24</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <div class="media">
-                                                        <div class="media-left">
-                                                            <a class="avatar avatar-busy" href="javascript:void(0)">
-                                                                <img src="{{asset('remark/assets/portraits/9.jpg')}}" alt="">
-                                                                <i></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="pull-right">
-                                                                <button type="button" class="btn btn-outline btn-default btn-sm">Follow</button>
-                                                            </div>
-                                                            <div><a class="name" href="javascript:void(0)">Gwendolyn Wheeler</a></div>
-                                                            <small>@perttygirl66</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a class="avatar avatar-away" href="javascript:void(0)">
+                                                    <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
+                                                    <i></i>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <small class="pull-right">20 hours ago</small>
+                                                <h4 class="media-heading">Armatum volunt, medium iudex ponderum</h4>
+                                                <small>started by <a href="javascript:void(0)" title="">Ramon Dunn</a> in <a class="label label-outline label-default" href="javascript:void(0)"
+                                                                                                                             title="">Announcements</a></small>
+                                            </div>
                                         </div>
-                                        <span class="text-info">Selengkapnya</span>
-                                    </div>
-                                </div>
-                                <!-- End Panel Followers -->
-                            </div>
-                            <div class="col-md-9 col-md-offset-3 col-xs-12 masonry-item">
-                                <!-- Panel Last threads -->
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i> Forum</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <ul class="list-group list-group-dividered list-group-full">
-                                            <li class="list-group-item">
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a class="avatar avatar-online" href="javascript:void(0)">
-                                                            <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
-                                                            <i></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <small class="pull-right">20 hours ago</small>
-                                                        <h4 class="media-heading">Indoctum legendum legimus. Faciam mei</h4>
-                                                        <small>started by <a href="javascript:void(0)" title="">Crystal Bates</a>                        in <a class="label label-outline label-default" href="javascript:void(0)"
-                                                           title="">Best Practices</a></small>
-                                                       </div>
-                                                   </div>
-                                               </li>
-                                               <li class="list-group-item">
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a class="avatar avatar-away" href="javascript:void(0)">
-                                                            <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
-                                                            <i></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <small class="pull-right">20 hours ago</small>
-                                                        <h4 class="media-heading">Armatum volunt, medium iudex ponderum</h4>
-                                                        <small>started by <a href="javascript:void(0)" title="">Ramon Dunn</a> in <a class="label label-outline label-default" href="javascript:void(0)"
-                                                            title="">Announcements</a></small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <div class="media">
-                                                        <div class="media-left">
-                                                            <a class="avatar avatar-busy" href="javascript:void(0)">
-                                                                <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
-                                                                <i></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <small class="pull-right">20 hours ago</small>
-                                                            <h4 class="media-heading">Minuit conectitur intellegaturque doloribus mei</h4>
-                                                            <small>started by <a href="javascript:void(0)" title="">Scott Sanders</a>                        in <a class="label label-outline label-default" href="javascript:void(0)"                                                                                                                                                 title="">Bug Reporting</a></small>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a class="avatar avatar-busy" href="javascript:void(0)">
+                                                    <img src="{{asset('remark/assets/portraits/15.jpg')}}" alt="">
+                                                    <i></i>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <small class="pull-right">20 hours ago</small>
+                                                <h4 class="media-heading">Minuit conectitur intellegaturque doloribus mei</h4>
+                                                <small>started by <a href="javascript:void(0)" title="">Scott Sanders</a>                        in <a class="label label-outline label-default" href="javascript:void(0)"                                                                                                                                                 title="">Bug Reporting</a></small>
+                                            </div>
+                                        </div>
+                                    </li>
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- End Panel Last threads -->
-                                </div>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Panel Last threads -->
+                    </div>
+                </div>
                             </div>
                         </div>
                     </div>

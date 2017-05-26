@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
-    <link rel="shortcut icon" href="{{asset('remark/assets/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo-small.png')}}">
 
     <!-- Stylesheets -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

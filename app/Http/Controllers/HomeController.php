@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BidangUsaha;
+use App\InfoTerkini;
 use App\Pendamping;
 use App\Umkm;
 use App\User;
@@ -42,7 +43,10 @@ class HomeController extends Controller
             }
             elseif (Auth::user()->role_id==ROLE_CALON || Auth::user()->role_id==ROLE_PENDAMPING || Auth::user()->role_id==ROLE_UMKM)
             {
-                return view('dashboard');
+                $data = array(
+                    'info_terkini' =>InfoTerkini::with('user')->where('publish','Ya')->get()
+                );
+                return view('dashboard',$data);
             }
         }
         return view('welcome');
