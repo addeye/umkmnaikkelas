@@ -1,5 +1,11 @@
 @extends('layouts.portal.master')
 
+@section('css')
+    <!-- Plugin -->
+    {{Html::style('remark/assets/vendor/formvalidation/formValidation.css')}}
+    <!-- Plugin -->
+@endsection
+
 @section('content')
     <!-- Page -->
     <div class="container-fluid page-profile">
@@ -12,7 +18,7 @@
                             <h3 class="panel-title">DAFTAR SEBAGAI UMKM</h3>
                         </div>
                         <div class="panel-body ">
-                            {!! Form::open(['route' => 'dodaftar.umkm','files'=>true,'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['route' => 'dodaftar.umkm','files'=>true,'class' => 'form-horizontal','id' => 'exampleStandardForm']) !!}
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Nama Usaha *</label>
                                 <div class="col-sm-9">
@@ -138,7 +144,7 @@
                             <div class="form-group {{ $errors->has('tahun_mulai') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Tahun Mulai Usaha *</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="tahun_mulai" placeholder="Tahun Mulai" value="{{old('tahun_mulai')}}" required/>
+                                    <input type="text" class="form-control" name="tahun_mulai" value="{{old('tahun_mulai')}}"/>
                                     <span class="help-block">
                       <strong>{{ $errors->first('tahun_mulai') }}</strong>
                     </span>
@@ -283,7 +289,41 @@
 @endsection
 
 @section('js')
+    {{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
+    {{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
+
     <script>
+
+        (function() {
+            $('#exampleStandardForm').formValidation({
+                framework: "bootstrap",
+                button: {
+                    selector: '#validateButton2',
+                    disabled: 'disabled'
+                },
+                icon: null,
+                fields: {
+
+                    tahun_mulai: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Tahun Mulai Usaha Wajib Terisi'
+                            },
+                            stringLength: {
+                                min: 4,
+                                max: 4,
+                                message: 'Isi dengan benar 4 digit'
+                            },
+                            integer : {
+                                message : 'Harus angka'
+                            }
+                        }
+                    },
+
+                }
+            });
+        })();
+
         var urlkec  = $('#urlkec').val();
         var valkab = $('#kabkota').val();
         var oldkec = $("#oldkec").val();

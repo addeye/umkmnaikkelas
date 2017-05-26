@@ -199,6 +199,8 @@
 {{Html::script(asset('kartika-upload/themes/fa/theme.js'))}}
 {{Html::script(asset('kartika-upload/js/locales/id.js'))}}
 
+{{Html::script(asset('remark/assets/vendor/formatter-js/jquery.formatter.js'))}}
+
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
 {{Html::script(asset('remark/assets/js/site.js'))}}
@@ -222,6 +224,7 @@
 {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
 {{Html::script(asset('remark/assets/js/components/toastr.js'))}}
 {{Html::script(asset('remark/assets/js/components/select2.js'))}}
+{{Html::script(asset('remark/assets/js/components/formatter-js.js'))}}
 
 <!-- Include this after the sweet alert js file -->
     <script type="text/javascript">
