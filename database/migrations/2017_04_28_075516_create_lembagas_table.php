@@ -17,7 +17,7 @@ class CreateLembagasTable extends Migration
             $table->increments('id');
             $table->string('id_lembaga',9);
             $table->string('nama_lembaga',50);
-            $table->string('legalitas',50);        
+            $table->string('legalitas',50);
             $table->text('alamat');
             $table->string('kab_id',10);
             $table->string('telp',20);
@@ -25,8 +25,8 @@ class CreateLembagasTable extends Migration
             $table->string('website',100)->nullable();
             $table->string('pimpinan',50);
             $table->text('layanan');
-            $table->string('foto_kantor');
-            $table->string('profil_doc');
+            $table->string('foto_kantor')->nullable();
+            $table->string('profil_doc')->nullable();
             $table->string('status');
             $table->timestamps();
         });
