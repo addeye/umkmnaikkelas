@@ -26,8 +26,12 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="id_pendamping" placeholder="ID Pendamping" value="{{old('id_pendamping')}}" />
                                 <span class="help-block">
+                                    <strong>Jika tidak memiliki ID Pendamping isi dengan 8 digit angka dari tanggal lahir anda ex: 27011993 </strong>
+                                </span>
+                                <span class="help-block">
                                     <strong>{{ $errors->first('id_pendamping') }}</strong>
                                 </span>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -222,6 +226,9 @@
                   validators: {
                       notEmpty: {
                           message: 'Isi dengan benar'
+                      },
+                      integer : {
+                          message : 'Harus angka'
                       }
                   }
               },

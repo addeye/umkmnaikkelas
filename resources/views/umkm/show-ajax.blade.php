@@ -1,11 +1,15 @@
 <div class="row">
     <div class="col-md-6">
+        @if($data->path_ktp)
         <div class="col-md-12">
             <img class="img-thumbnail" src="{{asset('uploads/umkm/images/'.$data->path_ktp)}}">
         </div>
+        @endif
+        @if($data->path_npwp)
         <div class="col-md-12">
-            <img class="img-thumbnail" src="{{asset('uploads/umkm/images/'.$data->path_ktp)}}">
+            <img class="img-thumbnail" src="{{asset('uploads/umkm/images/'.$data->path_npwp)}}">
         </div>
+            @endif
     </div>
     <div class="col-md-6">
         <table class="table table-bordered">

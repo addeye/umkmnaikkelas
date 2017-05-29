@@ -291,7 +291,7 @@ class HomeController extends Controller
     public function doRegPendamping(Request $request)
     {
         $rules = [
-            'id_pendamping' => 'required|numeric|digits:9',
+            'id_pendamping' => 'required|numeric',
             'nama_pendamping' => 'required',
             'alamat_domisili' => 'required',
             'jenis_kelamin' => 'required',
