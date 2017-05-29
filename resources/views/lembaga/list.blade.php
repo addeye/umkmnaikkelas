@@ -92,6 +92,7 @@
   {{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
   {{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
   {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
+  {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 
 <script>
 
