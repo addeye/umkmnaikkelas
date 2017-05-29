@@ -235,6 +235,17 @@
                           </li>
                           @endif
 
+                          @if(Auth::user()->role_id==ROLE_UMKM)
+                              <li class="dropdown {{set_active(['data-periode','data-periode/*'],'active')}}">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
+                                     role="button">Pendataan <span class="caret"></span></a>
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li class="{{set_active('data-periode','data-periode/*','active')}}" role="presentation"><a href="{{route('data-periode.index')}}" role="menuitem">Data Periode</a></li>
+                                  </ul>
+                              </li>
+                          @endif
+
+
                           <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Layanan <span class="caret"></span></a>

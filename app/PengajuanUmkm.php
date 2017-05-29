@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PengajuanUmkm extends Model
 {
-    protected $table = 'pendamping_umkm';
+    protected $table = 'pengajuan_umkm';
+
+    public function umkm()
+    {
+        return $this->belongsTo('App\Umkm','umkm_id');
+    }
 }

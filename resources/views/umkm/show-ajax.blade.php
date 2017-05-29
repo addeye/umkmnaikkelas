@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         @if($data->path_ktp)
         <div class="col-md-12">
             <img class="img-thumbnail" src="{{asset('uploads/umkm/images/'.$data->path_ktp)}}">
@@ -11,7 +11,7 @@
         </div>
             @endif
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         <table class="table table-bordered">
             <tr>
                 <th>Nama Usaha <br><a href="{{route('update.umkm',['id'=>Auth::user()->umkm->id])}}"><span class="icon fa-pencil"></span> Edit Profil</a></th>

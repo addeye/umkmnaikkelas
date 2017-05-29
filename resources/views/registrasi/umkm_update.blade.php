@@ -269,7 +269,6 @@
                             </div>
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
-                                <a href="{{route('umkm.index')}}" class="btn btn-warning">Cancel</a>
                             </div>
                             {!! Form::close() !!}
                         </div>

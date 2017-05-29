@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Umkm;
 
-use App\PengajuanUmkm;
+use App\DataUmkm;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class PengajuanUmkmController extends Controller
+class DataUmkmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,9 @@ class PengajuanUmkmController extends Controller
     public function index()
     {
         $data = array(
-            'data' => PengajuanUmkm::with('umkm')->get()
+            'data' => DataUmkm::with('umkm')->get()
         );
-        return view('pengajuan_umkm.list',$data);
+        return view('portal.data_umkm.list',$data);
     }
 
     /**
@@ -27,7 +28,7 @@ class PengajuanUmkmController extends Controller
      */
     public function create()
     {
-
+        return view('portal.data_umkm.add');
     }
 
     /**
