@@ -20,7 +20,7 @@
                 @if(Auth::user()->role_id == ROLE_CALON)
                 <div class="col-md-12">
                     <div class="bg-warning well">
-                        <strong>Silahkan klik "Daftar Sebagai" Untuk melengkapi profil anda !</strong>
+                        <strong>Silahkan klik "Daftar Sebagai" Untuk melengkapi profil anda ! atau <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalWarning">KLIK DISINI</a></strong>
                     </div>
                 </div>
                 @endif

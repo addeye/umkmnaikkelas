@@ -26,7 +26,7 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="id_pendamping" placeholder="ID Pendamping" value="{{old('id_pendamping')}}" />
                                 <span class="help-block">
-                                    <strong>Jika tidak memiliki ID Pendamping isi dengan 8 digit angka dari tanggal lahir anda ex: 27011993 </strong>
+                                    <strong>Jika tidak memiliki ID Pendamping isi dengan nomor KTP anda secara lengkap </strong>
                                 </span>
                                 <span class="help-block">
                                     <strong>{{ $errors->first('id_pendamping') }}</strong>
