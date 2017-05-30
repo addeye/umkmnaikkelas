@@ -23,38 +23,29 @@
                                     <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Omset</th>
-                                            <th>Aset</th>
-                                            <th>Pegawai Tetap</th>
-                                            <th>Pegawai Tidak</th>
-                                            <th>Varian Produk</th>
-                                            <th>Kapasitas Produk</th>
-                                            <th>Aksi</th>
+                                            <th rowspan="2">No</th>
+                                            <th rowspan="2">Tanggal</th>
+                                            <th rowspan="2">Omset</th>
+                                            <th rowspan="2">Aset</th>
+                                            <th colspan="2">Pegawai</th>
+                                            <th rowspan="2">Varian Produk</th>
+                                            <th rowspan="2">Kapasitas Produk</th>
+                                            <th rowspan="2">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Tetap</th>
+                                            <th>Tidak</th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Omset</th>
-                                            <th>Aset</th>
-                                            <th>Pegawai Tetap</th>
-                                            <th>Pegawai Tidak</th>
-                                            <th>Varian Produk</th>
-                                            <th>Kapasitas Produksi</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                        </tfoot>
+
                                         <tbody>
                                         <?php $no=1; ?>
                                         @foreach($data as $row)
                                             <tr>
                                                 <td>{{$no++}}</td>
-                                                <td>{{$row->tgl_pencatatan}}</td>
-                                                <td>{{$row->omset}}</td>
-                                                <td>{{$row->aset}}</td>
+                                                <td>{{date('d/m/Y',strtotime($row->tgl_pencatatan))}}</td>
+                                                <td>Rp. {{number_format($row->omset)}}</td>
+                                                <td>Rp. {{number_format($row->aset)}}</td>
                                                 <td>{{$row->jml_tenagakerja_tetap}}</td>
                                                 <td>{{$row->jml_tenagakerjatidak_tetap}}</td>
                                                 <td>{{$row->varian_produk}}</td>

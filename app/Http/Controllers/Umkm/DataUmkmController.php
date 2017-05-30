@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Umkm;
 use App\DataUmkm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class DataUmkmController extends Controller
 {
@@ -39,7 +40,42 @@ class DataUmkmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'tgl_pencatatan' => 'required',
+            'omset' => 'required|numeric',
+            'aset' => 'required|numeric',
+            'jml_tenagakerja_tetap' => 'required|numeric',
+            'jml_tenagakerjatidak_tetap' => 'required|numeric',
+            'varian_produk' => 'required',
+            'kapasitas_produksi' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('data-periode.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $periode = new DataUmkm();
+        $periode->umkm_id = $request->umkm_id;
+        $periode->tgl_pencatatan = $request->tgl_pencatatan;
+        $periode->omset = $request->omset;
+        $periode->aset = $request->aset;
+        $periode->jml_tenagakerja_tetap = $request->jml_tenagakerja_tetap;
+        $periode->jml_tenagakerjatidak_tetap = $request->jml_tenagakerjatidak_tetap;
+        $periode->varian_produk = $request->varian_produk;
+        $periode->kapasitas_produksi = $request->kapasitas_produksi;
+        $periode->save();
+
+        if($periode)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('data-periode.index');
+        }
+
     }
 
     /**
@@ -50,7 +86,10 @@ class DataUmkmController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'data' => DataUmkm::find($id)
+        );
+        return view('portal.data_umkm.edit',$data);
     }
 
     /**
@@ -61,7 +100,10 @@ class DataUmkmController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = array(
+            'data' => DataUmkm::find($id)
+        );
+        return view('portal.data_umkm.edit',$data);
     }
 
     /**
@@ -73,7 +115,41 @@ class DataUmkmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'tgl_pencatatan' => 'required',
+            'omset' => 'required|numeric',
+            'aset' => 'required|numeric',
+            'jml_tenagakerja_tetap' => 'required|numeric',
+            'jml_tenagakerjatidak_tetap' => 'required|numeric',
+            'varian_produk' => 'required',
+            'kapasitas_produksi' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('data-periode.edit',['id'=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $periode = DataUmkm::find($id);
+        $periode->umkm_id = $request->umkm_id;
+        $periode->tgl_pencatatan = $request->tgl_pencatatan;
+        $periode->omset = $request->omset;
+        $periode->aset = $request->aset;
+        $periode->jml_tenagakerja_tetap = $request->jml_tenagakerja_tetap;
+        $periode->jml_tenagakerjatidak_tetap = $request->jml_tenagakerjatidak_tetap;
+        $periode->varian_produk = $request->varian_produk;
+        $periode->kapasitas_produksi = $request->kapasitas_produksi;
+        $periode->save();
+
+        if($periode)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('data-periode.index');
+        }
     }
 
     /**
@@ -84,6 +160,13 @@ class DataUmkmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = DataUmkm::find($id);
+        $data->delete();
+
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('data-periode.index');
+        }
     }
 }

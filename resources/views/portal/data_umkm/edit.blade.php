@@ -3,6 +3,7 @@
 @section('css')
     <!-- Plugin -->
     {{Html::style('remark/assets/vendor/formvalidation/formValidation.css')}}
+    {{Html::style('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css')}}
     <!-- Plugin -->
 @endsection
 
@@ -19,84 +20,96 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('jasa-pendampingan.update',['id'=>$data->id])}}" enctype="multipart/form-data">
+                            <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('data-periode.update',['id'=>$data->id])}}" enctype="multipart/form-data">
                                 {!! csrf_field() !!}
                                 <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="pendamping_id" value="{{Auth::user()->pendamping->id}}">
-                                <input type="hidden" name="lembaga_id" value="{{Auth::user()->pendamping->lembaga_id}}">
-                                <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Title *</label>
+                                <input type="hidden" name="umkm_id" value="{{Auth::user()->umkm->id}}">
+                                <div class="form-group {{ $errors->has('tgl_pencatatan') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Tanggal Pencatatan *</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="title" placeholder="Title.." value="{{$data->title}}" />
-                                        <span class="help-block">
-                                    <strong>{{ $errors->first('title') }}</strong>
-                                </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('bidang_pendampingan') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Bidang Pendampingan</label>
-                                    <div class="col-sm-9 select2-warning">
-                                        <select class="form-control" name="bidang_pendampingan[]" multiple data-plugin="select2">
-                                            @foreach($bidang_pendampingan as $row)
-                                                <option value="{{$row->nama}}" {{in_array($row->nama,$bd_pendampingan_arr)?'selected':''}} >{{$row->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('bidang_pendampingan') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group {{ $errors->has('bidang_keahlian') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Bidang Keahlian</label>
-                                    <div class="col-sm-9 select2-warning">
-                                        <select class="form-control" multiple data-plugin="select2" name="bidang_keahlian[]">
-                                            @foreach($bidang_keahlian as $row)
-                                                <option value="{{$row->nama}}" {{in_array($row->nama,$bd_keahlian_arr)?'selected':''}} >{{$row->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('bidang_keahlian') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('deskripsi') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Deskripsi *</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="deskripsi" placeholder="Deskripsi jasa">{{$data->deskripsi}}</textarea>
-                                        <span class="help-block">
-                                    <strong>{{ $errors->first('deskripsi') }}</strong>
-                                </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('harga') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Harga *</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="harga" placeholder="Angka" value="{{$data->harga}}" />
-                                        <span class="help-block">
-                                    <strong>{{ $errors->first('harga') }}</strong>
-                                </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('diskon') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Diskon</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group input-group-icon">
-                                            <input class="form-control" name="diskon" type="text" value="{{$data->diskon}}">
-                                            <span class="input-group-addon">
-                                            %
-                                            </span>
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                  <i class="icon wb-calendar" aria-hidden="true"></i>
+                                                </span>
+                                            <input type="text" class="form-control" name="tgl_pencatatan" value="{{$data->tgl_pencatatan?$data->tgl_pencatatan:date('Y-m-d')}}" data-plugin="datepicker" data-date-format="yyyy-mm-dd">
                                         </div>
                                         <span class="help-block">
-                                    <strong>{{ $errors->first('diskon') }}</strong>
-                                </span>
+                                            <strong>{{ $errors->first('tgl_pencatatan') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('omset') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Omset *</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                  Rp.
+                                                </span>
+                                            <input type="text" class="form-control" name="omset" value="{{$data->omset}}" />
+                                        </div>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('omset') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('aset') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Aset *</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                  Rp.
+                                                </span>
+                                            <input type="text" class="form-control" name="aset" value="{{$data->aset}}" />
+                                        </div>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('aset') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('jml_tenagakerja_tetap') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Jumlah Tenaga Kerja Tetap *</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="jml_tenagakerja_tetap" value="{{$data->jml_tenagakerja_tetap}}" />
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('jml_tenagakerja_tetap') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('jml_tenagakerjatidak_tetap') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Jumlah Tenaga Kerja Tidak Tetap *</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="jml_tenagakerjatidak_tetap" value="{{$data->jml_tenagakerjatidak_tetap}}" />
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('jml_tenagakerjatidak_tetap') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('varian_produk') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Varian Produk *</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="varian_produk">{{$data->varian_produk}}</textarea>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('varian_produk') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->has('kapasitas_produksi') ? ' has-error' : '' }}">
+                                    <label class="col-sm-3 control-label">Kapasitas Produksi *</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="kapasitas_produksi">{{$data->kapasitas_produksi}}</textarea>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('kapasitas_produksi') }}</strong>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <a href="{{route('jasa-pendampingan.index')}}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{route('data-periode.index')}}" class="btn btn-warning">Kembali</a>
                                     <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
                                 </div>
                             </form>
@@ -112,6 +125,10 @@
     {{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
     {{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
 
+    {{Html::script(asset('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.js'))}}
+    {{Html::script(asset('remark/assets/js/components/bootstrap-datepicker.js'))}}
+
+
     <script type="text/javascript">
         // Example Validataion Standard Mode
         // ---------------------------------
@@ -124,51 +141,65 @@
                 },
                 icon: null,
                 fields: {
-                    title: {
+                    tgl_pencatatan: {
                         validators: {
                             notEmpty: {
-                                message: 'Judul yang akan tampil di jasa pendampingan anda'
+                                message: 'Tanggal tidak boleh kosong'
                             }
                         }
                     },
-                    bidang_pendampingan: {
+                    omset: {
                         validators: {
                             notEmpty: {
                                 message: 'Isi dengan benar'
+                            },
+                            integer:{
+                                message: 'Harus dengan angka'
                             }
                         }
                     },
-                    bidang_keahlian: {
+                    aset: {
                         validators: {
                             notEmpty: {
                                 message: 'Isi dengan benar'
+                            },
+                            integer:{
+                                message: 'Harus dengan angka'
+                            }
+
+                        }
+                    },
+                    jml_tenagakerja_tetap: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Isi dengan benar'
+                            },
+                            integer:{
+                                message: 'Harus dengan angka'
                             }
                         }
                     },
-                    deskripsi: {
+                    jml_tenagakerjatidak_tetap: {
                         validators: {
                             notEmpty: {
-                                message: 'Diskripsi singkat mengenai jasa pendampingan anda'
-                            }
-                        }
-                    },
-                    harga: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Harga yang akan tampil di jasa pendampingan anda'
+                                message: 'Isi dengan benar'
                             },
                             integer: {
-                                message: 'Isi dengan angka untuk harga jasa pendampingan'
+                                message: 'Harus dengan angka'
                             }
                         }
                     },
-                    diskon: {
+                    varian_produk: {
                         validators: {
                             notEmpty: {
-                                message: 'Potongan harga pada jasa pendampingan anda'
-                            },
-                            integer: {
-                                message: 'Isi dengan angka untuk diskon jasa pendampingan'
+                                message: 'Wajib terisi'
+                            }
+                        }
+                    },
+                    kapasitas_produksi: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Wajib terisi'
                             }
                         }
                     }

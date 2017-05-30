@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('jasa-pendampingan.store')}}" enctype="multipart/form-data">
+                            <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('data-periode.store')}}" enctype="multipart/form-data">
                                 {!! csrf_field() !!}
                                 <input type="hidden" name="umkm_id" value="{{Auth::user()->umkm->id}}">
                                 <div class="form-group {{ $errors->has('tgl_pencatatan') ? ' has-error' : '' }}">

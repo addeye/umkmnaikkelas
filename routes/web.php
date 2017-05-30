@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::group(['middleware' => 'umkm','namespace'=>'Umkm'], function ()
     {
         Route::resource('data-periode','DataUmkmController');
+        Route::resource('pengajuan-umkm','PengajuanUmkmController');
     });
 
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
