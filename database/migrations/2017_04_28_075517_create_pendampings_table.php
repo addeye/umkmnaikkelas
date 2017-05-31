@@ -24,10 +24,12 @@ class CreatePendampingsTable extends Migration
             $table->string('telp',20);
             $table->string('email',50);
             $table->string('pendidikan',15)->nullable();
+            $table->string('tahun_mulai',4)->nullable();
             $table->text('pengalaman')->nullable();
             $table->text('sertifikat')->nullable();
             $table->text('bidang_pendampingan')->nullable();
             $table->text('bidang_keahlian')->nullable();
+            $table->text('bidang_usaha')->nullable();
             $table->string('kabkota_id')->nullable();
             $table->text('kabkota_tambahan')->nullable();
             $table->integer('lembaga_id')->nullable();

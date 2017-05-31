@@ -25,6 +25,7 @@ class PendampingController extends Controller
         $data=[
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
+            'BdUsaha' => BidangKeahlian::all(),
             'lembaga' => Lembaga::all(),
         ];
     	return view('pendamping.add',$data);
@@ -40,10 +41,12 @@ class PendampingController extends Controller
             'telp' => 'required|numeric',
             'email' => 'required|email|unique:users',
             'pendidikan' => 'required',
+            'tahun_mulai' => 'required',
             'pengalaman' => 'nullable',
             'sertifikat' => 'nullable',
             'bidang_pendampingan' => 'required',
             'bidang_keahlian' => 'required',
+            'bidang_usaha' => 'required',
             'kabkota_id' => 'required',
             'kabkota_tambahan' => 'nullable',
             'lembaga_id' => 'required',
@@ -79,10 +82,12 @@ class PendampingController extends Controller
         $pendamping->telp = $request->telp;
         $pendamping->email = $request->email;
         $pendamping->pendidikan = $request->pendidikan;
+        $pendamping->tahun_mulai = $request->tahun_mulai;
         $pendamping->pengalaman = $request->pengalaman;
         $pendamping->sertifikat = $request->sertifikat;
         $pendamping->bidang_pendampingan = implode(", ",$request->bidang_pendampingan);
         $pendamping->bidang_keahlian = implode(", ",$request->bidang_keahlian);
+        $pendamping->bidang_usaha = implode(", ",$request->bidang_usaha);
         $pendamping->kabkota_id = $request->kabkota_id;
         $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
         $pendamping->lembaga_id = $request->lembaga_id;
@@ -122,10 +127,12 @@ class PendampingController extends Controller
         $data=[
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
+            'BdUsaha' => BidangKeahlian::all(),
             'lembaga' => Lembaga::all(),
             'data' => $pendamping,
             'bd_keahlian_arr' => explode(", ",$pendamping->bidang_keahlian),
             'bd_pendampingan_arr' => explode(", ", $pendamping->bidang_pendampingan),
+            'bd_usaha_arr' => explode(", ", $pendamping->bidang_usaha),
             'kab_tambahan_arr' => explode(", ",$pendamping->kabkota_tambahan)
         ];
     	return view('pendamping.edit',$data);
@@ -134,17 +141,19 @@ class PendampingController extends Controller
     public function update(Request $request,$id)
     {
         $rules = [
-            'id_pendamping' => 'required|numeric|digits:9',
+            'id_pendamping' => 'required|numeric',
             'nama_pendamping' => 'required',
             'alamat_domisili' => 'required',
             'jenis_kelamin' => 'required',
             'telp' => 'required|numeric',
             'email' => 'required|email',
             'pendidikan' => 'required',
+            'tahun_mulai' => 'required',
             'pengalaman' => 'nullable',
             'sertifikat' => 'nullable',
             'bidang_pendampingan' => 'required',
             'bidang_keahlian' => 'required',
+            'bidang_usaha' => 'required',
             'kabkota_id' => 'required',
             'kabkota_tambahan' => 'nullable',
             'lembaga_id' => 'required',
@@ -172,10 +181,12 @@ class PendampingController extends Controller
         $pendamping->telp = $request->telp;
         $pendamping->email = $request->email;
         $pendamping->pendidikan = $request->pendidikan;
+        $pendamping->tahun_mulai = $request->tahun_mulai;
         $pendamping->pengalaman = $request->pengalaman;
         $pendamping->sertifikat = $request->sertifikat;
         $pendamping->bidang_pendampingan = implode(", ",$request->bidang_pendampingan);
         $pendamping->bidang_keahlian = implode(", ",$request->bidang_keahlian);
+        $pendamping->bidang_usaha = implode(", ",$request->bidang_usaha);
         $pendamping->kabkota_id = $request->kabkota_id;
         $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
         $pendamping->lembaga_id = $request->lembaga_id;

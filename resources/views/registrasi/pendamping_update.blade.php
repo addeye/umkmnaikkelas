@@ -85,6 +85,18 @@
                     </span>
                   </div>
                 </div>
+
+                <div class="form-group {{ $errors->has('tahun_mulai') ? ' has-error' : '' }}">
+                    <label class="col-sm-3 control-label">Tahun Mulai *</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="tahun_mulai" placeholder="Tahun Mulai Pendampingan" value="{{$data->tahun_mulai}}"/>
+                        <span class="help-block">
+                            <strong>{{ $errors->first('tahun_mulai') }}</strong>
+                            <strong>4 Digit</strong>
+                        </span>
+                    </div>
+                </div>
+
                 <div class="form-group {{ $errors->has('pengalaman') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Pengalaman</label>
                   <div class="col-sm-9">
@@ -118,6 +130,7 @@
                     </span>
                   </div>
                 </div>
+
                 <div class="form-group {{ $errors->has('bidang_keahlian') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Bidang Keahlian</label>
                   <div class="col-sm-9 select2-warning">
@@ -131,6 +144,21 @@
                     </span>
                   </div>
                 </div>
+
+                <div class="form-group {{ $errors->has('bidang_usaha') ? ' has-error' : '' }}">
+                    <label class="col-sm-3 control-label">Bidang Usaha</label>
+                    <div class="col-sm-9 select2-warning">
+                        <select class="form-control" multiple data-plugin="select2" name="bidang_usaha[]">
+                            @foreach($BdUsaha as $row)
+                                <option value="{{$row->nama}}" {{in_array($row->nama,$bd_usaha_arr)?'selected':''}} >{{$row->nama}}</option>
+                            @endforeach
+                        </select>
+                        <span class="help-block">
+                            <strong>{{ $errors->first('bidang_usaha') }}</strong>
+                        </span>
+                    </div>
+                </div>
+
                 <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Kab/Kota Pendampingan *</label>
                   <div class="col-sm-9">

@@ -59,6 +59,10 @@
                         <td>{{$data->pendidikan}}</td>
                     </tr>
                     <tr>
+                        <th>Tahun Mulai Pendampingan</th>
+                        <td>{{$data->tahun_mulai}}</td>
+                    </tr>
+                    <tr>
                         <th>Pengalaman</th>
                         <td>{{$data->pengalaman}}</td>
                     </tr>
@@ -73,6 +77,10 @@
                     <tr>
                         <th>Bidang Keahlian</th>
                         <td>{{$data->bidang_keahlian}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bidang Usaha</th>
+                        <td>{{$data->bidang_usaha}}</td>
                     </tr>
                     <tr>
                         <th>Kabupaten/Kota Pendampingan</th>
