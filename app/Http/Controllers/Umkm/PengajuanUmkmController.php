@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Umkm;
 
+use App\BidangPendampingan;
+use App\PengajuanUmkm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PengajuanUmkmController extends Controller
 {
@@ -14,7 +17,10 @@ class PengajuanUmkmController extends Controller
      */
     public function index()
     {
-        return 'Pangajuan UMKM';
+        $data=array(
+            'data' => PengajuanUmkm::all()
+        );
+        return view('portal.pengajuan_umkm.list',$data);
     }
 
     /**
@@ -24,7 +30,10 @@ class PengajuanUmkmController extends Controller
      */
     public function create()
     {
-        //
+        $data=array(
+            'bidang_pendampingan' => BidangPendampingan::all()
+        );
+        return view('portal.pengajuan_umkm.add',$data);
     }
 
     /**
@@ -35,7 +44,25 @@ class PengajuanUmkmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'umkm_id' => 'required',
+            'nama' => 'required',
+            'telp' => 'required|numeric',
+            'email' => 'required|email',
+            'tanggal' => 'required',
+            'tahun' => 'required',
+            'keterangan' => 'required'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pengajuan-umkm.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
     }
 
     /**
@@ -69,7 +96,23 @@ class PengajuanUmkmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'umkm_id' => 'required',
+            'nama' => 'required',
+            'telp' => 'required|numeric',
+            'email' => 'required|email',
+            'tanggal' => 'required',
+            'tahun' => 'required',
+            'keterangan' => 'required'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pengajuan-umkm.edit',['id'=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
     }
 
     /**
@@ -80,6 +123,12 @@ class PengajuanUmkmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = PengajuanUmkm::find($id);
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('pengajuan-umkm.index');
+        }
     }
 }

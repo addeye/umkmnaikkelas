@@ -113,7 +113,7 @@
 function(isConfirm){
   if (isConfirm) {
     // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-    document.getElementById('delete-form').submit();
+      document.getElementById('delete-form-'+id).submit();
   } else {
     swal("Dibatalkan", "Data tidak jadi dihapus", "error");
   }
