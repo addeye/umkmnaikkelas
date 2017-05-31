@@ -4,6 +4,10 @@
     <!-- Plugin -->
     {{Html::style('remark/assets/vendor/formvalidation/formValidation.css')}}
     {{Html::style('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css')}}
+
+    <!-- Plugin -->
+    {{Html::style('remark/assets/vendor/jquery-wizard/jquery-wizard.css')}}
+    {{Html::style('remark/assets/vendor/formvalidation/formValidation.css')}}
     <!-- Plugin -->
 @endsection
 
@@ -13,105 +17,96 @@
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel">
+                    <div class="panel" id="exampleWizardForm">
                         <div class="panel-heading">
-                            <div class="panel-title">
-                                Form Pengajuan Penghargaan UMKM Naik Kelas
-                            </div>
+                            <h3 class="panel-title">Pengajuan Penghargaan UMKM Naik Kelas</h3>
                         </div>
                         <div class="panel-body">
-                            <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('pengajuan-umkm.store')}}" enctype="multipart/form-data">
-                                {!! csrf_field() !!}
-                                <input type="hidden" name="umkm_id" value="{{Auth::user()->umkm->id}}">
+                            <!-- Steps -->
+                            <div class="steps steps-sm row" data-plugin="matchHeight" data-by-row="true" role="tablist">
+                                <div class="step col-md-4 current" data-target="#exampleAccount" role="tab">
+                                    <span class="step-number">1</span>
+                                    <div class="step-desc">
+                                        <span class="step-title">Data Pengajuan Penghargaan</span>
+                                        <p>Pastikan tanggal dan tahun harus benar</p>
+                                    </div>
+                                </div>
 
-                                <div class="form-group {{ $errors->has('tgl_pencatatan') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Tahun *</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                                <span class="input-group-addon">
-                                                  <i class="icon wb-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            <input type="text" class="form-control" name="tahun" value="{{old('tahun')?old('tahun'):date('Y')}}">
+                                <div class="step col-md-4" data-target="#exampleBilling" role="tab">
+                                    <span class="step-number">2</span>
+                                    <div class="step-desc">
+                                        <span class="step-title">Permasalahan</span>
+                                        <p>Jelaskan Permaslahan boleh lebih dari satu bidang</p>
+                                    </div>
+                                </div>
+
+                                <div class="step col-md-4" data-target="#exampleGetting" role="tab">
+                                    <span class="step-number">3</span>
+                                    <div class="step-desc">
+                                        <span class="step-title">Dokumen Pendukung</span>
+                                        <p>Upload dokumen pendukung Kemajauna Usaha anda</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Steps -->
+
+                            <!-- Wizard Content -->
+                            <div class="wizard-content">
+                                <div class="wizard-pane active" id="exampleAccount" role="tabpanel">
+                                    <form id="exampleAccountForm">
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Tahun</label>
+                                            <input type="text" class="form-control" id="inputUserName" value="{{date('Y')}}" name="tahun" required="required">
                                         </div>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('tahun') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('tanggal') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Tanggal Pengajuan *</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                                <span class="input-group-addon">
-                                                  <i class="icon wb-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            <input type="text" class="form-control" name="tanggal" value="{{old('tanggal')?old('tanggal'):date('Y-m-d')}}" data-plugin="datepicker" data-date-format="yyyy-mm-dd" readonly>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Tanggal</label>
+                                            <input type="text" class="form-control" id="inputUserName" name="tanggal" value="{{date('Y-m-d')}}" data-plugin="datepicker" data-date-format="yyyy-mm-dd" required="required" readonly>
                                         </div>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('tanggal') }}</strong>
-                                        </span>
-                                    </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Info Kontak</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Nama</label>
+                                            <input type="text" class="form-control" id="inputUserName" name="nama" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Telepon</label>
+                                            <input type="text" class="form-control" id="inputUserName" name="telp" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputUserName">Email</label>
+                                            <input type="email" class="form-control" id="inputUserName" name="email" required="required">
+                                        </div>
+                                    </form>
                                 </div>
 
-                                <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Keterangan *</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="keterangan">{{old('keterangan')}}</textarea>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keterangan') }}</strong>
-                                        </span>
-                                    </div>
+                                <div class="wizard-pane" id="exampleBilling" role="tabpanel">
+                                    <form id="exampleBillingForm">
+                                        <p>Jelaskan apa kemajuan usaha anda. Minimal satu bidang. Boleh lebih dari satu</p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="inputCardNumber">Bidang Pendampingan</label>
+                                            <select class="form-control" id="bidang" data-plugin="select2">
+                                                <option value=""></option>
+                                                @foreach($bidang_pendampingan as $row)
+                                                    <option value="{{$row->id}}">{{$row->nama}}</option>
+                                                    @endforeach
+                                            </select>
+                                            <button class="btn btn-primary btn-xs btn-bidang"><span class="glyphicon glyphicon-plus"></span> Pilih Bidang</button>
+                                            <span class="help-block">Pilih bidang untuk menjelaskan kemajuan usaha anda</span>
+                                        </div>
+                                        <div id="inputan-bidang"></div>
+                                    </form>
                                 </div>
 
-                                <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Keterangan *</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="keterangan">{{old('keterangan')}}</textarea>
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keterangan') }}</strong>
-                                        </span>
+                                <div class="wizard-pane" id="exampleGetting" role="tabpanel">
+                                    <div class="text-center margin-vertical-20">
+                                        <i class="icon wb-check font-size-40" aria-hidden="true"></i>
+                                        <h4>We got your order. Your product will be shipping soon.</h4>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- End Wizard Content -->
 
-                                <div class="form-group">
-                                    <h4>Contact Person</h4>
-                                </div>
-                                <div class="form-group {{ $errors->has('nama') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Nama *</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="nama" value="{{old('nama')}}">
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nama') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Telp *</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="telp" value="{{old('telp')}}">
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('telp') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label class="col-sm-3 control-label">Email *</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="email" value="{{old('email')}}">
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="text-right">
-                                    <a href="{{route('pengajuan-umkm.index')}}" class="btn btn-warning">Kembali</a>
-                                    <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -127,82 +122,139 @@
     {{Html::script(asset('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.js'))}}
     {{Html::script(asset('remark/assets/js/components/bootstrap-datepicker.js'))}}
 
-    <script type="text/javascript">
-        // Example Validataion Standard Mode
-        // ---------------------------------
-        (function() {
-            $('#exampleStandardForm').formValidation({
-                framework: "bootstrap",
-                button: {
-                    selector: '#validateButton2',
-                    disabled: 'disabled'
-                },
-                icon: null,
-                fields: {
-                    tgl_pencatatan: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Tanggal tidak boleh kosong'
-                            }
-                        }
-                    },
-                    omset: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Isi dengan benar'
-                            },
-                            integer:{
-                                message: 'Harus dengan angka'
-                            }
-                        }
-                    },
-                    aset: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Isi dengan benar'
-                            },
-                            integer:{
-                                message: 'Harus dengan angka'
-                            }
+    {{Html::script(asset('remark/assets/vendor/jquery-wizard/jquery-wizard.js'))}}
+    {{Html::script(asset('remark/assets/js/components/jquery-wizard.js'))}}
 
-                        }
-                    },
-                    jml_tenagakerja_tetap: {
+    <script type="text/javascript">
+
+        // Example Wizard Form
+        // -------------------
+        (function() {
+            // set up formvalidation
+            $('#exampleAccountForm').formValidation({
+                framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    tahun: {
                         validators: {
                             notEmpty: {
-                                message: 'Isi dengan benar'
+                                message: 'Tahun tidak boleh kosong'
                             },
-                            integer:{
-                                message: 'Harus dengan angka'
-                            }
-                        }
-                    },
-                    jml_tenagakerjatidak_tetap: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Isi dengan benar'
+                            stringLength: {
+                                min: 4,
+                                max: 4,
+                                message: '4 Digit'
                             },
-                            integer: {
-                                message: 'Harus dengan angka'
+                            integer : {
+                                message: 'Isi dengan angka'
                             }
                         }
                     },
-                    varian_produk: {
+                    tanggal: {
                         validators: {
                             notEmpty: {
-                                message: 'Wajib terisi'
+                                message: 'Tanggal harus terisi'
                             }
                         }
                     },
-                    kapasitas_produksi: {
+                    nama: {
                         validators: {
                             notEmpty: {
-                                message: 'Wajib terisi'
+                                message: 'Nama harus terisi'
+                            }
+                        }
+                    },
+                    telp: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Telp harus terisi'
+                            },
+                            regexp: {
+                                message: 'No telp harus berupa digit angka, spaces, -, (, ), + dan .',
+                                regexp: /^[0-9\s\-()+\.]+$/
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Email harus terisi'
+                            },
+                            emailAddress : {
+                                message : 'Email anda harus benar'
                             }
                         }
                     }
                 }
             });
+
+            $("#exampleBillingForm").formValidation({
+                framework: 'bootstrap',
+                fields: {
+                    bidang1: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Harus Terisi'
+                            }
+                        }
+                    },
+                    bidang2: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Harus Terisi'
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            // init the wizard
+            var defaults = $.components.getDefaults("wizard");
+            var options = $.extend(true, {}, defaults, {
+                buttonsAppendTo: '.panel-body'
+            });
+
+            var wizard = $("#exampleWizardForm").wizard(options).data(
+                'wizard');
+
+            // setup validator
+            // http://formvalidation.io/api/#is-valid
+            wizard.get("#exampleAccount").setValidator(function() {
+                var fv = $("#exampleAccountForm").data('formValidation');
+                fv.validate();
+
+                if (!fv.isValid()) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            wizard.get("#exampleBilling").setValidator(function() {
+                var fv = $("#exampleBillingForm").data('formValidation');
+                fv.validate();
+
+                if (!fv.isValid()) {
+                    return false;
+                }
+
+                return true;
+            });
+        })();
+        // Example Validataion Standard Mode
+        // ---------------------------------
+        (function() {
+            $('.btn-bidang').click(function () {
+                var label = $('#bidang option:selected').text();
+                var id = $('#bidang').val();
+                var html ='<div class="form-group"><label class="control-label">'+label+'</label><textarea class="form-control" name="bidang'+id+'" required="required"></textarea></div>';
+                $('#inputan-bidang').append(html);
+            })
         })();
     </script>
 @endsection
