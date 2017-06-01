@@ -52,8 +52,10 @@
 
                             <!-- Wizard Content -->
                             <div class="wizard-content">
+                                <form id="form-pengajuan" action="{{route('pengajuan-umkm.store')}}" method="post">
+                                    {!! csrf_field() !!}
                                 <div class="wizard-pane active" id="exampleAccount" role="tabpanel">
-                                    <form id="exampleAccountForm">
+                                    <div id="exampleAccountForm">
                                         <div class="form-group">
                                             <label class="control-label" for="inputUserName">Tahun</label>
                                             <input type="text" class="form-control" id="inputUserName" value="{{date('Y')}}" name="tahun" required="required">
@@ -77,25 +79,45 @@
                                             <label class="control-label" for="inputUserName">Email</label>
                                             <input type="email" class="form-control" id="inputUserName" name="email" required="required">
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
 
                                 <div class="wizard-pane" id="exampleBilling" role="tabpanel">
-                                    <form id="exampleBillingForm">
+                                    <div id="exampleBillingForm">
                                         <p>Jelaskan apa kemajuan usaha anda. Minimal satu bidang. Boleh lebih dari satu</p>
                                         <div class="form-group">
-                                            <label class="control-label" for="inputCardNumber">Bidang Pendampingan</label>
-                                            <select class="form-control" id="bidang" data-plugin="select2">
-                                                <option value=""></option>
+                                            <h2 class="title">Wajib</h2><small>Wajib dilengkapi</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pilih Bidang Pendampingan</label>
+                                            <select class="form-control" name="bidang_pendampingan[]" data-plugin="select2" required="required">
+                                                <option value="">Bidang Pendampingan *</option>
                                                 @foreach($bidang_pendampingan as $row)
                                                     <option value="{{$row->id}}">{{$row->nama}}</option>
                                                     @endforeach
                                             </select>
-                                            <button class="btn btn-primary btn-xs btn-bidang"><span class="glyphicon glyphicon-plus"></span> Pilih Bidang</button>
-                                            <span class="help-block">Pilih bidang untuk menjelaskan kemajuan usaha anda</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Keterangan *</label>
+                                            <textarea name="keterangan[]" class="form-control" placeholder="Jelaskan Kemajuan Usaha Anda" required="required"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="title">
+                                                <h2>Opsional</h2><small>Tidak wajib dilengkapi</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tambah Bidang Pendampingan</label>
+                                            <select class="form-control" id="bidang" data-plugin="select2">
+                                                <option value="">Bidang Pendampingan</option>
+                                                @foreach($bidang_pendampingan as $row)
+                                                    <option value="{{$row->id}}">{{$row->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button" class="btn btn-primary btn-xs btn-bidang"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
                                         </div>
                                         <div id="inputan-bidang"></div>
-                                    </form>
+                                    </div>
                                 </div>
 
                                 <div class="wizard-pane" id="exampleGetting" role="tabpanel">
@@ -104,6 +126,7 @@
                                         <h4>We got your order. Your product will be shipping soon.</h4>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <!-- End Wizard Content -->
 
@@ -194,15 +217,20 @@
 
             $("#exampleBillingForm").formValidation({
                 framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
                 fields: {
-                    bidang1: {
+                    bidang_pendampingan: {
                         validators: {
                             notEmpty: {
                                 message: 'Harus Terisi'
                             }
                         }
                     },
-                    bidang2: {
+                    keterangan: {
                         validators: {
                             notEmpty: {
                                 message: 'Harus Terisi'
@@ -245,6 +273,17 @@
 
                 return true;
             });
+
+            wizard.get("#exampleGetting").setValidator(function() {
+                var fv = $("#exampleBillingForm").data('formValidation');
+                fv.validate();
+
+                if (!fv.isValid()) {
+                    return false;
+                }
+                $('#form-pengajuan').submit();
+                return true;
+            });
         })();
         // Example Validataion Standard Mode
         // ---------------------------------
@@ -252,7 +291,7 @@
             $('.btn-bidang').click(function () {
                 var label = $('#bidang option:selected').text();
                 var id = $('#bidang').val();
-                var html ='<div class="form-group"><label class="control-label">'+label+'</label><textarea class="form-control" name="bidang'+id+'" required="required"></textarea></div>';
+                var html ='<div class="form-group"><label class="control-label">'+label+'</label><textarea class="form-control" name="keterangan['+id+']" required="required"></textarea></div>';
                 $('#inputan-bidang').append(html);
             })
         })();
