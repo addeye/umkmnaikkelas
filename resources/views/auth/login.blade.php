@@ -96,14 +96,14 @@ a:focus, a:hover {
           </div>
           <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
       </form>
       <p>Tidak punya akun ? Silahkan <a style="color: #f16f35;font-weight: bold;" href="{{url('register')}}">Daftar Disini</a></p>
       <p>
       <a href="redirect/facebook" class="btn btn-labeled social-facebook">
-                    <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Sign In</a> OR
+                    <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Masuk</a> Atau
         <a href="redirect/twitter" class="btn btn-labeled social-twitter">
-                    <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Sign In</a></p>
+                    <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Masuk</a></p>
       <footer class="page-copyright">
         <p>WEBSITE BY PeacBromo</p>
         <p>© 2017. All RIGHT RESERVED.</p>

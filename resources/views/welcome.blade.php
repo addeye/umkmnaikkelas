@@ -165,7 +165,7 @@ input {
                 <div class="col-md-4 col-xs-6 col-tiles">
                   <a href="{{route('prosedur.umkm')}}">
                    <div class="tile" style="background:url('{{asset('images/box/procedur-umkm.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur bagi UMKM</h4>
+                       <h4 class="tile-cap bg-light-green-800">Prosedur UMKM</h4>
                        <p class="sub-cap">Flow Sistem UMKM</p>
                     </div>
                   </a>
@@ -173,7 +173,7 @@ input {
                 <div class="col-md-4 col-xs-6 col-tiles">
                    <a href="{{route('prosedur.pendamping')}}">
                      <div class="tile" style="background:url('{{asset('images/box/procedur-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur bagi Pendamping</h4>
+                       <h4 class="tile-cap bg-light-green-800">Prosedur Pendamping</h4>
                        <p class="sub-cap">Flow Sistem Pendamping</p>
                     </div>
                    </a>

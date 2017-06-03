@@ -121,9 +121,11 @@
                                 </div>
 
                                 <div class="wizard-pane" id="exampleGetting" role="tabpanel">
-                                    <div class="text-center margin-vertical-20">
-                                        <i class="icon wb-check font-size-40" aria-hidden="true"></i>
-                                        <h4>We got your order. Your product will be shipping soon.</h4>
+                                    <div id="documentForm">
+                                        <div class="form-group">
+                                            <label>Upload Document</label>
+                                            <input id="input-id" name="image" type="file" class="file" data-show-upload="true" data-show-caption="true" data-preview-file-type="text" >
+                                        </div>
                                     </div>
                                 </div>
                                 </form>
@@ -252,7 +254,8 @@
 
             // setup validator
             // http://formvalidation.io/api/#is-valid
-            wizard.get("#exampleAccount").setValidator(function() {
+            wizard.get("#exampleAccount").setValidator(function()
+            {
                 var fv = $("#exampleAccountForm").data('formValidation');
                 fv.validate();
 
@@ -263,18 +266,21 @@
                 return true;
             });
 
-            wizard.get("#exampleBilling").setValidator(function() {
+            wizard.get("#exampleBilling").setValidator(function()
+            {
                 var fv = $("#exampleBillingForm").data('formValidation');
                 fv.validate();
 
-                if (!fv.isValid()) {
+                if (!fv.isValid())
+                {
                     return false;
                 }
 
                 return true;
             });
 
-            wizard.get("#exampleGetting").setValidator(function() {
+            wizard.get("#exampleGetting").setValidator(function()
+            {
                 var fv = $("#exampleBillingForm").data('formValidation');
                 fv.validate();
 
@@ -291,7 +297,7 @@
             $('.btn-bidang').click(function () {
                 var label = $('#bidang option:selected').text();
                 var id = $('#bidang').val();
-                var html ='<div class="form-group"><label class="control-label">'+label+'</label><textarea class="form-control" name="keterangan['+id+']" required="required"></textarea></div>';
+                var html ='<div class="form-group"><input type="hidden" name="bidang_pendampingan[]" value="'+id+'"><label class="control-label">'+label+'</label><textarea class="form-control" name="keterangan[]" required="required"></textarea></div>';
                 $('#inputan-bidang').append(html);
             })
         })();

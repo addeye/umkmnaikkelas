@@ -44,6 +44,7 @@ class PengajuanUmkmController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         $rules = [
             'umkm_id' => 'required',
             'nama' => 'required',

@@ -92,7 +92,7 @@
                             <div class="widget">
                                 <div class="widget-content widget-radius padding-25 bg-orange-600">
                                     <div class="counter counter-lg counter-inverse">
-                                        <div class="counter-label text-uppercase">Bidang Pendampingan Lainnya</div>
+                                        <div class="counter-label text-uppercase">Lainnya</div>
                                         <span class="counter-number">{{$total_lainnya}}</span>
                                     </div>
                                 </div>

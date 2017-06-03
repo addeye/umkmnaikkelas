@@ -292,4 +292,69 @@ class PendampingController extends Controller
         return redirect()->route('pendamping.index');
 
     }
+
+    public function importExistData(Request $request)
+    {
+        $insertuser = 0;
+        $rules = [
+            'file' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pendamping.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        if(Input::hasFile('file'))
+        {
+            $path = Input::file('file')->getRealPath();
+            $data = Excel::load($path, function ($reader){
+
+            })->get();
+
+            if(!empty($data) && $data->count())
+            {
+                foreach ($data as $key => $value) {
+
+                        $insertuser++;
+                        $pendamping = new Pendamping();
+                        $pendamping->id_pendamping = $value->id_pendamping;
+                        $pendamping->nama_pendamping = $value->nama_pendamping;
+                        $pendamping->alamat_domisili = $value->alamat_domisili;
+                        $pendamping->lat =0;
+                        $pendamping->lng =0;
+                        $pendamping->jenis_kelamin = 'L';
+                        $pendamping->pendidikan = 'S1';
+                        $pendamping->telp = $value->telp;
+                        $pendamping->email = $value->email;
+                        $pendamping->pengalaman = $value->pengalaman;
+                        $pendamping->lembaga_id = $value->lembaga_id;
+                        $pendamping->user_id = $value->user_id;
+                        $pendamping->save();
+
+                        $user = User::find($value->user_id);
+                        $user->role_id = 4;
+                        $user->save();
+
+                }
+            }
+
+            \Alert::success('Data berhasil Masuk '.$insertuser.' Record', 'Selamat !')->persistent("Tutup");
+
+        }
+
+        else
+        {
+            \Alert::error('Tolong pastikan file sudah benar', 'Kesalahan !')->persistent("Tutup");
+        }
+
+        return redirect()->route('pendamping.index');
+
+    }
 }

@@ -23,7 +23,7 @@ Route::get('mitra-lunas','PageController@mitra_lunas')->name('mitra.lunas');
 Route::get('laporan-umkm','PageController@umkm')->name('page.umkm');
 Route::get('laporan-pendamping','PageController@pendamping')->name('page.pendamping');
 
-Route::group(['middleware' => 'auth'], function () 
+Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
 
@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('kabupaten-kota','KabupatenController');
         Route::resource('lembaga','LembagaController');
         Route::resource('pendamping','PendampingController');
-        Route::post('pendamping-import','PendampingController@import')->name('pendamping.import');
+        Route::post('pendamping-import','PendampingController@importExistData')->name('pendamping.import');
         Route::resource('umkm','UmkmController');
         Route::resource('user','UserController');
         Route::resource('info-terkini','InfoTerkiniController');
