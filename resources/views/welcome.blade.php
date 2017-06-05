@@ -143,7 +143,7 @@ input {
                    <a href="{{route('page.pendamping')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
-                       <p class="sub-cap">Pendafatran, Data, Sertifikasi</p>
+                       <p class="sub-cap">Pendaftaran, Data, Sertifikasi</p>
                     </div>
                     </a>
                 </div>
@@ -182,7 +182,7 @@ input {
                    <a href="{{route('mitra.lunas')}}">
                      <div class="tile" style="background:url('{{asset('images/box/latar-belakang.jpg')}}') no-repeat center center;background-size: cover;">
                      <h4 class="tile-cap bg-light-green-800">Mitra LUNAS</h4>
-                       <p class="sub-cap">Visi Misi & Dukungan</p>
+                       <p class="sub-cap">Partner - Kerjasama</p>
                     </div>
                    </a>
                 </div>            
@@ -219,7 +219,7 @@ input {
                     <a href="javascript:void(0)">
                         <div class="tile" style="background:url('{{asset('images/box/agenda.jpg')}}') no-repeat center center;background-size: cover;">>
                             <h4 class="tile-cap bg-orange-800">Agenda</h4>
-                            <p class="sub-cap">Agenda</p>
+                            <p class="sub-cap">Info Kegiatan</p>
                         </div>
                     </a>
                 </div>
@@ -232,7 +232,7 @@ input {
                 <div class="col-md-4 col-xs-6 col-tiles">
                     <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">>
                         <h4 class="tile-cap bg-orange-800">Hubungi Kami</h4>
-                        <p class="sub-cap">Kritik, Saran, Dan Ucapan Salam</p>
+                        <p class="sub-cap">Kontak dan Saran</p>
                     </div>
                 </div>
             </div>

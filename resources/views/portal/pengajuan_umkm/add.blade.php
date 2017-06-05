@@ -52,20 +52,16 @@
 
                             <!-- Wizard Content -->
                             <div class="wizard-content">
-                                <form id="form-pengajuan" action="{{route('pengajuan-umkm.store')}}" method="post">
+                                <form id="form-pengajuan" action="{{route('pengajuan-umkm.store')}}" method="post" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                 <div class="wizard-pane active" id="exampleAccount" role="tabpanel">
                                     <div id="exampleAccountForm">
-                                        <div class="form-group">
-                                            <label class="control-label" for="inputUserName">Tahun</label>
-                                            <input type="text" class="form-control" id="inputUserName" value="{{date('Y')}}" name="tahun" required="required">
-                                        </div>
                                         <div class="form-group">
                                             <label class="control-label" for="inputUserName">Tanggal</label>
                                             <input type="text" class="form-control" id="inputUserName" name="tanggal" value="{{date('Y-m-d')}}" data-plugin="datepicker" data-date-format="yyyy-mm-dd" required="required" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label" for="inputUserName">Info Kontak</label>
+                                            <label class="control-label" for="inputUserName">Kontak Person yang bisa dihubungi</label>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="inputUserName">Nama</label>
@@ -124,7 +120,15 @@
                                     <div id="documentForm">
                                         <div class="form-group">
                                             <label>Upload Document</label>
-                                            <input id="input-id" name="image" type="file" class="file" data-show-upload="true" data-show-caption="true" data-preview-file-type="text" >
+                                            <input id="input-ficons-3" name="images[]" multiple type="file" class="file-loading" required="required">
+                                            <span class="help-block text-info">
+                                                <strong>Silahkan Klik UPLOAD Untuk menggungga file.</strong>
+                                            </span>
+                                            <div id="tempFile"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Keterangan Tambahan</label>
+                                            <textarea name="keterangan_pengajuan" class="form-control" placeholder="Keterangan tambahan..." required="required"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -138,6 +142,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="token" value="{!! csrf_token() !!}">
 @endsection
 
 @section('js')
@@ -149,6 +154,29 @@
 
     {{Html::script(asset('remark/assets/vendor/jquery-wizard/jquery-wizard.js'))}}
     {{Html::script(asset('remark/assets/js/components/jquery-wizard.js'))}}
+
+    <script>
+        var _token = $('#token').val();
+        $("#input-ficons-3").fileinput({
+            uploadUrl: "{{route('pengajuan.upload')}}",
+            uploadExtraData : {_token:_token},
+            previewFileIcon: '<i class="fa fa-file"></i>',
+            allowedPreviewTypes: ['image', 'text'], // allow only preview of image & text files
+            allowedFileExtensions: ["docx", "pdf"],
+            previewFileIconSettings: {
+                'docx': '<i class="fa fa-file-word-o text-primary"></i>',
+                'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+                'xlsx': '<i class="fa fa-file-excel-o text-success"></i>',
+                'pptx': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+                'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+                'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+            }
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            console.log(response);
+            $('#tempFile').append('<input type="hidden" name="path_image[]" value="'+response+'">') });
+    </script>
 
     <script type="text/javascript">
 
@@ -242,6 +270,24 @@
                 }
             });
 
+            $("#documentForm").formValidation({
+                framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    keterangan_pengajuan: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Harus Terisi'
+                            }
+                        }
+                    }
+                }
+            });
+
 
             // init the wizard
             var defaults = $.components.getDefaults("wizard");
@@ -281,7 +327,7 @@
 
             wizard.get("#exampleGetting").setValidator(function()
             {
-                var fv = $("#exampleBillingForm").data('formValidation');
+                var fv = $("#documentForm").data('formValidation');
                 fv.validate();
 
                 if (!fv.isValid()) {

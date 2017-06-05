@@ -15,7 +15,9 @@ class CreatePengajuanUmkmFiles extends Migration
     {
         Schema::create('pengajuan_umkm_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama');
+            $table->integer('pengajuan_umkm_id')->unsigned();
+            $table->foreign('pengajuan_umkm_id')->references('id')->on('pengajuan_umkm')->onDelete('cascade');
+            $table->string('nama')->nullable();
             $table->string('path');
             $table->timestamps();
         });

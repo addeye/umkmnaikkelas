@@ -133,6 +133,7 @@
     padding: 7px 20px;
     font-weight: 500;
 }
+        
     </style>
 
     <!--[if lt IE 9]>

@@ -15,7 +15,9 @@ class PpbFiles extends Migration
     {
         Schema::create('ppb_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama');
+            $table->integer('pengajuan_pendamping_id')->unsigned();
+            $table->foreign('pengajuan_pendamping_id')->references('id')->on('pengajuan_pendamping')->onDelete('cascade');
+            $table->string('nama')->nullable();
             $table->string('path');
             $table->timestamps();
         });

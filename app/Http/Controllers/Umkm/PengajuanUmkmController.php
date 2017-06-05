@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Umkm;
 
 use App\BidangPendampingan;
 use App\PengajuanUmkm;
+use App\PengajuanUmkmDetail;
+use App\PengajuanUmkmFiles;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PengajuanUmkmController extends Controller
@@ -44,26 +47,40 @@ class PengajuanUmkmController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
-        $rules = [
-            'umkm_id' => 'required',
-            'nama' => 'required',
-            'telp' => 'required|numeric',
-            'email' => 'required|email',
-            'tanggal' => 'required',
-            'tahun' => 'required',
-            'keterangan' => 'required'
-        ];
-        $validator = Validator::make($request->all(),$rules);
-        if($validator->fails())
+        $pengajuan = new PengajuanUmkm();
+        $pengajuan->umkm_id = Auth::user()->umkm->id;
+        $pengajuan->nama = $request->nama;
+        $pengajuan->telp = $request->telp;
+        $pengajuan->email = $request->email;
+        $pengajuan->tanggal = $request->tanggal;
+        $pengajuan->tahun = date('Y',strtotime($request->tanggal));
+        $pengajuan->keterangan = $request->keterangan_pengajuan;
+        $pengajuan->save();
+
+        foreach ($request->bidang_pendampingan as $key=>$bd)
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
-            return redirect()->route('pengajuan-umkm.create')
-                ->withErrors($validator)
-                ->withInput();
+            $detail = new PengajuanUmkmDetail();
+            $detail->pengajuan_umkm_id = $pengajuan->id;
+            $detail->bidang_pendampingan_id = $bd;
+            $detail->keterangan = $request->keterangan[$key];
+            $detail->save();
+        }
+
+        foreach ($request->path_image as $key=>$img)
+        {
+            $file = new PengajuanUmkmFiles();
+            $file->pengajuan_umkm_id = $pengajuan->id;
+            $file->nama = 'File-pendukung-'.($key+1);
+            $file->path = $img;
+            $file->save();
         }
 
 
+        if($pengajuan)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('pengajuan-umkm.index');
+        }
     }
 
     /**
@@ -74,7 +91,11 @@ class PengajuanUmkmController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'pengajuan' => PengajuanUmkm::with('pengajuan_umkm_detail','pengajuan_umkm_files')->where('id',$id)->first()
+        );
+//        return $data;
+        return view('portal.pengajuan_umkm.show',$data);
     }
 
     /**
@@ -131,5 +152,18 @@ class PengajuanUmkmController extends Controller
             \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
             return redirect()->route('pengajuan-umkm.index');
         }
+    }
+
+    public function uploadAJax(Request $request)
+    {
+        $dir = array();
+        $files = $request->file('images');
+        foreach ($files as $key => $value) {
+            $newname = rand(111111,999999).'.'.$value->extension();
+            $value->move(public_path("pengajuan_temp/"), $newname);
+            $dir[] = $newname;
+        }
+        return $dir;
+
     }
 }

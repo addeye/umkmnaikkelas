@@ -23,11 +23,12 @@
                                     <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
                                         <thead>
                                         <tr>
-                                            <th rowspan="2">No</th>
-                                            <th rowspan="2">Tahun</th>
-                                            <th rowspan="2">Tanggal</th>
-                                            <th rowspan="2">Keterangan</th>
-                                            <th rowspan="2">Aksi</th>
+                                            <th>No</th>
+                                            <th>Tahun</th>
+                                            <th class="col-xs-2">Tanggal</th>
+                                            <th>Keterangan</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
 
@@ -37,10 +38,11 @@
                                             <tr>
                                                 <td>{{$no++}}</td>
                                                 <td>{{$row->tahun}}</td>
-                                                <td>{{$row->tanggal}}</td>
+                                                <td>{{date('d-m-Y',strtotime($row->tanggal))}}</td>
                                                 <td>{{$row->keterangan}}</td>
+                                                <td>{{$row->status}}</td>
                                                 <td class="text-nowrap">
-                                                    <a href="{{route('pengajuan-umkm.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>
+                                                    <a href="{{route('pengajuan-umkm.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
                                                     <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
                                                     <form id="delete-form-{{$row->id}}" action="{{route('pengajuan-umkm.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
                                                         <input type="hidden" name="_method" value="DELETE">
