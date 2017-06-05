@@ -23,6 +23,7 @@
 
 </style>
 {{Html::style('css/metro.css')}}
+{{Html::style('css/custom.css')}}
 <style>
  .carousel-inner > .item > img,
  .carousel-inner > .item > a > img {
@@ -82,19 +83,19 @@ input {
 @section('content')
 <div class="container">
     <div class="row">
-        {{--<!-- Example Captions -->--}}
-        {{--<div class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">--}}
-            {{--<ol class="carousel-indicators carousel-indicators-fillin">--}}
-                {{--<li class="active" data-slide-to="0" data-target="#exampleCarouselCaptions"></li>                --}}
-            {{--</ol>--}}
-            {{--<div class="carousel-inner" role="listbox">--}}
-                {{--<div class="item active">--}}
-                    {{--<img class="width-full" src="{{asset('images/slider/lunas1.jpg')}}" alt="..." />--}}
+        <!-- Example Captions -->
+        <div class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
+            <ol class="carousel-indicators carousel-indicators-fillin">
+                <li class="active" data-slide-to="0" data-target="#exampleCarouselCaptions"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="width-full" src="{{asset('images/slider/lunas.jpg')}}" alt="..." />
                     {{--<div class="carousel-caption">--}}
                         {{--<h3>UMKM NAIK KELAS</h3>--}}
                         {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
                     {{--</div>--}}
-                {{--</div>--}}
+                </div>
                 {{--<div class="item">--}}
                     {{--<img class="width-full" src="{{asset('images/slider/lunas2.jpg')}}" alt="..." />--}}
                     {{--<div class="carousel-caption">--}}
@@ -109,18 +110,18 @@ input {
                         {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
                     {{--</div>--}}
                 {{--</div>--}}
-            {{--</div>--}}
-            {{--<a class="left carousel-control" href="#exampleCarouselCaptions" role="button"--}}
-            {{--data-slide="prev">--}}
-            {{--<span class="icon wb-chevron-left" aria-hidden="true"></span>--}}
-            {{--<span class="sr-only">Previous</span>--}}
-        {{--</a>--}}
-        {{--<a class="right carousel-control" href="#exampleCarouselCaptions" role="button"--}}
-        {{--data-slide="next">--}}
-        {{--<span class="icon wb-chevron-right" aria-hidden="true"></span>--}}
-        {{--<span class="sr-only">Next</span>--}}
-        {{--</a>--}}
-{{--</div> --}}
+            </div>
+            <a class="left carousel-control" href="#exampleCarouselCaptions" role="button"
+            data-slide="prev">
+            <span class="icon wb-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#exampleCarouselCaptions" role="button"
+        data-slide="next">
+        <span class="icon wb-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+        </a>
+</div>
 </div>        
 <!-- End Example Captions -->
 <!-- Panel More Examples -->

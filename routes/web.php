@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('data-periode','DataUmkmController');
         Route::resource('pengajuan-umkm','PengajuanUmkmController');
         Route::post('ajax-upload','PengajuanUmkmController@uploadAJax')->name('pengajuan.upload');
+        Route::get('file/{path}','PengajuanUmkmController@getFile')->name('pengajuan-umkm.getfile');
     });
 
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');

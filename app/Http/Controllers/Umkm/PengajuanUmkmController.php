@@ -6,9 +6,11 @@ use App\BidangPendampingan;
 use App\PengajuanUmkm;
 use App\PengajuanUmkmDetail;
 use App\PengajuanUmkmFiles;
+use Faker\Provider\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PengajuanUmkmController extends Controller
@@ -73,11 +75,15 @@ class PengajuanUmkmController extends Controller
             $file->nama = 'File-pendukung-'.($key+1);
             $file->path = $img;
             $file->save();
+            if($file)
+            {
+                Storage::disk('public')->move('pengajuan_temp/'.$img,'pengajuan/'.$img);
+            }
         }
-
 
         if($pengajuan)
         {
+            Storage::disk('public')->deleteDirectory('pengajuan_temp');
             \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
             return redirect()->route('pengajuan-umkm.index');
         }
@@ -106,7 +112,11 @@ class PengajuanUmkmController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = array(
+            'pengajuan' => PengajuanUmkm::with('pengajuan_umkm_detail','pengajuan_umkm_files')->where('id',$id)->first()
+        );
+//        return $data;
+        return view('portal.pengajuan_umkm.edit',$data);
     }
 
     /**
@@ -118,13 +128,11 @@ class PengajuanUmkmController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        return $request->all();
         $rules = [
-            'umkm_id' => 'required',
             'nama' => 'required',
             'telp' => 'required|numeric',
             'email' => 'required|email',
-            'tanggal' => 'required',
-            'tahun' => 'required',
             'keterangan' => 'required'
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -134,6 +142,27 @@ class PengajuanUmkmController extends Controller
             return redirect()->route('pengajuan-umkm.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        $pengajuan = PengajuanUmkm::find($id);
+        $pengajuan->nama = $request->nama;
+        $pengajuan->telp = $request->telp;
+        $pengajuan->email = $request->email;
+        $pengajuan->keterangan = $request->keterangan;
+        $pengajuan->save();
+
+        $keterangan_bidang = $request->keterangan_bidang;
+        foreach ($request->detail_id as $key=>$row)
+        {
+            $detail = PengajuanUmkmDetail::find($row);
+            $detail->keterangan = $keterangan_bidang[$key];
+            $detail->save();
+        }
+
+        if($pengajuan)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('pengajuan-umkm.show',['id'=>$id]);
         }
     }
 
@@ -146,6 +175,13 @@ class PengajuanUmkmController extends Controller
     public function destroy($id)
     {
         $data = PengajuanUmkm::find($id);
+        $files = $data->pengajuan_umkm_files;
+
+        foreach ($files as $file)
+        {
+            $this->delete_file('pengajuan',$file->path);
+        }
+
         $data->delete();
         if($data)
         {
@@ -165,5 +201,10 @@ class PengajuanUmkmController extends Controller
         }
         return $dir;
 
+    }
+
+    public function getFile($path)
+    {
+        return response()->download(public_path('pengajuan/'.$path));
     }
 }

@@ -18,6 +18,7 @@ class PpbFiles extends Migration
             $table->integer('pengajuan_pendamping_id')->unsigned();
             $table->foreign('pengajuan_pendamping_id')->references('id')->on('pengajuan_pendamping')->onDelete('cascade');
             $table->string('nama')->nullable();
+            $table->string('type','5');
             $table->string('path');
             $table->timestamps();
         });

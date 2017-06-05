@@ -19,7 +19,8 @@
     {{Html::style('remark/assets/css/bootstrap.min.css')}}
     {{Html::style('kartika-upload/css/fileinput.min.css')}}
     {{Html::style('remark/assets/css/bootstrap-extend.min.css')}}
-    {{Html::style('remark/assets/css/site.min.css')}}
+    {{Html::style('remark/assets/css/site.css')}}
+    {{Html::style('css/custom.css')}}
 
     {{Html::style('remark/assets/vendor/animsition/animsition.css')}}
     {{Html::style('remark/assets/vendor/asscrollable/asScrollable.css')}}
@@ -43,98 +44,6 @@
     {{Html::style('remark/assets/vendor/owl-carousel/owl.carousel.css')}}
     {{Html::style('remark/assets/vendor/slick-carousel/slick.css')}}
     @yield('css')
-
-    <!-- Inline -->
-    <style>
-        .page-content .navbar-fixed-top,
-        .page-content .navbar-fixed-bottom {
-            position: relative;
-        }
-
-        .scrollspy-example {
-            position: relative;
-            height: 200px;
-            padding: 0 20px;
-            overflow: auto;
-            -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-        }
-
-        .example-fixed {
-            height: 400px;
-            line-height: 400px;
-            text-align: center;
-        }
-
-        .example-grid .example-col {
-            margin-bottom: 10px;
-            word-break: break-all;
-        }
-        .navbar-inverse .navbar-toolbar>li>a {
-        color: black;
-        }
-        .navbar-inverse .navbar-toggle {
-        color: black;
-        }
-        .navbar-inverse .hamburger .hamburger-bar, .navbar-inverse .hamburger:after, .navbar-inverse .hamburger:before {
-            background: black;
-        }
-        .navbar-inverse .navbar-toolbar>li>a:focus, .navbar-inverse .navbar-toolbar>li>a:hover {
-            color: #ffffff;
-            background-color: #f17036;
-        }
-
-        .site-footer {
-            height: 44px;
-            padding: 10px 30px;
-            background-color: rgb(241, 111, 53);
-            border-top: 1px solid #ff4f00;
-            color: black;
-        }
-        .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-            border-color: #f16f35;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #f16f35;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #fff;
-        }
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .floating {
-    position: fixed;
-    bottom: 35px;
-    right: 30px;
-    width: 53px;
-    height: 53px;
-    border-radius: 50%;
-    background-color: #f16f35;
-    transition: all 0.3s ease 0s;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-        }
-    .floating a {
-    display: block;
-    line-height: 53px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    }
-        .navbar-inverse .navbar-toolbar>.active>a, .navbar-inverse .navbar-toolbar>.active>a:focus, .navbar-inverse .navbar-toolbar>.active>a:hover {
-            color: #fff;
-            background-color: #f16f35;
-        }
-
-        .navbar-brand {
-    padding: 7px 20px;
-    font-weight: 500;
-}
-        
-    </style>
 
     <!--[if lt IE 9]>
     {{Html::script(asset('remark/assets/vendor/html5shiv/html5shiv.min.js'))}}
@@ -266,6 +175,7 @@
         });
     })(document, window, jQuery);
 </script>
+
 @yield('js')
 
 </body>

@@ -4,12 +4,6 @@
     <!-- Plugin -->
     {{Html::style('remark/assets/vendor/raty/jquery.raty.css')}}
     {{Html::style('remark/assets/css/pages/profile.css')}}
-    <style>
-        body {
-            padding-top: 66px;
-            background: #c7c8cc;
-        }
-    </style>
     @endsection
 
     @section('content')

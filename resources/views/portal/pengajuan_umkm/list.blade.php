@@ -8,7 +8,7 @@
 
 @section('content')
     <!-- Page -->
-    <div class="container-fluid page-profile">
+    <div class="container-fluid">
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
@@ -43,10 +43,6 @@
                                                 <td>{{$row->status}}</td>
                                                 <td class="text-nowrap">
                                                     <a href="{{route('pengajuan-umkm.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
-                                                    <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-                                                    <form id="delete-form-{{$row->id}}" action="{{route('pengajuan-umkm.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                    </form>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -77,31 +73,4 @@
     {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
 
     {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
-    <script>
-
-        function ConfirmDelete(id)
-        {
-            var id = id;
-            swal({
-                    title: "Apakah Yakin?",
-                    text: "Data akan benar-benar dihapus!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Iya, Hapus!",
-                    cancelButtonText: "Tidak, Batalkan!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm){
-                    if (isConfirm) {
-                        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                        document.getElementById('delete-form-'+id).submit();
-                    } else {
-                        swal("Dibatalkan", "Data tidak jadi dihapus", "error");
-                    }
-                });
-        }
-
-    </script>
 @endsection

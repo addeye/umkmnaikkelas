@@ -33,4 +33,13 @@ class Controller extends BaseController
         }
         return true;
     }
+
+    public function delete_file($dir,$old)
+    {
+        if($old!='' and file_exists($dir.'/'.$old))
+        {
+            unlink($dir.'/'.$old);
+        }
+        return true;
+    }
 }

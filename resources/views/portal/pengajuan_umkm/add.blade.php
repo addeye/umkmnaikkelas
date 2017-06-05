@@ -13,7 +13,7 @@
 
 @section('content')
     <!-- Page -->
-    <div class="container-fluid page-profile">
+    <div class="container-fluid">
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
@@ -35,8 +35,8 @@
                                 <div class="step col-md-4" data-target="#exampleBilling" role="tab">
                                     <span class="step-number">2</span>
                                     <div class="step-desc">
-                                        <span class="step-title">Permasalahan</span>
-                                        <p>Jelaskan Permaslahan boleh lebih dari satu bidang</p>
+                                        <span class="step-title">Kemajuan Usaha</span>
+                                        <p>Jelaskan Kemajuan Usaha boleh lebih dari satu bidang</p>
                                     </div>
                                 </div>
 
@@ -44,7 +44,7 @@
                                     <span class="step-number">3</span>
                                     <div class="step-desc">
                                         <span class="step-title">Dokumen Pendukung</span>
-                                        <p>Upload dokumen pendukung Kemajauna Usaha anda</p>
+                                        <p>Upload dokumen pendukung kemajuan Usaha anda</p>
                                     </div>
                                 </div>
                             </div>

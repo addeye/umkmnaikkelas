@@ -18,6 +18,7 @@ class CreatePengajuanUmkmFiles extends Migration
             $table->integer('pengajuan_umkm_id')->unsigned();
             $table->foreign('pengajuan_umkm_id')->references('id')->on('pengajuan_umkm')->onDelete('cascade');
             $table->string('nama')->nullable();
+            $table->string('type','5');
             $table->string('path');
             $table->timestamps();
         });
