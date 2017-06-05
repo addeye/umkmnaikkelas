@@ -12,7 +12,7 @@ class LembagaController extends Controller
 
     public function index()
     {
-        $data['data'] = Lembaga::all();
+        $data['data'] = Lembaga::orderBy('id_lembaga','ASC')->get();
     	return view('lembaga.list',$data);
     }
 

@@ -58,7 +58,7 @@ input {
     font-size: 14px;
     top: 145px;
     padding: 3px 5px;
-    background-color: #00000080;
+    background: rgba(10, 10, 10, 0.46);
 }
 
  @media screen and (max-width: 768px) {
@@ -337,4 +337,6 @@ input {
             </div>
     @endif
           <div class="padding-10"></div>
+</div>
+
 @endsection
