@@ -23,7 +23,7 @@ class PengajuanUmkmController extends Controller
     public function index()
     {
         $data=array(
-            'data' => PengajuanUmkm::all()
+            'data' => PengajuanUmkm::where('umkm_id',$this->getActiveUmkm()->id)->get()
         );
         return view('portal.pengajuan_umkm.list',$data);
     }

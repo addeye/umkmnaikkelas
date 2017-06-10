@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BidangKeahlian;
 use App\BidangPendampingan;
+use App\BidangUsaha;
 use App\Lembaga;
 use App\Pendamping;
 use App\User;
@@ -25,8 +26,8 @@ class PendampingController extends Controller
         $data=[
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
-            'BdUsaha' => BidangKeahlian::all(),
-            'lembaga' => Lembaga::all(),
+            'BdUsaha' => BidangUsaha::all(),
+            'lembaga' => Lembaga::orderBy('id_lembaga','ASC')->get(),
         ];
     	return view('pendamping.add',$data);
     }
@@ -127,8 +128,8 @@ class PendampingController extends Controller
         $data=[
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
-            'BdUsaha' => BidangKeahlian::all(),
-            'lembaga' => Lembaga::all(),
+            'BdUsaha' => BidangUsaha::all(),
+            'lembaga' => Lembaga::orderBy('id_lembaga','ASC')->get(),
             'data' => $pendamping,
             'bd_keahlian_arr' => explode(", ",$pendamping->bidang_keahlian),
             'bd_pendampingan_arr' => explode(", ", $pendamping->bidang_pendampingan),

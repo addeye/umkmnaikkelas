@@ -51,6 +51,13 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('file/{path}','PengajuanUmkmController@getFile')->name('pengajuan-umkm.getfile');
     });
 
+    Route::group(['middleware' => 'pendamping','namespace' => 'Pendamping'], function ()
+    {
+        Route::resource('pengajuan-pendamping','PengajuanPendampingController');
+        Route::post('ajax-upload','PengajuanPendampingController@uploadAJax')->name('pengajuan.upload');
+        Route::get('file/{path}','PengajuanPendampingController@getFile')->name('pengajuan-pendamping.getfile');
+    });
+
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 
 	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');

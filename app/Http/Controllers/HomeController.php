@@ -75,7 +75,7 @@ class HomeController extends Controller
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
             'BdUsaha' => BidangUsaha::all(),
-            'lembaga' => Lembaga::all(),
+            'lembaga' => Lembaga::orderBy('id_lembaga','ASC')->get(),
             'user' => Auth::user()
         ];
         return view('registrasi.pendamping',$data);
@@ -84,7 +84,7 @@ class HomeController extends Controller
     public function reg_umkm()
     {
         $data = [
-            'lembaga' => Lembaga::all(),
+            'lembaga' => Lembaga::orderBy('id_lembaga','ASC')->get(),
             'bidang_usaha' => BidangUsaha::all(),
             'kabkota' => \Indonesia::allCities(),
         ];
@@ -98,7 +98,7 @@ class HomeController extends Controller
             'BdPendampingan' => BidangPendampingan::all(),
             'BdKeahlian' => BidangKeahlian::all(),
             'BdUsaha' => BidangUsaha::all(),
-            'lembaga' => Lembaga::all(),
+            'lembaga' => Lembaga::orderBy('id_lembaga','ASC')->get(),
             'user' => Auth::user(),
             'data' => $pendamping,
             'bd_keahlian_arr' => explode(", ",$pendamping->bidang_keahlian),

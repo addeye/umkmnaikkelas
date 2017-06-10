@@ -17,6 +17,7 @@ return array(
     'CreateJasaPendampingansTable' => $baseDir . '/database/migrations/2017_05_19_173654_create_jasa_pendampingans_table.php',
     'CreateLembagaTable' => $baseDir . '/database/migrations/2017_05_07_164954_create_lembaga_table.php',
     'CreateLembagasTable' => $baseDir . '/database/migrations/2017_04_28_075516_create_lembagas_table.php',
+    'CreateNotificationsTable' => $baseDir . '/database/migrations/2017_06_06_093613_create_notifications_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2017_04_28_073843_create_password_resets_table.php',
     'CreatePendampingsTable' => $baseDir . '/database/migrations/2017_04_28_075517_create_pendampings_table.php',
     'CreatePengajuanUmkm' => $baseDir . '/database/migrations/2017_05_26_163434_create_pengajuan_umkm.php',

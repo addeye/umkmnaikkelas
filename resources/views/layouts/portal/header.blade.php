@@ -255,6 +255,9 @@
                                   @if(Auth::user()->role_id==ROLE_UMKM)
                                   <li role="presentation"><a href="{{route('pengajuan-umkm.index')}}" role="menuitem">Penghargaan</a></li>
                                   @endif
+                                  @if(Auth::user()->role_id==ROLE_PENDAMPING)
+                                          <li role="presentation"><a href="{{route('pengajuan-pendamping.index')}}" role="menuitem">Penghargaan</a></li>
+                                      @endif
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">Konsultasi</a></li>
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Pasar</a></li>
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Terkini</a></li>

@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -41,5 +42,15 @@ class Controller extends BaseController
             unlink($dir.'/'.$old);
         }
         return true;
+    }
+
+    public function getActivePendamping()
+    {
+        return Auth::user()->pendamping;
+    }
+
+    public function getActiveUmkm()
+    {
+        return Auth::user()->umkm;
     }
 }
