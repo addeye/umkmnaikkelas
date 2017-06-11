@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Pendamping;
 use App\BidangKeahlian;
 use App\BidangPendampingan;
 use App\PengajuanPendamping;
+use App\PpbFiles;
+use App\PpbKeahlian;
 use App\PpbPendampingan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PengajuanPendampingController extends Controller
 {
@@ -47,7 +51,7 @@ class PengajuanPendampingController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+//        return $request->all();
         $pengajuan = new PengajuanPendamping();
         $pengajuan->pendamping_id = Auth::user()->pendamping->id;
         $pengajuan->nama = $request->nama;
@@ -63,29 +67,29 @@ class PengajuanPendampingController extends Controller
             $detail = new PpbPendampingan();
             $detail->pengajuan_pendamping_id = $pengajuan->id;
             $detail->bidang_pendampingan_id = $bd;
-            $detail->keterangan = $request->keterangan[$key];
+            $detail->keterangan = $request->keterangan_pendampingan[$key];
             $detail->save();
         }
 
         foreach ($request->bidang_keahlian as $key=>$bd)
         {
-            $detail = new PengajuanUmkmDetail();
+            $detail = new PpbKeahlian();
             $detail->pengajuan_pendamping_id = $pengajuan->id;
-            $detail->bidang_pendampingan_id = $bd;
-            $detail->keterangan = $request->keterangan[$key];
+            $detail->bidang_keahlian_id = $bd;
+            $detail->keterangan = $request->keterangan_keahlian[$key];
             $detail->save();
         }
 
         foreach ($request->path_image as $key=>$img)
         {
-            $file = new PengajuanUmkmFiles();
-            $file->pengajuan_umkm_id = $pengajuan->id;
+            $file = new PpbFiles();
+            $file->pengajuan_pendamping_id = $pengajuan->id;
             $file->nama = 'File-pendukung-'.($key+1);
             $file->path = $img;
             $file->save();
             if($file)
             {
-                Storage::disk('public')->move('pengajuan_temp/'.$img,'pengajuan/'.$img);
+                Storage::disk('public')->move('pengajuan_temp/'.$img,'pengajuan_pendamping/'.$img);
             }
         }
 
@@ -93,7 +97,7 @@ class PengajuanPendampingController extends Controller
         {
             Storage::disk('public')->deleteDirectory('pengajuan_temp');
             \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
-            return redirect()->route('pengajuan-umkm.index');
+            return redirect()->route('pengajuan-pendamping.index');
         }
     }
 
@@ -105,7 +109,11 @@ class PengajuanPendampingController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'pengajuan' => PengajuanPendamping::with('ppb_pendampingan','ppb_keahlian','ppb_files')->where('id',$id)->first()
+        );
+//        return $data;
+        return view('portal.pengajuan_pendamping.show',$data);
     }
 
     /**
@@ -116,7 +124,11 @@ class PengajuanPendampingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = array(
+            'pengajuan' => PengajuanPendamping::with('ppb_pendampingan','ppb_keahlian','ppb_files')->where('id',$id)->first()
+        );
+//        return $data;
+        return view('portal.pengajuan_pendamping.edit',$data);
     }
 
     /**
@@ -128,7 +140,50 @@ class PengajuanPendampingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //        return $request->all();
+        $rules = [
+            'nama' => 'required',
+            'telp' => 'required|numeric',
+            'email' => 'required|email',
+            'keterangan' => 'required'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            return redirect()->route('pengajuan-pendamping.edit',['id'=>$id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $pengajuan = PengajuanPendamping::find($id);
+        $pengajuan->nama = $request->nama;
+        $pengajuan->telp = $request->telp;
+        $pengajuan->email = $request->email;
+        $pengajuan->keterangan = $request->keterangan;
+        $pengajuan->save();
+
+        $keterangan_pendmapingan = $request->keterangan_pendampingan;
+        foreach ($request->ppb_pendampingan_id as $key=>$row)
+        {
+            $detail = PpbPendampingan::find($row);
+            $detail->keterangan = $keterangan_pendmapingan[$key];
+            $detail->save();
+        }
+
+        $keterangan_keahlian = $request->keterangan_keahlian;
+        foreach ($request->ppb_keahlian_id as $key=>$row)
+        {
+            $detail = PpbKeahlian::find($row);
+            $detail->keterangan = $keterangan_keahlian[$key];
+            $detail->save();
+        }
+
+        if($pengajuan)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            return redirect()->route('pengajuan-pendamping.show',['id'=>$id]);
+        }
     }
 
     /**
@@ -139,7 +194,20 @@ class PengajuanPendampingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = PengajuanPendamping::find($id);
+        $files = $data->ppb_files;
+
+        foreach ($files as $file)
+        {
+            $this->delete_file('pengajuan_pendamping',$file->path);
+        }
+
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            return redirect()->route('pengajuan-pendamping.index');
+        }
     }
 
     public function uploadAJax(Request $request)
@@ -157,6 +225,6 @@ class PengajuanPendampingController extends Controller
 
     public function getFile($path)
     {
-        return response()->download(public_path('pengajuan/'.$path));
+        return response()->download(public_path('pengajuan_pendamping/'.$path));
     }
 }

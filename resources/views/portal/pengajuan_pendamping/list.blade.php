@@ -41,7 +41,7 @@
                                                 <td>{{$row->keterangan}}</td>
                                                 <td>{{$row->status}}</td>
                                                 <td class="text-nowrap">
-                                                    <a href="{{route('pengajuan-pengajuan.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                                                    <a href="{{route('pengajuan-pendamping.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

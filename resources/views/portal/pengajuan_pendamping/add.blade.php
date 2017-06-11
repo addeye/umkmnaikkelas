@@ -60,7 +60,7 @@
 
                             <!-- Wizard Content -->
                             <div class="wizard-content">
-                                <form id="form-pengajuan" action="{{route('pengajuan-umkm.store')}}" method="post" enctype="multipart/form-data">
+                                <form id="form-pengajuan" action="{{route('pengajuan-pendamping.store')}}" method="post" enctype="multipart/form-data">
                                     {!! csrf_field() !!}
                                 <div class="wizard-pane active" id="exampleAccount" role="tabpanel">
                                     <div id="exampleAccountForm">
@@ -429,7 +429,7 @@
             $('.btn-bidang').click(function () {
                 var label = $('#bidang option:selected').text();
                 var id = $('#bidang').val();
-                var html ='<div class="form-group"><input type="hidden" name="bidang_pendampingan[]" value="'+id+'"><label class="control-label">'+label+'</label><textarea class="form-control" name="keterangan[]" required="required"></textarea></div>';
+                var html ='<div class="form-group"><input type="hidden" name="bidang_pendampingan[]" value="'+id+'"><label class="control-label">'+label+'</label><textarea class="form-control" name="keterangan_pendampingan[]" required="required"></textarea></div>';
                 $('#inputan-bidang').append(html);
             });
 

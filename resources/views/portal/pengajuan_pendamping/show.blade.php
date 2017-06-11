@@ -11,10 +11,10 @@
                         <div class="panel-heading">
                             <div class="panel-action">
                                 <ul class="panel-actions">
-                                    <li><a class="btn btn-sm btn-icon btn-flat btn-default" href="{{route('pengajuan-umkm.edit',['id'=>$pengajuan->id])}}" data-toggle="tooltip" data-original-title="Edit"><span class="icon wb-edit"></span> Edit</a></li>
+                                    <li><a class="btn btn-sm btn-icon btn-flat btn-default" href="{{route('pengajuan-pendamping.edit',['id'=>$pengajuan->id])}}" data-toggle="tooltip" data-original-title="Edit"><span class="icon wb-edit"></span> Edit</a></li>
                                     <li>
                                         <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$pengajuan->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i> Hapus</a>
-                                        <form id="delete-form-{{$pengajuan->id}}" action="{{route('pengajuan-umkm.destroy',['id'=>$pengajuan->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                                        <form id="delete-form-{{$pengajuan->id}}" action="{{route('pengajuan-pendamping.destroy',['id'=>$pengajuan->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
                                             <input type="hidden" name="_method" value="DELETE">
                                         </form>
                                     </li>
@@ -28,15 +28,19 @@
                                     <h4>Tanggal : {{date('d-m-Y',strtotime($pengajuan->tanggal))}}</h4>
                                 </div>
                                 <div class="col-md-9">
-                                    <h4>Kemajuan Usaha Per Bidang</h4>
-                                    @foreach($pengajuan->pengajuan_umkm_detail as $row)
+                                    <h4>Kemajuan Usaha Per Bidang Pendampingan</h4>
+                                    @foreach($pengajuan->ppb_pendampingan as $row)
                                         <p><strong>{{$row->bidang_pendampingan->nama}}</strong> : {{$row->keterangan}}</p>
+                                    @endforeach
+                                    <h4>Kemajuan Usaha Per Bidang Keahlian</h4>
+                                    @foreach($pengajuan->ppb_keahlian as $row)
+                                        <p><strong>{{$row->bidang_keahlian->nama}}</strong> : {{$row->keterangan}}</p>
                                     @endforeach
                                     <h4>File Pendukung</h4>
                                     <ul>
-                                        @foreach($pengajuan->pengajuan_umkm_files as $file)
+                                        @foreach($pengajuan->ppb_files as $file)
                                         <li>
-                                            <a href="{{route('pengajuan-umkm.getfile',['path'=>$file->path])}}"><span class="icon wb-file"></span> {{$file->nama}}</a>
+                                            <a href="{{route('pengajuan-pendamping.getfile',['path'=>$file->path])}}"><span class="icon wb-file"></span> {{$file->nama}}</a>
                                         </li>
                                         @endforeach
                                     </ul>

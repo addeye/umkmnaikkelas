@@ -11,9 +11,8 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Edit Pengajuan Tahun {{$pengajuan->tahun}}</h3>
                         </div>
-                        <form method="post" action="{{route('pengajuan-umkm.update',['id'=>$pengajuan->id])}}">
+                        <form method="post" action="{{route('pengajuan-pendamping.update',['id'=>$pengajuan->id])}}">
                         <div class="panel-body">
-
                                 {!! csrf_field() !!}
                                 <input type="hidden" name="_method" value="PUT">
                             <div class="row">
@@ -21,11 +20,17 @@
                                     <h4>Tanggal : {{date('d-m-Y',strtotime($pengajuan->tanggal))}}</h4>
                                 </div>
                                 <div class="col-md-9">
-                                    <h4>Kemajuan Usaha Per Bidang</h4>
-                                    @foreach($pengajuan->pengajuan_umkm_detail as $row)
+                                    <h4>Kemajuan Usaha Per Bidang Pendampingan</h4>
+                                    @foreach($pengajuan->ppb_pendampingan as $row)
                                         <p class="form-control-static"><strong>{{$row->bidang_pendampingan->nama}}</strong></p>
-                                        <textarea rows="4" name="keterangan_bidang[]" class="form-control">{{$row->keterangan}}</textarea>
-                                        <input type="hidden" name="detail_id[]" value="{{$row->id}}">
+                                        <textarea rows="4" name="keterangan_pendampingan[]" class="form-control">{{$row->keterangan}}</textarea>
+                                        <input type="hidden" name="ppb_pendampingan_id[]" value="{{$row->id}}">
+                                    @endforeach
+                                    <h4>Kemajuan Usaha Per Bidang Keahlian</h4>
+                                    @foreach($pengajuan->ppb_keahlian as $row)
+                                        <p class="form-control-static"><strong>{{$row->bidang_keahlian->nama}}</strong></p>
+                                        <textarea rows="4" name="keterangan_keahlian[]" class="form-control">{{$row->keterangan}}</textarea>
+                                        <input type="hidden" name="ppb_keahlian_id[]" value="{{$row->id}}">
                                     @endforeach
                                 </div>
                                 <div class="col-md-3">
@@ -67,7 +72,7 @@
                         <div class="panel-footer">
                             <div class="text-right">
                                 <button type="submit" class="btn btn-success">Simpan</button>
-                                <a href="{{route('pengajuan-umkm.show',['id'=>$pengajuan->id])}}" class="btn btn-warning">Batal</a>
+                                <a href="{{route('pengajuan-pendamping.show',['id'=>$pengajuan->id])}}" class="btn btn-warning">Batal</a>
                             </div>
                         </div>
                         </form>
