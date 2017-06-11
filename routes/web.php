@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('pengajuan-pendamping','PengajuanPendampingController');
         Route::post('ajax-upload','PengajuanPendampingController@uploadAJax')->name('pengajuan.upload');
         Route::get('file/{path}','PengajuanPendampingController@getFile')->name('pengajuan-pendamping.getfile');
+        Route::get('profile/{token}','HomeController@profile')->name('profile');
     });
 
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
