@@ -84,7 +84,7 @@ class PengajuanUmkmController extends Controller
         if($pengajuan)
         {
             Storage::disk('public')->deleteDirectory('pengajuan_temp');
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('pengajuan-umkm.index');
         }
     }
@@ -138,7 +138,7 @@ class PengajuanUmkmController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !');
             return redirect()->route('pengajuan-umkm.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
@@ -161,7 +161,7 @@ class PengajuanUmkmController extends Controller
 
         if($pengajuan)
         {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('pengajuan-umkm.show',['id'=>$id]);
         }
     }
@@ -185,7 +185,7 @@ class PengajuanUmkmController extends Controller
         $data->delete();
         if($data)
         {
-            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            \Alert::success('Data berhasil dihapus', 'Delete !');
             return redirect()->route('pengajuan-umkm.index');
         }
     }

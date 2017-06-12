@@ -53,7 +53,7 @@ class DataUmkmController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !');
             return redirect()->route('data-periode.create')
                 ->withErrors($validator)
                 ->withInput();
@@ -72,7 +72,7 @@ class DataUmkmController extends Controller
 
         if($periode)
         {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('data-periode.index');
         }
 
@@ -128,7 +128,7 @@ class DataUmkmController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !');
             return redirect()->route('data-periode.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
@@ -147,7 +147,7 @@ class DataUmkmController extends Controller
 
         if($periode)
         {
-            \Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil diupdate', 'Selamat !');
             return redirect()->route('data-periode.index');
         }
     }
@@ -165,7 +165,7 @@ class DataUmkmController extends Controller
 
         if($data)
         {
-            \Alert::success('Data berhasil dihapus', 'Delete !')->persistent("Tutup");
+            \Alert::success('Data berhasil dihapus', 'Delete !');
             return redirect()->route('data-periode.index');
         }
     }

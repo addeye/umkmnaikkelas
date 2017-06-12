@@ -136,7 +136,7 @@ input {
                    <a href="{{route('page.umkm')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-blue-800">UMKM</h4>
-                       <p class="sub-cap">Pendaftaran, Data, Produk</p>
+                       <p class="sub-cap">Data, Profil</p>
                     </div>
                     </a>
                 </div>
@@ -144,7 +144,7 @@ input {
                    <a href="{{route('page.pendamping')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
-                       <p class="sub-cap">Pendaftaran, Data, Sertifikasi</p>
+                       <p class="sub-cap">Data, Profil</p>
                     </div>
                     </a>
                 </div>
@@ -195,7 +195,7 @@ input {
                   </div>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
-                   <a href="javascript:void(0)">
+                   <a href="{{route('layanan.info_terkini')}}">
                      <div class="tile" style="background:url('{{asset('images/box/informasi-business.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap cap-red">Info Terkini</h4>
                        <p class="sub-cap">Info Terkini dari kami</p>
@@ -225,16 +225,20 @@ input {
                     </a>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
-                    <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">>
-                        <h4 class="tile-cap bg-orange-800">Forum</h4>
-                        <p class="sub-cap">Forum Naik Kelas</p>
-                    </div>
+                    <a>
+                        <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">>
+                            <h4 class="tile-cap bg-orange-800">Forum</h4>
+                            <p class="sub-cap">Forum Naik Kelas</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
-                    <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">>
-                        <h4 class="tile-cap bg-orange-800">Hubungi Kami</h4>
-                        <p class="sub-cap">Kontak dan Saran</p>
-                    </div>
+                    <a>
+                        <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">>
+                            <h4 class="tile-cap bg-orange-800">Hubungi Kami</h4>
+                            <p class="sub-cap">Kontak dan Saran</p>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">                       

@@ -31,9 +31,6 @@
                                   <li role="presentation">
                                       <a href="{{route('profile',['toke'=>Auth::user()->remember_token])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
                                   </li>
-                                  <li role="presentation">
-                                      <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>
-                                  </li>
                                   <li class="divider" role="presentation"></li>
                                   <li role="presentation">
                                       <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="javascript:void(0)" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
@@ -242,7 +239,7 @@
                                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                      role="button">Pendataan <span class="caret"></span></a>
                                   <ul class="dropdown-menu" role="menu">
-                                      <li class="{{set_active('data-periode','data-periode/*','active')}}" role="presentation"><a href="{{route('data-periode.index')}}" role="menuitem">Data Periode</a></li>
+                                      <li class="{{set_active('data-periode','data-periode/*','active')}}" role="presentation"><a href="{{route('data-periode.index')}}" role="menuitem">Data Usaha Periodik</a></li>
                                   </ul>
                               </li>
                           @endif

@@ -22,10 +22,17 @@ Route::get('prosedur-pendamping','PageController@prosedur_pendamping')->name('pr
 Route::get('mitra-lunas','PageController@mitra_lunas')->name('mitra.lunas');
 Route::get('laporan-umkm','PageController@umkm')->name('page.umkm');
 Route::get('laporan-pendamping','PageController@pendamping')->name('page.pendamping');
+Route::get('informasi-terkini','LayananController@infoTerkini')->name('layanan.info_terkini');
+Route::get('informasi-produk','LayananController@infoProduk')->name('layanan.info.produk');
+Route::get('informasi-agenda','LayananController@infoAgenda')->name('layanan.info.agenda');
+Route::get('forum','LayananController@infoForum')->name('layanan.info.forum');
+Route::get('kontak-kami','LayananController@kontak')->name('layanan.info.forum');
 
 Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('profile', 'HomeController@updateProfile')->name('profile.update');
+    Route::post('profile-foto','HomeController@updateFoto')->name('profile.foto.update');
 
     Route::group(['middleware' => 'admin'], function ()
     {
