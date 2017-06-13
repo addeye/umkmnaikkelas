@@ -210,7 +210,7 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                     <a target="_blank" href="http://fokus-umkm.com/">
-                        <div class="tile" style="background:url('{{asset('images/box/berita-artikel.jpg')}}') no-repeat center center;background-size: cover;">>
+                        <div class="tile" style="background:url('{{asset('images/box/berita-artikel.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Berita & Artikel</h4>
                             <p class="sub-cap">Seputar UMKM</p>
                         </div>
@@ -218,7 +218,7 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                     <a href="javascript:void(0)">
-                        <div class="tile" style="background:url('{{asset('images/box/agenda.jpg')}}') no-repeat center center;background-size: cover;">>
+                        <div class="tile" style="background:url('{{asset('images/box/agenda.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Agenda</h4>
                             <p class="sub-cap">Info Kegiatan</p>
                         </div>
@@ -226,15 +226,15 @@ input {
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
                     <a>
-                        <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">>
+                        <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Forum</h4>
                             <p class="sub-cap">Forum Naik Kelas</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
-                    <a>
-                        <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">>
+                    <a href="{{route('layanan.info.kontak')}}">
+                        <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Hubungi Kami</h4>
                             <p class="sub-cap">Kontak dan Saran</p>
                         </div>

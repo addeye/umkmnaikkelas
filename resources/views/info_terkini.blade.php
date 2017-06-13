@@ -26,9 +26,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="" placeholder="Cari keyword tertentu...">
+                                            <input type="text" class="form-control sSearch" placeholder="Cari keyword tertentu...">
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+                                                <button type="button" id="inpSearch" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
                                             </span>
                                         </div>
                                     </div>
@@ -37,7 +37,7 @@
                                     <ul class="list-group list-group-dividered list-group-full">
                                         @if(count($info_terkini))
                                             @foreach($info_terkini as $row)
-                                                <li class="list-group-item">
+                                                <li class="list-group-item contact-name">
                                                     <div class="media">
                                                         <div class="media-left">
                                                             <a class="avatar avatar-online" href="javascript:void(0)">
@@ -46,7 +46,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="media-body">
-                                                            <small class="text-muted pull-right">{{$row->created_at}}</small>
+                                                            <small class="text-muted pull-right">{{$row->textdate}}</small>
                                                             <h4 class="media-heading">{{$row->user->name}}</h4>
                                                             <div>{{$row->keterangan}}</div>
                                                         </div>
@@ -66,3 +66,26 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script>
+        jQuery.expr[':'].Contains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+        jQuery.expr[':'].contains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+        $('.sSearch').keyup(function(){
+            $('.contact-name').hide();
+            var txt = $('.sSearch').val();
+            $('.contact-name').each(function(){
+                if($(this).text().toUpperCase().indexOf(txt.toUpperCase()) != -1){
+                    $(this).show();
+                }
+            });
+        });
+    </script>
+    @endsection

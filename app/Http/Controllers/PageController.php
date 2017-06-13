@@ -31,13 +31,22 @@ class PageController extends Controller
 
     public function umkm()
     {
-        $bidangusaha = BidangUsaha::with('umkm')->get();
+//        $bidangusaha = BidangUsaha::with('umkm')->get();
+
         $umkm = Umkm::all();
         $data = array(
             'total_umkm' => $umkm->count(),
             'online' => $umkm->where('online','Ya')->count(),
             'sentra_umkm' => $umkm->where('sentra_umkm','Ya')->count(),
-            'bidang_usaha' => $bidangusaha,
+            'pertanian' => $umkm->where('bidang_usaha_id',1)->count(),
+            'perdagangan' => $umkm->where('bidang_usaha_id',2)->count(),
+            'pengangkutan' => $umkm->where('bidang_usaha_id',3)->count(),
+            'listrik' => $umkm->where('bidang_usaha_id',4)->count(),
+            'industri' => $umkm->where('bidang_usaha_id',5)->count(),
+            'bangunan' => $umkm->where('bidang_usaha_id',6)->count(),
+            'pertambangan' => $umkm->where('bidang_usaha_id',7)->count(),
+            'jasa_swasta' => $umkm->where('bidang_usaha_id',8)->count(),
+            'jasa_lainnya' => $umkm->where('bidang_usaha_id',9)->count(),
         );
         return view('umkm',$data);
     }

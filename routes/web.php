@@ -26,7 +26,8 @@ Route::get('informasi-terkini','LayananController@infoTerkini')->name('layanan.i
 Route::get('informasi-produk','LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda','LayananController@infoAgenda')->name('layanan.info.agenda');
 Route::get('forum','LayananController@infoForum')->name('layanan.info.forum');
-Route::get('kontak-kami','LayananController@kontak')->name('layanan.info.forum');
+Route::get('kontak-kami','LayananController@kontak')->name('layanan.info.kontak');
+Route::post('kontak-kami','LayananController@kirimKontak')->name('layanan.kirim.kontak');
 
 Route::group(['middleware' => 'auth'], function ()
 {
@@ -82,4 +83,8 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::resource('jasa-pendampingan','JasaPendampinganController');
 	Route::get('lembaga-pendamping','HomeController@showLembaga')->name('lembaga.pendamping');
 
+});
+
+Route::get('kontak-send',function (){
+   return view('mailling.kontak_send');
 });
