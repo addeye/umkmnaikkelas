@@ -17,4 +17,9 @@ class Pendamping extends Model
     {
         return $this->hasMany('App\JasaPendampingan','pendamping_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
 }

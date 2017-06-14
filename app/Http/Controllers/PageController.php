@@ -115,7 +115,7 @@ class PageController extends Controller
 
     public function pendamping()
     {
-        $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->get();
+        $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->get();
         $kota = \Indonesia::allCities();
         $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
         $bidang_pendampingan = BidangPendampingan::all();
@@ -128,34 +128,34 @@ class PageController extends Controller
         {
             if($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id=='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)->get();
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->get();
             }
             elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('kabkota_id',$kabkota_id)->get();
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->get();
             }
             elseif ($lembaga_id=='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
             }
             elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
                     ->where('kabkota_id',$kabkota_id)->get();
             }
             elseif ($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
                     ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
             }
             elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('kabkota_id',$kabkota_id)
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)
                     ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
             }
             elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
                     ->where('kabkota_id',$kabkota_id)
                     ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')
                     ->get();

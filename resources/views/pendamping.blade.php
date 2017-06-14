@@ -50,7 +50,11 @@
                                 <div class="widget">
                                     <div class="widget-header white bg-cyan-600 padding-30 clearfix">
                                         <a class="avatar avatar-100 pull-left margin-right-20" href="javascript:void(0)">
+                                            @if($row->user->image=='')
                                             <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="">
+                                                @else
+                                                <img src="{{asset('upload/user/images/'.$row->user->image)}}" alt="">
+                                            @endif
                                         </a>
                                         <div class="pull-left">
                                             <div class="font-size-20 margin-bottom-15">{{$row->nama_pendamping}}</div>
