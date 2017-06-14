@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\BidangPendampingan;
 use App\BidangUsaha;
+use App\Lembaga;
 use App\Pendamping;
 use App\Umkm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class PageController extends Controller
 {
@@ -31,9 +35,60 @@ class PageController extends Controller
 
     public function umkm()
     {
-//        $bidangusaha = BidangUsaha::with('umkm')->get();
+        $bidangusaha = BidangUsaha::with('umkm')->get();
+        $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
+        $kota = \Indonesia::allCities();
+        $umkm = Umkm::with('bidang_usaha')->get();
 
-        $umkm = Umkm::all();
+        $nama_umkm =  Input::get('nama_umkm');
+        $kota_id =  Input::get('kota');
+        $bidang_usaha_id =  Input::get('kategori');
+
+        if(Input::get('cari')=='true')
+        {
+
+            if($nama_umkm != '' && $kota_id=='' && $bidang_usaha_id=='')
+            {
+                $umkm = Umkm::where('nama_usaha','like','%'.$nama_umkm.'%')
+                    ->get();
+            }
+            elseif ($nama_umkm == '' && $kota_id!='' && $bidang_usaha_id=='')
+            {
+                $umkm = Umkm::where('kabkota_id',$kota_id)
+                    ->get();
+            }
+            elseif ($nama_umkm == '' && $kota_id=='' && $bidang_usaha_id!='')
+            {
+                $umkm = Umkm::where('bidang_usaha_id',$bidang_usaha_id)
+                    ->get();
+            }
+            elseif ($nama_umkm != '' && $kota_id!='' && $bidang_usaha_id=='')
+            {
+                $umkm = Umkm::where('nama_usaha','like','%'.$nama_umkm.'%')
+                    ->where('kabkota_id',$kota_id)
+                    ->get();
+            }
+            elseif ($nama_umkm != '' && $kota_id=='' && $bidang_usaha_id!='')
+            {
+                $umkm = Umkm::where('nama_usaha','like','%'.$nama_umkm.'%')
+                    ->where('bidang_usaha_id',$bidang_usaha_id)
+                    ->get();
+            }
+            elseif ($nama_umkm == '' && $kota_id!='' && $bidang_usaha_id!='')
+            {
+                $umkm = Umkm::where('kabkota_id',$kota_id)
+                    ->where('bidang_usaha_id',$bidang_usaha_id)
+                    ->get();
+            }
+            elseif ($nama_umkm != '' && $kota_id!='' && $bidang_usaha_id!='')
+            {
+                $umkm = Umkm::where('nama_usaha','like','%'.$nama_umkm.'%')
+                    ->where('kabkota_id',$kota_id)
+                    ->where('bidang_usaha_id',$bidang_usaha_id)
+                    ->get();
+            }
+        }
+
         $data = array(
             'total_umkm' => $umkm->count(),
             'online' => $umkm->where('online','Ya')->count(),
@@ -47,13 +102,66 @@ class PageController extends Controller
             'pertambangan' => $umkm->where('bidang_usaha_id',7)->count(),
             'jasa_swasta' => $umkm->where('bidang_usaha_id',8)->count(),
             'jasa_lainnya' => $umkm->where('bidang_usaha_id',9)->count(),
+            'bidang_usaha' => $bidangusaha,
+            'lembaga' => $lembaga,
+            'kota' => $kota,
+            'umkm' => $umkm,
+            'nama_umkm' => $nama_umkm,
+            'kota_id' => $kota_id,
+            'bidang_usaha_id' => $bidang_usaha_id
         );
         return view('umkm',$data);
     }
 
     public function pendamping()
     {
-        $pendamping = Pendamping::all();
+        $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->get();
+        $kota = \Indonesia::allCities();
+        $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
+        $bidang_pendampingan = BidangPendampingan::all();
+
+        $lembaga_id = Input::get('lembaga');
+        $kabkota_id = Input::get('kota');
+        $bidang_pendampingan_id = Input::get('bidang_pendampingan');
+
+        if(Input::get('cari')=='true')
+        {
+            if($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id=='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)->get();
+            }
+            elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('kabkota_id',$kabkota_id)->get();
+            }
+            elseif ($lembaga_id=='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
+            }
+            elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                    ->where('kabkota_id',$kabkota_id)->get();
+            }
+            elseif ($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
+            }
+            elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('kabkota_id',$kabkota_id)
+                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')->get();
+            }
+            elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
+            {
+                $pendamping = Pendamping::with('jasa_pendampingan','lembaga')->where('lembaga_id',$lembaga_id)
+                    ->where('kabkota_id',$kabkota_id)
+                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%')
+                    ->get();
+            }
+        }
+
         $data = array(
             'total_pendamping' => $pendamping->count(),
             'total_it' => Pendamping::where('bidang_pendampingan','like','%IT dan Kerjasama%')->count(),
@@ -63,6 +171,13 @@ class PageController extends Controller
             'total_pembiayaan' => Pendamping::where('bidang_pendampingan','like','%Pembiayaan%')->count(),
             'total_pemasaran' => Pendamping::where('bidang_pendampingan','like','%Pemasaran%')->count(),
             'total_lainnya' => Pendamping::where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count(),
+            'kota' => $kota,
+            'lembaga' => $lembaga,
+            'bidang_pendampingan' => $bidang_pendampingan,
+            'pendamping' => $pendamping,
+            'lembaga_id' => $lembaga_id,
+            'kabkota_id' => $kabkota_id,
+            'bidang_pendampingan_id' => $bidang_pendampingan_id
 
         );
 

@@ -9,6 +9,52 @@
             </div>
             <div class="page-content container-fluid">
                 <div class="row">
+                    <div class="col-md-12 padding-10">
+                        <form method="get">
+                            <input type="hidden" name="cari" value="true">
+                            <div class="form-group row">
+                                <div class="col-md-3 col-xs-6 padding-top-10">
+                                    <input type="text" class="form-control" placeholder="Nama UMKM" name="nama_umkm" value="{{$nama_umkm}}">
+                                </div>
+                                <div class="col-md-4 col-xs-6 padding-top-10">
+                                    <select class="form-control" name="kota" data-plugin="select2">
+                                        <option value="">Pilih Kota</option>
+                                        @foreach($kota as $row)
+                                            <option value="{{$row->id}}" {{$kota_id==$row->id?'selected':''}} >{{$row->name}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-xs-12 padding-top-10">
+                                    <select class="form-control" name="kategori" data-plugin="select2">
+                                        <option value="">Pilih Kategori</option>
+                                        @foreach($bidang_usaha as $row)
+                                            <option value="{{$row->id}}" {{$bidang_usaha_id==$row->id?'selected':''}} >{{$row->nama}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-1 col-xs-12 padding-top-10">
+                                    <button type="submit" class="btn btn-primary col-xs-12"><span class="icon fa-search"></span> Cari</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach($umkm as $row)
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="thumbnail height-200">
+                                        <img src="{{asset('images/logo.png')}}" alt="...">
+                                        <div class="caption padding-10">
+                                            <h3 class="text-center">{{$row->nama_usaha}}</h3>
+                                            <p class="text-center"><i class="icon fa-map-marker"></i> {{$row->kota}}</p>
+                                            <p class="text-center"><i class="icon fa-diamond"></i> {{$row->bidang_usaha->nama}}</p>
+                                            <p class="text-center"><i class="icon fa-dropbox"></i> Produk 0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                        </div>
+                    </div>
                 <div class="col-sm-3">                    
                     <div class="col-md-12">
                       <div class="widget">

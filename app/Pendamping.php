@@ -12,4 +12,9 @@ class Pendamping extends Model
     {
         return $this->belongsTo('App\Lembaga','lembaga_id');
     }
+
+    public function jasa_pendampingan()
+    {
+        return $this->hasMany('App\JasaPendampingan','pendamping_id');
+    }
 }
