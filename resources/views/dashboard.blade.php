@@ -45,33 +45,33 @@
                                             @endif
 
                                 </div>
-                                <div class="profile-social">
-                                    <a class="icon bd-twitter" href="javascript:void(0)"></a>
-                                    <a class="icon bd-facebook" href="javascript:void(0)"></a>
-                                </div>
+                                {{--<div class="profile-social">--}}
+                                    {{--<a class="icon bd-twitter" href="javascript:void(0)"></a>--}}
+                                    {{--<a class="icon bd-facebook" href="javascript:void(0)"></a>--}}
+                                {{--</div>--}}
                                 <button id="btn-profil" type="button" class="btn btn-primary">Lihat Profil</button>
                             </div>
                         </div>
                         <div class="widget-footer">
                             <div class="row no-space">
                                 <div class="col-xs-4">
-                                    <strong class="profile-stat-count">260</strong>
+                                    <strong class="profile-stat-count">0</strong>
+                                    <span>Jasa</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <strong class="profile-stat-count">0</strong>
                                     <span>UMKM</span>
                                 </div>
                                 <div class="col-xs-4">
-                                    <strong class="profile-stat-count">180</strong>
-                                    <span>Pengikut</span>
-                                </div>
-                                <div class="col-xs-4">
-                                    <strong class="profile-stat-count">2000</strong>
-                                    <span>Tweets</span>
+                                    <strong class="profile-stat-count">0</strong>
+                                    <span>Kegiatan</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- End Page Widget -->
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9 row">
                     <div class="col-md-6 col-xs-12 masonry-item">
                         <!-- Panel Twitter Feed -->
                         <div class="panel">
@@ -92,7 +92,7 @@
                                                             </a>
                                                         </div>
                                                         <div class="media-body">
-                                                            <small class="text-muted pull-right">{{$row->created_at}}</small>
+                                                            <small class="text-muted pull-right">{{$row->textdate}}</small>
                                                             <h4 class="media-heading">{{$row->user->name}}</h4>
                                                             <div>{{$row->keterangan}}</div>
                                                         </div>

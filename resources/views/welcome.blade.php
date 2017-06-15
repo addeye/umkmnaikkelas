@@ -217,7 +217,7 @@ input {
                     </a>
                 </div>
                 <div class="col-md-4 col-xs-6 col-tiles">
-                    <a href="javascript:void(0)">
+                    <a href="{{route('layanan.info.agenda')}}">
                         <div class="tile" style="background:url('{{asset('images/box/agenda.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Agenda</h4>
                             <p class="sub-cap">Info Kegiatan</p>

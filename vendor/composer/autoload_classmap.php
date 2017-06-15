@@ -14,6 +14,8 @@ return array(
     'CreateBidangUsahasTable' => $baseDir . '/database/migrations/2017_04_28_075253_create_bidang_usahas_table.php',
     'CreateDataUmkmsTable' => $baseDir . '/database/migrations/2017_05_21_210243_create_data_umkms_table.php',
     'CreateInfoTerkini' => $baseDir . '/database/migrations/2017_05_24_081753_create_info_terkini.php',
+    'CreateInformasiPasarCommentsTable' => $baseDir . '/database/migrations/2017_06_15_083030_create_informasi_pasar_comments_table.php',
+    'CreateInformasiPasarsTable' => $baseDir . '/database/migrations/2017_06_15_073413_create_informasi_pasar_table.php',
     'CreateJasaPendampingansTable' => $baseDir . '/database/migrations/2017_05_19_173654_create_jasa_pendampingans_table.php',
     'CreateLembagaTable' => $baseDir . '/database/migrations/2017_05_07_164954_create_lembaga_table.php',
     'CreateLembagasTable' => $baseDir . '/database/migrations/2017_04_28_075516_create_lembagas_table.php',

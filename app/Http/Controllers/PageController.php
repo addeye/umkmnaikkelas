@@ -115,7 +115,7 @@ class PageController extends Controller
 
     public function pendamping()
     {
-        $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->get();
+        $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->paginate();
         $kota = \Indonesia::allCities();
         $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
         $bidang_pendampingan = BidangPendampingan::all();

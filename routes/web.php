@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function ()
     Route::post('profile', 'HomeController@updateProfile')->name('profile.update');
     Route::post('profile-foto','HomeController@updateFoto')->name('profile.foto.update');
 
+    Route::resource('informasi-pasar','InformasiPasarController');
+
     Route::group(['middleware' => 'admin'], function ()
     {
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');

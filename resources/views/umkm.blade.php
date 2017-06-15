@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="animsition">
             <div class="page-header">
-                <h1 class="page-title">Profil UMKM LUNAS</h1>
+                <h1 class="page-title">Data UMKM LUNAS</h1>
             </div>
             <div class="page-content container-fluid">
                 <div class="row">
@@ -41,11 +41,11 @@
                     <div class="col-md-12">
                         <div class="row">
                             @foreach($umkm as $row)
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="thumbnail height-200">
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="thumbnail">
                                         <img src="{{asset('images/logo.png')}}" alt="...">
                                         <div class="caption padding-10">
-                                            <h3 class="text-center">{{$row->nama_usaha}}</h3>
+                                            <p class="text-center font-size-20"><strong>{{$row->nama_usaha}}</strong></p>
                                             <p class="text-center"><i class="icon fa-map-marker"></i> {{$row->kota}}</p>
                                             <p class="text-center"><i class="icon fa-diamond"></i> {{$row->bidang_usaha->nama}}</p>
                                             <p class="text-center"><i class="icon fa-dropbox"></i> Produk 0</p>

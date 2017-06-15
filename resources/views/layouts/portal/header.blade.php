@@ -245,7 +245,7 @@
                           @endif
 
 
-                          <li class="dropdown">
+                          <li class="dropdown {{set_active(['informasi-terkini'],'active')}}">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Layanan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
@@ -256,8 +256,8 @@
                                           <li role="presentation"><a href="{{route('pengajuan-pendamping.index')}}" role="menuitem">Penghargaan</a></li>
                                       @endif
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">Konsultasi</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Pasar</a></li>
-                                  <li role="presentation"><a href="javascript:void(0)" role="menuitem">Informasi Terkini</a></li>
+                                  <li role="presentation" class="{{set_active(['informasi-pasar','informasi-pasar/*'],'active')}}"><a href="{{route('informasi-pasar.index')}}" role="menuitem">Informasi Pasar</a></li>
+                                  <li role="presentation" class="{{set_active(['informasi-terkini'],'active')}}"><a href="{{route('layanan.info_terkini')}}" role="menuitem">Informasi Terkini</a></li>
                               </ul>
                           </li>
                       </ul>

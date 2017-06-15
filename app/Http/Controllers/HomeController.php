@@ -44,7 +44,7 @@ class HomeController extends Controller
             elseif (Auth::user()->role_id==ROLE_CALON || Auth::user()->role_id==ROLE_PENDAMPING || Auth::user()->role_id==ROLE_UMKM)
             {
                 $data = array(
-                    'info_terkini' =>InfoTerkini::with('user')->where('publish','Ya')->get()
+                    'info_terkini' =>InfoTerkini::with('user')->where('publish','Ya')->orderBy('created_at','DESC')->get()
                 );
                 return view('dashboard',$data);
             }

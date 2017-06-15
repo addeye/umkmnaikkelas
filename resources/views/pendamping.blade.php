@@ -53,7 +53,7 @@
                                             @if($row->user->image=='')
                                             <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="">
                                                 @else
-                                                <img src="{{asset('upload/user/images/'.$row->user->image)}}" alt="">
+                                                <img style="height: 100px" src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="">
                                             @endif
                                         </a>
                                         <div class="pull-left">
@@ -63,9 +63,6 @@
                                             </p>
                                             <p class="margin-bottom-5 text-nowrap"><i class="icon fa-phone margin-right-10" aria-hidden="true"></i>
                                                 <span class="text-break">{{$row->telp}}</span>
-                                            </p>
-                                            <p class="margin-bottom-5 text-nowrap"><i class="icon wb-map margin-right-10" aria-hidden="true"></i>
-                                                <span class="text-break">{{$row->alamat_domisili}}</span>
                                             </p>
                                             <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
                                                 <span class="text-break">{{$row->lembaga->nama_lembaga}}</span>

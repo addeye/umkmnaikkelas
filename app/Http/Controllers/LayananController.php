@@ -12,7 +12,7 @@ class LayananController extends Controller
     public function infoTerkini()
     {
         $data = array(
-            'info_terkini' => InfoTerkini::all()
+            'info_terkini' => InfoTerkini::with('user')->where('publish','Ya')->orderBy('created_at','DESC')->get()
         );
         return view('info_terkini',$data);
     }
@@ -28,5 +28,10 @@ class LayananController extends Controller
         Mail::to('umkmnaikkelas@gmail.com')->send(new KontakSend($data));
         \Alert::success('Data berhasil terkirim', 'Selamat !');
         return redirect()->route('layanan.info.kontak');
+    }
+
+    public function infoAgenda()
+    {
+        return view('agenda');
     }
 }
