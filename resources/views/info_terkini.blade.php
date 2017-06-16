@@ -12,15 +12,18 @@
 @section('content')
     <!-- Page -->
     <div class="container-fluid">
+        <div class="page-header animsition">
+            <h1 class="page-title">Layanan</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">Info Terkini</li>
+            </ol>
+        </div>
+
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                Info Terkini
-                            </div>
-                        </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">

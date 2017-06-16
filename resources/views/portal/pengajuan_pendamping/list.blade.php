@@ -9,6 +9,15 @@
 @section('content')
     <!-- Page -->
     <div class="container-fluid">
+
+        <div class="page-header">
+            <h1 class="page-title">Layanan</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">Penghargaan</li>
+            </ol>
+        </div>
+
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">

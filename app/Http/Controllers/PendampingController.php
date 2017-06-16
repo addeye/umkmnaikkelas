@@ -104,11 +104,7 @@ class PendampingController extends Controller
 
         $pendamping->save();
 
-        if($pendamping)
-        {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
-            return redirect()->route('pendamping.index');
-        }
+
     }
 
     public function show($id)

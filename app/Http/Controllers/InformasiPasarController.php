@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\InformasiPasar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class InformasiPasarController extends Controller
 {
@@ -24,7 +27,12 @@ class InformasiPasarController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+
+        $data=array(
+            'data' => InformasiPasar::where('user_id',$user->id)->get()
+        );
+        return view('informasi_pasar.add',$data);
     }
 
     /**
@@ -35,7 +43,35 @@ class InformasiPasarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'judul' => 'required',
+            'keterangan' => 'required',
+        ];
+         $validator = Validator::make($request->all(),$rules);
+         if($validator->fails())
+         {
+             return redirect()->route('informasi-pasar.create')
+                 ->withErrors($validator)
+                 ->withInput();
+         }
+
+         $data = new InformasiPasar();
+         $data->judul = $request->judul;
+         $data->keterangan = $request->keterangan;
+         $data->user_id = Auth::user()->id;
+         if($request->hasFile('image'))
+         {
+             $file = Input::file('image');
+             $name = $this->upload_image($file,'uploads/informasi_pasar/');
+             $data->image = $name;
+         }
+         $data->save();
+
+        if($data)
+        {
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
+            return redirect()->route('informasi-pasar.create');
+        }
     }
 
     /**
@@ -46,7 +82,11 @@ class InformasiPasarController extends Controller
      */
     public function show(InformasiPasar $informasiPasar)
     {
-        //
+        $user = Auth::user();
+        $data = array(
+            'data' => InformasiPasar::with('comment','user')->where('user_id',$user->id)->get()
+        );
+        return view('informasi_pasar.show',$data);
     }
 
     /**
@@ -55,9 +95,13 @@ class InformasiPasarController extends Controller
      * @param  \App\InformasiPasar  $informasiPasar
      * @return \Illuminate\Http\Response
      */
-    public function edit(InformasiPasar $informasiPasar)
+    public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $data = array(
+            'data' => InformasiPasar::with('comment','user')->where('user_id',$user->id)->where('id',$id)->get()
+        );
+        return view('informasi_pasar.edit',$data);
     }
 
     /**
@@ -67,9 +111,35 @@ class InformasiPasarController extends Controller
      * @param  \App\InformasiPasar  $informasiPasar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InformasiPasar $informasiPasar)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'judul' => 'required',
+            'keterangan' => 'required',
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return redirect()->route('informasi-pasar.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $data = InformasiPasar::find($id);
+        $data->judul = $request->judul;
+        $data->keterangan = $request->keterangan;
+        if($request->hasFile('image'))
+        {
+            $file = Input::file('image');
+            $name = $this->upload_image($file,'uploads/informasi_pasar/');
+            $data->image = $name;
+        }
+        $data->save();
+
+        if($data)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !');
+            return redirect()->route('informasi-pasar.show',['id'=>$id]);
+        }
     }
 
     /**
@@ -78,8 +148,16 @@ class InformasiPasarController extends Controller
      * @param  \App\InformasiPasar  $informasiPasar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InformasiPasar $informasiPasar)
+    public function destroy($id)
     {
-        //
+        $data = InformasiPasar::find($id);
+        $this->delete_image('uploads/informasi_pasar',$data->image);
+
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !');
+            return redirect()->route('informasi_pasar.index');
+        }
     }
 }

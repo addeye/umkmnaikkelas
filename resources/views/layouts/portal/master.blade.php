@@ -72,7 +72,6 @@
 
 @include('layouts.portal.header')
 
-
 <!-- Page -->
 @yield('content')
 <!-- End Page -->
