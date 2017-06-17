@@ -16,6 +16,13 @@
 @section('content')
     <!-- Page -->
     <div class="container-fluid">
+        <div class="page-header animsition">
+            <h1 class="page-title">Layanan</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">Hubungi Kami</li>
+            </ol>
+        </div>
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
@@ -66,13 +73,13 @@
                                 <div class="col-md-3">
                                     <div>
                                         <h4><i class="icon wb-map"></i> Alamat</h4>
-                                        <p><a href="https://goo.gl/maps/9bzrrHpszYk" target="_blank">Jl. Manyar Indah VIII No.6, <br>Menur Pumpungan, Sukolilo, Surabaya, <br>Jawa Timur 60118, Indonesia</a></p>
+                                        <p><a href="https://goo.gl/maps/9bzrrHpszYk" target="_blank">Jakarta Office <br> Jl. Danau Toba Nomor 104 <br>Jakarta Pusat 10210</a></p>
                                         <h4><i class="icon fa-phone"></i> Telepon</h4>
-                                        <p>+62 31 5994015</p>
+                                        <p>0812 3525 0065</p>
                                         <h4><i class="icon fa-globe"></i> Website</h4>
-                                        <p><a href="https://peacbromo.co.id" target="_blank">peacbromo.co.id</a></p>
+                                        <p><a href="http://fokus-umkm.com" target="_blank">fokus-umkm.com</a></p>
                                         <h4><i class="icon fa-facebook"></i> Facebook</h4>
-                                        <p><a href="https://www.facebook.com/www.peacbromo.co.id" target="_blank">@www.peacbromo.co.id</a></p>
+                                        <p><a href="https://www.facebook.com/1jutaumkmnaikkelas/" target="_blank">@1jutaumkmnaikkelas</a></p>
                                     </div>
                                 </div>
                             </div>

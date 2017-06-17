@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InformasiPasar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,11 @@ class InformasiPasarController extends Controller
      */
     public function index()
     {
-        return view('informasi_pasar.list');
+        $data = array(
+            'data' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->get(),
+            'recent' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->limit(5)->get()
+        );
+        return view('informasi_pasar.list',$data);
     }
 
     /**
@@ -80,11 +85,11 @@ class InformasiPasarController extends Controller
      * @param  \App\InformasiPasar  $informasiPasar
      * @return \Illuminate\Http\Response
      */
-    public function show(InformasiPasar $informasiPasar)
+    public function show($id)
     {
-        $user = Auth::user();
         $data = array(
-            'data' => InformasiPasar::with('comment','user')->where('user_id',$user->id)->get()
+            'data' => InformasiPasar::with('user','comment')->where('id',$id)->first(),
+            'recent' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->limit(5)->get()
         );
         return view('informasi_pasar.show',$data);
     }

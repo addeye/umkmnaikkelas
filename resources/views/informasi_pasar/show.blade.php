@@ -30,55 +30,62 @@
                                     <div class="media media-lg">
                                         <div class="media-left">
                                             <a class="avatar" href="javascript:void(0)">
-                                                <img class="img-responsive" src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                                                <img class="img-responsive" src="{{asset('uploads/user/images/'.$data->user->image)}}" alt="...">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">Terrance Arnold
-                                                <span>posted a new blog</span>
+                                            <h4 class="media-heading"><span>{{$data->user->name}}</span>
                                             </h4>
-                                            <small>active 14 minutes ago</small>
+                                            <small>{{$data->created_at}}</small>
                                             <div class="profile-brief">
                                                 <div class="media">
                                                     <a class="media-left">
                                                         <img class="media-object" src="{{asset('remark/assets/photos/placeholder.png')}}" alt="...">
                                                     </a>
                                                     <div class="media-body padding-left-20">
-                                                        <h4 class="media-heading">Getting Started</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                            elit. Integer nec odio. Praesent libero. Sed
-                                                            cursus ante dapibus diam. Sed nisi. Nulla quis
-                                                            sem at nibh elementum imperdiet. Duis sagittis
-                                                            ipsum. Praesent mauris.</p>
+                                                        <h4 class="media-heading">{{$data->judul}}</h4>
+                                                        <p>{{$data->keterangan}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <ul class="list-group list-group-dividered list-group-full">
+                                            @foreach($data->comment as $row)
                                             <li class="list-group-item padding-left-50">
                                                 <div class="media comment">
                                                     <div class="media-left">
                                                         <a class="avatar avatar-online" href="javascript:void(0)">
-                                                            <img src="{{asset('remark/assets/portraits/6.jpg')}}" alt="...">
+                                                            <img src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="...">
                                                             <i></i>
                                                         </a>
                                                     </div>
                                                     <div class="media-body comment-body">
-                                                        <a class="comment-author">Crystal Bates</a>
+                                                        <a class="comment-author">{{$row->user->name}}</a>
                                                         <div class="comment-meta">
-                                                            <span class="date">Just now</span>
+                                                            <span class="date">{{$row->textdate}}</span>
                                                         </div>
                                                         <div class="comment-content">
-                                                            <p>Tantas earum numeris, scribi innumerabiles quietae clariora.</p>
+                                                            <p>{{$row->komentar}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
+                                            @endforeach
                                         </ul>
-                                        <div class="form-group">
-                                            <textarea class="form-control" placeholder="Tulis komen anda.." rows="3"></textarea>
-                                            <button class="btn btn-primary">Kirim</button>
-                                        </div>
+                                        <form method="post" action="{{route('informasi-comment.store')}}">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="informasi_pasar_id" value="{{$data->id}}">
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+                                                    <textarea class="form-control" name="komentar" placeholder="Tulis komentar anda.." rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-12 text-right">
+                                                    <button class="btn btn-primary">Kirim</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -106,23 +113,22 @@
                                         </ul>
                                         <div class="tab-content padding-top-20">
                                             <div class="tab-pane active" id="tabPopular" role="tabpanel">
-                                                <div class="media media-xs">
-                                                    <div class="media-left">
-                                                        <img class="media-object" src="{{asset('remark/assets/photos/placeholder.png')}}" alt="...">
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a href="javascript:void(0)">
-                                                            <h4 class="media-heading">Media Heading</h4>
-                                                        </a>
-                                                        <p class="widget-metas">Jan 16, 2015</p>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="tab-pane" id="tabRecent" role="tabpanel">
-                                                Negant parvos fructu nostram mutans supplicii ac dissentias, maius tibi licebit
-                                                ruinae philosophia. Salutatus repellere titillaret expetendum
-                                                ipsi. Cupiditates intellegam exercitumque privatio concederetur,
-                                                sempiternum, verbis malint dissensio nullas noctesque earumque.
+                                                @foreach($recent as $row)
+                                                    <div class="media media-xs">
+                                                        <div class="media-left">
+                                                            <img class="media-object" src="{{asset('uploads/informasi_pasar/'.$row->image)}}" alt="...">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <a href="{{route('informasi-pasar.show',['id'=>$row->id])}}">
+                                                                <h5 class="media-heading">{{$row->judul}}</h5>
+                                                            </a>
+                                                            <p class="widget-metas">{{$row->textdate}}</p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

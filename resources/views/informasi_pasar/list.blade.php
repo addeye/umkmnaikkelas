@@ -37,34 +37,34 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
+                                    @foreach($data as $row)
                                     <div class="media media-lg">
                                         <div class="media-left">
-                                            <img class="media-object" src="{{asset('remark/assets/photos/placeholder.png')}}" alt="...">
+                                            <img class="media-object" src="{{asset('uploads/informasi_pasar/'.$row->image)}}" alt="...">
                                         </div>
                                         <div class="media-body">
                                             <div class="avatar avatar-sm pull-left margin-right-10 margin-top-5 tooltip-success" data-toggle="tooltip"
-                                                 data-placement="top" data-original-title="Mokhamad Ariadi" title="">
-                                                <img src="{{asset('remark/assets/portraits/3.jpg')}}" alt="">
+                                                 data-placement="top" data-original-title="{{$row->user->name}}" title="">
+                                                <img src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="">
                                             </div>
-                                            <a href="javascript:void(0)">
-                                                <h4 class="media-heading">Media Heading</h4>
+                                            <a href="{{route('informasi-pasar.show',['id'=>$row->id])}}">
+                                                <h4 class="media-heading">{{$row->judul}}</h4>
                                             </a>
-                                            <p class="widget-metas">Jan 16, 2015</p>
-                                            Filio levitatibus graecos discenda videntur, falli instituendarum vester dedocendi
-                                            partus quis videri honoris. Maximeque splendore sint dixit
-                                            Tantopere praeclarorum nimis.
+                                            <p class="widget-metas">{{$row->created_at}}</p>
+                                            {!! $row->keterangan !!}
                                         </div>
                                         <div class="widget-actions pull-right">
                                             <a href="javascript:void(0)">
                                                 <i class="icon fa-clock-o"></i>
-                                                <span>1 menit lalu</span>
+                                                <span>{{$row->textdate}}</span>
                                             </a>
                                             <a href="javascript:void(0)">
                                                 <i class="icon fa-comment"></i>
-                                                <span>253</span>
+                                                <span>{{$row->comment->count()}}</span>
                                             </a>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -91,23 +91,22 @@
                                         </ul>
                                         <div class="tab-content padding-top-20">
                                             <div class="tab-pane active" id="tabPopular" role="tabpanel">
-                                                <div class="media media-xs">
-                                                    <div class="media-left">
-                                                        <img class="media-object" src="{{asset('remark/assets/photos/placeholder.png')}}" alt="...">
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <a href="javascript:void(0)">
-                                                            <h4 class="media-heading">Media Heading</h4>
-                                                        </a>
-                                                        <p class="widget-metas">Jan 16, 2015</p>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="tab-pane" id="tabRecent" role="tabpanel">
-                                                Negant parvos fructu nostram mutans supplicii ac dissentias, maius tibi licebit
-                                                ruinae philosophia. Salutatus repellere titillaret expetendum
-                                                ipsi. Cupiditates intellegam exercitumque privatio concederetur,
-                                                sempiternum, verbis malint dissensio nullas noctesque earumque.
+                                                @foreach($recent as $row)
+                                                <div class="media media-xs">
+                                                    <div class="media-left">
+                                                        <img class="media-object" src="{{asset('uploads/informasi_pasar/'.$row->image)}}" alt="...">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <a href="{{route('informasi-pasar.show',['id'=>$row->id])}}">
+                                                            <h5 class="media-heading">{{$row->judul}}</h5>
+                                                        </a>
+                                                        <p class="widget-metas">{{$row->textdate}}</p>
+                                                    </div>
+                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

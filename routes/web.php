@@ -32,10 +32,12 @@ Route::post('kontak-kami','LayananController@kirimKontak')->name('layanan.kirim.
 Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('profile/{token}','HomeController@profile')->name('profile');
     Route::post('profile', 'HomeController@updateProfile')->name('profile.update');
     Route::post('profile-foto','HomeController@updateFoto')->name('profile.foto.update');
 
     Route::resource('informasi-pasar','InformasiPasarController');
+    Route::resource('informasi-comment','InformasiPasarCommentController');
 
     Route::group(['middleware' => 'admin'], function ()
     {
@@ -66,7 +68,6 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('pengajuan-pendamping','PengajuanPendampingController');
         Route::post('ajax-upload','PengajuanPendampingController@uploadAJax')->name('pengajuan.upload');
         Route::get('file/{path}','PengajuanPendampingController@getFile')->name('pengajuan-pendamping.getfile');
-        Route::get('profile/{token}','HomeController@profile')->name('profile');
     });
 
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');

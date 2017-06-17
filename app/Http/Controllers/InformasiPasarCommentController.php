@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\InformasiPasarComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class InformasiPasarCommentController extends Controller
 {
@@ -35,7 +37,29 @@ class InformasiPasarCommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'komentar' => 'required'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails())
+        {
+            return redirect()->route('informasi-pasar.show',['id'=>$request->informasi_pasar_id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = new InformasiPasarComment();
+        $data->user_id = Auth::user()->id;
+        $data->informasi_pasar_id = $request->informasi_pasar_id;
+        $data->komentar = $request->komentar;
+        $data->save();
+
+        if($data)
+        {
+            \Alert::success('Komentar anda telah terkirim', 'Selamat !');
+            return redirect()->route('informasi-pasar.show',['id'=>$request->informasi_pasar_id]);
+        }
+
     }
 
     /**
