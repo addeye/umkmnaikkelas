@@ -57,16 +57,18 @@
                                             @endif
                                         </a>
                                         <div class="pull-left">
-                                            <div class="font-size-20 margin-bottom-15">{{$row->nama_pendamping}}</div>
-                                            <p class="margin-bottom-5 text-nowrap"><i class="icon wb-envelope margin-right-10" aria-hidden="true"></i>
-                                                <span class="text-break">{{$row->email}}</span>
-                                            </p>
-                                            <p class="margin-bottom-5 text-nowrap"><i class="icon fa-phone margin-right-10" aria-hidden="true"></i>
-                                                <span class="text-break">{{$row->telp}}</span>
-                                            </p>
-                                            <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
-                                                <span class="text-break">{{$row->lembaga->nama_lembaga}}</span>
-                                            </p>
+                                            <div class="font-size-15 margin-bottom-15">{{$row->nama_pendamping}}</div>
+                                            <div class="font-size-12">
+                                                <p class="margin-bottom-5 text-nowrap"><i class="icon wb-envelope margin-right-10" aria-hidden="true"></i>
+                                                    <span class="text-break">{{$row->email}}</span>
+                                                </p>
+                                                <p class="margin-bottom-5 text-nowrap"><i class="icon fa-phone margin-right-10" aria-hidden="true"></i>
+                                                    <span class="text-break">{{$row->telp}}</span>
+                                                </p>
+                                                <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
+                                                    <span class="text-break">{{$row->lembaga->nama_lembaga}}</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="widget-content bg-white container-fluid">
@@ -94,6 +96,9 @@
                                 </div>
                             </div>
                                 @endforeach
+                            <div class="col-md-12">
+                                <div class="pagination">{{$pendamping->links()}}</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12">

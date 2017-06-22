@@ -27,7 +27,7 @@
                                     @if(!Auth::user()->image)
                                     <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
                                         @else
-                                        <img src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
+                                        <img style="height: 100px" src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
                                         @endif
 
                                 </a>

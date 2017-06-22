@@ -339,11 +339,21 @@ class HomeController extends Controller
         $pendamping->tahun_mulai = $request->tahun_mulai;
         $pendamping->pengalaman = $request->pengalaman;
         $pendamping->sertifikat = $request->sertifikat;
-        $pendamping->bidang_pendampingan = implode(", ",$request->bidang_pendampingan);
-        $pendamping->bidang_keahlian = implode(", ",$request->bidang_keahlian);
-        $pendamping->bidang_usaha = implode(", ",$request->bidang_usaha);
+        if($request->has('bidang_pendampingan'))
+        {
+            $pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
+        }
+        if($request->has('bidang_keahlian')) {
+            $pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
+        }
+        if($request->has('bidang_usaha')) {
+            $pendamping->bidang_usaha = implode(", ", $request->bidang_usaha);
+        }
         $pendamping->kabkota_id = $request->kabkota_id;
-        $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
+        if($request->has('kabkota_tambahan'))
+        {
+            $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
+        }
         $pendamping->lembaga_id = $request->lembaga_id;
         $pendamping->validasi = 0;
         $pendamping->user_id = Auth::user()->id;

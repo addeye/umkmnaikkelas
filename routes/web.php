@@ -39,6 +39,22 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('informasi-pasar','InformasiPasarController');
     Route::resource('informasi-comment','InformasiPasarCommentController');
 
+    Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
+
+    Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
+    Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
+    Route::get('daftar-umkm','HomeController@reg_umkm')->name('daftar.umkm');
+    Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
+    Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
+    Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
+
+    Route::get('profil-user','HomeController@showProfil')->name('profil.show');
+    Route::get('update-umkm/{id}','HomeController@update_umkm')->name('update.umkm');
+    Route::put('update-umkm/{id}','HomeController@doUpdateUmkm')->name('doupdate.umkm');
+
+    Route::resource('jasa-pendampingan','JasaPendampinganController');
+    Route::get('lembaga-pendamping','HomeController@showLembaga')->name('lembaga.pendamping');
+
     Route::group(['middleware' => 'admin'], function ()
     {
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');
@@ -69,22 +85,6 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('ajax-upload','PengajuanPendampingController@uploadAJax')->name('pengajuan.upload');
         Route::get('file/{path}','PengajuanPendampingController@getFile')->name('pengajuan-pendamping.getfile');
     });
-
-	Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
-
-	Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
-    Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
-	Route::get('daftar-umkm','HomeController@reg_umkm')->name('daftar.umkm');
-	Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
-	Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
-	Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
-
-	Route::get('profil-user','HomeController@showProfil')->name('profil.show');
-    Route::get('update-umkm/{id}','HomeController@update_umkm')->name('update.umkm');
-    Route::put('update-umkm/{id}','HomeController@doUpdateUmkm')->name('doupdate.umkm');
-
-	Route::resource('jasa-pendampingan','JasaPendampinganController');
-	Route::get('lembaga-pendamping','HomeController@showLembaga')->name('lembaga.pendamping');
 
 });
 
