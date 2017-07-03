@@ -69,6 +69,20 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('umkm','UmkmController');
         Route::resource('user','UserController');
         Route::resource('info-terkini','InfoTerkiniController');
+
+        /*LAPORAN USER*/
+        Route::get('laporan-user','LaporanUserController@index')->name('laporan-user.index');
+        Route::get('laporan-user/ajax','LaporanUserController@getAjax')->name('laporan-user.ajax');
+
+        Route::get('laporan-user/pendamping','LaporanUserController@listPendamping')->name('laporan-user.list.pendamping');
+        Route::get('laporan-user/ajax/pendamping','LaporanUserController@getAjaxPendamping')->name('laporan-user.ajax.pendamping');
+
+        Route::get('laporan-user/umkm','LaporanUserController@listUmkm')->name('laporan-user.list.umkm');
+        Route::get('laporan-user/ajax/umkm','LaporanUserController@getAjaxUmkm')->name('laporan-user.ajax.umkm');
+        /*END*/
+
+        Route::get('laporan-umkm/penghargaan','LaporanUmkmController@index')->name('laporan-umkm.penghargaan.index');
+        Route::get('laporan-pendamping/penghargaan','LaporanPendampingController@index')->name('laporan-pendamping.penghargaan.index');
     });
 
     Route::group(['middleware' => 'umkm','namespace'=>'Umkm'], function ()

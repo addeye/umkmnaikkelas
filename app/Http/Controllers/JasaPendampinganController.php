@@ -18,8 +18,9 @@ class JasaPendampinganController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $data = array(
-            'data' => JasaPendampingan::all()
+            'data' => JasaPendampingan::where('pendamping_id',$user->pendamping->id)->get()
         );
         return view('portal.jasa_pendampingan.list',$data);
     }

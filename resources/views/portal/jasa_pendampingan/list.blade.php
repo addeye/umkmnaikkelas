@@ -50,9 +50,10 @@
                                         </tr>
                                         </tfoot>
                                         <tbody>
+                                        <?php $no=1; ?>
                                         @foreach($data as $row)
                                             <tr>
-                                                <td>{{$row->id}}</td>
+                                                <td>{{$no++}}</td>
                                                 <td>{{$row->title}}</td>
                                                 <td>{{$row->deskripsi}}</td>
                                                 <td>{{$row->harga}}</td>

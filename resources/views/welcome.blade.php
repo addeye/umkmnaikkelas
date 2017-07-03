@@ -104,13 +104,6 @@ input {
                         {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
                     {{--</div>--}}
                 </div>
-                <div class="item">
-                    <img class="width-full" src="{{asset('images/slider/lunas2.jpg')}}" alt="..." />
-                    {{--<div class="carousel-caption">--}}
-                        {{--<h3>UMKM NAIK KELAS</h3>--}}
-                        {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
-                    {{--</div>--}}
-                </div>
             </div>
             <a class="left carousel-control" href="#exampleCarouselCaptions" role="button"
             data-slide="prev">
