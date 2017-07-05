@@ -115,106 +115,109 @@ class PageController extends Controller
 
     public function pendamping()
     {
-        $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user');
+
+        $pendamping = DB::table('pendamping')
+        ->leftjoin('lembaga','pendamping.lembaga_id','=','lembaga.id')
+        ->leftjoin('users','pendamping.user_id','=','users.id')
+        ->select('pendamping.*','lembaga.nama_lembaga','users.image');
+
         $kota = \Indonesia::allCities();
         $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
         $bidang_pendampingan = BidangPendampingan::all();
 
-        $total_it = Pendamping::where('bidang_pendampingan','like','%IT dan Kerjasama%')->count();
-        $total_kelembagaan =Pendamping::where('bidang_pendampingan','like','%Kelembagaan%')->count();
-        $total_sdm = Pendamping::where('bidang_pendampingan','like','%SDM%')->count();
-        $total_produksi = Pendamping::where('bidang_pendampingan','like','%Produksi%')->count();
-        $total_pembiayaan =Pendamping::where('bidang_pendampingan','like','%Pembiayaan%')->count();
-        $total_pemasaran = Pendamping::where('bidang_pendampingan','like','%Pemasaran%')->count();
-        $total_lainnya = Pendamping::where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count();
-
         $lembaga_id = Input::get('lembaga');
         $kabkota_id = Input::get('kota');
         $bidang_pendampingan_id = Input::get('bidang_pendampingan');
+        $keyword = Input::get('keyword');
+
+        $total_it = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%IT dan Kerjasama%');
+        $total_kelembagaan = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%Kelembagaan%');
+        $total_sdm = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%SDM%');
+        $total_produksi = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%Produksi%');
+        $total_pembiayaan = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%Pembiayaan%');
+        $total_pemasaran = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%Pemasaran%');
+        $total_lainnya = DB::table('pendamping')->where('pendamping.bidang_pendampingan','like','%Bidang Pendampingan Lainnya%');
 
         if(Input::get('cari')=='true')
         {
-            if($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id=='')
+
+            if($lembaga_id != '')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id);
-                $total_it = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%IT dan Kerjasama%')->count();
-                $total_kelembagaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%Kelembagaan%')->count();
-                $total_sdm = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%SDM%')->count();
-                $total_produksi = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%Produksi%')->count();
-                $total_pembiayaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%Pembiayaan%')->count();
-                $total_pemasaran = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%Pemasaran%')->count();
-                $total_lainnya = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)->where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count();
+                $pendamping = $pendamping->where('pendamping.lembaga_id',$lembaga_id);
+                $total_it = $total_it->where('pendamping.lembaga_id',$lembaga_id);
+                $total_kelembagaan = $total_kelembagaan->where('pendamping.lembaga_id',$lembaga_id);
+                $total_sdm = $total_sdm->where('pendamping.lembaga_id',$lembaga_id);
+                $total_produksi = $total_produksi->where('pendamping.lembaga_id',$lembaga_id);
+                $total_pembiayaan = $total_pembiayaan->where('pendamping.lembaga_id',$lembaga_id);
+                $total_pemasaran = $total_pemasaran->where('pendamping.lembaga_id',$lembaga_id); 
+                $total_lainnya = $total_lainnya->where('pendamping.lembaga_id',$lembaga_id);
             }
-            elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
+
+            if($kabkota_id != '')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id);
-                $total_it = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%IT dan Kerjasama%')->count();
-                $total_kelembagaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Kelembagaan%')->count();
-                $total_sdm = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%SDM%')->count();
-                $total_produksi = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Produksi%')->count();
-                $total_pembiayaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Pembiayaan%')->count();
-                $total_pemasaran = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Pemasaran%')->count();
-                $total_lainnya = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count();
+                $pendamping = $pendamping->where('pendamping.kabkota_id',$kabkota_id);
+
+                $total_it = $total_it->where('pendamping.kabkota_id',$kabkota_id);
+                $total_kelembagaan = $total_kelembagaan->where('pendamping.kabkota_id',$kabkota_id);
+                $total_sdm = $total_sdm->where('pendamping.kabkota_id',$kabkota_id);
+                $total_produksi = $total_produksi->where('pendamping.kabkota_id',$kabkota_id);
+                $total_pembiayaan = $total_pembiayaan->where('pendamping.kabkota_id',$kabkota_id);
+                $total_pemasaran = $total_pemasaran->where('pendamping.kabkota_id',$kabkota_id);
+                $total_lainnya = $total_lainnya->where('pendamping.kabkota_id',$kabkota_id);
             }
-            elseif ($lembaga_id=='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
+
+            if($bidang_pendampingan_id != '')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $pendamping = $pendamping->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+
+                $total_it = $total_it->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_kelembagaan = $total_kelembagaan->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_sdm = $total_sdm->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_produksi = $total_produksi->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_pembiayaan = $total_pembiayaan->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_pemasaran = $total_pemasaran->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
+                $total_lainnya = $total_lainnya->where('pendamping.bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
             }
-            elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id=='')
+
+            if($keyword != '')
             {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id);
-                $total_it = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%IT dan Kerjasama%')->count();
-                $total_kelembagaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Kelembagaan%')->count();
-                $total_sdm = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%SDM%')->count();
-                $total_produksi = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Produksi%')->count();
-                $total_pembiayaan =Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Pembiayaan%')->count();
-                $total_pemasaran = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Pemasaran%')->count();
-                $total_lainnya = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)->where('bidang_pendampingan','like','%Bidang Pendampingan Lainnya%')->count();
+                $pendamping = $pendamping->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                
+                $total_it = $total_it->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_kelembagaan = $total_kelembagaan->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_sdm = $total_sdm->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_produksi = $total_produksi->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_pembiayaan = $total_pembiayaan->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_pemasaran = $total_pemasaran->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
+                $total_lainnya = $total_lainnya->where('pendamping.nama_pendamping','like','%'.$keyword.'%')->orWhere('pendamping.email','like','%'.$keyword.'%');
             }
-            elseif ($lembaga_id!='' && $kabkota_id=='' && $bidang_pendampingan_id!='')
-            {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
-            }
-            elseif ($lembaga_id=='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
-            {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('kabkota_id',$kabkota_id)
-                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
-            }
-            elseif ($lembaga_id!='' && $kabkota_id!='' && $bidang_pendampingan_id!='')
-            {
-                $pendamping = Pendamping::with('jasa_pendampingan','lembaga','user')->where('lembaga_id',$lembaga_id)
-                    ->where('kabkota_id',$kabkota_id)
-                    ->where('bidang_pendampingan','like','%'.$bidang_pendampingan_id.'%');
-            }
+
         }
 
         $content = $pendamping->paginate();
+        foreach ($content as $key => $value) {
+            $content[$key]->totjasa = DB::table('jasa_pendampingan')->where('pendamping_id',$value->id)->count();
+        }
+
+        // return $content;
 
         $data = array(
             'total_pendamping' => $content->total(),
-            'total_it' => $total_it,
-            'total_kelembagaan' =>$total_kelembagaan,
-            'total_sdm' => $total_sdm,
-            'total_produksi' => $total_produksi,
-            'total_pembiayaan' =>$total_pembiayaan,
-            'total_pemasaran' => $total_pemasaran,
-            'total_lainnya' => $total_lainnya,
+            'total_it' => $total_it->count(),
+            'total_kelembagaan' =>$total_kelembagaan->count(),
+            'total_sdm' => $total_sdm->count(),
+            'total_produksi' => $total_produksi->count(),
+            'total_pembiayaan' =>$total_pembiayaan->count(),
+            'total_pemasaran' => $total_pemasaran->count(),
+            'total_lainnya' => $total_lainnya->count(),
             'kota' => $kota,
             'lembaga' => $lembaga,
             'bidang_pendampingan' => $bidang_pendampingan,
             'pendamping' => $content,
             'lembaga_id' => $lembaga_id,
             'kabkota_id' => $kabkota_id,
-            'bidang_pendampingan_id' => $bidang_pendampingan_id
+            'bidang_pendampingan_id' => $bidang_pendampingan_id,
+            'keyword' => $keyword
 
         );
 

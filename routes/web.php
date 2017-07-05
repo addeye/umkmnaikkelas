@@ -81,16 +81,19 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('laporan-user/ajax/umkm','LaporanUserController@getAjaxUmkm')->name('laporan-user.ajax.umkm');
         /*END*/
 
-        Route::get('laporan-umkm/penghargaan','LaporanUmkmController@index')->name('laporan-umkm.penghargaan.index');
-        Route::get('laporan-pendamping/penghargaan','LaporanPendampingController@index')->name('laporan-pendamping.penghargaan.index');
+        Route::get('laporan-penghargaan/umkm','LaporanPenghargaanController@getUmkm')->name('laporan-penghargaan.list.umkm');
+        Route::get('laporan-penghargaan/ajax/umkm','LaporanPenghargaanController@getAjaxUmkm')->name('laporan-penghargaan.ajax.umkm');
+
+        Route::get('laporan-penghargaan/pendamping','LaporanPenghargaanController@getPendamping')->name('laporan-penghargaan.list.pendamping');
+        Route::get('laporan-penghargaan/ajax/pendamping','LaporanPenghargaanController@getAjaxPendamping')->name('laporan-penghargaan.ajax.pendamping');
     });
 
     Route::group(['middleware' => 'umkm','namespace'=>'Umkm'], function ()
     {
         Route::resource('data-periode','DataUmkmController');
         Route::resource('pengajuan-umkm','PengajuanUmkmController');
-        Route::post('ajax-upload','PengajuanUmkmController@uploadAJax')->name('pengajuan.upload');
-        Route::get('file/{path}','PengajuanUmkmController@getFile')->name('pengajuan-umkm.getfile');
+        Route::post('ajax-upload/umkm','PengajuanUmkmController@uploadAJax')->name('pengajuan-umkm.upload');
+        Route::get('file-umkm/{path}','PengajuanUmkmController@getFile')->name('pengajuan-umkm.getfile');
     });
 
     Route::group(['middleware' => 'pendamping','namespace' => 'Pendamping'], function ()
@@ -104,4 +107,8 @@ Route::group(['middleware' => 'auth'], function ()
 
 Route::get('kontak-send',function (){
    return view('mailling.kontak_send');
+});
+
+Route::get('new-register',function (){
+   return view('mailling.new_register');
 });

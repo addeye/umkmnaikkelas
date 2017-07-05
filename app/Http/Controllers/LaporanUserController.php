@@ -51,8 +51,9 @@ class LaporanUserController extends Controller
 
 	public function listPendamping()
 	{
+		$pendampingan = collect(Pendamping::all());
 		$data = array(
-			'total_pendamping' => Pendamping::count()
+			'total_pendamping' => $pendampingan->count(),
 			);
 		return view('laporan.pendamping',$data);
 	}
@@ -71,7 +72,7 @@ class LaporanUserController extends Controller
 
 	public function getAjaxUmkm()
 	{
-		return array("data" => Umkm::all());
+		return array("data" => Umkm::with('bidang_usaha')->get());
 	}
 	/*End*/
 }

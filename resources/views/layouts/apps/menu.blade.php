@@ -181,13 +181,7 @@
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Menu Layanan</span>
                                 </a>
-                            </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="#" data-slug="advanced-alertify">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Info Terkini</span>
-                                </a>
-                            </li>
+                            </li>                            
                             <li class="site-menu-item {{set_active(['user','user/*'],'active')}}">
                                 <a class="animsition-link" href="{{route('user.index')}}" data-slug="advanced-toastr">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
@@ -196,39 +190,39 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{set_active(['user','user/*','info-terkini','info-terkini/*'],'active open')}}">
+                    <li class="site-menu-item has-sub {{set_active(['laporan-user','laporan-user/*','laporan-penghargaan','laporan-penghargaan/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="advanced">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">Laporan</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
+                            <li class="site-menu-item {{set_active(['laporan-user'],'active')}}">
                                 <a class="animsition-link" href="{{route('laporan-user.index')}}" data-slug="advanced-animation">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Laporan User</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
+                            <li class="site-menu-item {{set_active(['laporan-user/pendamping','active'])}}">
                                 <a class="animsition-link" href="{{route('laporan-user.list.pendamping')}}" data-slug="advanced-animation">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Laporan Pendamping</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
+                            <li class="site-menu-item {{set_active(['laporan-user/umkm','active'])}}">
                                 <a class="animsition-link" href="{{route('laporan-user.list.umkm')}}" data-slug="advanced-animation">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Laporan UMKM</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="{{route('laporan-umkm.penghargaan.index')}}" data-slug="advanced-lightbox">
+                            <li class="site-menu-item {{set_active(['laporan-penghargaan/umkm','active'])}}">
+                                <a class="animsition-link" href="{{route('laporan-penghargaan.list.umkm')}}" data-slug="advanced-lightbox">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Penghargaan UMKM</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item hidden-xs">
-                                <a href="{{route('laporan-pendamping.penghargaan.index')}}" data-slug="advanced-tour">
+                            <li class="site-menu-item {{set_active(['laporan-penghargaan/pendamping','active'])}}">
+                                <a href="{{route('laporan-penghargaan.list.pendamping')}}" data-slug="advanced-lightbox">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Penghargaan Pendamping</span>
                                 </a>

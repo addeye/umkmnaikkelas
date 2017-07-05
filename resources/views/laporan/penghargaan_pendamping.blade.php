@@ -3,28 +3,20 @@
 
 @section('content')
 <div class="page animsition">
-	<div class="page-content">
+  <div class="page-content">
     <div class="panel">
       <div class="panel-body">    
       <div class="table-responsive">
         <table id="example" class="table table-hover dataTable table-striped width-full">
         <thead>
           <tr>
-            <th>ID Pendampingan</th>
-            <th>Nama</th> 
-            <th>Alamat</th>
-            <th>Gender</th>
+            <th>Nama Pendamping</th>
+            <th>Nama CP</th> 
             <th>Telepon</th>
             <th>Email</th>
-            <th>Pendidikan</th>
+            <th>Tanggal</th>
             <th>Tahun</th>
-            <th>Pengalaman</th>
-            <th>Sertifikat</th>
-            <th>Bidang Pendampingan</th>
-            <th>Bidang Keahlian</th>
-            <th>Bidang Usaha</th>
-            <th>Kota</th>
-            <th>Lembaga</th>
+            <th>Keterangan</th>
           </tr>
         </thead>        
       </table>   
@@ -59,23 +51,15 @@
 <script type="text/javascript">
 
 $('#example').DataTable( {
-        ajax: '{{route('laporan-user.ajax.pendamping')}}',
+        ajax: '{{route('laporan-penghargaan.ajax.pendamping')}}',
         "columns": [
-              { "data": "id_pendamping" },
-              { "data": "nama_pendamping" },
-              { "data": "alamat_domisili" },
-              { "data": "jenis_kelamin" },
+              { "data": "pendamping.nama_pendamping" },
+              { "data": "nama" },
               { "data": "telp" },
               { "data": "email" },
-              { "data": "pendidikan" },
-              { "data": "tahun_mulai" },
-              { "data": "pengalaman" },
-              { "data": "sertifikat" },
-              { "data": "bidang_pendampingan" },
-              { "data": "bidang_keahlian" },
-              { "data": "bidang_usaha" },              
-              { "data": "kota" },
-              { "data": "lembaga.nama_lembaga" },
+              { "data": "tanggal" },
+              { "data": "tahun" },
+              { "data": "keterangan" },
           ],
         dom: 'Bfrtip',
         buttons: [

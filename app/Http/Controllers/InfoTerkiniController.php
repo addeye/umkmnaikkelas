@@ -16,7 +16,7 @@ class InfoTerkiniController extends Controller
     public function index()
     {
         $data = array(
-            'data' => InfoTerkini::with('user')->get()
+            'data' => InfoTerkini::with('user')->orderBy('created_at','DESC')->get()
         );
         return view('info_terkini.list',$data);
     }

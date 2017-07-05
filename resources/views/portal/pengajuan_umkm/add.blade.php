@@ -158,7 +158,7 @@
     <script>
         var _token = $('#token').val();
         $("#input-ficons-3").fileinput({
-            uploadUrl: "{{route('pengajuan.upload')}}",
+            uploadUrl: "{{route('pengajuan-umkm.upload')}}",
             uploadExtraData : {_token:_token},
             previewFileIcon: '<i class="fa fa-file"></i>',
             allowedPreviewTypes: ['image', 'text'], // allow only preview of image & text files

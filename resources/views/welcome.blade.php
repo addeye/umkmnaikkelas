@@ -188,7 +188,7 @@ input {
                     <h2>LAYANAN</h2>
                   </div>
                 </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                <div class="col-md-6 col-xs-6 col-tiles">
                    <a href="{{route('layanan.info_terkini')}}">
                      <div class="tile" style="background:url('{{asset('images/box/informasi-business.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap cap-red">Info Terkini</h4>
@@ -196,13 +196,13 @@ input {
                     </div>
                    </a>
                 </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                {{-- <div class="col-md-4 col-xs-6 col-tiles">
                    <div class="tile" style="background:url('{{asset('images/box/informasi-pasar.jpg')}}') no-repeat center center;background-size: cover;">
                        <h4 class="tile-cap cap-red">Info Produk</h4>
                        <p class="sub-cap">Info Produk dan Promo</p>
                     </div>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                </div> --}}
+                <div class="col-md-6 col-xs-6 col-tiles">
                     <a target="_blank" href="http://fokus-umkm.com/">
                         <div class="tile" style="background:url('{{asset('images/box/berita-artikel.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Berita & Artikel</h4>
@@ -210,7 +210,7 @@ input {
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                <div class="col-md-6 col-xs-6 col-tiles">
                     <a href="{{route('layanan.info.agenda')}}">
                         <div class="tile" style="background:url('{{asset('images/box/agenda.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Agenda</h4>
@@ -218,15 +218,15 @@ input {
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                {{-- <div class="col-md-4 col-xs-6 col-tiles">
                     <a>
                         <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Forum</h4>
                             <p class="sub-cap">Forum Naik Kelas</p>
                         </div>
                     </a>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
+                </div> --}}
+                <div class="col-md-6 col-xs-6 col-tiles">
                     <a href="{{route('layanan.info.kontak')}}">
                         <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">
                             <h4 class="tile-cap bg-orange-800">Hubungi Kami</h4>
@@ -238,27 +238,7 @@ input {
             <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">                       
                   <div class="slider" id="exampleAutoplay">
 
-                      <div class="slick-item">
-                          <div class="row">
-                              <div class="col-md-12 col-xs-12">
-                                  <div class="widget widget-shadow">
-                                      <div class="widget-content padding-20 bg-green-500 white height-full">
-                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
-                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
-                                          </a>
-                                          <div style="overflow:hidden;">
-                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
-                                              <div class="font-size-18">Erwin Wijaya</div>
-                                              <div class="grey-200 font-size-14 margin-bottom-10">Pendamping</div>
-                                              <blockquote class="cover-quote font-size-16 white">
-                                                  Aplikasi LUNAS mudah dioperasikan dan sangat membantu dalam manajemen pendampingan
-                                              </blockquote>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                  @foreach($info_terkini as $row)
 
                       <div class="slick-item">
                           <div class="row">
@@ -269,11 +249,11 @@ input {
                                               <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
                                           </a>
                                           <div style="overflow:hidden;">
-                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
-                                              <div class="font-size-18">Supardiono</div>
-                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
+                                              <small class="pull-right grey-200">{{$row->textdate}}</small>
+                                              <div class="font-size-18">{{$row->user->name}}</div>
+                                              <div class="grey-200 font-size-14 margin-bottom-10">Team Lunas</div>
                                               <blockquote class="cover-quote font-size-16 white">
-                                                  LUNAS membantu saya mendapatkan pendamping bisnis yg profesional dibidang desain kemasan.
+                                                  {{$row->keterangan}}
                                               </blockquote>
                                           </div>
                                       </div>
@@ -281,50 +261,7 @@ input {
                               </div>
                           </div>
                       </div>
-
-                      <div class="slick-item">
-                          <div class="row">
-                              <div class="col-md-12 col-xs-12">
-                                  <div class="widget widget-shadow">
-                                      <div class="widget-content padding-20 bg-green-500 white height-full">
-                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
-                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
-                                          </a>
-                                          <div style="overflow:hidden;">
-                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
-                                              <div class="font-size-18">Wahyu Gumilar</div>
-                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
-                                              <blockquote class="cover-quote font-size-16 white">
-                                                  Saya puas mendapat pendampingan akses pembiayaan ke bank. Terimakasih LUNAS.
-                                              </blockquote>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="slick-item">
-                          <div class="row">
-                              <div class="col-md-12 col-xs-12">
-                                  <div class="widget widget-shadow">
-                                      <div class="widget-content padding-20 bg-green-500 white height-full">
-                                          <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
-                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
-                                          </a>
-                                          <div style="overflow:hidden;">
-                                              <small class="pull-right grey-200">Kemarin, 13:48</small>
-                                              <div class="font-size-18">Joni Paredes</div>
-                                              <div class="grey-200 font-size-14 margin-bottom-10">UMKM</div>
-                                              <blockquote class="cover-quote font-size-16 white">
-                                                  Sekarang saya bisa jualan online berkat bantuan LUNAS.
-                                              </blockquote>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                      @endforeach
 
                   </div>            
               <!-- End Example Autoplay -->

@@ -13,6 +13,9 @@
                         <form method="get">
                             <input type="hidden" name="cari" value="true">
                             <div class="form-group row">
+                                <div class="col-md-2 col-xs-12 padding-top-10">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Nama/Email" value="{{$keyword}}">
+                                </div>
                                 <div class="col-md-3 col-xs-12 padding-top-10">
                                     <select class="form-control" name="lembaga" data-plugin="select2">
                                         <option value="">Pilih Lembaga</option>
@@ -21,7 +24,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4 col-xs-12 padding-top-10">
+                                <div class="col-md-3 col-xs-12 padding-top-10">
                                     <select class="form-control" name="kota" data-plugin="select2">
                                         <option value="">Pilih Kota</option>
                                         @foreach($kota as $row)
@@ -29,7 +32,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4 col-xs-12 padding-top-10">
+                                <div class="col-md-3 col-xs-12 padding-top-10">
                                     <select class="form-control" name="bidang_pendampingan" data-plugin="select2">
                                         <option value="">Bidang Pendampingan</option>
                                         @foreach($bidang_pendampingan as $row)
@@ -50,10 +53,10 @@
                                 <div class="widget">
                                     <div class="widget-header white bg-cyan-600 padding-30 clearfix">
                                         <a class="avatar avatar-100 pull-left margin-right-20" href="javascript:void(0)">
-                                            @if($row->user->image=='')
+                                            @if($row->image=='')
                                             <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="">
                                                 @else
-                                                <img style="height: 100px" src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="">
+                                                <img style="height: 100px" src="{{asset('uploads/user/images/'.$row->image)}}" alt="">
                                             @endif
                                         </a>
                                         <div class="pull-left">
@@ -66,7 +69,7 @@
                                                     <span class="text-break">{{$row->telp}}</span>
                                                 </p>
                                                 <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
-                                                    <span class="text-break">{{$row->lembaga->nama_lembaga}}</span>
+                                                    <span class="text-break">{{$row->nama_lembaga}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -75,7 +78,7 @@
                                         <div class="row no-space padding-vertical-20 padding-horizontal-30 text-center">
                                             <div class="col-xs-4">
                                                 <div class="counter">
-                                                    <span class="counter-number cyan-600">{{count($row->jasa_pendampingan)}}</span>
+                                                    <span class="counter-number cyan-600">{{$row->totjasa}}</span>
                                                     <div class="counter-label">Jasa</div>
                                                 </div>
                                             </div>

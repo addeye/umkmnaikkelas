@@ -8,6 +8,18 @@ class Pendamping extends Model
 {
     protected $table = 'pendamping';
 
+    protected $appends = ['kota'];
+
+    public function getKotaAttribute()
+    {
+        if($this->kabkota_id)
+        {
+            return \Indonesia::findCity($this->kabkota_id)->name;
+        }
+        return '';
+        
+    }
+
     public function lembaga()
     {
         return $this->belongsTo('App\Lembaga','lembaga_id');
@@ -22,4 +34,5 @@ class Pendamping extends Model
     {
         return $this->belongsTo('App\User','user_id');
     }
+
 }
