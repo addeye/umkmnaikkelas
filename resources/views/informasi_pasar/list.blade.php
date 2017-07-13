@@ -82,18 +82,18 @@
                                 <div class="col-md-12 row">
                                     <div class="nav-tabs-horizontal">
                                         <ul class="nav nav-tabs" data-plugin="nav-tabs" role="tablist">
-                                            <li class="active" role="presentation">
+                                            <li class="" role="presentation">
                                                 <a data-toggle="tab" href="#tabPopular" aria-controls="tabPopular" role="tab">Popular</a>
                                             </li>
-                                            <li role="presentation">
+                                            <li class="active" role="presentation">
                                                 <a data-toggle="tab" href="#tabRecent" aria-controls="tabRecent" role="tab">Recent</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content padding-top-20">
-                                            <div class="tab-pane active" id="tabPopular" role="tabpanel">
+                                            <div class="tab-pane" id="tabPopular" role="tabpanel">
 
                                             </div>
-                                            <div class="tab-pane" id="tabRecent" role="tabpanel">
+                                            <div class="tab-pane active" id="tabRecent" role="tabpanel">
                                                 @foreach($recent as $row)
                                                 <div class="media media-xs">
                                                     <div class="media-left">

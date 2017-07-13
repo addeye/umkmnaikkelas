@@ -178,6 +178,7 @@ return [
         Jcf\Geocode\GeocodeServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Nasution\ZenzivaSms\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...

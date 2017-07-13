@@ -16,7 +16,7 @@
             <ol class="breadcrumb">
                 <li><a href="{{url('/')}}">Home</a></li>
                 <li><a href="{{route('informasi-pasar.index')}}">Infromasi Pasar</a></li>
-                <li class="active">Judulnya...</li>
+                <li class="active">{{$data->judul}}</li>
             </ol>
         </div>
 
@@ -40,7 +40,7 @@
                                             <div class="profile-brief">
                                                 <div class="media">
                                                     <a class="media-left">
-                                                        <img class="media-object" src="{{asset('remark/assets/photos/placeholder.png')}}" alt="...">
+                                                        <img class="media-object" src="{{asset('uploads/informasi_pasar/'.$data->image)}}" alt="...">
                                                     </a>
                                                     <div class="media-body padding-left-20">
                                                         <h4 class="media-heading">{{$data->judul}}</h4>
@@ -104,18 +104,18 @@
                                 <div class="col-md-12 row">
                                     <div class="nav-tabs-horizontal">
                                         <ul class="nav nav-tabs" data-plugin="nav-tabs" role="tablist">
-                                            <li class="active" role="presentation">
+                                            <li class="" role="presentation">
                                                 <a data-toggle="tab" href="#tabPopular" aria-controls="tabPopular" role="tab">Popular</a>
                                             </li>
-                                            <li role="presentation">
+                                            <li class="active" role="presentation">
                                                 <a data-toggle="tab" href="#tabRecent" aria-controls="tabRecent" role="tab">Recent</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content padding-top-20">
-                                            <div class="tab-pane active" id="tabPopular" role="tabpanel">
+                                            <div class="tab-pane " id="tabPopular" role="tabpanel">
 
                                             </div>
-                                            <div class="tab-pane" id="tabRecent" role="tabpanel">
+                                            <div class="tab-pane active" id="tabRecent" role="tabpanel">
                                                 @foreach($recent as $row)
                                                     <div class="media media-xs">
                                                         <div class="media-left">

@@ -74,7 +74,7 @@ class UserController extends Controller
 
         if($user)
         {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('user.index');
         }
     }
@@ -100,7 +100,7 @@ class UserController extends Controller
     {
         $data = array(
             'data' => User::find($id),
-            'role' => Role::where('id',ROLE_ADMIN)->orWhere('id',ROLE_CALON)->get()
+            'role' => Role::all()
         );
         return view('user.edit',$data);
     }

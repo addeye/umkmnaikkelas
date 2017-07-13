@@ -60,7 +60,13 @@ class LaporanUserController extends Controller
 
 	public function getAjaxPendamping()
 	{
-		return array("data" => Pendamping::with('lembaga')->get());
+		$data = \DB::table('pendamping')
+				->leftjoin('lembaga','pendamping.lembaga_id','=','lembaga.id')
+				->leftjoin('indonesia_cities','pendamping.kabkota_id','=','indonesia_cities.id')
+				->join('indonesia_provinces','indonesia_cities.province_id','=','indonesia_provinces.id')
+				->select('pendamping.*','lembaga.nama_lembaga','indonesia_cities.name as kabkota','indonesia_provinces.name as provinsi')
+				->get();
+		return array("data" => $data);
 	}
 	/*End*/
 

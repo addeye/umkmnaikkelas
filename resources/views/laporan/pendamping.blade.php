@@ -23,7 +23,8 @@
             <th>Bidang Pendampingan</th>
             <th>Bidang Keahlian</th>
             <th>Bidang Usaha</th>
-            <th>Kota</th>
+            <th>Provinsi</th>
+            <th>Kota</th>            
             <th>Lembaga</th>
           </tr>
         </thead>        
@@ -74,8 +75,9 @@ $('#example').DataTable( {
               { "data": "bidang_pendampingan" },
               { "data": "bidang_keahlian" },
               { "data": "bidang_usaha" },              
-              { "data": "kota" },
-              { "data": "lembaga.nama_lembaga" },
+              { "data": "provinsi" },
+              { "data": "kabkota" },
+              { "data": "nama_lembaga" },
           ],
         dom: 'Bfrtip',
         buttons: [

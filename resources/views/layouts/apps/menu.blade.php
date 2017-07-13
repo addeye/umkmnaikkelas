@@ -118,15 +118,15 @@
                         </ul>
                     </li>
                     <li class="site-menu-category">Feature</li>
-                    <li class="site-menu-item has-sub {{set_active(['info-terkini','info-terkini/*'],'active open')}}">
+                    <li class="site-menu-item has-sub {{set_active(['info-terkini','info-terkini/*','info-pasar','info-pasar/*','agenda','agenda/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="uikit">
                             <i class="site-menu-icon wb-bookmark" aria-hidden="true"></i>
                             <span class="site-menu-title">Layanan</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../uikit/buttons.html" data-slug="uikit-buttons">
+                            <li class="site-menu-item {{set_active(['info-pasar','info-pasar/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('info-pasar.list')}}" data-slug="uikit-buttons">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Info Pasar</span>
                                 </a>
@@ -135,6 +135,12 @@
                                 <a class="animsition-link" href="{{route('info-terkini.index')}}" data-slug="uikit-colors">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Info Terkini</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{set_active(['agenda','agenda/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('agenda.index')}}" data-slug="uikit-buttons">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Agenda</span>
                                 </a>
                             </li>
                             <li class="site-menu-item">

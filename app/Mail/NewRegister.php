@@ -14,6 +14,8 @@ class NewRegister extends Mailable
 
     public $info;
     public $data;
+    public $pathToFile;
+    public $pathToFile2;
 
     /**
      * Create a new message instance.
@@ -22,8 +24,10 @@ class NewRegister extends Mailable
      */
     public function __construct($data)
     {
-        $this->info = InfoTerkini::with('user')->limit(3)->orderBy('created_at','DESC')->get()->toArray();
+        $this->info = InfoTerkini::with('user')->limit(5)->orderBy('created_at','DESC')->get()->toArray();
         $this->data = $data;
+        $this->pathToFile = 'images/prosedur_umkm.jpg';
+        $this->pathToFile2 = 'images/prosedur_pendamping.jpg';
     }
 
     /**
@@ -33,6 +37,6 @@ class NewRegister extends Mailable
      */
     public function build()
     {
-        return $this->view('mailling.new_register');
+        return $this->view('mailling.new_register_2');
     }
 }

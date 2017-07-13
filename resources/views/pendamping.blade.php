@@ -69,7 +69,13 @@
                                                     <span class="text-break">{{$row->telp}}</span>
                                                 </p>
                                                 <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
-                                                    <span class="text-break">{{$row->nama_lembaga}}</span>
+                                                    <span class="text-break">
+                                                    @if($row->kabkota_id)
+                                                    {{Indonesia::findCity($row->kabkota_id)->name}}
+                                                    @else
+                                                    -
+                                                    @endif
+                                                    </span>
                                                 </p>
                                             </div>
                                         </div>

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InformasiPasarMailling;
 
 class InformasiPasarController extends Controller
 {
@@ -19,8 +21,8 @@ class InformasiPasarController extends Controller
     public function index()
     {
         $data = array(
-            'data' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->get(),
-            'recent' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->limit(5)->get()
+            'data' => InformasiPasar::with('user','comment')->where('status',1)->orderBy('created_at','DESC')->get(),
+            'recent' => InformasiPasar::with('user','comment')->where('status',1)->orderBy('created_at','DESC')->limit(5)->get()
         );
         return view('informasi_pasar.list',$data);
     }
@@ -72,8 +74,17 @@ class InformasiPasarController extends Controller
          }
          $data->save();
 
+         $user = Auth::user();
+
+         $param = array(
+            'name' => $user->name,
+            'email' =>  $user->email,
+            'id' => $data->id
+            );
+
         if($data)
         {
+            Mail::to('umkmnaikkelas@gmail.com')->send(new InformasiPasarMailling($param));
             \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('informasi-pasar.create');
         }
@@ -89,7 +100,7 @@ class InformasiPasarController extends Controller
     {
         $data = array(
             'data' => InformasiPasar::with('user','comment')->where('id',$id)->first(),
-            'recent' => InformasiPasar::with('user','comment')->orderBy('created_at','DESC')->limit(5)->get()
+            'recent' => InformasiPasar::with('user','comment')->where('status',1)->orderBy('created_at','DESC')->limit(5)->get()
         );
         return view('informasi_pasar.show',$data);
     }
@@ -154,6 +165,42 @@ class InformasiPasarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        $data = InformasiPasar::find($id);
+        $this->delete_image('uploads/informasi_pasar',$data->image);
+
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !');
+            return redirect()->route('informasi_pasar.index');
+        }
+    }
+
+    public function getList()
+    {
+        $data = array(
+            'data' => InformasiPasar::all()
+            );
+        return view('informasi_pasar.list_admin',$data);
+    }
+
+    public function detail($id)
+    {
+        $data = array(
+            'data' => InformasiPasar::find($id)
+            );
+        return view('informasi_pasar.detail_admin',$data);
+    }
+
+    public function doUpdate(Request $request,$id)
+    {
+        $info = InformasiPasar::find($id);
+        $info->status = $request->status;
+        $info->save();
+    }
+
+    public function doDelete()
     {
         $data = InformasiPasar::find($id);
         $this->delete_image('uploads/informasi_pasar',$data->image);

@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'HomeController@index');
+Route::get('/testsms', 'HomeController@sms_test');
 Auth::routes();
 Route::get('/portal','HomeController@portal')->name('portal');
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
@@ -25,6 +26,7 @@ Route::get('laporan-pendamping','PageController@pendamping')->name('page.pendamp
 Route::get('informasi-terkini','LayananController@infoTerkini')->name('layanan.info_terkini');
 Route::get('informasi-produk','LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda','LayananController@infoAgenda')->name('layanan.info.agenda');
+Route::get('informasi-agenda/{judul}','LayananController@detailAgenda')->name('layanan.detail.agenda');
 Route::get('forum','LayananController@infoForum')->name('layanan.info.forum');
 Route::get('kontak-kami','LayananController@kontak')->name('layanan.info.kontak');
 Route::post('kontak-kami','LayananController@kirimKontak')->name('layanan.kirim.kontak');
@@ -41,12 +43,16 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 
-    Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
-    Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
-    Route::get('daftar-umkm','HomeController@reg_umkm')->name('daftar.umkm');
-    Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
-    Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
-    Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
+    Route::group(['middleware' => 'calon'], function()
+    {
+        Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
+        Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
+        Route::get('daftar-umkm','HomeController@reg_umkm')->name('daftar.umkm');
+        Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
+        Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
+        Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
+
+    });
 
     Route::get('profil-user','HomeController@showProfil')->name('profil.show');
     Route::get('update-umkm/{id}','HomeController@update_umkm')->name('update.umkm');
@@ -69,6 +75,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('umkm','UmkmController');
         Route::resource('user','UserController');
         Route::resource('info-terkini','InfoTerkiniController');
+        Route::resource('agenda','AgendaController');
 
         /*LAPORAN USER*/
         Route::get('laporan-user','LaporanUserController@index')->name('laporan-user.index');
@@ -86,6 +93,11 @@ Route::group(['middleware' => 'auth'], function ()
 
         Route::get('laporan-penghargaan/pendamping','LaporanPenghargaanController@getPendamping')->name('laporan-penghargaan.list.pendamping');
         Route::get('laporan-penghargaan/ajax/pendamping','LaporanPenghargaanController@getAjaxPendamping')->name('laporan-penghargaan.ajax.pendamping');
+
+        Route::get('info-pasar','InformasiPasarController@getList')->name('info-pasar.list');
+        Route::get('info-pasar/{id}','InformasiPasarController@detail')->name('info-pasar.detail');
+        Route::put('info-pasar/{id}','InformasiPasarController@doUpdate')->name('info-pasar.doUpdate');
+        Route::delete('info-pasar/{id}','InformasiPasarController@doDelete')->name('info-pasar.doDelete');
     });
 
     Route::group(['middleware' => 'umkm','namespace'=>'Umkm'], function ()
@@ -110,5 +122,5 @@ Route::get('kontak-send',function (){
 });
 
 Route::get('new-register',function (){
-   return view('mailling.new_register');
+   return view('mailling.new_register_2');
 });

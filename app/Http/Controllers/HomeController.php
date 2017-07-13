@@ -15,6 +15,8 @@ use Laravolt\Indonesia\Indonesia;
 use App\BidangPendampingan;
 use App\BidangKeahlian;
 use App\Lembaga;
+use App\Agenda;
+use Nasution\ZenzivaSms\Client as Sms;
 
 class HomeController extends Controller
 {
@@ -44,7 +46,8 @@ class HomeController extends Controller
             elseif (Auth::user()->role_id==ROLE_CALON || Auth::user()->role_id==ROLE_PENDAMPING || Auth::user()->role_id==ROLE_UMKM)
             {
                 $data = array(
-                    'info_terkini' =>InfoTerkini::with('user')->limit(3)->where('publish','Ya')->orderBy('created_at','DESC')->get()
+                    'info_terkini' =>InfoTerkini::with('user')->limit(3)->where('publish','Ya')->orderBy('created_at','DESC')->get(),
+                    'agenda' => Agenda::with('user')->limit(3)->where('status',1)->orderBy('created_at','DESC')->get()
                 );
                 return view('dashboard',$data);
             }
@@ -567,5 +570,13 @@ class HomeController extends Controller
             \Alert::success('Data berhasil diupdate', 'Selamat !');
             return redirect()->route('profile',['token'=>$user->remember_token]);
         }
+    }
+
+    public function sms_test()
+    {
+        $sms = new Sms('irte7f', 'addeye27');
+        // Simple usage
+        // Simple usage
+        return $sms->send('0818312815', 'Hai ini dikirim dari web lunas (Adi)?');
     }
 }

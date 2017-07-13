@@ -47,4 +47,11 @@ return [
         'redirect' => 'http://localhost:8000/callback/twitter',
     ],
 
+    'zenziva' => [
+    'userkey' => 'irte7f',
+    'passkey' => 'addeye27',
+    'subdomain' => '',
+    'masking' => false,
+    ],
+
 ];

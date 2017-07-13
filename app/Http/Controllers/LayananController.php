@@ -6,6 +6,7 @@ use App\InfoTerkini;
 use App\Mail\KontakSend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Agenda;
 
 class LayananController extends Controller
 {
@@ -32,6 +33,18 @@ class LayananController extends Controller
 
     public function infoAgenda()
     {
-        return view('agenda');
+        $data = array(
+            'data' => Agenda::with('user')->orderBy('created_at','DESC')->get()
+            );
+        return view('agenda',$data);
+    }
+
+    public function detailAgenda($judul)
+    {
+        $data = array(
+            'data' => Agenda::where('judul',$judul)->first(),
+            'recent' => Agenda::limit(3)->orderBy('created_at','DESC')->get()
+            );
+        return view('agenda_detail',$data);
     }
 }

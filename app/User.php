@@ -42,4 +42,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role','role_id');
     }
 
+    public function routeNotificationForZenzivaSms()
+    {
+        return $this->telp; // Depends on your users table field.
+    }
+
 }

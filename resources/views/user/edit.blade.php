@@ -48,10 +48,14 @@
                   <label class="col-sm-3 control-label">Level</label>
                   <div class="col-sm-9">
                     <select class="form-control" name="role_id">
+                    <option value="">Pilih</option>
                       @foreach($role as $r)
                         <option value="{{$r->id}}" {{$data->role_id==$r->id?'selected':''}}>{{$r->nama}}</option>
                       @endforeach
                     </select>
+                    <span class="help-block">
+                      <strong>* Kosongi jika tidak dirubah</strong>
+                    </span>
                     <span class="help-block">
                       <strong>{{ $errors->first('role_id') }}</strong>
                     </span>
