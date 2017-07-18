@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PengajuanUmkm;
 use Illuminate\Http\Request;
+use App\PengajuanPendamping;
 
-class PengajuanUmkmController extends Controller
+class PengajuanPendampingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,10 @@ class PengajuanUmkmController extends Controller
     public function index()
     {
         $data = array(
-            'data' => PengajuanUmkm::with('umkm')->get()
+            'data' => PengajuanPendamping::with('pendamping')->get()
         );
-        return view('pengajuan_umkm.list',$data);
+
+        return view('pengajuan_pendamping.list',$data);
     }
 
     /**
@@ -27,7 +28,7 @@ class PengajuanUmkmController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -50,10 +51,10 @@ class PengajuanUmkmController extends Controller
     public function show($id)
     {
         $data = array(
-            'pengajuan' => PengajuanUmkm::with('pengajuan_umkm_detail','pengajuan_umkm_files')->where('id',$id)->first()
+            'pengajuan' => PengajuanPendamping::with('ppb_pendampingan','ppb_keahlian','ppb_files')->where('id',$id)->first()
         );
 //        return $data;
-        return view('pengajuan_umkm.show',$data);
+        return view('pengajuan_pendamping.show',$data);
     }
 
     /**
@@ -76,14 +77,14 @@ class PengajuanUmkmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pengajuan = PengajuanUmkm::find($id);
+        $pengajuan = PengajuanPendamping::find($id);
         $pengajuan->status = $request->status;
         $pengajuan->save();
 
         if($pengajuan)
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !');
-            return redirect()->route('penghargaan-umkm.show',['id'=>$id]);
+            return redirect()->route('penghargaan-pendamping.show',['id'=>$id]);
         }
     }
 
@@ -96,10 +97,5 @@ class PengajuanUmkmController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getFile($path)
-    {
-        return response()->download(public_path('pengajuan/'.$path));
     }
 }

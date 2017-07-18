@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->has('path_npwp') ? ' has-error' : '' }}">
-                                <label class="col-sm-3 control-label">Foto KTP</label>
+                                <label class="col-sm-3 control-label">Foto NPWP</label>
                                 <div class="col-sm-9">
                                     <input id="input-2" name="path_npwp" type="file" class="file" data-show-upload="false" data-show-caption="true">
                                     <span class="help-block">

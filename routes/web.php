@@ -48,15 +48,15 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('daftar-pendamping','HomeController@reg_pendamping')->name('daftar.pendamping');
         Route::post('daftar-pendamping','HomeController@doRegPendamping')->name('dodaftar.pendamping');
         Route::get('daftar-umkm','HomeController@reg_umkm')->name('daftar.umkm');
-        Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');
-        Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
-        Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
+        Route::post('daftar-umkm','HomeController@doRegUmkm')->name('dodaftar.umkm');        
 
     });
 
     Route::get('profil-user','HomeController@showProfil')->name('profil.show');
     Route::get('update-umkm/{id}','HomeController@update_umkm')->name('update.umkm');
     Route::put('update-umkm/{id}','HomeController@doUpdateUmkm')->name('doupdate.umkm');
+    Route::get('update-pendamping/{id}','HomeController@update_pendamping')->name('update.pendamping');
+    Route::put('update-pendamping/{id}','HomeController@doUpdatePendamping')->name('doupdate.pendamping');
 
     Route::resource('jasa-pendampingan','JasaPendampinganController');
     Route::get('lembaga-pendamping','HomeController@showLembaga')->name('lembaga.pendamping');
@@ -73,9 +73,20 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('pendamping','PendampingController');
         Route::post('pendamping-import','PendampingController@importExistData')->name('pendamping.import');
         Route::resource('umkm','UmkmController');
-        Route::resource('user','UserController');
+        
+        Route::resource('user','UserController');        
+        Route::get('user-profile/{id}','UserController@profile')->name('user-profile.user');
+        Route::put('user-profile/{id}', 'UserController@updateProfile')->name('user-profile.update');
+        Route::post('user-profile-foto','UserController@updateFoto')->name('user-profile.foto.update');
+        
         Route::resource('info-terkini','InfoTerkiniController');
         Route::resource('agenda','AgendaController');
+        Route::resource('penghargaan-umkm','PengajuanUmkmController');
+        Route::get('file-penghargaan-umkm/{path}','PengajuanUmkmController@getfile')->name('penghargaan-umkm.getfile');
+
+        Route::resource('penghargaan-pendamping','PengajuanPendampingController');
+        Route::get('file-penghargaan-pendamping/{path}','PengajuanPendampingController@getfile')->name('penghargaan-pendamping.getfile');
+
 
         /*LAPORAN USER*/
         Route::get('laporan-user','LaporanUserController@index')->name('laporan-user.index');

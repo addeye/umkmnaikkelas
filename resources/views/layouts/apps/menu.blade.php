@@ -63,7 +63,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{ set_active(['umkm','umkm/*'],'active open') }}">
+                    <li class="site-menu-item has-sub {{ set_active(['umkm','umkm/*','penghargaan-umkm','penghargaan-umkm/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">UMKM</span>
@@ -77,20 +77,20 @@
                                 </a>
                             </li>
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="../pages/register.html" data-slug="page-register">
+                                <a class="animsition-link" href="javascript:void(0);" data-slug="page-register">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Produk</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../pages/login.html" data-slug="page-login">
+                            <li class="site-menu-item {{ set_active(['penghargaan-umkm','penghargaan-umkm/*'],'active') }}">
+                                <a class="animsition-link" href="{{route('penghargaan-umkm.index')}}" data-slug="page-login">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Sertifikasi UMKM Naik Kelas</span>
+                                    <span class="site-menu-title">Penghargaan</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{ set_active(['lembaga','lembaga/*','pendamping','pendamping/*'],'active open') }}">
+                    <li class="site-menu-item has-sub {{ set_active(['lembaga','lembaga/*','pendamping','pendamping/*','penghargaan-pendamping','penghargaan-pendamping/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">Pendamping</span>
@@ -109,12 +109,18 @@
                                     <span class="site-menu-title">Profil Pendamping</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
+                            <li class="site-menu-item {{ set_active(['penghargaan-pendamping','penghargaan-pendamping/*'],'active') }}">
+                                <a class="animsition-link" href="{{route('penghargaan-pendamping.index')}}" data-slug="page-login">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Penghargaan</span>
+                                </a>
+                            </li>
+                            {{-- <li class="site-menu-item">
                                 <a class="animsition-link" href="#" data-slug="page-login">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Pendampingan</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                     <li class="site-menu-category">Feature</li>

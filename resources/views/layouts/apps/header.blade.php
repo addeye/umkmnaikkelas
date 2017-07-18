@@ -38,13 +38,17 @@
                     <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                        data-animation="slide-bottom" role="button">
               <span class="avatar avatar-online">
-                <img src="{{url('remark/assets/portraits/5.jpg')}}" alt="...">
+                @if(!Auth::user()->image)
+                    <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                @else
+                    <img src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
+                @endif
                 <i></i>
               </span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> {{Auth::user()->name}}</a>
+                            <a href="{{route('user-profile.user',['id'=>md5(Auth::user()->id)])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> {{Auth::user()->name}}</a>
                         </li>                        
                         <li role="presentation">
                             <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>

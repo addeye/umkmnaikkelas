@@ -164,4 +164,52 @@ class UserController extends Controller
             return redirect()->route('user.index');
         }
     }
+
+    public function profile($id)
+    {
+        // dd($id);
+        $user = User::whereRaw('md5(id) = "'.$id.'"')->first();
+        $data = array(
+            'data' => $user
+        );
+
+        return view('profile',$data);
+    }
+
+    public function updateProfile(Request $request,$id)
+    {
+//        return $request->all();
+        $data = User::whereRaw('md5(id) = "'.$id.'"')->first();
+        // dd($data);
+        $data->name = $request->name;
+        $data->telp = $request->telp;
+        if($request->password!='')
+        {
+            $data->password = bcrypt($request->password);
+        }
+        $data->save();
+        if($data)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !');
+            return redirect()->route('user-profile.user',['id'=>md5($data->id)]);
+        }
+    }
+
+    public function updateFoto(Request $request)
+    {
+        $user = Auth::user();
+        if($request->hasFile('image'))
+        {
+            $file = Input::file('image');
+            $name = $this->upload_image($file,'uploads/user/images');
+            $user->image = $name;
+        }
+        $user->save();
+        if($user)
+        {
+            \Alert::success('Data berhasil diupdate', 'Selamat !');
+            return redirect()->route('user-profile,user',['id'=>md5($user->id)]);
+        }
+    }
+
 }
