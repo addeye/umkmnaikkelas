@@ -27,4 +27,9 @@ class PengajuanPendamping extends Model
     {
         return $this->hasMany('App\PpbKeahlian','pengajuan_pendamping_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
 }

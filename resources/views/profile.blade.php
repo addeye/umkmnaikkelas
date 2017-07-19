@@ -19,7 +19,7 @@
                                         <div class="panel-footer">
                                             <div class="btn btn-success btn-xs btn-ganti-foto"><span class="icon wb-user-circle"></span> Ganti Foto Profile</div>
                                             <div class="upload-profile padding-10" style="display: none;">
-                                                <form action="{{route('profile.foto.update')}}" method="post" enctype="multipart/form-data">
+                                                <form action="{{route('user-profile.foto.update')}}" method="post" enctype="multipart/form-data">
                                                     {{ csrf_field() }}
                                                     <div class="form-group">
                                                         <input type="file" name="image">

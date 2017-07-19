@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PengajuanPendamping;
+use Illuminate\Support\Facades\Auth;
+
 
 class PengajuanPendampingController extends Controller
 {
@@ -51,7 +53,7 @@ class PengajuanPendampingController extends Controller
     public function show($id)
     {
         $data = array(
-            'pengajuan' => PengajuanPendamping::with('ppb_pendampingan','ppb_keahlian','ppb_files')->where('id',$id)->first()
+            'pengajuan' => PengajuanPendamping::with('ppb_pendampingan','ppb_keahlian','ppb_files','user')->where('id',$id)->first()
         );
 //        return $data;
         return view('pengajuan_pendamping.show',$data);
@@ -79,6 +81,7 @@ class PengajuanPendampingController extends Controller
     {
         $pengajuan = PengajuanPendamping::find($id);
         $pengajuan->status = $request->status;
+        $pengajuan->user_id = Auth::user()->id;
         $pengajuan->save();
 
         if($pengajuan)
@@ -96,6 +99,24 @@ class PengajuanPendampingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = PengajuanPendamping::find($id);
+        $files = $data->ppb_files;
+
+        foreach ($files as $file)
+        {
+            $this->delete_file('pengajuan_pendamping',$file->path);
+        }
+
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !');
+            return redirect()->route('penghargaan-pendamping.index');
+        }
+    }
+
+    public function getFile($path)
+    {
+        return response()->download(public_path('pengajuan_pendamping/'.$path));
     }
 }

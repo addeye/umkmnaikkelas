@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PengajuanUmkm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanUmkmController extends Controller
 {
@@ -50,7 +51,7 @@ class PengajuanUmkmController extends Controller
     public function show($id)
     {
         $data = array(
-            'pengajuan' => PengajuanUmkm::with('pengajuan_umkm_detail','pengajuan_umkm_files')->where('id',$id)->first()
+            'pengajuan' => PengajuanUmkm::with('pengajuan_umkm_detail','pengajuan_umkm_files','user')->where('id',$id)->first()
         );
 //        return $data;
         return view('pengajuan_umkm.show',$data);
@@ -78,6 +79,7 @@ class PengajuanUmkmController extends Controller
     {
         $pengajuan = PengajuanUmkm::find($id);
         $pengajuan->status = $request->status;
+        $pengajuan->user_id = Auth::user()->id;
         $pengajuan->save();
 
         if($pengajuan)
@@ -95,7 +97,20 @@ class PengajuanUmkmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = PengajuanUmkm::find($id);
+        $files = $data->pengajuan_umkm_files;
+
+        foreach ($files as $file)
+        {
+            $this->delete_file('pengajuan',$file->path);
+        }
+
+        $data->delete();
+        if($data)
+        {
+            \Alert::success('Data berhasil dihapus', 'Delete !');
+            return redirect()->route('penghargaan-umkm.index');
+        }
     }
 
     public function getFile($path)

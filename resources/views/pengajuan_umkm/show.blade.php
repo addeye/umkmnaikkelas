@@ -9,7 +9,12 @@
                         <div class="panel-heading">
                             <div class="panel-action">
                                 <ul class="panel-actions">
-                                    
+                                    <li>
+                                        <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDeleteData({{$pengajuan->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i> Hapus</a>
+                                        <form id="delete-formdata-{{$pengajuan->id}}" action="{{route('penghargaan-umkm.destroy',['id'=>$pengajuan->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                                            <input type="hidden" name="_method" value="DELETE">
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                             <h3 class="panel-title">Detail Pengajuan Tahun {{$pengajuan->tahun}}</h3>
@@ -52,6 +57,7 @@
                                     </div>                                                                   
                                     </form>
                                     <a class="btn btn-sm btn-primary" onclick="event.preventDefault(); ConfirmDelete({{$pengajuan->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Update">Update</a>
+                                    <h4>{!! $pengajuan->user?'<strong>Penilai :</strong> '.$pengajuan->user->name:'Belum Di Validasi' !!}</h4>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +71,30 @@
 @section('js')
 
 <script>
+
+      function ConfirmDeleteData(id)
+        {
+            var id = id;
+            swal({
+                    title: "Apakah Yakin?",
+                    text: "Data akan benar-benar dihapus!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, Hapus!",
+                    cancelButtonText: "Tidak, Batalkan!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        document.getElementById('delete-formdata-'+id).submit();
+                    } else {
+                        swal("Dibatalkan", "Data tidak jadi dihapus", "error");
+                    }
+                });
+        }
 
       function ConfirmDelete(id)
       {

@@ -22,6 +22,11 @@ class PengajuanUmkm extends Model
     {
         return $this->hasMany('App\PengajuanUmkmFiles','pengajuan_umkm_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
 }
 
 

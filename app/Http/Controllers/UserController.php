@@ -7,6 +7,8 @@ use App\User;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -208,7 +210,7 @@ class UserController extends Controller
         if($user)
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !');
-            return redirect()->route('user-profile,user',['id'=>md5($user->id)]);
+            return redirect()->route('user-profile.user',['id'=>md5($user->id)]);
         }
     }
 

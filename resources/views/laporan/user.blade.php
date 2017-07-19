@@ -59,7 +59,7 @@
               'bSortable': false,
               'aTargets': [-1]
             }],
-            "iDisplayLength": 5,
+            "iDisplayLength": 10,
             "aLengthMenu": [
               [5, 10, 25, 50, -1],
               [5, 10, 25, 50, "All"]

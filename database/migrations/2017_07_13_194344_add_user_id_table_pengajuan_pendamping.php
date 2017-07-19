@@ -13,7 +13,9 @@ class AddUserIdTablePengajuanPendamping extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('pengajuan_pendamping', function (Blueprint $table) {
+            $table->integer('user_id')->default(0);
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class AddUserIdTablePengajuanPendamping extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('pengajuan_pendamping', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }

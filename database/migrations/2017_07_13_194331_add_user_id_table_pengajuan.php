@@ -14,7 +14,7 @@ class AddUserIdTablePengajuan extends Migration
     public function up()
     {
         Schema::table('pengajuan_umkm', function (Blueprint $table) {
-            $table->string('email');
+            $table->integer('user_id')->default(0);
         });
     }
 
@@ -25,6 +25,8 @@ class AddUserIdTablePengajuan extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('pengajuan_umkm', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }
