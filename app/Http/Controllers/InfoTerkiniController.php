@@ -39,6 +39,7 @@ class InfoTerkiniController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $rules = [
             'keterangan' => 'required',
         ];
@@ -46,7 +47,7 @@ class InfoTerkiniController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !');
             return redirect()->route('info-terkini.create')
                 ->withErrors($validator)
                 ->withInput();
@@ -63,7 +64,7 @@ class InfoTerkiniController extends Controller
 
         if($info)
         {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('info-terkini.index');
         }
 
@@ -110,7 +111,7 @@ class InfoTerkiniController extends Controller
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
-            \Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+            \Alert::error('Tolong isi dengan benar', 'Kesalahan !');
             return redirect()->route('info-terkini.edit',['id'=>$id])
                 ->withErrors($validator)
                 ->withInput();
@@ -127,7 +128,7 @@ class InfoTerkiniController extends Controller
 
         if($info)
         {
-            \Alert::success('Data berhasil disimpan', 'Selamat !')->persistent("Tutup");
+            \Alert::success('Data berhasil disimpan', 'Selamat !');
             return redirect()->route('info-terkini.index');
         }
 

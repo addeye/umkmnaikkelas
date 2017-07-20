@@ -103,7 +103,7 @@
                 @endif
             </div>
 
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
                 <label for="password" class="sr-only">Password</label>
                 <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 
@@ -114,9 +114,19 @@
                 @endif
             </div>
 
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                 <label for="password-confirm" class="sr-only">Confirm Password</label>
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ulangi password" required>
+                <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+            </div>
+            <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
+                <label for="telp" class="sr-only">No Hp</label>
+                <input id="telp" type="text" class="form-control" name="telp" placeholder="No HP: 085xxxx" required>
+                <span class="help-block">
+                                        <strong>{{ $errors->first('telp') }}</strong>
+                                    </span>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Register</button>
         </form>

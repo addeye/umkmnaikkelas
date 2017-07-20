@@ -253,7 +253,7 @@ input {
                                               <div class="font-size-18">{{$row->user->name}}</div>
                                               <div class="grey-200 font-size-14 margin-bottom-10">Team Lunas</div>
                                               <blockquote class="cover-quote font-size-16 white">
-                                                  {{$row->keterangan}}
+                                                  {!! $row->keterangan !!}
                                               </blockquote>
                                           </div>
                                       </div>

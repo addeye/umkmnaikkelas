@@ -223,4 +223,15 @@ class PageController extends Controller
 
         return view('pendamping',$data);
     }
+
+    public function detailPendamping($id)
+    {
+        $pendampingan = Pendamping::find($id);
+        $kabkota_tambahan = explode(", ",$pendampingan->kabkota_tambahan);
+        $data=[
+            'data' => $pendampingan,
+            'kabkota_tambahan_arr' => $kabkota_tambahan
+        ];
+        return view('pendamping_detail',$data);
+    }
 }

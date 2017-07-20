@@ -3,10 +3,14 @@
 @section('content')
     <!-- Page -->
     <div class="container-fluid">
-        <div class="animsition">
-            <div class="page-header">
-                <h1 class="page-title">DATA PENDAMPING</h1>
-            </div>
+        <div class="page-header animsition">
+            <h1 class="page-title">Pendamping</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>                
+                <li class="active">Pendamping</li>
+            </ol>
+        </div>
+        <div class="animsition">            
             <div class="page-content container-fluid">
                 <div class="row">
                     <div class="col-md-12 padding-10">
@@ -52,7 +56,7 @@
                             <div class="col-md-3">
                                 <div class="widget">
                                     <div class="widget-header white bg-cyan-600 padding-30 clearfix">
-                                        <a class="avatar avatar-100 pull-left margin-right-20" href="javascript:void(0)">
+                                        <a class="avatar avatar-100 pull-left margin-right-20" href="{{route('page.pendamping.detail',['id'=>$row->id])}}">
                                             @if($row->image=='')
                                             <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="">
                                                 @else

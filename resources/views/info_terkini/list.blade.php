@@ -38,7 +38,7 @@
               <tr>
                 <td>{{$no++}}</td>
                 <td>{{$row->created_at}}</td>
-                <td>{{$row->keterangan}}</td>
+                <td>{!! $row->keterangan !!}</td>
                 <td>{{$row->user->name}}</td>
                 <td>{{$row->publish}}</td>
                 <td class="text-nowrap">

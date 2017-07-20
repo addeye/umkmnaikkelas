@@ -16,9 +16,9 @@
                 {{ csrf_field()}}
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                 <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Keterangan</label>
+                  <label class="col-sm-3 control-label">Keterangan</label>                  
                   <div class="col-sm-9">
-                    <textarea name="keterangan" class="form-control">{{old('keterangan')}}</textarea>
+                    <textarea data-plugin="summernote" data-plugin-options='{"toolbar":[["style", ["bold", "italic", "underline", "clear"]],["color", ["color"]],["para", ["ul", "ol", "paragraph"]]]}' name="keterangan" class="form-control">{{old('keterangan')}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('keterangan') }}</strong>
                     </span>
@@ -46,4 +46,14 @@
   </div>
   <!-- End Page -->
 
+@endsection
+
+@section('css')
+{{Html::style('remark/assets/vendor/summernote/summernote.css')}}
+{{Html::style('remark/assets/css/../fonts/font-awesome/font-awesome.css')}}
+@endsection
+
+@section('js')
+{{Html::script(asset('remark/assets/vendor/summernote/summernote.min.js'))}}
+{{Html::script(asset('remark/assets/js/components/summernote.js'))}}
 @endsection

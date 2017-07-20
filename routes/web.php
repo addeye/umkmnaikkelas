@@ -12,7 +12,14 @@
 */
 Route::get('/', 'HomeController@index');
 Route::get('/testsms', 'HomeController@sms_test');
-Auth::routes();
+// Auth::routes();
+Route::get('login','AuthController@login');
+Route::post('login','AuthController@doLogin')->name('login');
+Route::post('logout','AuthController@logout')->name('logout');
+Route::get('lupa-password','AuthController@forgetPassword')->name('password.request');
+Route::get('register','AuthController@registrasi')->name('registrasi');
+Route::post('register','AuthController@doRegistrasi')->name('register');
+
 Route::get('/portal','HomeController@portal')->name('portal');
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'SocialAuthController@callback');
@@ -23,6 +30,7 @@ Route::get('prosedur-pendamping','PageController@prosedur_pendamping')->name('pr
 Route::get('mitra-lunas','PageController@mitra_lunas')->name('mitra.lunas');
 Route::get('laporan-umkm','PageController@umkm')->name('page.umkm');
 Route::get('laporan-pendamping','PageController@pendamping')->name('page.pendamping');
+Route::get('laporan-pendamping/{id}','PageController@detailPendamping')->name('page.pendamping.detail');
 Route::get('informasi-terkini','LayananController@infoTerkini')->name('layanan.info_terkini');
 Route::get('informasi-produk','LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda','LayananController@infoAgenda')->name('layanan.info.agenda');

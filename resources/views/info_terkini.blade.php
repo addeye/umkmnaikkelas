@@ -51,7 +51,7 @@
                                                         <div class="media-body">
                                                             <small class="text-muted pull-right">{{$row->textdate}}</small>
                                                             <h4 class="media-heading">{{$row->user->name}}</h4>
-                                                            <div>{{$row->keterangan}}</div>
+                                                            <div>{!! $row->keterangan !!}</div>
                                                         </div>
                                                     </div>
                                                 </li>

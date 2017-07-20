@@ -82,16 +82,16 @@ a:focus, a:hover {
       {{ csrf_field() }}
         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
           <label class="sr-only" for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+          <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="{{old('email')}}" required>
         </div>
         <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
           <label class="sr-only" for="inputPassword">Password</label>
           <input type="password" class="form-control" id="inputPassword" name="password"
-          placeholder="Password">
+          placeholder="Password" required>
         </div>
         <div class="form-group clearfix">
           <div class="checkbox-custom checkbox-inline pull-left">
-            <input type="checkbox" id="inputCheckbox" name="checkbox">
+            <input type="checkbox" id="inputCheckbox" name="remember">
             <label for="inputCheckbox">Ingatkan Saya</label>
           </div>
           <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
