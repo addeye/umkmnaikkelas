@@ -8,6 +8,7 @@ use App\BidangUsaha;
 use App\Lembaga;
 use App\Pendamping;
 use App\User;
+use App\JasaPendampingan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -113,7 +114,8 @@ class PendampingController extends Controller
         $kabkota_tambahan = explode(", ",$pendampingan->kabkota_tambahan);
         $data=[
             'data' => $pendampingan,
-            'kabkota_tambahan_arr' => $kabkota_tambahan
+            'kabkota_tambahan_arr' => $kabkota_tambahan,
+            'jasapendampingan' => JasaPendampingan::where('pendamping_id',$pendampingan->id)->get()
         ];
         return view('pendamping.show',$data);
     }
@@ -353,5 +355,16 @@ class PendampingController extends Controller
 
         return redirect()->route('pendamping.index');
 
+    }
+
+    public function validasi(Request $request,$id)
+    {
+        $data = Pendamping::find($id);
+        $data->validasi = $request->status;
+        $data->save();
+        if($data)
+        {
+            echo "pendamping updated";
+        }
     }
 }

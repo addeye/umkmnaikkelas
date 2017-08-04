@@ -16,13 +16,19 @@
                 <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Jasa Pendampingan</li>
             </ol>
+
+            <div class="page-header-actions">
+            <a href="{{route('jasa-pendampingan.create')}}" class="btn btn-sm btn-icon btn-round btn-warning" data-toggle="tooltip" data-original-title="Tambah Data" data-placement="left">
+              <i class="icon wb-plus" aria-hidden="true"></i> Tambah Data
+            </a>            
+          </div>
         </div>
 
         <div class="page-content animsition">
             <div class="row">
                 <div class="col-md-12">
                     <!-- Panel Standard Mode -->
-                    <div class="panel">
+                    <div class="panel">                        
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -56,9 +62,9 @@
                                                 <td>{{$no++}}</td>
                                                 <td>{{$row->title}}</td>
                                                 <td>{{$row->deskripsi}}</td>
-                                                <td>{{$row->harga}}</td>
-                                                <td>{{$row->diskon}}</td>
-                                                <td>{{$row->netto}}</td>
+                                                <td>Rp. {{ number_format($row->harga, 2) }}</td>
+                                                <td>{{$row->diskon}}%</td>
+                                                <td>Rp. {{number_format($row->netto,2)}}</td>
                                                 <td class="text-nowrap">
                                                     <a href="{{route('jasa-pendampingan.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>
                                                     <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
@@ -69,10 +75,7 @@
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>
-                                    <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
-                                        <a href="{{route('jasa-pendampingan.create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
-                                    </div>
+                                    </table>                                    
                                 </div>
                             </div>
                         </div>

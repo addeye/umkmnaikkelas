@@ -34,7 +34,7 @@ Route::get('laporan-pendamping/{id}','PageController@detailPendamping')->name('p
 Route::get('informasi-terkini','LayananController@infoTerkini')->name('layanan.info_terkini');
 Route::get('informasi-produk','LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda','LayananController@infoAgenda')->name('layanan.info.agenda');
-Route::get('informasi-agenda/{judul}','LayananController@detailAgenda')->name('layanan.detail.agenda');
+Route::get('informasi-agenda/agenda/{judul}','LayananController@detailAgenda')->name('layanan.detail.agenda');
 Route::get('forum','LayananController@infoForum')->name('layanan.info.forum');
 Route::get('kontak-kami','LayananController@kontak')->name('layanan.info.kontak');
 Route::post('kontak-kami','LayananController@kirimKontak')->name('layanan.kirim.kontak');
@@ -42,12 +42,17 @@ Route::post('kontak-kami','LayananController@kirimKontak')->name('layanan.kirim.
 Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('profile/{token}','HomeController@profile')->name('profile');
+    Route::get('profile/{id}','HomeController@profile')->name('profile');
     Route::post('profile', 'HomeController@updateProfile')->name('profile.update');
     Route::post('profile-foto','HomeController@updateFoto')->name('profile.foto.update');
 
     Route::resource('informasi-pasar','InformasiPasarController');
     Route::resource('informasi-comment','InformasiPasarCommentController');
+
+    Route::get('informasi-agenda/create/','LayananController@createAgenda')->name('layanan.create.agenda');
+    Route::get('informasi-agenda/{judul}','LayananController@detailAgenda')->name('layanan.detail.agenda');
+    Route::post('informasi-agenda','LayananController@storeAgenda')->name('layanan.store.agenda');
+    Route::delete('informasi-agenda/{id}','LayananController@destroyAgenda')->name('layanan.destroy.agenda');
 
     Route::get('filter/{kabkota_id}/kecamatan/{old?}','HomeController@filter_kecamatan')->name('filter.kecamatan');
 
@@ -80,6 +85,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::resource('lembaga','LembagaController');
         Route::resource('pendamping','PendampingController');
         Route::post('pendamping-import','PendampingController@importExistData')->name('pendamping.import');
+        Route::put('validasi-pendamping/{id}','PendampingController@validasi')->name('pendamping.validasi');
         Route::resource('umkm','UmkmController');
         
         Route::resource('user','UserController');        

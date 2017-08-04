@@ -140,7 +140,7 @@ class AgendaController extends Controller
         }
 
         $data = Agenda::find($id);
-        $data->user_id = $request->user_id;
+        // $data->user_id = $request->user_id;
         $data->judul = $request->judul;
         $data->deskripsi = $request->deskripsi;
         $data->keterangan = $request->keterangan;
@@ -149,7 +149,7 @@ class AgendaController extends Controller
         $data->jam_mulai = $request->jam_mulai;
         $data->jam_selesai = $request->jam_selesai;
         $data->lokasi = $request->lokasi;
-        $data->status = $request->status;
+        $data->status = $request->status?$request->status:0;
 
         if($request->hasFile('image'))
         {
@@ -176,7 +176,7 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         $data = Agenda::find($id);
-        $this->delete_image('uploads/agenda/'.$data->image);
+        $this->delete_image('uploads/agenda/',$data->image);
 
         $data->delete();
         if($data)

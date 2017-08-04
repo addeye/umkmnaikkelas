@@ -61,7 +61,7 @@
                   </div>
                 </div>
 
-                <div class="form-group {{ $errors->has('lokasi') ? ' has-error' : '' }}">
+                <div class="form-group {{ $errors->has('tanggal_mulai') ? ' has-error' : '' }} {{ $errors->has('tanggal_selesai') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Tanggal*</label>
                   <div class="col-sm-9">
                     <div class="input-daterange" data-plugin="datepicker" data-date-format="yyyy-mm-dd">
@@ -78,7 +78,8 @@
                       </div>
 
                       <span class="help-block">
-                        <strong>{{ $errors->first('keterangan') }}</strong>
+                        <strong>{{ $errors->first('tanggal_mulai') }}</strong>
+                        <strong>{{ $errors->first('tanggal_selesai') }}</strong>
                       </span>                    
                   </div>
                 </div>

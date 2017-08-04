@@ -84,7 +84,7 @@ input {
 <div class="container">
     <div class="row">
         <!-- Example Captions -->
-        <div class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
+        <div style="display: none;" class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
             <ol class="carousel-indicators carousel-indicators-fillin">
                 <li class="active" data-slide-to="0" data-target="#slide1"></li>
                 <li class="" data-slide-to="1" data-target="#slide2"></li>
@@ -246,7 +246,11 @@ input {
                                   <div class="widget widget-shadow">
                                       <div class="widget-content padding-20 bg-green-500 white height-full">
                                           <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
-                                              <img src="{{url('remark/assets/portraits/15.jpg')}}" alt="">
+                                              @if(!$row->user->image)
+                                              <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                                              @else
+                                              <img src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="...">
+                                              @endif
                                           </a>
                                           <div style="overflow:hidden;">
                                               <small class="pull-right grey-200">{{$row->textdate}}</small>

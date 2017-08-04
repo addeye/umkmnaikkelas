@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -199,14 +200,23 @@ class UserController extends Controller
 
     public function updateFoto(Request $request)
     {
-        $user = Auth::user();
-        if($request->hasFile('image'))
-        {
-            $file = Input::file('image');
-            $name = $this->upload_image($file,'uploads/user/images');
-            $user->image = $name;
-        }
-        $user->save();
+        $file = $request->cropped;
+
+        list($type, $file) = explode(';', $file);
+        list(, $file)      = explode(',', $file);
+        $file = base64_decode($file);
+        $imageName = time().'.png';
+
+        $destinationPath = 'uploads/user/images/';
+
+        File::exists('uploads/user/images') or File::makeDirectory('uploads/user/images');
+        File::exists($destinationPath) or File::makeDirectory($destinationPath);
+        file_put_contents($destinationPath.'/'.$imageName, $file);
+
+        $user = User::find($request->user_id);
+        $user->image = $imageName;
+        $user->update();
+
         if($user)
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !');

@@ -18,6 +18,15 @@
                     </div>
                 </div>
                 @endif
+
+                @if(Auth::user()->role_id == ROLE_PENDAMPING && Auth::user()->pendamping->validasi ==1)
+                <div class="col-md-12">
+                    <div class="bg-info well">
+                        <strong>Terimakasih, Data pendamping anda akan divalidasi oleh admin. segera konfirmasi ke <span style="color: yellow;">umkmnaikkelas@gmail.com</span> atau <span style="color: yellow;">0812 3525 0065</span></strong>
+                    </div>
+                </div>
+                @endif
+
                 <div class="col-md-3">
                     <!-- Page Widget -->
                     <div class="widget widget-shadow text-center">
@@ -27,7 +36,7 @@
                                     @if(!Auth::user()->image)
                                     <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
                                     @else
-                                    <img style="height: 100px" src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
+                                    <img src="{{asset('uploads/user/images/'.Auth::user()->image)}}" alt="...">
                                     @endif
 
                                 </a>
@@ -87,7 +96,11 @@
                                             <div class="media">
                                                 <div class="media-left">
                                                     <a class="avatar avatar-online" href="javascript:void(0)">
-                                                        <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
+                                                        @if(!$row->user->image)
+                                                        <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                                                        @else
+                                                        <img src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="...">
+                                                        @endif                                        
                                                         <i></i>
                                                     </a>
                                                 </div>

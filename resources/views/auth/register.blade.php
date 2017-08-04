@@ -123,7 +123,7 @@
             </div>
             <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
                 <label for="telp" class="sr-only">No Hp</label>
-                <input id="telp" type="text" class="form-control" name="telp" placeholder="No HP: 085xxxx" required>
+                <input id="telp" type="text" class="form-control" name="telp" placeholder="No HP: 085xxxx" value="{{old('telp')}}" required>
                 <span class="help-block">
                                         <strong>{{ $errors->first('telp') }}</strong>
                                     </span>

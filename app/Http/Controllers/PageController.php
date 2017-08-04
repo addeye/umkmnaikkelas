@@ -119,7 +119,8 @@ class PageController extends Controller
         $pendamping = DB::table('pendamping')
         ->leftjoin('lembaga','pendamping.lembaga_id','=','lembaga.id')
         ->leftjoin('users','pendamping.user_id','=','users.id')
-        ->select('pendamping.*','lembaga.nama_lembaga','users.image');
+        ->select('pendamping.*','lembaga.nama_lembaga','users.image')
+        ->where('pendamping.validasi','0');
 
         $kota = \Indonesia::allCities();
         $lembaga = Lembaga::orderBy('id_lembaga','ASC')->get();
@@ -194,7 +195,7 @@ class PageController extends Controller
 
         }
 
-        $content = $pendamping->paginate();
+        $content = $pendamping->paginate(16);
         foreach ($content as $key => $value) {
             $content[$key]->totjasa = DB::table('jasa_pendampingan')->where('pendamping_id',$value->id)->count();
         }

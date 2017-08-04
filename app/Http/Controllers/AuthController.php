@@ -70,7 +70,7 @@ class AuthController extends Controller
         // dd($request->all());
         $rules = [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|unique:users,email',
             'password' => 'required|min:3|confirmed',
             'password_confirmation' => 'required|min:3',
             'telp' => 'required|numeric'

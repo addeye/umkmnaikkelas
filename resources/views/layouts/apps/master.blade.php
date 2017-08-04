@@ -182,6 +182,8 @@
 @yield('content')
 <!-- End Page -->
 
+@yield('modals')
+
 
 @include('layouts.apps.footer')
 

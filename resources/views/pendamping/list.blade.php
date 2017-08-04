@@ -16,39 +16,22 @@
             <tr>
               <th>No</th>
               <th>ID Pendamping</th>
-              <th>Nama</th>
-              <th>Gender</th>
+              <th>Nama</th>              
               <th>Telepon</th>
-              <th>Email</th>
-              <th>Pendidikan</th>
+              <th>Email</th>              
               <th>Lembaga</th>
                 <th>Action</th>
             </tr>
-            </thead>
-            <tfoot>
-            <tr>
-              <th>No</th>
-              <th>ID Pendamping</th>
-              <th>Nama</th>
-              <th>Gender</th>
-              <th>Telepon</th>
-              <th>Email</th>
-              <th>Pendidikan</th>
-              <th>Lembaga</th>
-                <th>Action</th>
-            </tr>
-            </tfoot>
+            </thead>            
             <tbody>
             <?php $no=1; ?>
             @foreach($data as $row)
               <tr>
                 <td>{{$no++}}</td>
                 <td>{{$row->id_pendamping}}</td>
-                <td>{{$row->nama_pendamping}}</td>
-                <td>{{$row->jenis_kelamin}}</td>
+                <td>{{$row->nama_pendamping}}</td>                
                 <td>{{$row->telp}}</td>
-                <td>{{$row->email}}</td>
-                <td>{{$row->pendidikan}}</td>
+                <td>{{$row->email}}</td>                
                 <td>{{$row->lembaga?$row->lembaga->nama_lembaga:'Lainnya'}}</td>
                 <td class="text-nowrap">
                   <a href="{{route('pendamping.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>

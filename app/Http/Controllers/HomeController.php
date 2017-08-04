@@ -17,6 +17,9 @@ use App\BidangKeahlian;
 use App\Lembaga;
 use App\Agenda;
 use Nasution\ZenzivaSms\Client as Sms;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PendampingRegister;
+use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -373,7 +376,7 @@ class HomeController extends Controller
             $pendamping->kabkota_tambahan = implode(", ",$request->kabkota_tambahan);
         }
         $pendamping->lembaga_id = $request->lembaga_id;
-        $pendamping->validasi = 0;
+        $pendamping->validasi = 1; //perlu di validasi jadi 0
         $pendamping->user_id = Auth::user()->id;
 
         if($request->hasFile('foto_ktp'))
@@ -403,6 +406,8 @@ class HomeController extends Controller
 
         if($pendamping)
         {
+            Mail::to('umkmnaikkelas@gmail.com')->send(new PendampingRegister($pendamping));
+
             \Alert::success('Terimakasih '.$user->name.' Sudah Mendaftar Sebagai Pendamping', 'Selamat !')->persistent("Tutup");
             return redirect()->route('home');
         }
@@ -537,9 +542,9 @@ class HomeController extends Controller
         return view('portal.lembaga',$data);
     }
 
-    public function profile($token)
+    public function profile($id)
     {
-        $user = User::where('remember_token',$token)->first();
+        $user = User::whereRaw('md5(id) = "'.$id.'"')->first();
 
         $data = array(
             'data' => $user
@@ -563,24 +568,32 @@ class HomeController extends Controller
         if($data)
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !');
-            return redirect()->route('profile',['token'=>$user->remember_token]);
+            return redirect()->route('profile',['id'=>md5($user->id)]);
         }
     }
 
     public function updateFoto(Request $request)
     {
-        $user = Auth::user();
-        if($request->hasFile('image'))
-        {
-            $file = Input::file('image');
-            $name = $this->upload_image($file,'uploads/user/images');
-            $user->image = $name;
-        }
-        $user->save();
+        $file = $request->cropped;
+
+        list($type, $file) = explode(';', $file);
+        list(, $file)      = explode(',', $file);
+        $file = base64_decode($file);
+        $imageName = time().'.png';
+
+        $destinationPath = 'uploads/user/images/';
+
+        File::exists('uploads/user/images') or File::makeDirectory('uploads/user/images');
+        File::exists($destinationPath) or File::makeDirectory($destinationPath);
+        file_put_contents($destinationPath.'/'.$imageName, $file);
+
+        $user = User::find($request->user_id);
+        $user->image = $imageName;
+        $user->update();
         if($user)
         {
             \Alert::success('Data berhasil diupdate', 'Selamat !');
-            return redirect()->route('profile',['token'=>$user->remember_token]);
+            return redirect()->route('profile',['id'=>md5($user->id)]);
         }
     }
 

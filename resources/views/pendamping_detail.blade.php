@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-md-12">
-                                        <img class="img-thumbnail" src="{{asset('uploads/pendamping/images/'.$data->foto_ktp)}}">
+                                        <img class="img-thumbnail" src="{{asset('uploads/user/images/'.$data->user->image)}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -45,14 +45,14 @@
                                             <th>Jenis Kelamin</th>
                                             <td>{{$data->jenis_kelamin=='L'?'Laki-laki':'Perempuan'}}</td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <th>Telepon</th>
                                             <td>{{$data->telp}}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
                                             <td>{{$data->email}}</td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <th>Pendidikan</th>
                                             <td>{{$data->pendidikan}}</td>

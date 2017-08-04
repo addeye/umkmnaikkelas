@@ -65,12 +65,12 @@
                                         </a>
                                         <div class="pull-left">
                                             <div class="font-size-15 margin-bottom-15">{{$row->nama_pendamping}}</div>
-                                            <div class="font-size-12">
-                                                <p class="margin-bottom-5 text-nowrap"><i class="icon wb-envelope margin-right-10" aria-hidden="true"></i>
-                                                    <span class="text-break">{{$row->email}}</span>
+                                            <div class="font-size-15">
+                                                <p class="margin-bottom-5 text-nowrap"><i class="icon wb-user-circle margin-right-10" aria-hidden="true"></i>
+                                                    <span class="text-break">{{explode(',', $row->bidang_keahlian)[0]}}</span>
                                                 </p>
-                                                <p class="margin-bottom-5 text-nowrap"><i class="icon fa-phone margin-right-10" aria-hidden="true"></i>
-                                                    <span class="text-break">{{$row->telp}}</span>
+                                                <p class="margin-bottom-5 text-nowrap"><i class="icon wb-plugin margin-right-10" aria-hidden="true"></i>
+                                                    <span class="text-break">{{explode(',', $row->bidang_pendampingan)[0]}}</span>
                                                 </p>
                                                 <p class="margin-bottom-5 text-nowrap"><i class="icon fa-home margin-right-10" aria-hidden="true"></i>
                                                     <span class="text-break">

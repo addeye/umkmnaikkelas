@@ -29,7 +29,7 @@
                               </a>
                               <ul class="dropdown-menu" role="menu">
                                   <li role="presentation">
-                                      <a href="{{route('profile',['toke'=>Auth::user()->remember_token])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+                                      <a href="{{route('profile',['id'=>md5(Auth::user()->id)])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
                                   </li>
                                   <li class="divider" role="presentation"></li>
                                   <li role="presentation">
@@ -245,7 +245,7 @@
                           @endif
 
 
-                          <li class="dropdown {{set_active(['informasi-terkini'],'active')}}">
+                          <li class="dropdown {{set_active(['informasi-terkini','informasi-agenda','informasi-agenda/*'],'active')}}">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                                  role="button">Layanan <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
@@ -258,6 +258,7 @@
                                   <li role="presentation"><a href="javascript:void(0)" role="menuitem">Konsultasi</a></li>
                                   <li role="presentation" class="{{set_active(['informasi-pasar','informasi-pasar/*'],'active')}}"><a href="{{route('informasi-pasar.index')}}" role="menuitem">Informasi Pasar</a></li>
                                   <li role="presentation" class="{{set_active(['informasi-terkini'],'active')}}"><a href="{{route('layanan.info_terkini')}}" role="menuitem">Informasi Terkini</a></li>
+                                  <li role="presentation" class="{{set_active(['informasi-agenda','informasi-agenda/*'],'active')}}"><a href="{{route('layanan.info.agenda')}}" role="menuitem">Informasi Agenda</a></li>
                               </ul>
                           </li>
                       </ul>

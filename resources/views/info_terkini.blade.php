@@ -44,7 +44,11 @@
                                                     <div class="media">
                                                         <div class="media-left">
                                                             <a class="avatar avatar-online" href="javascript:void(0)">
-                                                                <img src="{{asset('remark/assets/portraits/16.jpg')}}" alt="...">
+                                                                @if(!$row->user->image)
+                                                                <img src="{{asset('remark/assets/portraits/5.jpg')}}" alt="...">
+                                                                @else
+                                                                <img src="{{asset('uploads/user/images/'.$row->user->image)}}" alt="...">
+                                                                @endif
                                                                 <i></i>
                                                             </a>
                                                         </div>

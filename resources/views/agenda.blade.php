@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="page-content animsition">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="panel-title">
@@ -77,6 +77,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-3">
+                    @include('agenda_sub',['recent'=>$recent])
                 </div>
             </div>
         </div>

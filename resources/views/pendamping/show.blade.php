@@ -10,12 +10,34 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="con wb-minus"></i> Detail Pendamping</h3>
+                            <div class="panel-actions">            
+                                <div class="pull-left margin-right-20">
+                                <input type="checkbox" id="inputBasicOn" name="inputiCheckBasicCheckboxes" data-plugin="switchery"
+                                {{$data->validasi?'':'checked'}} />
+                                </div>
+                              <label class="padding-top-3" for="inputBasicOn">Validasi</label>
+                              </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-md-12">
+                                    @if($data->foto_ktp)
                                         <img class="img-thumbnail" src="{{asset('uploads/pendamping/images/'.$data->foto_ktp)}}">
+                                        @else
+                                        <div class="padding-top-20">
+                                            <span class="text-center">Tidak Ada Scan KTP</span>
+                                        </div>
+                                        @endif                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        @if($data->user->image)
+                                        <img class="img-thumbnail" src="{{asset('uploads/user/images/'.$data->user->image)}}">
+                                        @else
+                                        <div class="padding-top-20">
+                                            <span class="text-center">Tidak Ada Foto Profil</span>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -102,6 +124,34 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div class="col-md-12">
+                                <h4><span class="icon wb-list" ></span> Jasa Pendampingan</h4>
+                                    <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Title</th>
+                                            <th>Deskripsi</th>
+                                            <th>Harga</th>
+                                            <th>Diskon</th>
+                                            <th>Netto</th>                                            
+                                        </tr>
+                                        </thead>                                        
+                                        <tbody>
+                                        <?php $no=1; ?>
+                                        @foreach($jasapendampingan as $row)
+                                            <tr>
+                                                <td>{{$no++}}</td>
+                                                <td>{{$row->title}}</td>
+                                                <td>{{$row->deskripsi}}</td>
+                                                <td>Rp. {{ number_format($row->harga, 2) }}</td>
+                                                <td>{{$row->diskon}}%</td>
+                                                <td>Rp. {{number_format($row->netto,2)}}</td>   
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>      
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -112,4 +162,36 @@
     </div>
     <!-- End Page -->
 
+    <input type="hidden" id="url" value="{{route('pendamping.validasi',['id'=>$data->id])}}">
+  {{ csrf_field() }}
+
 @endsection
+
+@section('js')
+<script type="text/javascript">
+var url = $('#url').val();
+var token = $('input[name=_token]').val();
+  $("#inputBasicOn").change(function() {
+    if(this.checked) {
+        validasi(0);
+    }
+    else
+    {
+      validasi(1);
+    }
+});
+
+  function validasi(val)
+  {
+    $.ajax({
+        method: "PUT",
+        url: url,
+        data: { _token:token,status: val }
+      })
+        .done(function( msg ) {
+            console.log(msg);
+            alert(msg);
+        });
+  }
+</script>
+@endsection 
