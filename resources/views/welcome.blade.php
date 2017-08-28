@@ -84,26 +84,19 @@ input {
 <div class="container">
     <div class="row">
         <!-- Example Captions -->
-        <div style="display: none;" class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
+        @if(count($slider) !=0)
+        <div class="carousel slide" id="exampleCarouselCaptions" data-ride="carousel">
             <ol class="carousel-indicators carousel-indicators-fillin">
-                <li class="active" data-slide-to="0" data-target="#slide1"></li>
-                <li class="" data-slide-to="1" data-target="#slide2"></li>
+            @foreach($slider as $key => $row)
+                <li class="{{$key==0?'active':''}}" data-slide-to="{{$key}}" data-target="#slide{{$key}}"></li>
+            @endforeach
             </ol>
             <div class="carousel-inner" role="listbox">
-                <div id="slide1" class="item active">
-                    <img class="width-full" src="{{asset('images/slider/lunas.jpg')}}" alt="..." />
-                    {{--<div class="carousel-caption">--}}
-                        {{--<h3>UMKM NAIK KELAS</h3>--}}
-                        {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
-                    {{--</div>--}}
+            @foreach($slider as $key => $row)
+                <div id="slide{{$key}}" class="item {{$key==0?'active':''}}">
+                    <img class="width-full" src="{{asset('uploads/slider/'.$row->path)}}" alt="..." />
                 </div>
-                <div id="slide2" class="item">
-                    <img class="width-full" src="{{asset('images/slider/lunas1.jpg')}}" alt="..." />
-                    {{--<div class="carousel-caption">--}}
-                        {{--<h3>UMKM NAIK KELAS</h3>--}}
-                        {{--<p>Platform Untuk Menigkatkan Kualitas Pendamping & UMKM agar Naik Kelas</p>--}}
-                    {{--</div>--}}
-                </div>
+            @endforeach
             </div>
             <a class="left carousel-control" href="#exampleCarouselCaptions" role="button"
             data-slide="prev">
@@ -115,74 +108,13 @@ input {
         <span class="icon wb-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
         </a>
+    </div>
+    @endif
 </div>
-</div>        
 <!-- End Example Captions -->
 <!-- Panel More Examples -->
 <div class="row">
-<div class="col-md-3 orange-tiles" style="padding: 0px;padding-right: 2.5px;">
-                <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
-                  <div class="tiles-title bg-blue-800">
-                    <h2>MANAJEMEN</h2>
-                  </div>
-                </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="{{route('page.umkm')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-blue-800">UMKM</h4>
-                       <p class="sub-cap">Data, Profil</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="{{route('page.pendamping')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
-                       <p class="sub-cap">Data, Profil</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-9 green-tiles" style="padding: 0px;padding-left: 2.5px;">
-                <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
-                  <div class="tiles-title bg-light-green-800">
-                    <h2>PROGRAM</h2>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                    <a href="{{route('tentang.lunas')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/sasaran.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Tentang LUNAS</h4>
-                       <p class="sub-cap">Latar Belakang, Goal dan Strategi</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                  <a href="{{route('prosedur.umkm')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/procedur-umkm.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur UMKM</h4>
-                       <p class="sub-cap">Flow Sistem UMKM</p>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                   <a href="{{route('prosedur.pendamping')}}">
-                     <div class="tile" style="background:url('{{asset('images/box/procedur-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur Pendamping</h4>
-                       <p class="sub-cap">Flow Sistem Pendamping</p>
-                    </div>
-                   </a>
-                </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="{{route('mitra.lunas')}}">
-                     <div class="tile" style="background:url('{{asset('images/box/latar-belakang.jpg')}}') no-repeat center center;background-size: cover;">
-                     <h4 class="tile-cap bg-light-green-800">Mitra LUNAS</h4>
-                       <p class="sub-cap">Partner - Kerjasama</p>
-                    </div>
-                   </a>
-                </div>            
-            </div>            
-            <div class="col-md-12 red-tiles" style="padding: 0px 2.5px;">
+<div class="col-md-12 red-tiles" style="padding: 0px 2.5px;">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
                   <div class="tiles-title bg-red-800">
                     <h2>LAYANAN</h2>
@@ -235,11 +167,71 @@ input {
                     </a>
                 </div>
             </div>
-            <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">                       
+            <div class="col-md-9 green-tiles" style="padding: 0px;padding-left: 2.5px;">
+                <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
+                  <div class="tiles-title bg-light-green-800">
+                    <h2>PROGRAM</h2>
+                  </div>
+                </div>
+                <div class="col-md-4 col-xs-6 col-tiles">
+                    <a href="{{route('tentang.lunas')}}">
+                   <div class="tile" style="background:url('{{asset('images/box/sasaran.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-light-green-800">Tentang LUNAS</h4>
+                       <p class="sub-cap">Latar Belakang, Goal dan Strategi</p>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-6 col-tiles">
+                  <a href="{{route('prosedur.umkm')}}">
+                   <div class="tile" style="background:url('{{asset('images/box/procedur-umkm.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-light-green-800">Prosedur UMKM</h4>
+                       <p class="sub-cap">Flow Sistem UMKM</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-4 col-xs-6 col-tiles">
+                   <a href="{{route('prosedur.pendamping')}}">
+                     <div class="tile" style="background:url('{{asset('images/box/procedur-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-light-green-800">Prosedur Pendamping</h4>
+                       <p class="sub-cap">Flow Sistem Pendamping</p>
+                    </div>
+                   </a>
+                </div>
+                <div class="col-md-12 col-xs-6 col-tiles">
+                   <a href="{{route('mitra.lunas')}}">
+                     <div class="tile" style="background:url('{{asset('images/box/latar-belakang.jpg')}}') no-repeat center center;background-size: cover;">
+                     <h4 class="tile-cap bg-light-green-800">Mitra LUNAS</h4>
+                       <p class="sub-cap">Partner - Kerjasama</p>
+                    </div>
+                   </a>
+                </div>
+            </div>
+            <div class="col-md-3 orange-tiles" style="padding: 0px;padding-right: 2.5px;">
+                <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
+                  <div class="tiles-title bg-blue-800">
+                    <h2>MANAJEMEN</h2>
+                  </div>
+                </div>
+                <div class="col-md-12 col-xs-6 col-tiles">
+                   <a href="{{route('page.umkm')}}">
+                   <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-blue-800">UMKM</h4>
+                       <p class="sub-cap">Data, Profil</p>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-md-12 col-xs-6 col-tiles">
+                   <a href="{{route('page.pendamping')}}">
+                   <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
+                       <p class="sub-cap">Data, Profil</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">
                   <div class="slider" id="exampleAutoplay">
-
                   @foreach($info_terkini as $row)
-
                       <div class="slick-item">
                           <div class="row">
                               <div class="col-md-12 col-xs-12">
@@ -267,15 +259,10 @@ input {
                       </div>
                       @endforeach
 
-                  </div>            
+                  </div>
               <!-- End Example Autoplay -->
             </div>
           </div>
-    @if(!Auth::user())
-            <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="MASUK | DAFTAR">
-                <a href="{{url('login')}}"><i class="icon wb-settings" aria-hidden="true"></i></a>
-            </div>
-    @endif
           <div class="padding-10"></div>
 </div>
 

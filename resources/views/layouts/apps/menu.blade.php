@@ -157,43 +157,19 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{set_active(['user','user/*','info-terkini','info-terkini/*'],'active open')}}">
+                    <li class="site-menu-item has-sub {{set_active(['user','user/*','slider','slider/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="advanced">
                             <i class="site-menu-icon wb-hammer" aria-hidden="true"></i>
                             <span class="site-menu-title">Manajemen Web</span>
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/animation.html" data-slug="advanced-animation">
+                            <li class="site-menu-item {{set_active(['slider','slider/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('slider.index')}}" data-slug="advanced-animation">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Header</span>
+                                    <span class="site-menu-title">Slider Manajemen</span>
                                 </a>
-                            </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/lightbox.html" data-slug="advanced-lightbox">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Menu Program</span>
-                                </a>
-                            </li>
-                            <li class="site-menu-item hidden-xs">
-                                <a href="javascript:void(0)" data-slug="advanced-tour">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Menu UMKM</span>
-                                </a>
-                            </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/treeview.html" data-slug="advanced-treeview">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Menu Pendamping</span>
-                                </a>
-                            </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../advanced/rating.html" data-slug="advanced-rating">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Menu Layanan</span>
-                                </a>
-                            </li>                            
+                            </li>                                                      
                             <li class="site-menu-item {{set_active(['user','user/*'],'active')}}">
                                 <a class="animsition-link" href="{{route('user.index')}}" data-slug="advanced-toastr">
                                     <i class="site-menu-icon " aria-hidden="true"></i>

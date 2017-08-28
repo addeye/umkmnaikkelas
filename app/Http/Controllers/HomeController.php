@@ -20,6 +20,7 @@ use Nasution\ZenzivaSms\Client as Sms;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PendampingRegister;
 use Illuminate\Support\Facades\File;
+use App\Slider;
 
 class HomeController extends Controller
 {
@@ -56,7 +57,8 @@ class HomeController extends Controller
             }
         }
         $data = array(
-            'info_terkini' => InfoTerkini::with('user')->limit(3)->where('publish','Ya')->orderBy('created_at','DESC')->get()
+            'info_terkini' => InfoTerkini::with('user')->limit(3)->where('publish','Ya')->orderBy('created_at','DESC')->get(),
+            'slider' => Slider::where('publish','Yes')->get()
             );
         return view('welcome',$data);
          

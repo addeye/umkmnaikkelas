@@ -123,6 +123,8 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('info-pasar/{id}','InformasiPasarController@detail')->name('info-pasar.detail');
         Route::put('info-pasar/{id}','InformasiPasarController@doUpdate')->name('info-pasar.doUpdate');
         Route::delete('info-pasar/{id}','InformasiPasarController@doDelete')->name('info-pasar.doDelete');
+
+        Route::resource('slider','SliderController');
     });
 
     Route::group(['middleware' => 'umkm','namespace'=>'Umkm'], function ()

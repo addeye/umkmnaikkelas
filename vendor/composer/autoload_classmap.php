@@ -29,6 +29,7 @@ return array(
     'CreatePengajuanUmkmDetail' => $baseDir . '/database/migrations/2017_05_26_164428_create_pengajuan_umkm_detail.php',
     'CreatePengajuanUmkmFiles' => $baseDir . '/database/migrations/2017_05_26_165519_create_pengajuan_umkm_files.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2017_04_28_073841_create_roles_table.php',
+    'CreateSliderTable' => $baseDir . '/database/migrations/2017_08_04_064015_create_slider_table.php',
     'CreateSocialAccountsTable' => $baseDir . '/database/migrations/2017_04_28_073844_create_social_accounts_table.php',
     'CreateUmkmsTable' => $baseDir . '/database/migrations/2017_05_06_045714_create_umkms_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2017_04_28_073842_create_users_table.php',
