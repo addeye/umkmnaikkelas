@@ -9,14 +9,15 @@
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">
-              <h3 class="panel-title"><i class="con wb-plus"></i> Info Terkini</h3>
+              <h3 class="panel-title"><i class="con wb-plus"></i> Tambah Info Terkini</h3>
             </div>
             <div class="panel-body">
               <form class="form-horizontal" method="post" action="{{route('info-terkini.store')}}">
                 {{ csrf_field()}}
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                <input type="hidden" name="level" value="Umum">
                 <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Keterangan</label>                  
+                  <label class="col-sm-3 control-label">Keterangan</label>
                   <div class="col-sm-9">
                     <textarea data-plugin="summernote" data-plugin-options='{"toolbar":[["style", ["bold", "italic", "underline", "clear"]],["color", ["color"]],["para", ["ul", "ol", "paragraph"]]]}' name="keterangan" class="form-control">{{old('keterangan')}}</textarea>
                     <span class="help-block">

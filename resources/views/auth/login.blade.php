@@ -33,7 +33,7 @@
 
   {{Html::style('remark/assets/fonts/web-icons/web-icons.min.css')}}
     {{Html::style('remark/assets/fonts/brand-icons/brand-icons.min.css')}}
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>  
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
 
 
   <!--[if lt IE 9]>
@@ -75,10 +75,10 @@ a:focus, a:hover {
       <div class="brand">
       <a href="{{url('/')}}">
         <img class="brand-img" src="{{url('images/logo.png')}}" alt="logo">
-      </a>        
+      </a>
       </div>
       <p>Silahkan Masukkan Akun Anda</p>
-      <form method="post" action="{{ route('login') }}">        
+      <form method="post" action="{{ route('login') }}">
       {{ csrf_field() }}
         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
           <label class="sr-only" for="inputEmail">Email</label>
@@ -164,11 +164,11 @@ a:focus, a:hover {
 
       var Site = window.Site;
       $(document).ready(function() {
-        Site.run();        
+        Site.run();
       });
     })(document, window, jQuery);
 
-    {{$errors->all()?'error()':''}}    
+    {{$errors->all()?'error()':''}}
 
     function error()
     {

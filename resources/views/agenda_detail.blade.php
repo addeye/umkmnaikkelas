@@ -25,23 +25,22 @@
                 <div class="col-md-9">
                     <div class="panel">
                         <div class="panel-body">
-                            <div class="row">                                
+                            <div class="row">
                                 <div class="col-md-9">
-                                    <h4>{{$data->deskripsi}}</h4>                                  
+                                    <h4>{{$data->deskripsi}}</h4>
                                     <img src="{{asset('uploads/agenda/'.$data->image)}}" class="img-responsive">
                                     <hr>
                                     <p>
-                                        {{$data->keterangan}}
+                                        {!!$data->keterangan!!}
                                     </p>
                                 </div>
                                 <div class="col-md-3">
                                     <h4 class="title">{{$data->user->name}}</h4>
                                     <p><strong>Tanggal : </strong><br>{{$data->tanggal_mulai}} - {{$data->tanggal_mulai}}</p>
                                     <p><strong>Waktu : </strong><br>{{$data->jam_mulai}} - {{$data->jam_selesai}}</p>
-                                    <p><strong>Lokasi : </strong><br>{{$data->lokasi}}</p>                                    
+                                    <p><strong>Lokasi : </strong><br>{{$data->lokasi}}</p>
                                     <h4>Info</h4>
                                     <label>Status : {{$data->status?'Publish':'Menunggu'}}</label>
-
                                 </div>
                             </div>
                         </div>
@@ -51,7 +50,7 @@
                     @include('agenda_sub',['recent'=>$recent])
                 </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

@@ -29,7 +29,7 @@
                 <div class="form-group {{ $errors->has('deskripsi') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Deskripsi *</label>
                   <div class="col-sm-9">
-                    <textarea name="deskripsi" class="form-control" placeholder="Deskripsi" required>{{old('deskripsi')}}</textarea>
+                    <textarea name="deskripsi" class="form-control" placeholder="Deskripsi singkat.." required>{{old('deskripsi')}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('deskripsi') }}</strong>
                     </span>
@@ -39,7 +39,7 @@
                 <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Keterangan</label>
                   <div class="col-sm-9">
-                    <textarea name="keterangan" class="form-control" placeholder="Keterangan" rows="5">{{old('keterangan')}}</textarea>
+                    <textarea name="keterangan" class="form-control" data-plugin="summernote" data-plugin-options='{"toolbar":[["style", ["bold", "italic", "underline", "clear"]],["color", ["color"]],["para", ["ul", "ol", "paragraph"]]]}' placeholder="Keterangan" rows="5">{{old('keterangan')}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('keterangan') }}</strong>
                     </span>
@@ -80,7 +80,7 @@
                       <span class="help-block">
                         <strong>{{ $errors->first('tanggal_mulai') }}</strong>
                         <strong>{{ $errors->first('tanggal_selesai') }}</strong>
-                      </span>                    
+                      </span>
                   </div>
                 </div>
 
@@ -145,6 +145,8 @@
 @section('css')
 {{Html::style('remark/assets/vendor/clockpicker/clockpicker.css')}}
 {{Html::style('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css')}}
+{{Html::style('remark/assets/vendor/summernote/summernote.css')}}
+{{Html::style('remark/assets/css/../fonts/font-awesome/font-awesome.css')}}
 @endsection
 
 @section('js')
@@ -153,4 +155,7 @@
 
 {{Html::script(asset('remark/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.js'))}}
     {{Html::script(asset('remark/assets/js/components/bootstrap-datepicker.js'))}}
+
+    {{Html::script(asset('remark/assets/vendor/summernote/summernote.min.js'))}}
+{{Html::script(asset('remark/assets/js/components/summernote.js'))}}
 @endsection

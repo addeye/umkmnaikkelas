@@ -111,16 +111,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                                <label class="col-sm-3 control-label">Telepon *</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="telp" placeholder="Telepon" value="{{old('telp')}}" required/>
-                                    <span class="help-block">
-                      <strong>{{ $errors->first('telp') }}</strong>
-                    </span>
-                                </div>
-                            </div>
-
                             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Email *</label>
                                 <div class="col-sm-9">
@@ -191,7 +181,7 @@
                             <div class="form-group {{ $errors->has('website') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Website</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="website" placeholder="Alamat Website" value="{{old('website')}}" />
+                                    <input type="text" class="form-control" name="website" placeholder="[Link Website]" value="{{old('website')}}" />
                                     <span class="help-block">
                       <strong>{{ $errors->first('website') }}</strong>
                     </span>
@@ -200,7 +190,7 @@
                             <div class="form-group {{ $errors->has('facebook') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Facebook</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="{{old('facebook')}}" />
+                                    <input type="text" class="form-control" name="facebook" placeholder="[Link Facebook]" value="{{old('facebook')}}" />
                                     <span class="help-block">
                       <strong>{{ $errors->first('facebook') }}</strong>
                     </span>
@@ -210,7 +200,7 @@
                             <div class="form-group {{ $errors->has('twitter') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Twitter</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="twitter" placeholder="Twitter" value="{{old('twitter')}}" />
+                                    <input type="text" class="form-control" name="twitter" placeholder="[Link Twitter]" value="{{old('twitter')}}" />
                                     <span class="help-block">
                       <strong>{{ $errors->first('twitter') }}</strong>
                     </span>
@@ -219,7 +209,7 @@
                             <div class="form-group {{ $errors->has('whatsapp') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">WhatsApp</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="whatsapp" placeholder="WhatsApp" value="{{old('whatsapp')}}" />
+                                    <input type="text" class="form-control" name="whatsapp" placeholder="[No WhatsApp]" value="{{old('whatsapp')}}" />
                                     <span class="help-block">
                       <strong>{{ $errors->first('whatsapp') }}</strong>
                     </span>
@@ -229,7 +219,7 @@
                             <div class="form-group {{ $errors->has('instagram') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Instagram</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="instagram" placeholder="Instagram" value="{{old('instagram')}}" />
+                                    <input type="text" class="form-control" name="instagram" placeholder="[Link Instagram]" value="{{old('instagram')}}" />
                                     <span class="help-block">
                       <strong>{{ $errors->first('instagram') }}</strong>
                     </span>
@@ -250,23 +240,12 @@
                             <div class="form-group {{ $errors->has('sentra_umkm') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Sentra UMKM *</label>
                                 <div class="radio-custom radio-default radio-inline">
-                                    <input type="radio" id="inputBasicMale" name="sentra_umkm" value="Ya" {{old('sentra_umkm')=='Ya'?'checked':''}} required/>
-                                    <label for="inputBasicMale">Ya</label>
+                                    <input type="radio" id="inputBasicX" name="sentra_umkm" value="Ya" {{old('sentra_umkm')=='Ya'?'checked':''}} required/>
+                                    <label for="inputBasicX">Ya</label>
                                 </div>
                                 <div class="radio-custom radio-default radio-inline">
-                                    <input type="radio" id="inputBasicFemale" name="sentra_umkm" value="Tidak" {{old('sentra_umkm')=='Tidak'?'checked':''}} required/>
-                                    <label for="inputBasicFemale">Tidak</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label class="col-sm-3 control-label">Foto Profil</label>
-                                <div class="col-sm-9">
-                                    <input id="input-2" name="image" type="file" class="file" data-show-upload="false" data-show-caption="true">
-                                    <span class="help-block">
-                            <strong>Jpg, max 300kb</strong>
-                            <strong>{{ $errors->first('image') }}</strong>
-                        </span>
+                                    <input type="radio" id="inputBasicY" name="sentra_umkm" value="Tidak" {{old('sentra_umkm')=='Tidak'?'checked':''}} required/>
+                                    <label for="inputBasicY">Tidak</label>
                                 </div>
                             </div>
 

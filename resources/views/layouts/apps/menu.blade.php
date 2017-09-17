@@ -7,7 +7,7 @@
                     <li class="site-menu-item has-sub {{ set_active(['dashboard'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="dashboard">
                             <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
-                            <span class="site-menu-title">Dashboard</span>                        
+                            <span class="site-menu-title">Dashboard</span>
                         </a>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item {{ set_active(['dashboard']) }}">
@@ -26,7 +26,7 @@
                     </li>
                     <li class="site-menu-item has-sub {{ set_active(['bidang-usaha','bidang-usaha/*', 'bidang-pendampingan','bidang-pendampingan/*','bidang-keahlian','bidang-keahlian/*','provinsi','kabupaten-kota'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="layout">
-                            <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
+                            <i class="site-menu-icon wb-book" aria-hidden="true"></i>
                             <span class="site-menu-title">Master Data</span>
                             <span class="site-menu-arrow"></span>
                         </a>
@@ -65,11 +65,11 @@
                     </li>
                     <li class="site-menu-item has-sub {{ set_active(['umkm','umkm/*','penghargaan-umkm','penghargaan-umkm/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
-                            <i class="site-menu-icon wb-file" aria-hidden="true"></i>
+                            <i class="site-menu-icon wb-shopping-cart" aria-hidden="true"></i>
                             <span class="site-menu-title">UMKM</span>
                             <span class="site-menu-arrow"></span>
                         </a>
-                        <ul class="site-menu-sub">                            
+                        <ul class="site-menu-sub">
                             <li class="site-menu-item {{ set_active(['umkm','umkm/*'],'active') }}">
                                 <a class="animsition-link" href="{{url('umkm')}}" data-slug="page-faq">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
@@ -92,11 +92,11 @@
                     </li>
                     <li class="site-menu-item has-sub {{ set_active(['lembaga','lembaga/*','pendamping','pendamping/*','penghargaan-pendamping','penghargaan-pendamping/*'],'active open') }}">
                         <a href="javascript:void(0)" data-slug="page">
-                            <i class="site-menu-icon wb-file" aria-hidden="true"></i>
+                            <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
                             <span class="site-menu-title">Pendamping</span>
                             <span class="site-menu-arrow"></span>
                         </a>
-                        <ul class="site-menu-sub">                            
+                        <ul class="site-menu-sub">
                             <li class="site-menu-item {{ set_active(['lembaga','lembaga/*'],'active') }}">
                                 <a class="animsition-link" href="{{url('lembaga')}}" data-slug="page-faq">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
@@ -124,7 +124,7 @@
                         </ul>
                     </li>
                     <li class="site-menu-category">Feature</li>
-                    <li class="site-menu-item has-sub {{set_active(['info-terkini','info-terkini/*','info-pasar','info-pasar/*','agenda','agenda/*'],'active open')}}">
+                    <li class="site-menu-item has-sub {{set_active(['info-pasar','info-pasar/*','agenda','agenda/*','event','event/*'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="uikit">
                             <i class="site-menu-icon wb-bookmark" aria-hidden="true"></i>
                             <span class="site-menu-title">Layanan</span>
@@ -137,22 +137,43 @@
                                     <span class="site-menu-title">Info Pasar</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item {{set_active(['info-terkini','info-terkini/*'],'active')}}">
-                                <a class="animsition-link" href="{{route('info-terkini.index')}}" data-slug="uikit-colors">
-                                    <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Info Terkini</span>
-                                </a>
-                            </li>
                             <li class="site-menu-item {{set_active(['agenda','agenda/*'],'active')}}">
                                 <a class="animsition-link" href="{{route('agenda.index')}}" data-slug="uikit-buttons">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Agenda</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="../uikit/dropdowns.html" data-slug="uikit-dropdowns">
+                            <li class="site-menu-item {{set_active(['event','event/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('event.index')}}" data-slug="uikit-dropdowns">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
-                                    <span class="site-menu-title">Konsultasi Bisnis</span>
+                                    <span class="site-menu-title">Event</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="site-menu-item has-sub {{set_active(['info-terkini','info-terkini/*','info-pendamping','info-pendamping/*','info-umkm','info-umkm/*'],'active open')}}">
+                        <a href="javascript:void(0)" data-slug="advanced">
+                            <i class="site-menu-icon wb-tag" aria-hidden="true"></i>
+                            <span class="site-menu-title">Info Terkini</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item {{set_active(['info-terkini','info-terkini/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('info-terkini.index')}}" data-slug="uikit-colors">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Info Terkini</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{set_active(['info-pendamping','info-pendamping/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('info.pendamping')}}" data-slug="advanced-toastr">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Info Pendampingan</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{set_active(['info-umkm','info-umkm/*'],'active')}}">
+                                <a class="animsition-link" href="{{route('info.umkm')}}" data-slug="advanced-toastr">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Info UMKM</span>
                                 </a>
                             </li>
                         </ul>
@@ -169,7 +190,7 @@
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Slider Manajemen</span>
                                 </a>
-                            </li>                                                      
+                            </li>
                             <li class="site-menu-item {{set_active(['user','user/*'],'active')}}">
                                 <a class="animsition-link" href="{{route('user.index')}}" data-slug="advanced-toastr">
                                     <i class="site-menu-icon " aria-hidden="true"></i>
@@ -178,7 +199,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="site-menu-item has-sub {{set_active(['laporan-user','laporan-user/*','laporan-penghargaan','laporan-penghargaan/*'],'active open')}}">
+                    <li class="site-menu-item has-sub {{set_active(['laporan-user','laporan-user/*','laporan-penghargaan','laporan-penghargaan/*','laporan-jasa-pendampingan'],'active open')}}">
                         <a href="javascript:void(0)" data-slug="advanced">
                             <i class="site-menu-icon wb-file" aria-hidden="true"></i>
                             <span class="site-menu-title">Laporan</span>
@@ -214,9 +235,15 @@
                                     <i class="site-menu-icon " aria-hidden="true"></i>
                                     <span class="site-menu-title">Penghargaan Pendamping</span>
                                 </a>
-                            </li>                                                
+                            </li>
+                            <li class="site-menu-item {{set_active(['laporan-jasa-pendampingan','active'])}}">
+                                <a href="{{route('laporan.jasa-pendampingan')}}" data-slug="advanced-lightbox">
+                                    <i class="site-menu-icon " aria-hidden="true"></i>
+                                    <span class="site-menu-title">Jasa Pendampingan</span>
+                                </a>
+                            </li>
                         </ul>
-                    </li>                                       
+                    </li>
                 </ul>
             </div>
         </div>

@@ -43,6 +43,22 @@
 
     {{Html::style('remark/assets/vendor/owl-carousel/owl.carousel.css')}}
     {{Html::style('remark/assets/vendor/slick-carousel/slick.css')}}
+    <style type="text/css">
+        a {
+    color: #f16f35;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #8e3b16;
+    text-decoration: underline;
+}
+@media only screen and (max-width: 682px) {
+
+.page-content {
+    padding: 0px 0px;
+}
+}
+    </style>
     @yield('css')
 
     <!--[if lt IE 9]>
@@ -139,11 +155,11 @@
     <script type="text/javascript">
         $(window).load(function(){
   $(document).ready(function () {
-      
+
       @if (Session::has('sweet_alert.alert'))
-    
+
         swal({!! Session::get('sweet_alert.alert') !!});
-    
+
 @endif
     });
 });
@@ -162,11 +178,11 @@
         $('#exampleAutoplay').slick({
           dots: false,
           infinite: true,
-          speed: 500,
+          speed: 1000,
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 2000,
+          autoplaySpeed: 8000,
           prevArrow: null,
          nextArrow: null,
         });

@@ -8,11 +8,12 @@
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">
-              <h3 class="panel-title"><i class="con wb-pencil"></i> Info Terkini Lunas</h3>
+              <h3 class="panel-title"><i class="con wb-pencil"></i> Edit Info Terkini Lunas</h3>
             </div>
             <div class="panel-body">
               <form class="form-horizontal" method="post" action="{{route('info-terkini.update',['id'=>$data->id])}}">
               <input type="hidden" name="_method" value="PUT">
+              <input type="hidden" name="level" value="Umum">
               {{ csrf_field()}}
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                 <div class="form-group {{ $errors->has('keterangan') ? ' has-error' : '' }}">

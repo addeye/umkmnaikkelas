@@ -8,7 +8,7 @@
       <div class="panel">
         <header class="panel-heading">
           <div class="panel-actions"></div>
-          <h3 class="panel-title"></h3>
+          <h3 class="panel-title">Info Terkini</h3>
         </header>
         <div class="panel-body">
           <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
@@ -22,18 +22,8 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tfoot>
-            <tr>
-              <th>No</th>
-              <th>Tanggal</th>
-              <th>Keterangan</th>
-              <th>Author</th>
-              <th>Publish</th>
-              <th>Action</th>
-            </tr>
-            </tfoot>
             <tbody>
-            <?php $no=1; ?>
+            <?php $no = 1;?>
             @foreach($data as $row)
               <tr>
                 <td>{{$no++}}</td>
@@ -49,14 +39,14 @@
                   </form>
                 </td>
               </tr>
-             @endforeach                          
+             @endforeach
             </tbody>
           </table>
           <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
                 <a href="{{url('info-terkini/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
             </div>
         </div>
-      </div>      
+      </div>
       <!-- End Panel Basic -->
     </div>
   </div>

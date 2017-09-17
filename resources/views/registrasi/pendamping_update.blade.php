@@ -209,31 +209,20 @@
                     </span>
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                    <label class="col-sm-3 control-label">Foto Profil</label>
-                    <div class="col-sm-9">
-                        <input id="input-2" name="image" type="file" class="file" data-show-upload="false" data-show-caption="true">
-                        <span class="help-block">
-                            <strong>Kosongi jika tidak diganti</strong>
-                            <strong>Jpg, max 300kb</strong>
-                            <strong>{{ $errors->first('image') }}</strong>
-                        </span>
-                    </div>
-                </div>
                     <div class="text-right">
                       <button type="submit" class="btn btn-primary" id="validateButton2">Update</button>
                     </div>
                       </form>
                     </div>
                 </div>
-            </div>     
+            </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-{{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}  
+{{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
 {{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
 
 <script type="text/javascript">

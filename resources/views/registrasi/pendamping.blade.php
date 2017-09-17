@@ -21,19 +21,6 @@
                     <div class="panel-body">
                         <form method="post" class="form-horizontal" id="exampleStandardForm" autocomplete="off" action="{{route('dodaftar.pendamping')}}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
-                        <div class="form-group {{ $errors->has('id_pendamping') ? ' has-error' : '' }}">
-                        <label class="col-sm-3 control-label">ID Pendamping *</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="id_pendamping" placeholder="ID Pendamping" value="{{old('id_pendamping')}}" />
-                                <span class="help-block">
-                                    <strong>Jika tidak memiliki ID Pendamping isi dengan nomor KTP anda secara lengkap </strong>
-                                </span>
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('id_pendamping') }}</strong>
-                                </span>
-
-                            </div>
-                        </div>
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Nama Pendamping *</label>
                           <div class="col-sm-9">
@@ -57,15 +44,7 @@
                         <label for="inputBasicFemale">Wanita</label>
                         </div>
                         </div>
-                        <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Telepon *</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" name="telp" placeholder="Telepon.." value="{{old('telp')}}" />
-                    <span class="help-block">
-                      <strong>{{ $errors->first('telp') }}</strong>
-                    </span>
-                  </div>
-                </div>
+
                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Email *</label>
                   <div class="col-sm-9">
@@ -209,30 +188,20 @@
                     </span>
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
-                    <label class="col-sm-3 control-label">Foto Profil</label>
-                    <div class="col-sm-9">
-                        <input id="input-2" name="image" type="file" class="file" data-show-upload="false" data-show-caption="true">
-                        <span class="help-block">
-                            <strong>Jpg, max 300kb</strong>
-                            <strong>{{ $errors->first('image') }}</strong>
-                        </span>
-                    </div>
-                </div>
                     <div class="text-right">
                       <button type="submit" class="btn btn-primary" id="validateButton2">Submit</button>
                     </div>
                       </form>
                     </div>
                 </div>
-            </div>     
+            </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-{{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}  
+{{Html::script(asset('remark/assets/vendor/formvalidation/formValidation.min.js'))}}
 {{Html::script(asset('remark/assets/vendor/formvalidation/framework/bootstrap.min.js'))}}
 
 <script type="text/javascript">
@@ -247,16 +216,7 @@
           },
           icon: null,
           fields: {
-              id_pendamping: {
-                  validators: {
-                      notEmpty: {
-                          message: 'Isi dengan benar'
-                      },
-                      integer : {
-                          message : 'Harus angka'
-                      }
-                  }
-              },
+
             nama_pendamping: {
               validators: {
                 notEmpty: {
@@ -285,13 +245,7 @@
                       }
                   }
               },
-                  telp: {
-                  validators: {
-                      notEmpty: {
-                          message: 'Isi dengan benar'
-                      }
-                  }
-              },
+
             email: {
               validators: {
                 notEmpty: {
@@ -302,34 +256,7 @@
                 }
               }
             },
-//              pengalaman: {
-//                  validators: {
-//                      notEmpty: {
-//                          message: 'Isi dengan benar'
-//                      }
-//                  }
-//              },
-//              sertifikat: {
-//                  validators: {
-//                      notEmpty: {
-//                          message: 'Isi dengan benar'
-//                      }
-//                  }
-//              },
-//              bidang_pendampingan: {
-//                  validators: {
-//                      notEmpty: {
-//                          message: 'Isi dengan benar'
-//                      }
-//                  }
-//              },
-//              bidang_keahlian: {
-//                  validators: {
-//                      notEmpty: {
-//                          message: 'Isi dengan benar'
-//                      }
-//                  }
-//              },
+
               kabkota_id: {
                   validators: {
                       notEmpty: {
@@ -351,17 +278,6 @@
                       }
                   }
               },
-//            standard_content: {
-//              validators: {
-//                notEmpty: {
-//                  message: 'The content is required and cannot be empty'
-//                },
-//                stringLength: {
-//                  max: 500,
-//                  message: 'The content must be less than 500 characters long'
-//                }
-//              }
-//            }
           }
         });
       })();
