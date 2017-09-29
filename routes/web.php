@@ -140,6 +140,11 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('slider', 'SliderController');
 
 		Route::resource('event', 'EventController');
+		Route::get('event-file/{id}', 'EventController@subfile')->name('event.file');
+		Route::post('event-file/{id}', 'EventController@doSubfile')->name('event.dofile');
+		Route::put('event-validasi/{id}', 'EventController@validasi')->name('event.validasi');
+		Route::put('event-validasi-follower/{id}', 'EventController@validasi_follower')->name('event.follow.validasi');
+		Route::post('event-diskusi', 'EventController@diskusi')->name('event.diskusi');
 	});
 
 	Route::group(['middleware' => 'umkm', 'namespace' => 'Umkm'], function () {
@@ -161,6 +166,11 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('konsultasi-pendamping', 'KonsultasiController');
 		Route::get('konsultasi-terima/{id}', 'KonsultasiController@terima')->name('konsultasi.terima');
 		Route::get('konsultasi-tolak/{id}', 'KonsultasiController@tolak')->name('konsultasi.tolak');
+
+		Route::get('event-show/{id}', 'EventController@show_akun')->name('event.show_akun');
+		Route::get('event-all', 'EventController@event_all')->name('event.all');
+		Route::put('event-follower/{id}', 'EventController@event_follower')->name('event.follower');
+		Route::post('event-diskusi-akun', 'EventController@diskusi')->name('event.akun.diskusi');
 	});
 
 });

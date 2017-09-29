@@ -6,9 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddColumnClosedByInOrderKonsultasiTable' => $baseDir . '/database/migrations/2017_09_23_182728_add_column_closed_by_in_order_konsultasi_table.php',
+    'AddColumnEventIdInEventDiscussTable' => $baseDir . '/database/migrations/2017_09_24_162231_add_column_event_id_in_event_discuss_table.php',
     'AddColumnIsDeletedOnJasaPendampinganTable' => $baseDir . '/database/migrations/2017_09_12_061430_add_column_is_deleted_on_jasa_pendampingan_table.php',
     'AddColumnKeteranganJasaPendampingan' => $baseDir . '/database/migrations/2017_09_04_060902_add_column_keterangan_jasa_pendampingan.php',
     'AddColumnUmkmIdOnOrderKonsultasiTable' => $baseDir . '/database/migrations/2017_09_16_141630_add_column_umkm_id_on_order_konsultasi_table.php',
+    'AddColumnUserAsOnEventFollowerTable' => $baseDir . '/database/migrations/2017_09_27_053703_add_column_user_as_on_event_follower_table.php',
     'AddColumnUserIdOnOrderKonsultasiTable' => $baseDir . '/database/migrations/2017_09_16_143828_add_column_user_id_on_order_konsultasi_table.php',
     'AddUserIdTablePengajuan' => $baseDir . '/database/migrations/2017_07_13_194331_add_user_id_table_pengajuan.php',
     'AddUserIdTablePengajuanPendamping' => $baseDir . '/database/migrations/2017_07_13_194344_add_user_id_table_pengajuan_pendamping.php',

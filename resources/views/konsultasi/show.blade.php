@@ -36,9 +36,16 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('konsultasi.index')}}">
+                @if (Auth::user()->role_id == ROLE_PENDAMPING)
+                <a href="{{route('konsultasi-pendamping.index')}}">
                     Order Konsultasi
                 </a>
+                    @else
+                    <a href="{{route('konsultasi.index')}}">
+                    Order Konsultasi
+                </a>
+                @endif
+
             </li>
             <li class="active">
                 {{$data->subject}}
@@ -49,18 +56,48 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="panel">
-                    <h3 class="panel-title">
-                        {{$data->subject}}
+                    <div class="panel-heading">
+                        <div class="panel-action">
+                            <span class="label label-danger">{{$data->status=='Tutup'?'Ditutup Oleh : '.$data->closed_by:''}}</span>
+                        </div>
+                        <h3 class="panel-title">
+                        #{{$data->code}} - {{$data->subject}}
                         <span class="label label-warning">
-                            Status : {{$data->status}}
+                            Status : {{$data->status}} <br>
                         </span>
                     </h3>
+                    </div>
                     <div class="panel-body">
                         <div class="row">
+                            @if ($data->status == 'Proses')
+                                <div class="col-md-12">
+                        <a href="#tambah_komentar"><i class="icon fa-plus"></i> Tambah Komentar</a>
+                        <a onclick="event.preventDefault(); ConfirmDelete({{$data->id}});" href="javascript:void(0)"><i class="icon fa-close" data-toggle="tooltip" data-original-title="Tutp konsultasi"></i> Tutup Konsultasi</a>
+                        @if (Auth::user()->role_id == ROLE_PENDAMPING)
+
+                        <form id="delete-form-{{$data->id}}" action="{{route('konsultasi-pendamping.update',['id'=>$data->id])}}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="role_name" value="Pendamping">
+                            <input type="hidden" name="_method" value="PUT">
+                        </form>
+
+                        @else
+
+                        <form id="delete-form-{{$data->id}}" action="{{route('konsultasi.update',['id'=>$data->id])}}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="role_name" value="Umkm">
+                            <input type="hidden" name="_method" value="PUT">
+                        </form>
+
+                        @endif
+
+                        </div>
+                            @endif
+
                             <div class="col-md-12">
                                 <ul class="list-group list-group-dividered list-group-full">
                                         @foreach($data->order_chat as $row)
-                                        <li class="list-group-item padding-left-50">
+                                        <li class="list-group-item">
                                             <div class="media comment">
                                                 <div class="media-left">
                                                     <a class="avatar avatar-online" href="javascript:void(0)">
@@ -88,10 +125,10 @@
                                                                 @foreach ($row->order_chat_file as $row)
                                                                     @if ($row->file_type == 'image')
                                                                         <a href="{{ asset($row->path.$row->file_name) }}">
-                                                                            <img class="profile-uploaded" src="{{ asset($row->path.'thumbs/'.$row->file_name) }}">
+                                                                            <img class="img-responsive profile-uploaded" src="{{ asset($row->path.'thumbs/'.$row->file_name) }}">
                                                                         </a>
                                                                     @else
-                                                                    <p><a href="{{ asset($row->path.$row->nam) }}">{{$row->file_name}}</a></p>
+                                                                    <p><a href="{{ asset($row->path.$row->file_name) }}"><i class="icon fa-file"></i> {{$row->file_name}}</a></p>
                                                                     @endif
 
                                                                 @endforeach
@@ -135,7 +172,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="tambah_komentar">
                                     {!! Form::label('images', 'File Pendukung', ['class'=>'control-label col-sm-3']) !!}
                                     <div class="col-md-9">
                                         <div class="input">
@@ -378,4 +415,32 @@
             });
         })();
     </script>
+
+    <script>
+
+    function ConfirmDelete(id)
+    {
+        var id = id;
+  swal({
+  title: "Apakah Yakin?",
+  text: "Konsultasi akan benar-benar Ditutup!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Iya, Tutup!",
+  cancelButtonText: "Tidak, Batalkan!",
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+      document.getElementById('delete-form-'+id).submit();
+  } else {
+    swal("Dibatalkan", "Konsultasi tidak jadi ditutup", "error");
+  }
+});
+  }
+
+</script>
 @endsection

@@ -27,7 +27,7 @@ class KonsultasiController extends Controller {
 		$umkm_id = Auth::user()->umkm->id;
 
 		$data = array(
-			'data' => OrderKonsultasi::where('umkm_id', $umkm_id)->get(),
+			'data' => OrderKonsultasi::where('umkm_id', $umkm_id)->orderBy('created_at', 'DESC')->get(),
 		);
 		return view('konsultasi.list', $data);
 	}
@@ -40,6 +40,7 @@ class KonsultasiController extends Controller {
 	public function create() {
 		$data = array(
 			'bidang' => BidangPendampingan::all(),
+			'riwayat' => OrderKonsultasi::all(),
 		);
 		return view('konsultasi.add', $data);
 	}
@@ -125,7 +126,15 @@ class KonsultasiController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
-		//
+		$order = OrderKonsultasi::find($id);
+		$order->status = 'Tutup';
+		$order->closed_by = $request->role_name;
+		$order->save();
+
+		if ($order) {
+			\Alert::success('Konsultasi berhasil ditutup', 'Tutup !');
+			return redirect()->route('konsultasi.index');
+		}
 	}
 
 	/**
@@ -135,7 +144,7 @@ class KonsultasiController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
-		//
+
 	}
 
 	public function get_jasa($order_konsultasi_id) {

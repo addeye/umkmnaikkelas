@@ -9,16 +9,16 @@
           <!-- Panel Standard Mode -->
           <div class="panel">
             <div class="panel-heading">
-              <h3 class="panel-title"><i class="con wb-plus"></i> Event</h3>
+              <h3 class="panel-title"><i class="con wb-plus"></i> Edit Event</h3>
             </div>
             <div class="panel-body">
-              <form class="form-horizontal" method="post" action="{{route('event.store')}}" enctype="multipart/form-data">
+              <form class="form-horizontal" method="post" action="{{route('event.update',['id'=>$data->id])}}" enctype="multipart/form-data">
                 {{ csrf_field()}}
-
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Judul*</label>
                   <div class="col-sm-9">
-                    <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Judul agenda" required>
+                    <input type="text" name="title" class="form-control" value="{{$data->title}}" placeholder="Judul agenda" required>
                     <span class="help-block">
                       <strong>{{ $errors->first('title') }}</strong>
                     </span>
@@ -28,7 +28,7 @@
                 <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Deskripsi *</label>
                   <div class="col-sm-9">
-                    <textarea name="description" class="form-control" placeholder="Deskripsi singkat.." required>{{old('description')}}</textarea>
+                    <textarea name="description" class="form-control" placeholder="Deskripsi singkat.." required>{{$data->description}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('description') }}</strong>
                     </span>
@@ -38,7 +38,7 @@
                 <div class="form-group {{ $errors->has('content') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Keterangan</label>
                   <div class="col-sm-9">
-                    <textarea name="content" class="form-control" data-plugin="summernote" data-plugin-options='{"toolbar":[["style", ["bold", "italic", "underline", "clear"]],["color", ["color"]],["para", ["ul", "ol", "paragraph"]]]}' placeholder="Keterangan" rows="5">{{old('content')}}</textarea>
+                    <textarea name="content" class="form-control" data-plugin="summernote" data-plugin-options='{"toolbar":[["style", ["bold", "italic", "underline", "clear"]],["color", ["color"]],["para", ["ul", "ol", "paragraph"]]]}' placeholder="Keterangan" rows="5">{{$data->content}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('content') }}</strong>
                     </span>
@@ -51,7 +51,7 @@
                     <select name="city" class="form-control" data-plugin="select2" required>
                       <option value="">Pilih Kabupaten/Kota</option>
                       @foreach($kabkota as $row)
-                      <option value="{{$row->name}}">{{$row->name}}</option>
+                      <option value="{{$row->name}}" {{$data->city==$row->name?'selected':''}} >{{$row->name}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">
@@ -63,7 +63,7 @@
                 <div class="form-group {{ $errors->has('alamat') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Alamat *</label>
                   <div class="col-sm-9">
-                    <textarea name="alamat" class="form-control" placeholder="Alamat.." required>{{old('alamat')}}</textarea>
+                    <textarea name="alamat" class="form-control" placeholder="Alamat.." required>{{$data->alamat}}</textarea>
                     <span class="help-block">
                       <strong>{{ $errors->first('alamat') }}</strong>
                     </span>
@@ -78,11 +78,11 @@
                             <span class="input-group-addon">
                               <i class="icon wb-calendar" aria-hidden="true"></i>
                             </span>
-                            <input type="text" class="form-control" name="start_date" value="{{old('start_date')}}" required/>
+                            <input type="text" class="form-control" name="start_date" value="{{$data->start_date}}" required/>
                           </div>
                           <div class="input-group">
                             <span class="input-group-addon">to</span>
-                            <input type="text" class="form-control" value="{{old('end_date')}}" name="end_date" />
+                            <input type="text" class="form-control" value="{{$data->end_date}}" name="end_date" />
                           </div>
                       </div>
 
@@ -101,11 +101,11 @@
                             <span class="input-group-addon">
                               <i class="icon wb-time" aria-hidden="true"></i>
                             </span>
-                            <input type="text" class="form-control" name="start_time" value="{{old('start_time')}}" data-plugin="clockpicker" data-autoclose="true"/>
+                            <input type="text" class="form-control" name="start_time" value="{{$data->start_time}}" data-plugin="clockpicker" data-autoclose="true"/>
                         </div>
                         <div class="input-group">
                           <span class="input-group-addon">to</span>
-                          <input type="text" class="form-control" name="end_time" value="{{old('end_time')}}" data-plugin="clockpicker" data-autoclose="true"/>
+                          <input type="text" class="form-control" name="end_time" value="{{$data->end_time}}" data-plugin="clockpicker" data-autoclose="true"/>
                         </div>
                       </div>
                     <span class="help-block">
@@ -121,6 +121,7 @@
                     <input type="file" name="image" id="input-1" class="file" data-show-upload="false" data-show-caption="true">
                     <span class="help-block">
                       <strong>{{ $errors->first('image') }}</strong>
+                      <strong>* Kosongi jika tidak ada perubahan gambar</strong>
                     </span>
                   </div>
                 </div>
@@ -129,7 +130,7 @@
                   <label class="col-sm-3 control-label">Publish</label>
                   <div class="col-sm-9">
                     <div class="pull-left margin-right-20">
-                      <input type="checkbox" id="inputBasicOn" name="publish" data-plugin="switchery" value="Yes" checked/>
+                      <input type="checkbox" id="inputBasicOn" name="publish" data-plugin="switchery" value="Yes" {{$data->publish=='Yes'?'checked':''}}/>
                     </div>
                   </div>
                 </div>
@@ -138,16 +139,16 @@
                   <label class="col-sm-3 control-label">Quota * / Level</label>
                   <div class="col-md-9 row">
                     <div class="col-sm-3">
-                    <input type="text" name="quota" class="form-control" value="{{old('quota')}}" placeholder="Jumlah" required>
+                    <input type="text" name="quota" class="form-control" value="{{$data->quota}}" placeholder="Jumlah" required>
                     <span class="help-block">
                       <strong>{{ $errors->first('quota') }}</strong>
                     </span>
                   </div>
                   <div class="col-sm-9">
                     <select name="role_level" class="form-control">
-                      <option value="Semua">Semua</option>
-                      <option value="Pendamping">Pendamping</option>
-                      <option value="Umkm">Umkm</option>
+                      <option value="Semua" {{$data->role_level=='Semua'?'selected':''}}>Semua</option>
+                      <option value="Pendamping" {{$data->role_level=='Pendamping'?'selected':''}} >Pendamping</option>
+                      <option value="Umkm" {{$data->role_level=='Umkm'?'selected':''}}>Umkm</option>
                     </select>
                     <span class="help-block">
                       <strong>{{ $errors->first('role_level') }}</strong>
@@ -157,7 +158,7 @@
                 </div>
                 <div class="text-right">
                   <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
-                  <a href="{{route('agenda.index')}}" class="btn btn-warning">Cancel</a>
+                  <a href="{{route('event.show',['id'=>$data->id])}}" class="btn btn-warning">Cancel</a>
                 </div>
               </form>
             </div>

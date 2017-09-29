@@ -24,11 +24,12 @@ class KonsultasiController extends Controller {
 		$pendamping_id = Auth::user()->pendamping->id;
 		$jasa = JasaPendampingan::where('pendamping_id', $pendamping_id)->pluck('id');
 
-		$order = OrderKonsultasi::whereIn('status', ['Menunggu', 'Proses', 'Selesai'])->whereIn('jasa_pendampingan_id', $jasa)->get();
+		$order = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa)->orderBy('created_at', 'DESC')->get();
 
 		$data = array(
 			'data' => $order,
 		);
+		// return $data;
 		return view('konsultasi.list', $data);
 	}
 
@@ -161,7 +162,15 @@ class KonsultasiController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
-		//
+		$order = OrderKonsultasi::find($id);
+		$order->status = 'Tutup';
+		$order->closed_by = $request->role_name;
+		$order->save();
+
+		if ($order) {
+			\Alert::success('Konsultasi berhasil ditutup', 'Tutup !');
+			return redirect()->route('konsultasi-pendamping.index');
+		}
 	}
 
 	/**
@@ -171,7 +180,7 @@ class KonsultasiController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id) {
-		//
+
 	}
 
 	public function terima($id) {
@@ -180,7 +189,7 @@ class KonsultasiController extends Controller {
 		$order->save();
 		if ($order) {
 			\Alert::success('Konsultasi Di Terima', 'Selamat !');
-			return redirect()->route('konsultasi.show', ['id' => $id]);
+			return redirect()->route('konsultasi-pendamping.show', ['id' => $id]);
 		}
 	}
 
@@ -190,7 +199,7 @@ class KonsultasiController extends Controller {
 		$order->save();
 		if ($order) {
 			\Alert::success('Konsultasi Ditolak', 'Berhasil !');
-			return redirect()->route('konsultasi.index');
+			return redirect()->route('konsultasi-pendamping.index');
 		}
 	}
 }

@@ -49,9 +49,6 @@
                                                 Dibuat
                                             </th>
                                             <th>
-                                                Terakhir
-                                            </th>
-                                            <th>
                                                 Status
                                             </th>
                                         </tr>
@@ -79,10 +76,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{date('d/m/Y h:i',strtotime($row->created_at))}}
-                                            </td>
-                                            <td>
-                                                04/08/2017 16:00
+                                                {{date('d/m/Y H:i',strtotime($row->created_at))}}
                                             </td>
                                             <td>
                                                 <span class="label label-round label-warning">

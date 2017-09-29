@@ -16,38 +16,38 @@
               <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Action</th>                
+                <th>Action</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Action</th>                
+                <th>Action</th>
               </tr>
             </tfoot>
             <tbody>
-            <?php $no=1; ?>
+            <?php $no = 1;?>
             @foreach($data as $row)
               <tr>
                 <td>{{$no++}}</td>
                 <td>{{$row->nama}}</td>
                 <td class="text-nowrap">
-              		<a href="{{route('bidang-usaha.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>                   
+              		<a href="{{route('bidang-usaha.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>
                     <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
                         <form id="delete-form-{{$row->id}}" action="{{route('bidang-usaha.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         </form>
                 </td>
               </tr>
-             @endforeach                          
+             @endforeach
             </tbody>
           </table>
           <div class="floating" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tambah Data">
                 <a href="{{url('bidang-usaha/create')}}"><i class="icon wb-plus" aria-hidden="true"></i></a>
             </div>
         </div>
-      </div>      
+      </div>
       <!-- End Panel Basic -->
     </div>
   </div>

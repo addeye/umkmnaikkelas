@@ -40,6 +40,43 @@
                 </div>
             </div>
             @endif
+
+            @if (count($event) > 0)
+                @foreach ($event as $key=>$row)
+                    <div class="alert alert-alt alert-warning">
+                        <div class="media media">
+                    <div class="media-left">
+                      <a href="javascript:void(0)">
+                        <img class="media-object" src="{{ asset('uploads/event/'.$row->image) }}" alt="...">
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">{{$row->title}}</h4>
+                      {{$row->description}}
+                      <p><i class="icon wb-users"></i> Quota Peserta : {{$row->quota}}</p>
+                      <p><i class="icon wb-map"></i> Lokasi : {{$row->city}}</p>
+                      <p class="margin-top-10">
+                        <a href="{{ route('event.show_akun',['id'=>$row->id]) }}" data-toggle="tooltip" data-original-title="Selengkapnya"><i class="icon wb-dropright"></i> Selengkapnya</a>
+                        @if(!in_array($row->id, $event_id->toArray()))
+                        <a onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Ikut Event"><i class="icon wb-bookmark" aria-hidden="true"></i> Ikut Event</a>
+                        <form id="delete-form-{{$row->id}}" action="{{route('event.follower',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                        </form>
+                            @else
+                            <a href="javascript:void" style="color: red;"><i class="icon wb-bookmark"></i> Mengikuti</a>
+                        @endif
+
+
+                      </p>
+                      <p class="text-right"><i class="icon wb-user-add"></i> Telah Diikuti : {{count($row->event_follower)}}</p>
+                    </div>
+                  </div>
+                    </div>
+                @endforeach
+
+            @endif
+
             <div class="col-md-3">
                 <!-- Page Widget -->
                 <div class="widget widget-shadow text-center">
@@ -100,43 +137,55 @@
                                     </span>
                                 </a>
                             </li>
+
+                            @if(Auth::user()->role_id == ROLE_PENDAMPING)
                             <li role="presentation">
                                 <a aria-controls="inforole" data-toggle="tab" href="#inforole" role="tab">
-                                    @if(Auth::user()->role_id == ROLE_PENDAMPING)
                                     Info Pendamping
-                                @elseif(Auth::user()->role_id == ROLE_UMKM)
-                                    Info UMKM
-                                @endif
                                 </a>
                             </li>
+                            @elseif(Auth::user()->role_id == ROLE_UMKM)
+                            <li role="presentation">
+                                <a aria-controls="inforole" data-toggle="tab" href="#inforole" role="tab">
+                                    Info UMKM
+                                </a>
+                            </li>
+                            @endif
                             <li role="presentation">
                                 <a aria-controls="messages" data-toggle="tab" href="#messages" role="tab">
                                     Agenda
                                 </a>
                             </li>
-                            <li role="presentation">
+                            @if (Auth::user()->role_id != ROLE_CALON)
+                                <li role="presentation">
                                 <a aria-controls="order" data-toggle="tab" href="#order" role="tab">
                                     Order Konsultasi
                                 </a>
                             </li>
+                            @endif
+
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="infoterkini" role="tabpanel">
                                 @include('sub_content.info_terkini')
                             </div>
+                            @if(Auth::user()->role_id == ROLE_PENDAMPING)
                             <div class="tab-pane" id="inforole" role="tabpanel">
-                                @if(Auth::user()->role_id == ROLE_PENDAMPING)
                                     @include('sub_content.info_pendamping')
-                                @elseif(Auth::user()->role_id == ROLE_UMKM)
-                                    @include('sub_content.info_umkm')
-                                @endif
                             </div>
+                            @elseif(Auth::user()->role_id == ROLE_UMKM)
+                            <div class="tab-pane" id="inforole" role="tabpanel">
+                                    @include('sub_content.info_umkm')
+                            </div>
+                            @endif
                             <div class="tab-pane" id="messages" role="tabpanel">
                                 @include('sub_content.info_agenda')
                             </div>
+                            @if (Auth::user()->role_id != ROLE_CALON)
                             <div class="tab-pane" id="order" role="tabpanel">
                                 @include('sub_content.order_konsultasi')
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -249,5 +298,33 @@
         })
 
     });
+</script>
+
+    <script>
+
+  function ConfirmDelete(id)
+  {
+      var id = id;
+  swal({
+  title: "Apakah Yakin?",
+  text: "Anda akan mengikuti Event!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Iya, Event!",
+  cancelButtonText: "Tidak, Batalkan!",
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    document.getElementById('delete-form-'+id).submit();
+  } else {
+    swal("Dibatalkan", "Event tidak jadi diikuti", "error");
+  }
+});
+  }
+
 </script>
 @endsection

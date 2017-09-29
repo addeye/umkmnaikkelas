@@ -6,6 +6,8 @@ use App\Agenda;
 use App\BidangKeahlian;
 use App\BidangPendampingan;
 use App\BidangUsaha;
+use App\Event;
+use App\EventFollower;
 use App\InfoTerkini;
 use App\JasaPendampingan;
 use App\Lembaga;
@@ -51,6 +53,9 @@ class HomeController extends Controller {
 		);
 
 		if (Auth::check()) {
+			$event_id = EventFollower::where('user_id', $user->id)->pluck('event_id');
+			$data['event_id'] = $event_id;
+
 			if ($user->role_id == ROLE_ADMIN) {
 				return view('home');
 			} elseif ($user->role_id == ROLE_PENDAMPING) {
@@ -63,9 +68,12 @@ class HomeController extends Controller {
 
 				$data['order_konsultasi'] = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa_id)->get();
 
+				$data['event'] = Event::whereIn('role_level', ['Pendamping', 'Semua'])->where('status', 'Open')->get();
+
 			} elseif ($user->role_id == ROLE_UMKM) {
 				$umkm_id = $user->umkm->id;
 				$data['order'] = OrderKonsultasi::where('umkm_id', $umkm_id)->get();
+				$data['event'] = Event::whereIn('role_level', ['Umkm', 'Semua'])->where('status', 'Open')->whereNotIn('id', $event_id)->get();
 			}
 			return view('dashboard', $data);
 		} else {
@@ -414,7 +422,7 @@ class HomeController extends Controller {
 
 		$user->save();
 
-		$id_umkm = $id_pendamping = $request->kabkota_id . '01' . rand(111111, 999999);
+		$id_umkm = $id_pendamping = $request->kabkota_id . rand(11111111, 99999999);
 
 		$umkm = new Umkm();
 		$umkm->user_id = $user->id;

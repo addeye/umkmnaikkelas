@@ -18,6 +18,7 @@
                 <th>Event</th>
                 <th>Publish</th>
                 <th>Status</th>
+                <th>Kepada</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -29,12 +30,10 @@
                 <td>{{$row->title}}</td>
                 <td>{{$row->publish}}</td>
                 <td>{{$row->status}}</td>
+                <td>{{$row->role_level}}</td>
                 <td class="text-nowrap">
-                  <a href="{{route('info-terkini.edit',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon wb-wrench" aria-hidden="true"></i></a>
-                  <a class="btn btn-sm btn-icon btn-flat btn-default" onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Delete"><i class="icon wb-close" aria-hidden="true"></i></a>
-                  <form id="delete-form-{{$row->id}}" action="{{route('event.destroy',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
-                    <input type="hidden" name="_method" value="DELETE">
-                  </form>
+                  <a href="{{route('event.show',['id'=>$row->id])}}" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Show"><i class="icon wb-eye" aria-hidden="true"></i></a>
+                </td>
                 </td>
               </tr>
              @endforeach
@@ -64,32 +63,4 @@
   {{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
   {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
   {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
-
-<script>
-
-    function ConfirmDelete(id)
-    {
-        var id = id;
-  swal({
-  title: "Apakah Yakin?",
-  text: "Data akan benar-benar dihapus!",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Iya, Hapus!",
-  cancelButtonText: "Tidak, Batalkan!",
-  closeOnConfirm: false,
-  closeOnCancel: false
-},
-function(isConfirm){
-  if (isConfirm) {
-    // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-      document.getElementById('delete-form-'+id).submit();
-  } else {
-    swal("Dibatalkan", "Data tidak jadi dihapus", "error");
-  }
-});
-  }
-
-</script>
 @endsection
