@@ -162,7 +162,7 @@
                   <div class="col-sm-9">
                     <select class="form-control" data-plugin="select2" name="kabkota_id">
                       @foreach(Indonesia::allCities() as $row)
-                        <option value="{{$row->id}}">{{$row->name}}</option>
+                        <option value="{{$row->id}}" {{$data->kabkota_id==$row->id?'selected':''}} >{{$row->name}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">
@@ -188,7 +188,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" data-plugin="select2" name="lembaga_id">
                       @foreach($lembaga as $row)
-                        <option value="{{$row->id}}">{{$row->nama_lembaga}}</option>
+                        <option value="{{$row->id}}" {{$data->lembaga_id==$row->id?'selected':''}} >{{$row->nama_lembaga}}</option>
                       @endforeach
                     </select>
                     <span class="help-block">

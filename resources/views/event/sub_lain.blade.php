@@ -6,7 +6,13 @@
         <div class="list-group">
           @if (count($recent) > 0)
             @foreach ($recent as $row)
+            @if (Auth::user()->role_id==ROLE_UMKM)
+              <a class="list-group-item" href="{{ route('event.show_akun_umkm',['id'=>$row->id]) }}">
+              @else
               <a class="list-group-item" href="{{ route('event.show_akun',['id'=>$row->id]) }}">
+
+            @endif
+
                 <h4 class="list-group-item-heading">
                     {{$row->title}}
                 </h4>

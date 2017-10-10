@@ -1,5 +1,7 @@
 <?php
 
+use App\Jobs\SendFormEmail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,12 +34,15 @@ Route::get('laporan-umkm', 'PageController@umkm')->name('page.umkm');
 Route::get('laporan-pendamping', 'PageController@pendamping')->name('page.pendamping');
 Route::get('laporan-pendamping/{id}', 'PageController@detailPendamping')->name('page.pendamping.detail');
 Route::get('informasi-terkini', 'LayananController@infoTerkini')->name('layanan.info_terkini');
+Route::get('informasi-pendamping', 'LayananController@infoPendamping')->name('layanan.info_pendamping');
+Route::get('informasi-umkm', 'LayananController@infoUmkm')->name('layanan.info_umkm');
 Route::get('informasi-produk', 'LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda', 'LayananController@infoAgenda')->name('layanan.info.agenda');
 Route::get('informasi-agenda/agenda/{judul}', 'LayananController@detailAgenda')->name('layanan.detail.agenda');
 Route::get('forum', 'LayananController@infoForum')->name('layanan.info.forum');
 Route::get('kontak-kami', 'LayananController@kontak')->name('layanan.info.kontak');
 Route::post('kontak-kami', 'LayananController@kirimKontak')->name('layanan.kirim.kontak');
+Route::get('page/{slug}', 'PageController@page');
 
 Route::group(['middleware' => 'auth'], function () {
 	// Route::get('/', 'HomeController@index')->name('home');
@@ -145,6 +150,14 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('event-validasi/{id}', 'EventController@validasi')->name('event.validasi');
 		Route::put('event-validasi-follower/{id}', 'EventController@validasi_follower')->name('event.follow.validasi');
 		Route::post('event-diskusi', 'EventController@diskusi')->name('event.diskusi');
+		Route::get('event-invite/{id}', 'EventController@invite')->name('event.invite');
+		Route::post('event-invite', 'EventController@doInvite')->name('event.doinvite');
+
+		Route::resource('broadcast', 'BroadcastController');
+		Route::put('broadcast-send/{id}', 'BroadcastController@send')->name('broadcast.send');
+
+		Route::resource('page_static', 'PageStaticController');
+
 	});
 
 	Route::group(['middleware' => 'umkm', 'namespace' => 'Umkm'], function () {
@@ -157,6 +170,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('konsultasi-show-jasa/{jasa_id}/{order_konsultasi_id}', 'KonsultasiController@show_jasa')->name('konsultasi.show.jasa');
 		Route::put('konsultasi-select-jasa/{order_konsultasi_id}', 'KonsultasiController@select_jasa')->name('konsultasi.select.jasa');
 		Route::post('konsultasi-store-chat', 'KonsultasiController@store_chat')->name('konsultasi.store.chat');
+
+		Route::get('event-show-umkm/{id}', 'EventController@show_akun')->name('event.show_akun_umkm');
+		Route::get('event-all-umkm', 'EventController@event_all')->name('event.all_umkm');
+		Route::put('event-follower-umkm/{id}', 'EventController@event_follower')->name('event.follower_umkm');
+		Route::post('event-diskusi-akun-umkm', 'EventController@diskusi')->name('event.akun.diskusi_umkm');
+
 	});
 
 	Route::group(['middleware' => 'pendamping', 'namespace' => 'Pendamping'], function () {
@@ -181,4 +200,27 @@ Route::get('kontak-send', function () {
 
 Route::get('new-register', function () {
 	return view('mailling.new_register_2');
+});
+
+Route::get('send_test_email', function () {
+	// Mail::raw('Sending emails with Mailgun and Laravel is easy!', function ($message) {
+	// 	$message->to('mokhamad27@gmail.com');
+	// });
+	$job = (new SendFormEmail())->onConnection('database');
+	dispatch($job);
+});
+
+Route::get('/clear-cache', function () {
+	$exitCode = Artisan::call('cache:clear');
+	return 'cache cleared';
+});
+
+Route::get('/clear-config', function () {
+	$exitCode = Artisan::call('config:clear');
+	return 'config cleared';
+});
+
+Route::get('/restart-queue', function () {
+	$exitCode = Artisan::call('queue:restart');
+	return 'queue restart';
 });

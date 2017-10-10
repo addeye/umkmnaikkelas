@@ -128,12 +128,6 @@ input {
                     </div>
                    </a>
                 </div>
-                {{-- <div class="col-md-4 col-xs-6 col-tiles">
-                   <div class="tile" style="background:url('{{asset('images/box/informasi-pasar.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap cap-red">Info Produk</h4>
-                       <p class="sub-cap">Info Produk dan Promo</p>
-                    </div>
-                </div> --}}
                 <div class="col-md-6 col-xs-6 col-tiles">
                     <a target="_blank" href="http://fokus-umkm.com/">
                         <div class="tile" style="background:url('{{asset('images/box/berita-artikel.jpg')}}') no-repeat center center;background-size: cover;">
@@ -150,14 +144,6 @@ input {
                         </div>
                     </a>
                 </div>
-                {{-- <div class="col-md-4 col-xs-6 col-tiles">
-                    <a>
-                        <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">
-                            <h4 class="tile-cap bg-orange-800">Forum</h4>
-                            <p class="sub-cap">Forum Naik Kelas</p>
-                        </div>
-                    </a>
-                </div> --}}
                 <div class="col-md-6 col-xs-6 col-tiles">
                     <a href="{{route('layanan.info.kontak')}}">
                         <div class="tile" style="background:url('{{asset('images/box/service.jpg')}}') no-repeat center center;background-size: cover;">
@@ -167,68 +153,41 @@ input {
                     </a>
                 </div>
             </div>
-            <div class="col-md-9 green-tiles" style="padding: 0px;padding-left: 2.5px;">
+            <div class="col-md-12 green-tiles" style="padding: 0px;padding-left: 2.5px;">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
                   <div class="tiles-title bg-light-green-800">
-                    <h2>PROGRAM</h2>
-                  </div>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                    <a href="{{route('tentang.lunas')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/sasaran.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Tentang LUNAS</h4>
-                       <p class="sub-cap">Latar Belakang, Goal dan Strategi</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                  <a href="{{route('prosedur.umkm')}}">
-                   <div class="tile" style="background:url('{{asset('images/box/procedur-umkm.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur UMKM</h4>
-                       <p class="sub-cap">Flow Sistem UMKM</p>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-4 col-xs-6 col-tiles">
-                   <a href="{{route('prosedur.pendamping')}}">
-                     <div class="tile" style="background:url('{{asset('images/box/procedur-pendamping.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-light-green-800">Prosedur Pendamping</h4>
-                       <p class="sub-cap">Flow Sistem Pendamping</p>
-                    </div>
-                   </a>
-                </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
-                   <a href="{{route('mitra.lunas')}}">
-                     <div class="tile" style="background:url('{{asset('images/box/latar-belakang.jpg')}}') no-repeat center center;background-size: cover;">
-                     <h4 class="tile-cap bg-light-green-800">Mitra LUNAS</h4>
-                       <p class="sub-cap">Partner - Kerjasama</p>
-                    </div>
-                   </a>
-                </div>
-            </div>
-            <div class="col-md-3 orange-tiles" style="padding: 0px;padding-right: 2.5px;">
-                <div class="col-md-12 col-xs-12 col-sm-12 col-tiles">
-                  <div class="tiles-title bg-blue-800">
                     <h2>MANAJEMEN</h2>
                   </div>
                 </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
+                @foreach ($page_static as $row)
+                   <div class="col-md-4 col-xs-6 col-tiles">
+                    <a href="{{ url('page/'.$row->slug) }}">
+                   <div class="tile" style="background:url('{{asset('images/box/sasaran.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-light-green-800">{{$row->title}}</h4>
+                       <p class="sub-cap">{{$row->topic}}</p>
+                    </div>
+                    </a>
+                </div>
+                @endforeach
+
+                <div class="col-md-4 col-xs-6 col-tiles">
                    <a href="{{route('page.umkm')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-blue-800">UMKM</h4>
+                       <h4 class="tile-cap bg-blue-800">Manajemen UMKM</h4>
                        <p class="sub-cap">Data, Profil</p>
                     </div>
                     </a>
                 </div>
-                <div class="col-md-12 col-xs-6 col-tiles">
+                <div class="col-md-4 col-xs-6 col-tiles">
                    <a href="{{route('page.pendamping')}}">
                    <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
-                       <h4 class="tile-cap bg-blue-800">Pendampingan</h4>
+                       <h4 class="tile-cap bg-blue-800">Manajemen Pendamping</h4>
                        <p class="sub-cap">Data, Profil</p>
                     </div>
                     </a>
                 </div>
             </div>
+
             <div class="col-md-12 col-xs-12" style="padding: 0px 2.5px;">
                   <div class="slider" id="exampleAutoplay">
                   @foreach($info_terkini as $row)

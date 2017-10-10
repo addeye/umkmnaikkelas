@@ -14,7 +14,7 @@
     </div>
     <div class="col-xs-4">
         <strong class="profile-stat-count">
-            0
+            {{count($umkm)}}
         </strong>
         <span>
             UMKM
@@ -22,7 +22,7 @@
     </div>
     <div class="col-xs-4">
         <strong class="profile-stat-count">
-            0
+            {{count($kegiatan)}}
         </strong>
         <span>
             Kegiatan
@@ -34,7 +34,7 @@
 <div class="row no-space">
     <div class="col-xs-4">
         <strong class="profile-stat-count">
-            0
+            {{count($order)}}
         </strong>
         <span>
             Konsultasi
@@ -42,15 +42,15 @@
     </div>
     <div class="col-xs-4">
         <strong class="profile-stat-count">
-            0
+            {{count($pendamping)}}
         </strong>
         <span>
-            Produk
+            Pendamping
         </span>
     </div>
     <div class="col-xs-4">
         <strong class="profile-stat-count">
-            0
+            {{count($kegiatan)}}
         </strong>
         <span>
             Kegiatan

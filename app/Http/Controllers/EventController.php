@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\EventDiscuss;
+use App\EventDiscussFile;
 use App\EventFile;
 use App\EventFollower;
+use App\Pendamping;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File as FileClass;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Indonesia;
+use Intervention\Image\Facades\Image;
 
 class EventController extends Controller {
 	/**
@@ -216,6 +221,33 @@ class EventController extends Controller {
 
 	public function doSubfile(Request $request, $id) {
 		$docs = $request->docs;
+		$files = $request->images;
+
+		if (count($files) != 0) {
+			foreach ($files as $file) {
+				$destinationPath = 'uploads/event/images/';
+
+				$extension = $file->getClientOriginalName(); // getting image extension
+				$filename = time() . '_' . $extension; // renameing image
+				$upload_success = $file->move($destinationPath, $filename);
+				// compress
+				$imgimg = Image::make($destinationPath . '/' . $filename)->resize(778, 540)->save($destinationPath . '/' . $filename);
+				$uploadcount++;
+				// dd(public_path());
+				// thumbnail
+				FileClass::exists($destinationPath . '/thumbs') or FileClass::makeDirectory($destinationPath . '/thumbs');
+				$image = Image::make($destinationPath . '/' . $filename)->resize(320, 240)->save($destinationPath . '/thumbs/' . $filename);
+				$fi = new EventFile();
+				$fi->file_name = $filename;
+				$fi->path = $destinationPath;
+				$fi->file_type = "image";
+				$fi->event_id = $id;
+				$fi->save();
+			}
+			// if ($uploadcount == $file_count) {
+			//  return Redirect::to('/admin/properties')->with('message', $request->property_name . ' has been added!');
+			// }
+		}
 
 		if (count($docs) > 0) {
 			$file_count = count($docs);
@@ -235,11 +267,10 @@ class EventController extends Controller {
 				$fi->event_id = $id;
 				$fi->save();
 			}
-			\Alert::success('Data berhasil disimpan', 'Selamat !');
-			return redirect()->route('event.show', ['id' => $id]);
+
 		}
-		\Alert::error('Tolong isi dengan benar', 'Kesalahan !');
-		return redirect()->route('event.file', ['id' => $id]);
+		\Alert::success('Data berhasil disimpan', 'Selamat !');
+		return redirect()->route('event.show', ['id' => $id]);
 	}
 
 	public function show_akun($id) {
@@ -288,10 +319,103 @@ class EventController extends Controller {
 		$diskusi->event_id = $request->event_id;
 		$diskusi->save();
 
+		$docs = $request->docs;
+		$files = $request->images;
+
+		$uploadcount = 0;
+
+		if (count($files) != 0) {
+			foreach ($files as $file) {
+				$destinationPath = 'uploads/event/discuss/images/';
+
+				$extension = $file->getClientOriginalName(); // getting image extension
+				$filename = time() . '_' . $extension; // renameing image
+				$upload_success = $file->move($destinationPath, $filename);
+				// compress
+				$imgimg = Image::make($destinationPath . '/' . $filename)->resize(778, 540)->save($destinationPath . '/' . $filename);
+				$uploadcount++;
+				// dd(public_path());
+				// thumbnail
+				FileClass::exists($destinationPath . '/thumbs') or FileClass::makeDirectory($destinationPath . '/thumbs');
+				$image = Image::make($destinationPath . '/' . $filename)->resize(320, 240)->save($destinationPath . '/thumbs/' . $filename);
+				$fi = new EventDiscussFile();
+				$fi->file_name = $filename;
+				$fi->path = $destinationPath;
+				$fi->type = "image";
+				$fi->event_discuss_id = $diskusi->id;
+				$fi->save();
+			}
+			// if ($uploadcount == $file_count) {
+			//  return Redirect::to('/admin/properties')->with('message', $request->property_name . ' has been added!');
+			// }
+		}
+
+		if (count($docs) > 0) {
+			$file_count = count($docs);
+			$uploadcount = 0;
+			foreach ($docs as $doc) {
+				$destinationPath = 'uploads/event/discuss/docs/';
+
+				$filename = $doc->getClientOriginalName(); // getting image extension
+				$upload_success = $doc->move($destinationPath, $filename);
+				$uploadcount++;
+				// dd(public_path());
+
+				$fi = new EventDiscussFile();
+				$fi->file_name = $filename;
+				$fi->path = $destinationPath;
+				$fi->type = "document";
+				$fi->event_discuss_id = $diskusi->id;
+				$fi->save();
+			}
+
+		}
+
 		if ($diskusi) {
-			\Alert::success('Komentar berhasil ditambahkan', 'Selamat !');
 			return redirect()->route('event.show', ['id' => $request->event_id]);
 		}
+
+	}
+
+	public function invite($event_id) {
+		$event_follower = EventFollower::where('event_id', $event_id)->pluck('user_id');
+
+		$event = Event::find($event_id);
+
+		if ($event->role_level == 'Pendamping') {
+			$pendamping = Pendamping::where('validasi', 1)->pluck('user_id');
+
+			$user = User::with('role')->where('role_id', ROLE_PENDAMPING)->whereNotIN('id', $event_follower)->whereNotIN('id', $pendamping)->where('status', 'Aktif')->get();
+
+		} elseif ($event->role_level == 'UMKM') {
+			$user = User::with('role')->where('role_id', ROLE_UMKM)->whereNotIN('id', $event_follower)->where('status', 'Aktif')->get();
+
+		} else {
+			$user = User::with('role')->whereNotIN('role_id', [ROLE_ADMIN, ROLE_CALON])->whereNotIN('id', $event_follower)->where('status', 'Aktif')->get();
+		}
+
+		$data = array(
+			'data' => $user,
+			'event_id' => $event_id,
+		);
+		// return $data;
+		return view('event.invite', $data);
+	}
+
+	public function doInvite(Request $request) {
+		// return $request->all();
+		$event = new EventFollower();
+		$event->user_id = $request->user_id;
+		$event->event_id = $request->event_id;
+		$event->validation = 'Yes';
+		$event->save();
+
+		if ($event) {
+			return redirect()->route('event.invite', ['id' => $request->event_id]);
+		}
+	}
+
+	public function doAllInvite() {
 
 	}
 }

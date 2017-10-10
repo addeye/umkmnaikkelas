@@ -19,6 +19,19 @@
                         <form action="{{route('event.dofile',['id'=>$data->id])}}" class="form-horizontal" enctype="multipart/form-data" method="post">
                             {{ csrf_field()}}
                             <div class="form-group">
+                                {!! Form::label('images', 'Gambar Pendukung', ['class'=>'control-label col-sm-3']) !!}
+                                <div class="col-md-9">
+                                    <div class="input">
+                                        {!! Form::file('images[]', array('multiple'=>true, 'class'=>'btn', 'id'=>'filer_one', 'accept'=>'image/*')) !!}
+                                        <div class="error-input">
+                                            @foreach($errors->get('images') as $message)
+                                        {{ $message }}
+                                        @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 {!! Form::label('images', 'File Pendukung', ['class'=>'control-label col-sm-3']) !!}
                                 <div class="col-md-9">
                                     <div class="input">

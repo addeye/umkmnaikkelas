@@ -37,7 +37,13 @@
                       <p><i class="icon wb-users"></i> Quota Peserta : {{$row->quota}}</p>
                       <p><i class="icon wb-map"></i> Lokasi : {{$row->city}}</p>
                       <p class="margin-top-10">
-                        <a href="{{ route('event.show_akun',['id'=>$row->id]) }}" data-toggle="tooltip" data-original-title="Selengkapnya"><i class="icon wb-dropright"></i> Selengkapnya</a>
+
+                        @if (Auth::user()->role_id==ROLE_UMKM)
+                            <a href="{{ route('event.show_akun_umkm',['id'=>$row->id]) }}" data-toggle="tooltip" data-original-title="Selengkapnya"><i class="icon wb-dropright"></i> Selengkapnya</a>
+                            @else
+                            <a href="{{ route('event.show_akun',['id'=>$row->id]) }}" data-toggle="tooltip" data-original-title="Selengkapnya"><i class="icon wb-dropright"></i> Selengkapnya</a>
+                        @endif
+
                         @if(!in_array($row->id, $event_id->toArray()))
                         <a onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Ikut Event"><i class="icon wb-bookmark" aria-hidden="true"></i> Ikut Event</a>
                         <form id="delete-form-{{$row->id}}" action="{{route('event.follower',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}

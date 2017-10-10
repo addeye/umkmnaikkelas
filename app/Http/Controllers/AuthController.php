@@ -48,7 +48,7 @@ class AuthController extends Controller {
 	}
 
 	public function forgetPassword() {
-
+		return view('auth.passwords.email');
 	}
 
 	public function doForgetPassword() {
@@ -85,7 +85,7 @@ class AuthController extends Controller {
 
 		if ($user) {
 			Mail::to($request->email)->send(new NewRegister($request));
-			Mail::to('umkmnaikkelas@gmail.com')->send(new NewRegister($request));
+			Mail::to('lunas@umkmnaikkelas.com')->send(new NewRegister($request));
 		}
 
 		$credentials = array(

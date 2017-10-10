@@ -22,4 +22,8 @@ class EventDiscuss extends Model {
 	public function event() {
 		return $this->belongsTo('App\Event', 'event_id');
 	}
+
+	public function event_discuss_file() {
+		return $this->hasMany('App\EventDiscussFile', 'event_discuss_id');
+	}
 }

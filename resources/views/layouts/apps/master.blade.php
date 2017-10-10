@@ -167,6 +167,8 @@
     <script>
         Breakpoints();
     </script>
+
+    {{Html::style('css/custom.scss')}}
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -251,11 +253,11 @@
     <script type="text/javascript">
         $(window).load(function(){
   $(document).ready(function () {
-      
+
       @if (Session::has('sweet_alert.alert'))
-    
+
         swal({!! Session::get('sweet_alert.alert') !!});
-    
+
     @endif
     });
 });

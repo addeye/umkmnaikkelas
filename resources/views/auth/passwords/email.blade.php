@@ -1,19 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.portal.master')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+    <!-- Page -->
+    <div class="container-fluid page-profile">
+        <div class="page-content animsition">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                Reset Password Anda
+                            </div>
                         </div>
-                    @endif
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -38,9 +40,12 @@
                             </div>
                         </div>
                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

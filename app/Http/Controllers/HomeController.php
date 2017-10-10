@@ -12,7 +12,9 @@ use App\InfoTerkini;
 use App\JasaPendampingan;
 use App\Lembaga;
 use App\Mail\PendampingRegister;
+use App\OrderChat;
 use App\OrderKonsultasi;
+use App\PageStatic;
 use App\Pendamping;
 use App\Slider;
 use App\Umkm;
@@ -61,8 +63,14 @@ class HomeController extends Controller {
 			} elseif ($user->role_id == ROLE_PENDAMPING) {
 
 				$jasa = JasaPendampingan::where('pendamping_id', $user->pendamping->id)->get();
+				$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
+				$jmlumkm = $umkm->unique();
+
+				$kegiatan = OrderChat::where('user_id', $user->id)->get();
 
 				$data['jasa_pendampingan'] = $jasa;
+				$data['umkm'] = $jmlumkm;
+				$data['kegiatan'] = $kegiatan;
 
 				$jasa_id = $jasa->pluck('id');
 
@@ -72,15 +80,29 @@ class HomeController extends Controller {
 
 			} elseif ($user->role_id == ROLE_UMKM) {
 				$umkm_id = $user->umkm->id;
-				$data['order'] = OrderKonsultasi::where('umkm_id', $umkm_id)->get();
+
+				$order = OrderKonsultasi::where('umkm_id', $umkm_id)->get();
+				$jasa_pendampingan_id = $order->pluck('jasa_pendampingan_id');
+				$pendamping_id = JasaPendampingan::whereIn('id', $jasa_pendampingan_id)->pluck('pendamping_id');
+				$pendamping = $pendamping_id->unique();
+
+				$kegiatan = OrderChat::where('user_id', $user->id)->get();
+
+				$data['pendamping'] = $pendamping;
+				$data['kegiatan'] = $kegiatan;
+
+				$data['order'] = $order;
 				$data['event'] = Event::whereIn('role_level', ['Umkm', 'Semua'])->where('status', 'Open')->whereNotIn('id', $event_id)->get();
 			}
+
+			// dd($data);
 			return view('dashboard', $data);
 		} else {
 
 			$data = array(
 				'info_terkini' => InfoTerkini::with('user')->limit(3)->where('publish', 'Ya')->where('level', 'Umum')->orderBy('created_at', 'DESC')->get(),
 				'slider' => Slider::where('publish', 'Yes')->get(),
+				'page_static' => PageStatic::all(),
 			);
 			return view('welcome', $data);
 		}
@@ -387,7 +409,7 @@ class HomeController extends Controller {
 		$user->save();
 
 		if ($pendamping) {
-			Mail::to('umkmnaikkelas@gmail.com')->send(new PendampingRegister($pendamping));
+			Mail::to('lunas@umkmnaikkelas.com')->send(new PendampingRegister($pendamping));
 
 			\Alert::success('Terimakasih ' . $user->name . ' Sudah Mendaftar Sebagai Pendamping', 'Selamat !')->persistent("Tutup");
 			return redirect()->route('home');

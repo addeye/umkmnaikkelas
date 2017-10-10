@@ -28,24 +28,27 @@
             </span>
         </a>
         <ul class="dropdown-menu" role="menu">
-            <li role="presentation">
-                <a href="{{route('pengajuan-umkm.index')}}" role="menuitem">
-                    Penghargaan
-                </a>
-            </li>
-            <li class="{{set_active(['informasi-pasar','informasi-pasar/*'],'active')}}" role="presentation">
-                <a href="{{route('informasi-pasar.index')}}" role="menuitem">
-                    Informasi Pasar
-                </a>
-            </li>
             <li class="{{set_active(['informasi-terkini'],'active')}}" role="presentation">
                 <a href="{{route('layanan.info_terkini')}}" role="menuitem">
                     Informasi Terkini
                 </a>
             </li>
+            <li role="presentation" class="{{set_active(['informasi-umkm'],'active')}}"><a href="{{route('layanan.info_umkm')}}" role="menuitem">Informasi UMKM</a></li>
             <li class="{{set_active(['informasi-agenda','informasi-agenda/*'],'active')}}" role="presentation">
                 <a href="{{route('layanan.info.agenda')}}" role="menuitem">
-                    Informasi Agenda
+                    Agenda
+                </a>
+            </li>
+            <li role="presentation"><a href="{{ route('konsultasi.index') }}" role="menuitem">Order Konsultasi</a></li>
+            <li class="{{set_active(['informasi-pasar','informasi-pasar/*'],'active')}}" role="presentation">
+                <a href="{{route('informasi-pasar.index')}}" role="menuitem">
+                    Informasi Pasar
+                </a>
+            </li>
+            <li role="presentation"><a href="{{ route('event.all_umkm') }}" role="menuitem">Event</a></li>
+            <li role="presentation">
+                <a href="{{route('pengajuan-umkm.index')}}" role="menuitem">
+                    Penghargaan
                 </a>
             </li>
         </ul>

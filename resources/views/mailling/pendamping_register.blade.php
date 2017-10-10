@@ -11,7 +11,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Innovative Newsletter templates, Email Templates, Newsletters, Marketing  templates, 
+<meta name="keywords" content="Innovative Newsletter templates, Email Templates, Newsletters, Marketing  templates,
 	Advertising templates, free Newsletter" />
 <!-- //Custom Theme files -->
 <!-- Responsive Styles and Valid Styles -->
@@ -24,17 +24,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<style type="text/css">
-    	
+
 	    body{
-            width: 100%;  
-            margin:0; 
-            padding:0; 
-            -webkit-font-smoothing: antialiased;	
+            width: 100%;
+            margin:0;
+            padding:0;
+            -webkit-font-smoothing: antialiased;
         }
         html{
-            width: 100%; 
+            width: 100%;
         }
-        
+
         table{
             font-size: 14px;
             border: 0;
@@ -138,7 +138,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				height: 60px;
 			}
             .top-bottom-bg{width: 420px !important; height: auto !important;}
-			
+
 			table.container-middle.navi-grid {
 				width: 360px !important;
 			}
@@ -212,7 +212,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			table.ban_info {
 				width: 400px;
 			}
-			
+
 			td.future {
 				font-size: 1.8em !important;
 			}
@@ -264,14 +264,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             .mainContent{width: 240px !important;}
             .top-bottom-bg{width: 260px !important; height: auto !important;
 			}
-		
+
 			table.logo {
 				width: 33% !important;
 			}
 			table.container.top-header-left {
 				width: 422px !important;
 			}
-			
+
 			table.container-middle.navi-grid {
 				width: 399px !important;
 			}
@@ -312,15 +312,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			}
 			td.ban_pad {
 				height: 24px;
-			}	
+			}
 			table.logo {
 				width: 54% !important;
 			}
 			td.ser_text {
 				font-size: 13px !important;
-			}			
+			}
 	    }
-		
+
 		@media only screen and (max-width: 414px){
 			table.container.top-header-left {
 				width: 397px !important;
@@ -339,7 +339,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			}
 		}
 		@media only screen and (max-width: 384px){
-		
+
 			table.container-middle.navi-grid ,table.container.top-header-left{
 				width: 300px !important;
 			}
@@ -359,7 +359,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			table.container-middle.nav-head {
 				width: 340px !important;
 			}
-			
+
 			table.ser_left_one {
 				width: 216px;
 			}
@@ -374,7 +374,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				height: 11px;
 			}
 		}
-		
+
 		@media only screen and (max-width: 320px){
 			td.wel_text {
 				font-size: 1.9em !important;
@@ -435,20 +435,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				width: 69% !important;
 			}
 		}
-    </style>  
+    </style>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 	<table border="0" width="100%" cellpadding="0" cellspacing="0">
-		
+
         <tr>
             <td width="100%" align="center" valign="top"  bgcolor="#ccc" style="">
 				<table>
 					<tr><td class="top_mar" height="50"></td></tr>
 				</table>
 				<!-- main content -->
-				<table style="box-shadow:0px 0px 0px 0px #E0E0E0;"width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="container top-header-left">	
+				<table style="box-shadow:0px 0px 0px 0px #E0E0E0;"width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="container top-header-left">
 					<tr bgcolor="ffffff">
-						<td> 
+						<td>
 							<table border="0" width="650" align="center" cellpadding="0" cellspacing="0" class="container-middle nav-head">
 								<tr>
 									<td height="15"></td>
@@ -457,14 +457,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<td>
 										<table border="0" align="center" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="logo">
 											<tbody>
-												
+
 												<tr>
 													<td align="right">
 														<a href="#" class="logo-text" style="text-decoration:none;"><img src="{{asset('images/logo.png')}}" alt=" " width="294" height="78"></a>
 													</td>
 												</tr>
 											</tbody>
-										</table>		
+										</table>
 									</td>
 								</tr>
 								<tr>
@@ -474,7 +474,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</td>
 					</tr>
 					<tr bgcolor="#ff8534">
-						<td> 
+						<td>
 							<table border="0" width="650" align="center" cellpadding="0" cellspacing="0" class="container-middle nav-head">
 								<tr>
 									<td height="15"></td>
@@ -487,24 +487,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 													<td>
 														<table class="mail_left" align="left" border="0" cellpadding="0" cellspacing="0" width="500">
 															<tbody>
-																<tr> 
+																<tr>
 																	<td class="mail_gd" align="center" style=" text-align: left; font-size:1.2em; font-family:Candara; color: #FFFFFF;">
-																		<a href="mailto:info@example.com" style="color:#fff;text-decoration:none"><span class="glyphicon glyphicon-envelope"></span>&nbsp; &nbsp;umkmnaikkelas@gmail.com</a>
+																		<a href="mailto:info@example.com" style="color:#fff;text-decoration:none"><span class="glyphicon glyphicon-envelope"></span>&nbsp; &nbsp;lunas@umkmnaikkelas.com</a>
 																	</td>
-																</tr>
-															</tbody>
-														</table>
-														<table class="mail_right" align="right" border="0" cellpadding="0" cellspacing="0" width="150">
-															<tbody>
-																<tr>			
-																	<td align="center"  style="font-size:14px;color:#f5f5f5;font-family:Arial,serif"><span class="glyphicon glyphicon-earphone"></span>&nbsp; &nbsp;0812 3525 0065</td>
 																</tr>
 															</tbody>
 														</table>
 													</td>
 												</tr>
 											</tbody>
-										</table>		
+										</table>
 									</td>
 								</tr>
 								<tr>
@@ -512,8 +505,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</tr>
 							</table>
 						</td>
-					</tr>								
-				
+					</tr>
+
 					<tr bgcolor="ffffff">
 						<td>
 							<table border="0" width="650" align="center" cellpadding="0" cellspacing="0" class="container-middle" >
@@ -524,38 +517,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									</tr>
 									<!-- //padding-top -->
 									<tr>
-										<td class="wel_text" align="center" style="font-size:2.5em;color:#d70b03;font-family:Candara;text-align:center;font-weight:600;"> 
+										<td class="wel_text" align="center" style="font-size:2.5em;color:#d70b03;font-family:Candara;text-align:center;font-weight:600;">
 											Selamat Pendamping Baru
 										</td>
 									</tr>
 									<tr>
-										<td class="wel_text" align="center" style="font-size:15px;color:black;font-family:Candara;text-align:center;"> 
+										<td class="wel_text" align="center" style="font-size:15px;color:black;font-family:Candara;text-align:center;">
 											Silahkan memvalidasi pendamping dengan nama {{$data->nama_pendamping}} ("{{$data->id_pendamping}}")
 										</td>
 									</tr>
 									<tr>
 										<td height="25"></td>
-									</tr>																		
+									</tr>
 								</tbody>
 							</table>
 						</td>
 					</tr>
-					
-					
+
+
 					<tr>
 						<td>
 							<table align="center" cellpadding="0" cellspacing="0"  style="border-bottom:1px solid #f7f7f7">
 							</table>
 						</td>
 					</tr>
-					
+
 					<tr bgcolor="#ff8534">
 						<td>
 							<table border="0" width="650" align="center" cellpadding="0" cellspacing="0" class="container-middle">
 								<tr>
 									<td height="10" style="font-size: 1px; line-height: 10px;">&nbsp;</td>
 								</tr>
-									
+
 									<tr>
 										<td>
 
@@ -599,7 +592,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 										</td>
 									</tr>
-									
+
 									<tr>
 										<td height="10" style="font-size: 1px; line-height: 10px;">&nbsp;</td>
 									</tr>

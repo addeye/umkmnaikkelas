@@ -6,11 +6,11 @@
         <div class="page-header animsition">
             <h1 class="page-title">Pendamping</h1>
             <ol class="breadcrumb">
-                <li><a href="{{url('/')}}">Home</a></li>                
+                <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Pendamping</li>
             </ol>
         </div>
-        <div class="animsition">            
+        <div class="animsition">
             <div class="page-content container-fluid">
                 <div class="row">
                     <div class="col-md-12 padding-10">
@@ -94,13 +94,13 @@
                                             </div>
                                             <div class="col-xs-4">
                                                 <div class="counter">
-                                                    <span class="counter-number cyan-600">0</span>
+                                                    <span class="counter-number cyan-600">{{$row->totumkm}}</span>
                                                     <div class="counter-label">UMKM</div>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4">
                                                 <div class="counter">
-                                                    <span class="counter-number cyan-600">0</span>
+                                                    <span class="counter-number cyan-600">{{$row->totkegiatan}}</span>
                                                     <div class="counter-label">Kegiatan</div>
                                                 </div>
                                             </div>

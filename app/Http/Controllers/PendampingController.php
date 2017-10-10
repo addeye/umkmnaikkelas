@@ -54,7 +54,7 @@ class PendampingController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 
 		if ($validator->fails()) {
-			\Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+			\Alert::error('Tolong isi dengan benar', 'Kesalahan !');
 			return redirect()->route('pendamping.create')
 				->withErrors($validator)
 				->withInput();
@@ -165,7 +165,7 @@ class PendampingController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 
 		if ($validator->fails()) {
-			\Alert::error('Tolong isi dengan benar', 'Kesalahan !')->persistent("Tutup");
+			\Alert::error('Tolong isi dengan benar', 'Kesalahan !');
 			return redirect()->route('pendamping.edit', ['id' => $id])
 				->withErrors($validator)
 				->withInput();
@@ -215,7 +215,7 @@ class PendampingController extends Controller {
 		$user->save();
 
 		if ($pendamping) {
-			\Alert::success('Data berhasil diupdate', 'Selamat !')->persistent("Tutup");
+			\Alert::success('Data berhasil diupdate', 'Selamat !');
 			return redirect()->route('pendamping.index');
 		}
 	}

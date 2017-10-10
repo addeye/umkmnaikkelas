@@ -17,7 +17,10 @@
                       {{date('d/m/Y',strtotime($row->updated_at))}}
                     @endif
                 </p>
-                <p>Pendamping : {{$row->jasa_pendampingan->pendamping->nama_pendamping}} - {{$row->bidang_pendampingan->nama}}</p>
+                @if ($row->status == 'Tutup' or $row->status == 'Proses')
+                    <p>Pendamping : {{$row->jasa_pendampingan->pendamping->nama_pendamping}} - {{$row->bidang_pendampingan->nama}}</p>
+                @endif
+
             </a>
             @else
               <a class="list-group-item" href="{{ route('konsultasi-pendamping.show',['id'=>$row->id]) }}">

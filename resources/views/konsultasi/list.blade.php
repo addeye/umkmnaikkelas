@@ -33,6 +33,7 @@
                         @if (Auth::user()->role_id == ROLE_UMKM)
                             <div class="pull-right padding-right-10 padding-bottom-10"><a href="{{ route('konsultasi.create') }}"><i class="icon fa-plus"></i>  Buat Order Baru</a></div>
                         @endif
+                        <br>
 
                         <div class="row">
                             <div class="col-md-12">
