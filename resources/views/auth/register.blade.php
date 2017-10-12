@@ -60,6 +60,13 @@
             color: #ffffff;
             text-decoration: underline;
         }
+
+        .layout-full .page {
+    height: 100%;
+    padding: 0;
+    margin: 0!important;
+    background-color: rgba(0, 0, 0, 0.58);
+}
     </style>
 </head>
 <body class="page-login layout-full">
@@ -80,18 +87,6 @@
         <p>Silahkan Untuk Mendaftar Disini</p>
         <form role="form" method="POST" action="{{ route('register') }}">
             {{ csrf_field() }}
-
-            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name" class="sr-only">Nama Lengkap</label>
-                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap" required autofocus>
-
-                @if ($errors->has('name'))
-                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                @endif
-            </div>
-
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="sr-only">E-Mail Address</label>
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email anda" required>
@@ -103,24 +98,6 @@
                 @endif
             </div>
 
-            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-                <label for="password" class="sr-only">Password</label>
-                <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
-
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                @endif
-            </div>
-
-            <div class="form-group {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                <label for="password-confirm" class="sr-only">Confirm Password</label>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ulangi password" required>
-                <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-            </div>
             <div class="form-group {{ $errors->has('telp') ? ' has-error' : '' }}">
                 <label for="telp" class="sr-only">No Hp</label>
                 <input id="telp" type="text" class="form-control" name="telp" placeholder="No HP: 085xxxx" value="{{old('telp')}}" required>
@@ -128,7 +105,12 @@
                                         <strong>{{ $errors->first('telp') }}</strong>
                                     </span>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            @if ($role == 'umkm')
+            <button type="submit" class="btn btn-primary btn-block">Daftar UMKM</button>
+                @else
+            <button type="submit" class="btn btn-primary btn-block">Daftar Pendamping</button>
+            @endif
+
         </form>
         <p>Apa sudah memiliki akun, Silahkan  <a style="color: #f16f35;font-weight: bold;" href="{{route('login')}}">Masuk</a></p>
         <footer class="page-copyright">

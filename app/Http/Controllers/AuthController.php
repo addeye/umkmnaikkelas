@@ -51,21 +51,22 @@ class AuthController extends Controller {
 		return view('auth.passwords.email');
 	}
 
-	public function doForgetPassword() {
+	public function doForgetPassword(Request $request) {
+		return $request->all();
 
 	}
 
-	public function registrasi() {
-		return view('auth.register');
+	public function registrasi($role) {
+		$data = array(
+			'role' => $role,
+		);
+		return view('auth.register', $data);
 	}
 
 	public function doRegistrasi(Request $request) {
 		// dd($request->all());
 		$rules = [
-			'name' => 'required',
 			'email' => 'required|unique:users,email',
-			'password' => 'required|min:3|confirmed',
-			'password_confirmation' => 'required|min:3',
 			'telp' => 'required|numeric',
 		];
 
@@ -77,10 +78,10 @@ class AuthController extends Controller {
 		}
 
 		$user = new User();
-		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->password = bcrypt($request->password);
+		$user->password = bcrypt('umkm1234');
 		$user->telp = $request->telp;
+		$user->api_token = str_random(60);
 		$user->save();
 
 		if ($user) {

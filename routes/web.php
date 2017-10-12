@@ -1,6 +1,11 @@
 <?php
 
+use App\BidangKeahlian;
+use App\BidangPendampingan;
 use App\Jobs\SendFormEmail;
+use App\Pendamping;
+use App\PendampingRelBdKeahlian;
+use App\PendampingRelBdPendampingan;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +24,8 @@ Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@doLogin')->name('login');
 Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('lupa-password', 'AuthController@forgetPassword')->name('password.request');
-Route::get('register', 'AuthController@registrasi')->name('registrasi');
+Route::post('lupa-password', 'AuthController@doForgetPassword')->name('password.request');
+Route::get('register/{role?}', 'AuthController@registrasi')->name('registrasi');
 Route::post('register', 'AuthController@doRegistrasi')->name('register');
 
 Route::get('/portal', 'HomeController@portal')->name('portal');
@@ -223,4 +229,48 @@ Route::get('/clear-config', function () {
 Route::get('/restart-queue', function () {
 	$exitCode = Artisan::call('queue:restart');
 	return 'queue restart';
+});
+
+Route::get('/migrasi_pendamping', function () {
+	$pendamping = Pendamping::all();
+	// return explode(",", $pendamping->bidang_pendampingan);
+	foreach ($pendamping as $key => $value) {
+		$bidang_pendampingan = explode(",", $value->bidang_pendampingan);
+		// var_dump($bidang_pendampingan);
+		for ($i = 0; $i < count($bidang_pendampingan); $i++) {
+			$text = trim($bidang_pendampingan[$i]);
+			$bdpendampingan = BidangPendampingan::where('nama', $text)->first();
+			// var_dump($text);
+			if ($bdpendampingan) {
+				$relpendampingan = new PendampingRelBdPendampingan();
+				$relpendampingan->pendamping_id = $value->id;
+				$relpendampingan->bidang_pendampingan_id = $bdpendampingan->id;
+				$relpendampingan->save();
+			}
+		}
+
+	}
+	// return $row;
+});
+
+Route::get('/migrasi_pendamping_keahlian', function () {
+	$pendamping = Pendamping::all();
+
+	foreach ($pendamping as $key => $value) {
+		$bidang_keahlian = explode(",", $value->bidang_keahlian);
+
+		for ($i = 0; $i < count($bidang_keahlian); $i++) {
+			$text = trim($bidang_keahlian[$i]);
+			$bdkeahlian = BidangKeahlian::where('nama', $text)->first();
+			// var_dump($text);
+			if ($bdkeahlian) {
+				$relkeahlian = new PendampingRelBdKeahlian();
+				$relkeahlian->pendamping_id = $value->id;
+				$relkeahlian->bidang_keahlian_id = $bdkeahlian->id;
+				$relkeahlian->save();
+			}
+		}
+
+	}
+	// return $row;
 });

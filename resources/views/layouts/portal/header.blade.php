@@ -43,32 +43,26 @@
 
       @if(Auth::user()->role_id==ROLE_PENDAMPING)
         @include('layouts.portal.menu_pendamping')
-      @else
+      @elseif(Auth::user()->role_id==ROLE_UMKM)
         @include('layouts.portal.menu_umkm')
+      @elseif(Auth::user()->role_id==ROLE_CALON)
+        @include('layouts.portal.menu_calon')
       @endif
 
       @else
       <ul class="nav navbar-toolbar navbar-right">
-        <li class="hidden-float">
-          <a class="icon wb-search collapsed" data-toggle="collapse" href="javascript:void(0)" data-target="#example-navbar-search-overlap" role="button" aria-expanded="false">
-            <span class="sr-only">Toggle Search</span>
-          </a>
-        </li>
-        <li><a href="{{ url('/login') }}">MASUK <span class="sr-only">(current)</span></a></li>
-        <li><a href="{{ url('/register') }}">DAFTAR</a></li>
+        <li><a href="{{ url('/login') }}"><i class="icon fa-sign-in"></i> MASUK <span class="sr-only">(current)</span></a></li>
+        {{-- <li><a href="{{ url('/register') }}">DAFTAR UMKM</a></li> --}}
+        <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
+      role="button"><i class="icon fa-pencil"></i> DAFTAR <span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+        <li role="presentation"><a href="{{ url('/register/umkm') }}" role="menuitem"><i class="icon fa-shopping-cart"></i> UMKM</a></li>
+        <li role="presentation"><a href="{{ url('/register/pendamping') }}" role="menuitem"><i class="icon wb-user-circle"></i> PENDAMPING</a></li>
+    </ul>
+</li>
       </ul>
       @endif
-    </div>
-    <div class="navbar-search-overlap collapse" id="example-navbar-search-overlap" aria-expanded="false" style="height: 0px;">
-      <form role="search">
-        <div class="form-group">
-          <div class="input-search">
-            <i class="input-search-icon wb-search" aria-hidden="true"></i>
-            <input type="text" class="form-control" placeholder="Search">
-            <button type="button" class="input-search-close icon wb-close collapsed" data-target="#example-navbar-search-overlap" data-toggle="collapse" aria-label="Close" aria-expanded="false"></button>
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 </nav>

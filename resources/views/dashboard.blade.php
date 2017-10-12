@@ -40,7 +40,8 @@
                 </div>
             </div>
             @endif
-
+        </div>
+        <div class="row">
             @if (count($event) > 0)
                 @foreach ($event as $key=>$row)
                     <div class="alert alert-alt alert-warning">

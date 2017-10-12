@@ -60,6 +60,23 @@ a:focus, a:hover {
     color: #ffffff;
     text-decoration: underline;
 }
+.layout-full .page {
+    height: 100%;
+    padding: 0;
+    margin: 0!important;
+    background-color: rgba(0, 0, 0, 0.58);
+}
+
+.page-login:after {
+    position: fixed;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.58);
+    z-index: -1;
+}
   </style>
 </head>
 <body class="page-login layout-full">
@@ -98,7 +115,9 @@ a:focus, a:hover {
         </div>
         <button type="submit" class="btn btn-primary btn-block">Masuk</button>
       </form>
-      <p>Tidak punya akun ? Silahkan <a style="color: #f16f35;font-weight: bold;" href="{{url('register')}}">Daftar Disini</a></p>
+      <p>Tidak punya akun ? Silahkan</p>
+      <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
+      <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/pendamping')}}">Daftar Pendamping</a></p>
       <p>
       <a href="redirect/facebook" class="btn btn-labeled social-facebook">
                     <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Masuk</a> Atau

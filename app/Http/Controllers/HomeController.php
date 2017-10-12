@@ -93,6 +93,8 @@ class HomeController extends Controller {
 
 				$data['order'] = $order;
 				$data['event'] = Event::whereIn('role_level', ['Umkm', 'Semua'])->where('status', 'Open')->whereNotIn('id', $event_id)->get();
+			} elseif ($user->role_id == ROLE_CALON) {
+				$data['event'] = [];
 			}
 
 			// dd($data);
@@ -103,6 +105,8 @@ class HomeController extends Controller {
 				'info_terkini' => InfoTerkini::with('user')->limit(3)->where('publish', 'Ya')->where('level', 'Umum')->orderBy('created_at', 'DESC')->get(),
 				'slider' => Slider::where('publish', 'Yes')->get(),
 				'page_static' => PageStatic::all(),
+				'bidang_pendampingan' => BidangPendampingan::all(),
+				'bidang_keahlian' => BidangKeahlian::all(),
 			);
 			return view('welcome', $data);
 		}

@@ -1,7 +1,12 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Methods: GET, POST, PUT');
+
 use App\Pendamping;
 use App\Umkm;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +23,10 @@ use App\Umkm;
 // 	return $request->user();
 // });
 
+// Route::group(['middleware' => 'cors'], function () {
+
+// });
+//
 Route::get('umkm', function () {
 	return Umkm::with('user')->paginate(5);
 });
@@ -25,6 +34,9 @@ Route::get('umkm', function () {
 Route::get('pendamping', function () {
 	return Pendamping::with('user')->paginate(5);
 });
+
+Route::post('login', 'Api\AuthController@login');
+Route::post('logout/{id}', 'Api\AuthController@logout');
 
 Route::group(['middleware' => 'auth:api'], function () {
 
