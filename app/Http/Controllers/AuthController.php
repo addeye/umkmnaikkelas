@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\LupaPasswordEmail;
 use App\Mail\NewRegister;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,8 +53,54 @@ class AuthController extends Controller {
 	}
 
 	public function doForgetPassword(Request $request) {
-		return $request->all();
+		// return $request->all();
+		$user = User::where('email', $request->email)->first();
 
+		if ($user) {
+			$job = (new LupaPasswordEmail($user))->onConnection('database');
+			dispatch($job);
+
+			\Alert::success('Silahkan Cek di email anda perikasa Inbox / Spam', 'Berhasil');
+			return redirect()->route('password.request');
+		} else {
+
+			\Alert::warning('Email tersebut tidak ada di database kami silahkan hubungi Admin', 'Gagal')->persistent('Tutup');
+			return redirect()->route('password.request');
+
+		}
+
+	}
+
+	public function resetPassword($id) {
+
+		$user = User::whereRaw('md5(id) = "' . $id . '"')->first();
+		$data = array(
+			'data' => $user,
+		);
+
+		return view('auth.passwords.reset', $data);
+
+	}
+
+	public function doResetPassword(Request $request) {
+		$rules = [
+			'password' => 'required|confirmed|min:6',
+		];
+
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+			return back()->withErrors($validator)
+				->withInput();
+		}
+
+		$user = User::whereRaw('md5(id) = "' . $request->id . '"')->first();
+		$user->password = bcrypt($request->password);
+		$user->save();
+
+		if ($user) {
+			\Alert::success('Silahkan login dengan PASSWORD Baru', 'Berhasil');
+			return redirect('login');
+		}
 	}
 
 	public function registrasi($role) {

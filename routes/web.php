@@ -23,8 +23,12 @@ Route::get('/testsms', 'HomeController@sms_test');
 Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@doLogin')->name('login');
 Route::post('logout', 'AuthController@logout')->name('logout');
+
 Route::get('lupa-password', 'AuthController@forgetPassword')->name('password.request');
 Route::post('lupa-password', 'AuthController@doForgetPassword')->name('password.request');
+Route::get('reset-password/{id}', 'AuthController@resetPassword')->name('password.reset');
+Route::post('reset-password', 'AuthController@doResetPassword')->name('password.reset');
+
 Route::get('register/{role?}', 'AuthController@registrasi')->name('registrasi');
 Route::post('register', 'AuthController@doRegistrasi')->name('register');
 
@@ -231,6 +235,7 @@ Route::get('/restart-queue', function () {
 	return 'queue restart';
 });
 
+// do change string become ID in new table
 Route::get('/migrasi_pendamping', function () {
 	$pendamping = Pendamping::all();
 	// return explode(",", $pendamping->bidang_pendampingan);
@@ -253,6 +258,7 @@ Route::get('/migrasi_pendamping', function () {
 	// return $row;
 });
 
+// do change string become ID in new table
 Route::get('/migrasi_pendamping_keahlian', function () {
 	$pendamping = Pendamping::all();
 

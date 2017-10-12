@@ -158,6 +158,7 @@ a:focus, a:hover {
 {{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
 {{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
 <script src="{{url('remark/assets/vendor/toastr/toastr.js')}}"></script>
+{{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
 
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
@@ -176,6 +177,20 @@ a:focus, a:hover {
 {{Html::script(asset('remark/assets/js/components/switchery.js'))}}
   <script src="{{url('remark/assets/js/components/jquery-placeholder.js')}}"></script>
   <script src="{{url('remark/assets/js/components/toastr.js')}}"></script>
+  {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
+
+      <script type="text/javascript">
+        $(window).load(function(){
+  $(document).ready(function () {
+
+      @if (Session::has('sweet_alert.alert'))
+
+        swal({!! Session::get('sweet_alert.alert') !!});
+
+    @endif
+    });
+});
+    </script>
 
   <script>
     (function(document, window, $) {
