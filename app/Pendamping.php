@@ -4,35 +4,38 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pendamping extends Model
-{
-    protected $table = 'pendamping';
+class Pendamping extends Model {
+	protected $table = 'pendamping';
 
-    protected $appends = ['kota'];
+	protected $appends = ['kota'];
 
-    public function getKotaAttribute()
-    {
-        if($this->kabkota_id)
-        {
-            return \Indonesia::findCity($this->kabkota_id)->name;
-        }
-        return '';
-        
-    }
+	public function getKotaAttribute() {
+		if ($this->kabkota_id) {
+			return \Indonesia::findCity($this->kabkota_id)->name;
+		}
+		return '';
 
-    public function lembaga()
-    {
-        return $this->belongsTo('App\Lembaga','lembaga_id');
-    }
+	}
 
-    public function jasa_pendampingan()
-    {
-        return $this->hasMany('App\JasaPendampingan','pendamping_id');
-    }
+	public function lembaga() {
+		return $this->belongsTo('App\Lembaga', 'lembaga_id');
+	}
 
-    public function user()
-    {
-        return $this->belongsTo('App\User','user_id');
-    }
+	public function jasa_pendampingan() {
+		return $this->hasMany('App\JasaPendampingan', 'pendamping_id');
+	}
+
+	public function user() {
+		return $this->belongsTo('App\User', 'user_id');
+	}
+
+	public function rel_bd_pendampingan() {
+		return $this->hasMany('App\PendampingRelBdPendampinga', 'pendamping_id');
+
+	}
+
+	public function rel_bd_keahlian() {
+		return $this->hasMany('App\PendampingRelBdKeahlian', 'pendamping_id');
+	}
 
 }

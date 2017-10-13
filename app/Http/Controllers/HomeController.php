@@ -10,12 +10,14 @@ use App\Event;
 use App\EventFollower;
 use App\InfoTerkini;
 use App\JasaPendampingan;
+use App\Jobs\SendPendampingRegisterEmail;
 use App\Lembaga;
-use App\Mail\PendampingRegister;
 use App\OrderChat;
 use App\OrderKonsultasi;
 use App\PageStatic;
 use App\Pendamping;
+use App\PendampinganRelBdKeahlian;
+use App\PendampinganRelBdPendampingan;
 use App\Slider;
 use App\Umkm;
 use App\User;
@@ -23,7 +25,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\Indonesia;
 use Nasution\ZenzivaSms\Client as Sms;
@@ -238,9 +239,6 @@ class HomeController extends Controller {
 		if ($request->has('bidang_keahlian')) {
 			$pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
 		}
-		if ($request->has('bidang_usaha')) {
-			$pendamping->bidang_usaha = implode(", ", $request->bidang_usaha);
-		}
 		$pendamping->kabkota_id = $request->kabkota_id;
 		if ($request->has('kabkota_tambahan')) {
 			$pendamping->kabkota_tambahan = implode(", ", $request->kabkota_tambahan);
@@ -361,7 +359,6 @@ class HomeController extends Controller {
 			'sertifikat' => 'nullable',
 			'bidang_pendampingan' => 'required',
 			'bidang_keahlian' => 'required',
-			'bidang_usaha' => 'required',
 			'kabkota_id' => 'required',
 			'kabkota_tambahan' => 'nullable',
 			'lembaga_id' => 'required',
@@ -391,20 +388,22 @@ class HomeController extends Controller {
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;
 		$pendamping->sertifikat = $request->sertifikat;
+		$pendamping->lembaga_id = $request->lembaga_id;
+
 		if ($request->has('bidang_pendampingan')) {
+
 			$pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
 		}
 		if ($request->has('bidang_keahlian')) {
+
 			$pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
 		}
-		if ($request->has('bidang_usaha')) {
-			$pendamping->bidang_usaha = implode(", ", $request->bidang_usaha);
-		}
+
 		$pendamping->kabkota_id = $request->kabkota_id;
 		if ($request->has('kabkota_tambahan')) {
 			$pendamping->kabkota_tambahan = implode(", ", $request->kabkota_tambahan);
 		}
-		$pendamping->lembaga_id = $request->lembaga_id;
+
 		$pendamping->validasi = 1; //perlu di validasi jadi 0
 		$pendamping->user_id = Auth::user()->id;
 
@@ -416,6 +415,25 @@ class HomeController extends Controller {
 
 		$pendamping->save();
 
+		if ($request->has('bidang_pendampingan')) {
+			foreach ($request->bidang_pendampingan as $value) {
+				$bdp = new PendampinganRelBdPendampingan();
+				$bdp->pendamping_id = $pendamping->id;
+				$bdp->bidang_pendampingan_id = $value;
+				$bdp->save();
+			}
+			// $pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
+		}
+		if ($request->has('bidang_keahlian')) {
+			foreach ($request->bidang_keahlian as $value) {
+				$bdk = new PendampinganRelBdKeahlian();
+				$bdk->pendamping_id = $pendamping->id;
+				$bdk->bidang_keahlian_id = $value;
+				$bdk->save();
+			}
+			// $pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
+		}
+
 		$user = User::find(Auth::user()->id);
 		$user->name = $request->nama_pendamping;
 		$user->telp = $request->telp;
@@ -424,7 +442,9 @@ class HomeController extends Controller {
 		$user->save();
 
 		if ($pendamping) {
-			Mail::to('lunas@umkmnaikkelas.com')->send(new PendampingRegister($pendamping));
+
+			$job = (new SendPendampingRegisterEmail($pendamping))->onConnection('database');
+			dispatch($job);
 
 			\Alert::success('Terimakasih ' . $user->name . ' Sudah Mendaftar Sebagai Pendamping', 'Selamat !')->persistent("Tutup");
 			return redirect()->route('home');
@@ -541,6 +561,7 @@ class HomeController extends Controller {
 	}
 
 	public function profile($id) {
+
 		$user = User::whereRaw('md5(id) = "' . $id . '"')->first();
 
 		$data = array(

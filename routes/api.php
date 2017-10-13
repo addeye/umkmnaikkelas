@@ -6,7 +6,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT');
 
 use App\Pendamping;
 use App\Umkm;
-use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,15 +33,20 @@ Route::get('umkm', function () {
 Route::get('pendamping', function () {
 	return Pendamping::with('user')->paginate(5);
 });
+Route::group(['namespace' => 'Api'], function () {
+	Route::post('login', 'AuthController@login');
+	Route::post('logout/{id}', 'AuthController@logout');
+	Route::post('reset-password', 'RegistrasiController@reset_password');
 
-Route::post('login', 'Api\AuthController@login');
-Route::post('logout/{id}', 'Api\AuthController@logout');
+	Route::post('registrasi', 'RegistrasiController@registrasi');
 
-Route::post('registrasi', 'Api\RegistrasiController@registrasi');
+	Route::get('kabkota', 'HomeController@kabkota');
+	Route::get('bidang_usaha', 'HomeController@bidang_usaha');
 
-Route::group(['middleware' => 'auth:api'], function () {
+	Route::group(['middleware' => 'auth:api'], function () {
 
-	Route::get('user', function () {
-		return User::paginate(5);
+		Route::get('bidang_pendampingan', 'HomeController@bidang_pendampingan');
+		Route::get('bidang_keahlian', 'HomeController@bidang_keahlian');
+
 	});
 });

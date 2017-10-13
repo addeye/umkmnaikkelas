@@ -119,7 +119,7 @@ class AuthController extends Controller {
 
 		$validator = Validator::make($request->all(), $rules);
 		if ($validator->fails()) {
-			return back()->withErrors($validator)
+			return redirect()->route('registrasi', ['role' => $request->role])->withErrors($validator)
 				->withInput();
 		}
 
