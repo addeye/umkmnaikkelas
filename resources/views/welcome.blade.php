@@ -205,10 +205,20 @@ a:focus, a:hover {
                     <h2>
                         <i class="icon wb-pie-chart">
                         </i>
-                        Manajemen LUNAS
+                        Manajemen
                     </h2>
                 </div>
             </div>
+             @foreach ($page_static as $row)
+                   <div class="col-md-4 col-xs-6 col-tiles">
+                     <a href="{{ url('page/'.$row->slug) }}">
+                     <div class="tile" style="background:url('{{asset('images/box/sasaran.jpg')}}') no-repeat center center;background-size: cover;">
+                       <h4 class="tile-cap bg-light-green-800">{{$row->title}}</h4>
+                       <p class="sub-cap">{{$row->topic}}</p>
+                      </div>
+                      </a>
+                  </div>
+              @endforeach
             <div class="col-md-4 col-xs-6 col-tiles">
                 <a href="{{route('page.umkm')}}">
                     <div class="tile" style="background:url('{{asset('images/box/pendampingan.jpg')}}') no-repeat center center;background-size: cover;">
@@ -219,7 +229,7 @@ a:focus, a:hover {
                 </a>
             </div>
             <div class="col-md-4 col-xs-6 col-tiles">
-                <a href="{{route('page.pendamping')}}">
+                <a id="{{route('page.pendamping')}}" href="">
                     <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
                         <h4 class="tile-cap bg-blue-800">
                             PENDAMPING

@@ -87,6 +87,17 @@
         <p>Silahkan Untuk Mendaftar Disini</p>
         <form role="form" method="POST" action="{{ route('register') }}">
             {{ csrf_field() }}
+            <input type="hidden" name="role" value="{{$role}}">
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <label class="sr-only">Nama</label>
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama anda" required>
+
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                @endif
+            </div>
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="sr-only">E-Mail Address</label>
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email anda" required>

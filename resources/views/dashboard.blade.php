@@ -25,16 +25,12 @@
             @endif
 
             @if(Auth::user()->role_id == ROLE_PENDAMPING && Auth::user()->pendamping->validasi ==1)
-            <div class="col-md-12">
+            <div class="col-md-12 row">
                 <div class="bg-info well">
                     <strong>
                         Terimakasih, Data pendamping anda akan divalidasi oleh admin. segera konfirmasi ke
                         <span style="color: yellow;">
-                            umkmnaikkelas@gmail.com
-                        </span>
-                        atau
-                        <span style="color: yellow;">
-                            0812 3525 0065
+                            lunas@umkmnaikkelas.com
                         </span>
                     </strong>
                 </div>

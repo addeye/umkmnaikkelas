@@ -71,13 +71,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('filter/{kabkota_id}/kecamatan/{old?}', 'HomeController@filter_kecamatan')->name('filter.kecamatan');
 
-	Route::group(['middleware' => 'calon'], function () {
-		Route::get('daftar-pendamping', 'HomeController@reg_pendamping')->name('daftar.pendamping');
-		Route::post('daftar-pendamping', 'HomeController@doRegPendamping')->name('dodaftar.pendamping');
-		Route::get('daftar-umkm', 'HomeController@reg_umkm')->name('daftar.umkm');
-		Route::post('daftar-umkm', 'HomeController@doRegUmkm')->name('dodaftar.umkm');
-
-	});
+	Route::get('daftar-pendamping', 'HomeController@reg_pendamping')->name('daftar.pendamping');
+	Route::post('daftar-pendamping', 'HomeController@doRegPendamping')->name('dodaftar.pendamping');
+	Route::get('daftar-umkm', 'HomeController@reg_umkm')->name('daftar.umkm');
+	Route::post('daftar-umkm', 'HomeController@doRegUmkm')->name('dodaftar.umkm');
 
 	Route::get('profil-user', 'HomeController@showProfil')->name('profil.show');
 	Route::get('update-umkm/{id}', 'HomeController@update_umkm')->name('update.umkm');

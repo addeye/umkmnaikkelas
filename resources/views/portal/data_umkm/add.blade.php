@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="text-right">
-                                    <a href="{{route('jasa-pendampingan.index')}}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{route('data-periode.index')}}" class="btn btn-warning">Kembali</a>
                                     <button type="submit" class="btn btn-primary" id="validateButton2">Simpan</button>
                                 </div>
                             </form>

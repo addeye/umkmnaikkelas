@@ -26,6 +26,7 @@
 
     <!-- Plugin -->
   <link rel="stylesheet" href="{{url('remark/assets/vendor/toastr/toastr.css')}}">
+  {{Html::style('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.css')}}
 
 
   <!-- Page -->
@@ -94,6 +95,11 @@ a:focus, a:hover {
         <img class="brand-img" src="{{url('images/logo.png')}}" alt="logo">
       </a>
       </div>
+      @if(session()->has('success'))
+    <div class="alert alert-danger">
+        {{ session()->get('success') }}
+    </div>
+@endif
       <p>Silahkan Masukkan Akun Anda</p>
       <form method="post" action="{{ route('login') }}">
       {{ csrf_field() }}
@@ -157,8 +163,9 @@ a:focus, a:hover {
 {{Html::script(asset('remark/assets/vendor/intro-js/intro.js'))}}
 {{Html::script(asset('remark/assets/vendor/screenfull/screenfull.js'))}}
 {{Html::script(asset('remark/assets/vendor/slidepanel/jquery-slidePanel.js'))}}
-<script src="{{url('remark/assets/vendor/toastr/toastr.js')}}"></script>
 {{Html::script(asset('remark/assets/vendor/bootstrap-sweetalert/sweet-alert.js'))}}
+<script src="{{url('remark/assets/vendor/toastr/toastr.js')}}"></script>
+
 
         <!-- Scripts -->
 {{Html::script(asset('remark/assets/js/core.js'))}}
@@ -175,22 +182,9 @@ a:focus, a:hover {
 {{Html::script(asset('remark/assets/js/components/animsition.js'))}}
 {{Html::script(asset('remark/assets/js/components/slidepanel.js'))}}
 {{Html::script(asset('remark/assets/js/components/switchery.js'))}}
+{{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
   <script src="{{url('remark/assets/js/components/jquery-placeholder.js')}}"></script>
   <script src="{{url('remark/assets/js/components/toastr.js')}}"></script>
-  {{Html::script(asset('remark/assets/js/components/bootstrap-sweetalert.js'))}}
-
-      <script type="text/javascript">
-        $(window).load(function(){
-  $(document).ready(function () {
-
-      @if (Session::has('sweet_alert.alert'))
-
-        swal({!! Session::get('sweet_alert.alert') !!});
-
-    @endif
-    });
-});
-    </script>
 
   <script>
     (function(document, window, $) {
@@ -199,14 +193,28 @@ a:focus, a:hover {
       var Site = window.Site;
       $(document).ready(function() {
         Site.run();
+
+        @if (Session::has('sweet_alert.alert'))
+
+        swal({!! Session::get('sweet_alert.alert') !!});
+
+      @endif
       });
     })(document, window, jQuery);
 
     {{$errors->all()?'error()':''}}
 
+    {{session()->has('success')?'success()':''}}
+
+
     function error()
     {
       toastr.warning('Email dan Password Salah');
+    }
+
+    function success()
+    {
+      toastr.success('Silahkan cek email untuk password anda');
     }
   </script>
 

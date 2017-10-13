@@ -62,6 +62,11 @@ class HomeController extends Controller {
 				return view('home');
 			} elseif ($user->role_id == ROLE_PENDAMPING) {
 
+				if (!$user->pendamping) {
+					\Alert::success('Tolong isi dengan benar', 'Selamat Datang ' . $user->name)->persistent("Tutup");
+					return redirect()->route('daftar.pendamping');
+				}
+
 				$jasa = JasaPendampingan::where('pendamping_id', $user->pendamping->id)->get();
 				$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
 				$jmlumkm = $umkm->unique();
@@ -79,6 +84,12 @@ class HomeController extends Controller {
 				$data['event'] = Event::whereIn('role_level', ['Pendamping', 'Semua'])->where('status', 'Open')->get();
 
 			} elseif ($user->role_id == ROLE_UMKM) {
+
+				if (!$user->umkm) {
+					\Alert::success('Tolong isi dengan benar', 'Selamat Datang ' . $user->name)->persistent("Tutup");
+					return redirect()->route('daftar.umkm');
+				}
+
 				$umkm_id = $user->umkm->id;
 
 				$order = OrderKonsultasi::where('umkm_id', $umkm_id)->get();
@@ -448,7 +459,7 @@ class HomeController extends Controller {
 
 		$user->save();
 
-		$id_umkm = $id_pendamping = $request->kabkota_id . rand(11111111, 99999999);
+		$id_umkm = $request->kabkota_id . rand(11111111, 99999999);
 
 		$umkm = new Umkm();
 		$umkm->user_id = $user->id;
@@ -462,7 +473,7 @@ class HomeController extends Controller {
 		$umkm->no_npwp = $request->no_npwp;
 		$umkm->telp = $user->telp;
 		$umkm->email = $request->email;
-		$umkm->badan_hukum = $request->badan_hukumukum;
+		$umkm->badan_hukum = $request->badan_hukum;
 		$umkm->tahun_mulai = $request->tahun_mulai;
 		$umkm->skala_usaha = $request->skala_usaha;
 		$umkm->bidang_usaha_id = $request->bidang_usaha_id;

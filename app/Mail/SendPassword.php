@@ -6,21 +6,18 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewRegister extends Mailable {
+class SendPassword extends Mailable {
 	use Queueable, SerializesModels;
 
-	public $info;
-	public $data;
-	public $pathToFile;
-	public $pathToFile2;
+	public $pass;
 
 	/**
 	 * Create a new message instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($data) {
-		$this->data = $data;
+	public function __construct($pass) {
+		$this->pass = $pass;
 	}
 
 	/**
@@ -29,6 +26,6 @@ class NewRegister extends Mailable {
 	 * @return $this
 	 */
 	public function build() {
-		return $this->view('mailling.new_register_2');
+		return $this->view('mailling.send_password');
 	}
 }

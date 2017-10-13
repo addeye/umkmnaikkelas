@@ -32,6 +32,7 @@
                       <option value=''></option>
                       <option value='Pendamping' {{$data->role_level == 'Pendamping' ? 'selected':''}} >Pendamping</option>
                       <option value='UMKM' {{$data->role_level == 'UMKM' ? 'selected':''}} >UMKM</option>
+                      <option value='Calon' {{$data->role_level == 'Calon' ? 'selected':''}} >Calon</option>
                     </select>
                     <span class="help-block">
                       <strong>{{ $errors->first('role_level') }}</strong>

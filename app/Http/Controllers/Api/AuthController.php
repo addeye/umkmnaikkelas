@@ -36,7 +36,7 @@ class AuthController extends Controller {
 
 	public function logout($id) {
 		$user = User::find($id);
-		$user->api_token = '';
+		$user->api_token = str_random(60);
 		$user->save();
 		if ($user) {
 			Auth::logout();

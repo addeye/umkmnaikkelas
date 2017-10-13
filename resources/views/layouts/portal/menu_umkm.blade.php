@@ -1,3 +1,4 @@
+@if (Auth::user()->umkm)
 <ul class="nav navbar-toolbar navbar-right">
     <li class="{{set_active(['/','home'],'active')}}">
         <a href="{{url('/')}}">
@@ -54,3 +55,16 @@
         </ul>
     </li>
 </ul>
+    @else
+    <ul class="nav navbar-toolbar navbar-right">
+    <li class="{{set_active(['/','home'],'active')}}">
+        <a href="{{url('/')}}">
+            Dashboard
+            <span class="sr-only">
+                (current)
+            </span>
+        </a>
+    </li>
+
+</ul>
+@endif

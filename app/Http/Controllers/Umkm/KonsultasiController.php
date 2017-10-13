@@ -38,9 +38,10 @@ class KonsultasiController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
+		$umkm_id = Auth::user()->umkm->id;
 		$data = array(
 			'bidang' => BidangPendampingan::all(),
-			'riwayat' => OrderKonsultasi::all(),
+			'riwayat' => OrderKonsultasi::where('umkm_id', $umkm_id)->get(),
 		);
 		return view('konsultasi.add', $data);
 	}

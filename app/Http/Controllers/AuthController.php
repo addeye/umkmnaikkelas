@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\LupaPasswordEmail;
-use App\Mail\NewRegister;
+use App\Jobs\SendPasswordEmail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class AuthController extends Controller {
@@ -113,36 +112,39 @@ class AuthController extends Controller {
 	public function doRegistrasi(Request $request) {
 		// dd($request->all());
 		$rules = [
+			'name' => 'required',
 			'email' => 'required|unique:users,email',
-			'telp' => 'required|numeric',
+			'telp' => 'required|numeric|unique:users,telp',
 		];
 
 		$validator = Validator::make($request->all(), $rules);
 		if ($validator->fails()) {
-			return redirect('register')
-				->withErrors($validator)
+			return back()->withErrors($validator)
 				->withInput();
 		}
 
+		$pass = str_random(6);
+
 		$user = new User();
+		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->password = bcrypt('umkm1234');
 		$user->telp = $request->telp;
-		$user->api_token = str_random(60);
+		$user->image = 'default-user.jpg';
+		$user->password = bcrypt($pass);
+
+		if ($request->role == 'umkm') {
+			$user->role_id = ROLE_UMKM;
+
+		} elseif ($request->role == 'pendamping') {
+			$user->role_id = ROLE_PENDAMPING;
+		}
+
 		$user->save();
 
 		if ($user) {
-			Mail::to($request->email)->send(new NewRegister($request));
-			Mail::to('lunas@umkmnaikkelas.com')->send(new NewRegister($request));
-		}
-
-		$credentials = array(
-			'email' => $request->email,
-			'password' => $request->password,
-		);
-
-		if (Auth::attempt($credentials)) {
-			return redirect()->intended('/');
+			$job = (new SendPasswordEmail($user->load('role'), $pass))->onConnection('database');
+			dispatch($job);
+			return redirect('login')->with('success', 'Silahkan cek email anda untuk masukkan password');
 		}
 
 	}

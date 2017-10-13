@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Mail\BroadcastMail;
 use App\Pendamping;
 use App\Umkm;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,6 +41,8 @@ class SendFormEmail implements ShouldQueue {
 			$recepient = Pendamping::where('validasi', 0)->pluck('email');
 		} elseif ($status == 'UMKM') {
 			$recepient = Umkm::all()->pluck('email');
+		} elseif (status == 'Calon') {
+			$recepient = User::where('role_id', ROLE_CALON)->where('email', '!=', '')->pluck('email');
 		}
 
 		foreach ($recepient as $key => $value) {

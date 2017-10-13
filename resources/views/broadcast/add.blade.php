@@ -30,6 +30,7 @@
                     <select name="role_level" class="form-control" id="">
                       <option value="Pendamping">Pendamping</option>
                       <option value="Umkm">UMKM</option>
+                      <option value="Calon">Calon</option>
                     </select>
                     <span class="help-block">
                       <strong>{{ $errors->first('role_level') }}</strong>

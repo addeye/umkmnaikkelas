@@ -38,6 +38,8 @@ Route::get('pendamping', function () {
 Route::post('login', 'Api\AuthController@login');
 Route::post('logout/{id}', 'Api\AuthController@logout');
 
+Route::post('registrasi', 'Api\RegistrasiController@registrasi');
+
 Route::group(['middleware' => 'auth:api'], function () {
 
 	Route::get('user', function () {
