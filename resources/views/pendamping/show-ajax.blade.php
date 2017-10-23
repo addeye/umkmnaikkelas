@@ -72,15 +72,23 @@
                     </tr>
                     <tr>
                         <th>Bidang Pendampingan</th>
-                        <td>{{$data->bidang_pendampingan}}</td>
+                        <td>
+                            <ul>
+                                @foreach ($data->rel_bd_pendampingan as $row)
+                                <li>{{$row->bidang_pendampingan->nama}}</li>
+                                @endforeach
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th>Bidang Keahlian</th>
-                        <td>{{$data->bidang_keahlian}}</td>
-                    </tr>
-                    <tr>
-                        <th>Bidang Usaha</th>
-                        <td>{{$data->bidang_usaha}}</td>
+                        <td>
+                            <ul>
+                                @foreach ($data->rel_bd_keahlian as $row)
+                                <li>{{$row->bidang_keahlian->nama}}</li>
+                                @endforeach
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th>Kabupaten/Kota Pendampingan</th>
@@ -116,8 +124,13 @@
     <div class="col-md-6">
         <div class="col-xs-6 col-md-12">
             <div class="widget widget-shadow">
-                <div class="widget-header bg-orange-600 white text-center">
-                    <img class="img-responsive" src="{{asset('uploads/pendamping/images/'.$data->foto_ktp)}}" alt="">
+                <div class="widget-header bg-red-600 white text-center">
+                    @if ($data->foto_ktp)
+                        <img class="img-responsive" src="{{asset('uploads/pendamping/images/'.$data->foto_ktp)}}" alt="">
+                        @else
+                        <h3 class="padding-10">SCAN KTP BELUM ADA</h3>
+                    @endif
+
                 </div>
             </div>
         </div>

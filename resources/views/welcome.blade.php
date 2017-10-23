@@ -124,11 +124,11 @@ a:focus, a:hover {
     <!-- Panel More Examples -->
     <div class="row">
         <div class="padding-top-20">
-            <div class="col-md-12 col-xs-12">
-                <form role="search">
+            <div class="col-md-12 col-xs-12 row">
+                <form role="search" method="get" action="{{ route('data.pendamping') }}">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control" name="" placeholder="Nama/Email Pendamping..." type="text">
+                            <input class="form-control" name="nama" placeholder="Cari Nama/Email Pendamping..." type="text" autofocus>
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit">
                                         <i aria-hidden="true" class="icon wb-search">
@@ -153,7 +153,7 @@ a:focus, a:hover {
             </div>
             @foreach ($bidang_pendampingan as $row)
             <div class="col-md-3 col-xs-6 col-tiles">
-                <a href="">
+                <a href="{{ route('data.pendamping') }}?pendampingan={{$row->id}}">
                     <div class="widget-content widget-radius padding-30 bg-red-800">
                         <div class="counter counter-lg">
                             <div class="counter-label text-uppercase white">
@@ -182,7 +182,7 @@ a:focus, a:hover {
             </div>
             @foreach ($bidang_keahlian as $row)
             <div class="col-md-3 col-xs-6 col-tiles">
-                <a href="">
+                <a href="{{ route('data.pendamping') }}?keahlian={{$row->id}}">
                     <div class="widget-content widget-radius padding-30 bg-orange-800">
                         <div class="counter counter-lg">
                             <div class="counter-label text-uppercase white">
@@ -254,7 +254,7 @@ a:focus, a:hover {
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="widget widget-shadow">
-                                <div class="widget-content padding-20 bg-green-500 white height-full">
+                                <div class="widget-content padding-20 bg-blue-grey-800 white height-full">
                                     <a class="avatar pull-left margin-right-20" href="javascript:void(0)">
                                         @if(!$row->user->image)
                                         <img alt="..." src="{{asset('remark/assets/portraits/5.jpg')}}">

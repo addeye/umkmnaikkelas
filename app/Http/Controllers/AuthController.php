@@ -35,8 +35,45 @@ class AuthController extends Controller {
 		if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
 			return redirect()->intended('/');
 		} else {
-			\Alert::warning('Anda gagal login! Email & Password Salah', 'Hi');
-			return redirect('login');
+			// \Alert::warning('Anda gagal login! Email & Password Salah', 'Hi');
+			return redirect('login')->with('warning', 'Anda gagal login! Email & Password Salah');
+		}
+
+	}
+
+	public function doLoginAjax(Request $request) {
+		// return $request->all();
+		$rules = [
+			'email' => 'required|email',
+			'password' => 'required',
+		];
+
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+			return response()->json(
+				[
+					'errors' => $validator->errors(),
+					'status' => GAGAL,
+				]);
+		}
+
+		$email = $request->email;
+		$password = $request->password;
+		$remember = $request->remember;
+
+		if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+			return response()->json(
+				[
+					'data' => Auth::user(),
+					'status' => 'sukses',
+				]
+			);
+		} else {
+			return response()->json(
+				[
+					'errors' => ['message' => 'Email dan password salah'],
+					'status' => GAGAL,
+				]);
 		}
 
 	}

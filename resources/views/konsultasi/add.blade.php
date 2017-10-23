@@ -15,6 +15,7 @@
                     <div class="panel-body">
                         <h4 class="example-title">Buat Konsultasi Baru</h4>
                         <form autocomplete="off" method="post" action="{{ route('konsultasi.store') }}">
+                            <input type="hidden" name="id_jasa" value="{{isset($id_jasa)?$id_jasa:0}}">
                         {{ csrf_field()}}
                             <div class="form-group {{ $errors->has('bidang_pendampingan_id') ? ' has-error' : '' }}">
                                 <label class="control-label">Pilih Bidang</label>

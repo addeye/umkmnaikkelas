@@ -37,7 +37,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
+                                <table id="example" class="table table-hover dataTable table-striped width-full">
                                     <thead>
                                         <tr>
                                             <th>
@@ -109,4 +109,10 @@
     {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
 
     {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
+
+    <script>
+        $('#example').dataTable( {
+  "ordering": false
+} );
+    </script>
 @endsection

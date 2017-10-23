@@ -80,7 +80,7 @@ class HomeController extends Controller {
 
 				$jasa_id = $jasa->pluck('id');
 
-				$data['order_konsultasi'] = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa_id)->get();
+				$data['order_konsultasi'] = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa_id)->orderBy('id', 'DESC')->get();
 
 				$data['event'] = Event::whereIn('role_level', ['Pendamping', 'Semua'])->where('status', 'Open')->get();
 
@@ -93,7 +93,7 @@ class HomeController extends Controller {
 
 				$umkm_id = $user->umkm->id;
 
-				$order = OrderKonsultasi::where('umkm_id', $umkm_id)->get();
+				$order = OrderKonsultasi::where('umkm_id', $umkm_id)->orderBy('id', 'DESC')->get();
 				$jasa_pendampingan_id = $order->pluck('jasa_pendampingan_id');
 				$pendamping_id = JasaPendampingan::whereIn('id', $jasa_pendampingan_id)->pluck('pendamping_id');
 				$pendamping = $pendamping_id->unique();
@@ -113,12 +113,22 @@ class HomeController extends Controller {
 			return view('dashboard', $data);
 		} else {
 
+			$pendampingNotValidasi = Pendamping::where('validasi', 1)->pluck('id');
+
 			$data = array(
 				'info_terkini' => InfoTerkini::with('user')->limit(3)->where('publish', 'Ya')->where('level', 'Umum')->orderBy('created_at', 'DESC')->get(),
 				'slider' => Slider::where('publish', 'Yes')->get(),
 				'page_static' => PageStatic::all(),
-				'bidang_pendampingan' => BidangPendampingan::all(),
-				'bidang_keahlian' => BidangKeahlian::all(),
+				'bidang_pendampingan' => BidangPendampingan::with([
+					'pendamping_rel' => function ($q) use ($pendampingNotValidasi) {
+						$q->whereNotIn('pendamping_id', $pendampingNotValidasi);
+					},
+				])->get(),
+				'bidang_keahlian' => BidangKeahlian::with([
+					'pendamping_rel' => function ($q) use ($pendampingNotValidasi) {
+						$q->whereNotIn('pendamping_id', $pendampingNotValidasi);
+					},
+				])->get(),
 			);
 			return view('welcome', $data);
 		}
@@ -167,10 +177,7 @@ class HomeController extends Controller {
 			'BdUsaha' => BidangUsaha::all(),
 			'lembaga' => Lembaga::orderBy('id_lembaga', 'ASC')->get(),
 			'user' => Auth::user(),
-			'data' => $pendamping,
-			'bd_keahlian_arr' => explode(", ", $pendamping->bidang_keahlian),
-			'bd_pendampingan_arr' => explode(", ", $pendamping->bidang_pendampingan),
-			'bd_usaha_arr' => explode(", ", $pendamping->bidang_usaha),
+			'data' => $pendamping->load('rel_bd_pendampingan', 'rel_bd_keahlian'),
 			'kab_tambahan_arr' => explode(", ", $pendamping->kabkota_tambahan),
 		];
 		// return $data;
@@ -205,7 +212,6 @@ class HomeController extends Controller {
 			'sertifikat' => 'nullable',
 			'bidang_pendampingan' => 'required',
 			'bidang_keahlian' => 'required',
-			'bidang_usaha' => 'required',
 			'kabkota_id' => 'required',
 			'kabkota_tambahan' => 'nullable',
 			'lembaga_id' => 'required',
@@ -233,12 +239,6 @@ class HomeController extends Controller {
 		$pendamping->pengalaman = $request->pengalaman;
 		$pendamping->sertifikat = $request->sertifikat;
 
-		if ($request->has('bidang_pendampingan')) {
-			$pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
-		}
-		if ($request->has('bidang_keahlian')) {
-			$pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
-		}
 		$pendamping->kabkota_id = $request->kabkota_id;
 		if ($request->has('kabkota_tambahan')) {
 			$pendamping->kabkota_tambahan = implode(", ", $request->kabkota_tambahan);
@@ -252,6 +252,28 @@ class HomeController extends Controller {
 		}
 
 		$pendamping->save();
+
+		PendampinganRelBdPendampingan::where('pendamping_id', $pendamping->id)->delete();
+		PendampinganRelBdKeahlian::where('pendamping_id', $pendamping->id)->delete();
+
+		if ($request->has('bidang_pendampingan')) {
+			foreach ($request->bidang_pendampingan as $value) {
+				$bdp = new PendampinganRelBdPendampingan();
+				$bdp->pendamping_id = $pendamping->id;
+				$bdp->bidang_pendampingan_id = $value;
+				$bdp->save();
+			}
+			// $pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
+		}
+		if ($request->has('bidang_keahlian')) {
+			foreach ($request->bidang_keahlian as $value) {
+				$bdk = new PendampinganRelBdKeahlian();
+				$bdk->pendamping_id = $pendamping->id;
+				$bdk->bidang_keahlian_id = $value;
+				$bdk->save();
+			}
+			// $pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
+		}
 
 		$user = User::find(Auth::user()->id);
 		$user->name = $request->nama_pendamping;
@@ -389,15 +411,6 @@ class HomeController extends Controller {
 		$pendamping->pengalaman = $request->pengalaman;
 		$pendamping->sertifikat = $request->sertifikat;
 		$pendamping->lembaga_id = $request->lembaga_id;
-
-		if ($request->has('bidang_pendampingan')) {
-
-			$pendamping->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
-		}
-		if ($request->has('bidang_keahlian')) {
-
-			$pendamping->bidang_keahlian = implode(", ", $request->bidang_keahlian);
-		}
 
 		$pendamping->kabkota_id = $request->kabkota_id;
 		if ($request->has('kabkota_tambahan')) {

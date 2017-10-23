@@ -6,9 +6,11 @@ use App\BidangPendampingan;
 use App\Http\Controllers\Controller;
 use App\JasaPendampingan;
 use App\JasaRelBidangPendampingan;
+use App\Jobs\SendEmail;
 use App\OrderChat;
 use App\OrderChatFile;
 use App\OrderKonsultasi;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FileClass;
@@ -76,6 +78,10 @@ class KonsultasiController extends Controller {
 		$order->status = 'Cari Jasa';
 		$order->bidang_pendampingan_id = $request->bidang_pendampingan_id;
 		$order->umkm_id = $umkm_id;
+		if ($request->id_jasa != 0) {
+			$order->jasa_pendampingan_id = $request->id_jasa;
+			$order->status = 'Menunggu';
+		}
 		$order->save();
 
 		if ($order) {
@@ -87,8 +93,22 @@ class KonsultasiController extends Controller {
 		}
 
 		if ($order) {
-			\Alert::success('Silahkan Pilih Jasa Pendampingan yang sesuai', 'Pilih Jasa!');
-			return redirect()->route('konsultasi.list.jasa', ['order_konsultasi_id' => $order->id]);
+			if ($order->status == 'Cari Jasa') {
+				\Alert::success('Silahkan Pilih Jasa Pendampingan yang sesuai', 'Pilih Jasa!');
+				return redirect()->route('konsultasi.list.jasa', ['order_konsultasi_id' => $order->id]);
+			} else {
+
+				$user_id = $order->jasa_pendampingan->pendamping->user_id;
+
+				$sendto = User::find($user_id);
+				$job = (new SendEmail($order->load('umkm'), 'konsultasi-baru', $sendto))
+					->onConnection('database');
+
+				dispatch($job);
+				\Alert::success('Order Menunggu Respon Pendamping', 'Berhasil!');
+				return redirect()->route('konsultasi.index');
+			}
+
 		}
 
 	}
@@ -176,6 +196,16 @@ class KonsultasiController extends Controller {
 			'files' => $files,
 			'order_konsultasi_id' => $order_konsultasi_id,
 		);
+		$jasa = JasaPendampingan::where('pendamping_id', $jasa_pendampingan->pendamping->id)->get();
+
+		$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
+		$jmlumkm = $umkm->unique();
+
+		$kegiatan = OrderChat::where('user_id', $jasa_pendampingan->pendamping->user->id)->get();
+
+		$data['jasa'] = $jasa;
+		$data['umkm'] = $jmlumkm;
+		$data['kegiatan'] = $kegiatan;
 		// return $data;
 		return view('konsultasi.show_jasa', $data);
 	}
@@ -187,6 +217,16 @@ class KonsultasiController extends Controller {
 		$order->save();
 
 		if ($order) {
+
+			$user_id = $order->jasa_pendampingan->pendamping->user_id;
+
+			$sendto = User::find($user_id);
+
+			$job = (new SendEmail($order->load('umkm'), 'konsultasi-baru', $sendto))
+				->onConnection('database');
+
+			dispatch($job);
+
 			\Alert::success('Data telah masuk', 'Berhasil !');
 			return redirect()->route('konsultasi.index');
 		}
@@ -266,5 +306,15 @@ class KonsultasiController extends Controller {
 			// \Alert::success('Data berhasil disimpan', 'Selamat !');
 			return redirect()->route('konsultasi.show', ['id' => $request->order_konsultasi_id]);
 		}
+	}
+
+	public function createWithJasa($id) {
+		$umkm_id = Auth::user()->umkm->id;
+		$data = array(
+			'bidang' => BidangPendampingan::all(),
+			'riwayat' => OrderKonsultasi::where('umkm_id', $umkm_id)->get(),
+			'id_jasa' => $id,
+		);
+		return view('konsultasi.add', $data);
 	}
 }

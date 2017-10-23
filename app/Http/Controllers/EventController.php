@@ -123,6 +123,7 @@ class EventController extends Controller {
 			'data' => Event::find($id),
 			'event_follower' => $event_follower,
 		);
+		// return $data;
 		return view('event.show', $data);
 	}
 
@@ -208,7 +209,7 @@ class EventController extends Controller {
 	 * @param  \App\Event  $event
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Event $event) {
+	public function destroy($id) {
 		//
 	}
 
@@ -301,6 +302,35 @@ class EventController extends Controller {
 		}
 	}
 
+	public function validasi_follower_action(Request $request) {
+		if ($request->status == 'Terima') {
+
+			$follower = EventFollower::where('validation', 'No')->update(['validation' => 'Yes']);
+
+		} elseif ($request->status == 'Tolak') {
+
+			$follower = EventFollower::where('validation', 'No')->update(['validation' => 'Out']);
+
+		}
+		// return $request->all();
+
+		if ($follower) {
+			\Alert::success('Data berhasil dirubah', 'Selamat !');
+			return redirect()->route('event.show', ['id' => $request->event_id]);
+		}
+	}
+
+	public function delete_follower($id) {
+		$event = EventFollower::find($id);
+		$event_id = $event->event_id;
+		$event->delete();
+
+		if ($event) {
+			\Alert::success('User berhasil dihapus', 'Selamat !');
+			return redirect()->route('event.show', ['id' => $event_id]);
+		}
+	}
+
 	public function diskusi(Request $request) {
 		$rule = [
 			'comment' => 'required',
@@ -383,9 +413,10 @@ class EventController extends Controller {
 		$event = Event::find($event_id);
 
 		if ($event->role_level == 'Pendamping') {
-			$pendamping = Pendamping::where('validasi', 1)->pluck('user_id');
+			$pendamping = Pendamping::where('validasi', 0)->pluck('user_id');
 
-			$user = User::with('role')->where('role_id', ROLE_PENDAMPING)->whereNotIN('id', $event_follower)->whereNotIN('id', $pendamping)->where('status', 'Aktif')->get();
+			$user = User::with('role')->where('role_id', ROLE_PENDAMPING)->whereNotIn('id', $event_follower)->where('status', 'Aktif')->get();
+			$user = $user->whereIn('id', $pendamping);
 
 		} elseif ($event->role_level == 'UMKM') {
 			$user = User::with('role')->where('role_id', ROLE_UMKM)->whereNotIN('id', $event_follower)->where('status', 'Aktif')->get();
@@ -415,7 +446,38 @@ class EventController extends Controller {
 		}
 	}
 
-	public function doAllInvite() {
+	public function doInviteAll(Request $request) {
+		// return $request->all();
+		$data = $request->datas;
+		$event_id = $request->id_event;
+		$insert = 0;
 
+		foreach ($data as $key => $value) {
+			$event = new EventFollower();
+			$event->user_id = $value;
+			$event->event_id = $event_id;
+			$event->validation = 'Yes';
+			$event->save();
+			if ($event) {
+				$insert++;
+			}
+		}
+
+		if ($insert > 0) {
+			return response()->json(
+				[
+					'status' => SUKSES,
+					'insert' => $insert,
+				]
+			);
+		} else {
+
+			return response()->json(
+				[
+					'status' => GAGAL,
+					'insert' => $insert,
+				]
+			);
+		}
 	}
 }

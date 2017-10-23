@@ -2,7 +2,6 @@
 
 use App\BidangKeahlian;
 use App\BidangPendampingan;
-use App\Jobs\SendFormEmail;
 use App\Pendamping;
 use App\PendampingRelBdKeahlian;
 use App\PendampingRelBdPendampingan;
@@ -22,6 +21,7 @@ Route::get('/testsms', 'HomeController@sms_test');
 // Auth::routes();
 Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@doLogin')->name('login');
+Route::post('loginajax', 'AuthController@doLoginAjax')->name('login.ajax');
 Route::post('logout', 'AuthController@logout')->name('logout');
 
 Route::get('lupa-password', 'AuthController@forgetPassword')->name('password.request');
@@ -53,6 +53,9 @@ Route::get('forum', 'LayananController@infoForum')->name('layanan.info.forum');
 Route::get('kontak-kami', 'LayananController@kontak')->name('layanan.info.kontak');
 Route::post('kontak-kami', 'LayananController@kirimKontak')->name('layanan.kirim.kontak');
 Route::get('page/{slug}', 'PageController@page');
+
+Route::get('data-pendamping', 'FrontPageController@pendamping')->name('data.pendamping');
+Route::get('jasa-pendampingan-detail/{id}', 'FrontPageController@jasa')->name('data.pendamping.jasa');
 
 Route::group(['middleware' => 'auth'], function () {
 	// Route::get('/', 'HomeController@index')->name('home');
@@ -156,9 +159,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('event-file/{id}', 'EventController@doSubfile')->name('event.dofile');
 		Route::put('event-validasi/{id}', 'EventController@validasi')->name('event.validasi');
 		Route::put('event-validasi-follower/{id}', 'EventController@validasi_follower')->name('event.follow.validasi');
+		Route::post('event-validasi-follower', 'EventController@validasi_follower_action')->name('event.follow.validasi.all');
 		Route::post('event-diskusi', 'EventController@diskusi')->name('event.diskusi');
 		Route::get('event-invite/{id}', 'EventController@invite')->name('event.invite');
 		Route::post('event-invite', 'EventController@doInvite')->name('event.doinvite');
+		Route::post('event-invite-all', 'EventController@doInviteAll')->name('event.doinvite.all');
+		Route::delete('delete-follower/{id}', 'EventController@delete_follower')->name('event.delete.follower');
 
 		Route::resource('broadcast', 'BroadcastController');
 		Route::put('broadcast-send/{id}', 'BroadcastController@send')->name('broadcast.send');
@@ -172,7 +178,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('pengajuan-umkm', 'PengajuanUmkmController');
 		Route::post('ajax-upload/umkm', 'PengajuanUmkmController@uploadAJax')->name('pengajuan-umkm.upload');
 		Route::get('file-umkm/{path}', 'PengajuanUmkmController@getFile')->name('pengajuan-umkm.getfile');
+
 		Route::resource('konsultasi', 'KonsultasiController');
+		Route::get('konsultasi-pendamping-jasa/{id}', 'KonsultasiController@createWithJasa')->name('konsultasi.select.jasa_id');
+
 		Route::get('konsultasi-list-jasa/{order_konsultasi_id}', 'KonsultasiController@get_jasa')->name('konsultasi.list.jasa');
 		Route::get('konsultasi-show-jasa/{jasa_id}/{order_konsultasi_id}', 'KonsultasiController@show_jasa')->name('konsultasi.show.jasa');
 		Route::put('konsultasi-select-jasa/{order_konsultasi_id}', 'KonsultasiController@select_jasa')->name('konsultasi.select.jasa');
@@ -210,16 +219,27 @@ Route::get('new-register', function () {
 });
 
 Route::get('send_test_email', function () {
-	// Mail::raw('Sending emails with Mailgun and Laravel is easy!', function ($message) {
-	// 	$message->to('mokhamad27@gmail.com');
-	// });
-	$job = (new SendFormEmail())->onConnection('database');
-	dispatch($job);
+	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function ($message) {
+		$message->to('mokhamad27@gmail.com');
+	});
+	// $job = (new SendFormEmail())->onConnection('database');
+	// dispatch($job);
 });
 
 Route::get('/clear-cache', function () {
 	$exitCode = Artisan::call('cache:clear');
 	return 'cache cleared';
+});
+
+Route::get('/pleasedown', function () {
+	$exitCode = Artisan::call('down');
+	$exitCode = Artisan::call("queue:work --daemon --force");
+	return 'enable maintenance mode';
+});
+
+Route::get('/pleaseup', function () {
+	$exitCode = Artisan::call('up');
+	return 'disable maintenance mode';
 });
 
 Route::get('/clear-config', function () {
@@ -230,6 +250,20 @@ Route::get('/clear-config', function () {
 Route::get('/restart-queue', function () {
 	$exitCode = Artisan::call('queue:restart');
 	return 'queue restart';
+});
+
+Route::get('/work-queue', function () {
+	$exitCode = Artisan::call('queue:work');
+	return 'queue work';
+});
+
+Route::get('force-queue', function () {
+	Artisan::call('queue:flush');
+	return 'force queue:work --daemon';
+});
+
+Route::get('/phpinfo', function () {
+	phpinfo();
 });
 
 // do change string become ID in new table
@@ -276,4 +310,30 @@ Route::get('/migrasi_pendamping_keahlian', function () {
 
 	}
 	// return $row;
+});
+
+Route::get('/validasi_rel_pendampingan', function () {
+	$data = PendampingRelBdPendampingan::all();
+	$check_status = array();
+	foreach ($data as $key => $value) {
+		$check = PendampingRelBdPendampingan::where('pendamping_id', $value->pendamping_id)->where('bidang_pendampingan_id', $value->bidang_pendampingan_id)->count();
+		if ($check > 1) {
+			PendampingRelBdPendampingan::destroy($value->id);
+			$check_status[] = 'ada dua';
+		}
+	}
+	return count($check_status);
+});
+
+Route::get('/validasi_rel_keahlian', function () {
+	$data = PendampingRelBdKeahlian::all();
+	$check_status = array();
+	foreach ($data as $key => $value) {
+		$check = PendampingRelBdKeahlian::where('pendamping_id', $value->pendamping_id)->where('bidang_keahlian_id', $value->bidang_keahlian_id)->count();
+		if ($check > 1) {
+			PendampingRelBdKeahlian::destroy($value->id);
+			$check_status[] = 'ada dua';
+		}
+	}
+	return count($check_status);
 });

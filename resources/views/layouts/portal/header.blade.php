@@ -29,7 +29,7 @@
           </a>
           <ul class="dropdown-menu" role="menu">
             <li role="presentation">
-              <a href="{{route('profile',['id'=>md5(Auth::user()->id)])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+              <a href="{{route('profile',['id'=>md5(Auth::user()->id)])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Setting Akun</a>
             </li>
             <li class="divider" role="presentation"></li>
             <li role="presentation">

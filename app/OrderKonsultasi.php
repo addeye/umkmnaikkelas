@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class OrderKonsultasi extends Model {
 	protected $table = 'order_konsultasi';
 
+	protected $appends = ['textdate'];
+
+	public function getTextdateAttribute() {
+		Carbon::setLocale('id');
+		return $this->created_at->diffForHumans();
+	}
+
 	public function bidang_pendampingan() {
 		return $this->belongsTo('App\BidangPendampingan', 'bidang_pendampingan_id');
 	}

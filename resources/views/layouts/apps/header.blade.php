@@ -9,9 +9,9 @@
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse"
                 data-toggle="collapse">
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
-        </button>        
+        </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-            <img class="navbar-brand-logo" src="{{url('images/logo.png')}}" title="UMKM NAIK KELAS"> 
+            <img class="navbar-brand-logo" src="{{url('images/logo.png')}}" title="UMKM NAIK KELAS">
             <span class="navbar-brand-text">UMKM NAIK KELAS</span>
         </div>
     </div>
@@ -28,12 +28,12 @@
                             <span class="hamburger-bar"></span>
                         </i>
                     </a>
-                </li>                
+                </li>
             </ul>
             <!-- End Navbar Toolbar -->
 
             <!-- Navbar Toolbar Right -->
-            <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">                
+            <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
                 <li class="dropdown">
                     <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                        data-animation="slide-bottom" role="button">
@@ -49,12 +49,12 @@
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation">
                             <a href="{{route('user-profile.user',['id'=>md5(Auth::user()->id)])}}" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> {{Auth::user()->name}}</a>
-                        </li>                        
+                        </li>
                         <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>
+                            <a href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Setting Akun</a>
                         </li>
                         <li class="divider" role="presentation"></li>
-                        <li role="presentation">                    
+                        <li role="presentation">
                         <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="javascript:void(0)" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                         </li>

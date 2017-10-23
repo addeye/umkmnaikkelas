@@ -266,11 +266,23 @@
                         </div>
                         <div class="tab-pane" id="exampleTabsLineThree" role="tabpanel">
                             <div class="padding-5">
-                                <a href="{{ route('event.invite',['id'=>$data->id]) }}"><i class="icon wb-plus"></i> Invite Akun</a>
+                                <a href="{{ route('event.invite',['id'=>$data->id]) }}" class="btn btn-primary"><i class="icon wb-plus"></i> Invite Akun</a>
+
+                                <a onclick="event.preventDefault(); ConfirmAction('Terima');" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Terima Semua" class="btn btn-success"><i class="icon wb-check" aria-hidden="true"></i> Terima Semua</a>
+
+                                <a onclick="event.preventDefault(); ConfirmAction('Tolak');" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Tolak Semua" class="btn btn-danger"><i class="icon wb-close" aria-hidden="true"></i> Tolak Semua</a>
+
+                                <form id="invite-action" action="{{route('event.follow.validasi.all')}}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="event_id" value="{{$data->id}}">
+                                                <input type="hidden" id="status" name="status">
+                                              </form>
                             </div>
                             <div class="tables-responsive">
-                                <table class="table">
-                                    <tr>
+                                <table class="table" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
                                         <th>
                                             Nama
                                         </th>
@@ -281,11 +293,21 @@
                                             No Telp
                                         </th>
                                         <th>
+                                            Kab/Kota
+                                        </th>
+                                        <th>
+                                            Jenis Akun
+                                        </th>
+                                        <th>
                                             Validation
                                         </th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;?>
                                     @foreach ($data->event_follower as $row)
                                     <tr>
+                                        <td>{{$no++}}</td>
                                         <td>
                                             {{$row->user->name}}
                                         </td>
@@ -295,11 +317,19 @@
                                         <td>
                                             {{$row->user->telp}}
                                         </td>
+                                        @if ($row->user->role_id==ROLE_UMKM)
+                                            <td>{{$row->user->umkm->kota}}</td>
+                                            @elseif($row->user->role_id==ROLE_PENDAMPING)
+                                            <td>{{$row->user->pendamping?$row->user->pendamping->kota:''}}</td>
+                                            @else
+                                            <td>-</td>
+                                        @endif
+                                        <td>{{$row->user->role->nama}}</td>
                                         <td>
                                             @if ($row->validation=='No')
                                                 <a onclick="event.preventDefault(); ConfirmValidasi({{$row->id}},'Yes');" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Terima"><i class="icon wb-check" aria-hidden="true"></i> Terima</a>
 
-                                            <a onclick="event.preventDefault(); ConfirmValidasi({{$row->id}},'Out');" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Tolak"><i class="icon wb-close" aria-hidden="true"> Tolak</i></a>
+                                            <a onclick="event.preventDefault(); ConfirmValidasi({{$row->id}},'Out');" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Tolak"><i class="icon wb-close" aria-hidden="true"></i> Tolak</a>
 
                                               <form id="validasi-form-{{$row->id}}" action="{{route('event.follow.validasi',['id'=>$row->id])}}" method="POST" style="display: none;">
                                                 {{ csrf_field() }}
@@ -308,11 +338,18 @@
                                               </form>
                                               @else
                                               {{$row->validation}}
-                                            @endif
 
+                                               <a class="red-800" onclick="event.preventDefault(); ConfirmDeleteFollower({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Hapus"><i class="icon wb-trash" aria-hidden="true"></i></a>
+
+                                            <form id="delete-form-follower-{{$row->id}}" action="{{route('event.delete.follower',['id'=>$row->id])}}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                              </form>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -331,9 +368,28 @@
 @section('css')
 {!! Html::style(asset('jquery-filer/css/jquery.filer.css')) !!}
     {!! Html::style(asset('jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css')) !!}
+    {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
+  {{Html::style('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.css')}}
+  {{Html::style('remark/assets/vendor/datatables-responsive/dataTables.responsive.css')}}
+
+  <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
 @endsection
 
 @section('js')
+
+    {{Html::script(asset('remark/assets/vendor/datatables/jquery.dataTables.min.js'))}}
+  {{Html::script(asset('remark/assets/vendor/datatables-fixedheader/dataTables.fixedHeader.js'))}}
+  {{Html::script(asset('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.js'))}}
+  {{Html::script(asset('remark/assets/vendor/datatables-responsive/dataTables.responsive.js'))}}
+  {{Html::script(asset('remark/assets/vendor/datatables-tabletools/dataTables.tableTools.js'))}}
+  {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
+
+  <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+  <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+  <script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+  <script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
 
   {{Html::script(asset('remark/assets/js/plugins/responsive-tabs.js'))}}
   {{Html::script(asset('remark/assets/js/plugins/closeable-tabs.js'))}}
@@ -485,6 +541,30 @@
                 });
         }
 
+        function ConfirmDeleteFollower(id)
+        {
+            var id = id;
+            swal({
+                    title: "Apakah Yakin?",
+                    text: "Data akan benar-benar dihapus!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, Hapus!",
+                    cancelButtonText: "Tidak, Batalkan!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        document.getElementById('delete-form-follower-'+id).submit();
+                    } else {
+                        swal("Dibatalkan", "Data tidak jadi dihapus", "error");
+                    }
+                });
+        }
+
         function ConfirmValidasi(id,string)
         {
             console.log(string);
@@ -507,6 +587,31 @@
                         document.getElementById('validasi-form-'+id).submit();
                     } else {
                         swal("Dibatalkan", "Data tidak jadi divalidasi", "error");
+                    }
+                });
+        }
+
+        function ConfirmAction(string)
+        {
+            console.log(string);
+            $('#status').val(string);
+            swal({
+                    title: "Apakah Yakin?",
+                    text: "Semua akan di "+string,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, "+string,
+                    cancelButtonText: "Tidak, Batalkan!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        document.getElementById('invite-action').submit();
+                    } else {
+                        swal("Dibatalkan", "Data tidak jadi di "+string, "error");
                     }
                 });
         }
@@ -538,5 +643,19 @@ var token = $('input[name=_token]').val();
             alert(msg);
         });
   }
+</script>
+
+<script type="text/javascript">
+
+$('#example').DataTable( {
+         dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5',
+            'print'
+        ]
+    } );
 </script>
 @endsection

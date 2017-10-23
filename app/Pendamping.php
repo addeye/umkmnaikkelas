@@ -30,7 +30,7 @@ class Pendamping extends Model {
 	}
 
 	public function rel_bd_pendampingan() {
-		return $this->hasMany('App\PendampingRelBdPendampinga', 'pendamping_id');
+		return $this->hasMany('App\PendampingRelBdPendampingan', 'pendamping_id');
 
 	}
 

@@ -124,11 +124,11 @@ a:focus, a:hover {
       <p>Tidak punya akun ? Silahkan</p>
       <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
       <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/pendamping')}}">Daftar Pendamping</a></p>
-      <p>
+      {{-- <p>
       <a href="redirect/facebook" class="btn btn-labeled social-facebook">
                     <span class="btn-label"><i class="icon bd-facebook" aria-hidden="true"></i></span>Masuk</a> Atau
         <a href="redirect/twitter" class="btn btn-labeled social-twitter">
-                    <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Masuk</a></p>
+                    <span class="btn-label"><i class="icon bd-twitter" aria-hidden="true"></i></span>Masuk</a></p> --}}
       <footer class="page-copyright">
         <p>WEBSITE BY PeacBromo</p>
         <p>© 2017. All RIGHT RESERVED.</p>
@@ -206,6 +206,8 @@ a:focus, a:hover {
 
     {{session()->has('success')?'success()':''}}
 
+    {{session()->has('warning')?'warning()':''}}
+
 
     function error()
     {
@@ -215,6 +217,11 @@ a:focus, a:hover {
     function success()
     {
       toastr.success('Silahkan cek email untuk password anda');
+    }
+
+    function warning()
+    {
+      toastr.warning('{{session("warning")}}');
     }
   </script>
 

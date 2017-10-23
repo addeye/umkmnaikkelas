@@ -4,9 +4,6 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT');
 
-use App\Pendamping;
-use App\Umkm;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,13 +23,13 @@ use App\Umkm;
 
 // });
 //
-Route::get('umkm', function () {
-	return Umkm::with('user')->paginate(5);
-});
+// Route::get('umkm', function () {
+// 	return Umkm::with('user')->paginate(5);
+// });
 
-Route::get('pendamping', function () {
-	return Pendamping::with('user')->paginate(5);
-});
+// Route::get('pendamping', function () {
+// 	return Pendamping::with('user')->paginate(5);
+// });
 Route::group(['namespace' => 'Api'], function () {
 	Route::post('login', 'AuthController@login');
 	Route::post('logout/{id}', 'AuthController@logout');
@@ -40,13 +37,25 @@ Route::group(['namespace' => 'Api'], function () {
 
 	Route::post('registrasi', 'RegistrasiController@registrasi');
 
-	Route::get('kabkota', 'HomeController@kabkota');
-	Route::get('bidang_usaha', 'HomeController@bidang_usaha');
+	Route::get('kabkota', 'MasterController@kota');
+	Route::get('bidang_usaha', 'MasterController@bidangusaha');
+	Route::get('skala_usaha', 'MasterController@skalausaha');
+	Route::get('kecamatan', 'MasterController@kecamatan');
+	Route::get('kecamatan_by_kota/{kota_id}', 'MasterController@kecamatanByKota');
 
 	Route::group(['middleware' => 'auth:api'], function () {
 
 		Route::get('bidang_pendampingan', 'HomeController@bidang_pendampingan');
 		Route::get('bidang_keahlian', 'HomeController@bidang_keahlian');
 
+		Route::post('update-profile', 'ProfileController@update');
+		Route::get('selengkapnya', 'ProfileController@getByRole');
+		Route::post('update-umkm', 'ProfileController@updateRoleDataUmkm');
+
+		Route::post('registrasi-pendamping', 'RegistrasiController@registrasi_pendamping');
+		Route::post('registrasi-umkm', 'RegistrasiController@registrasi_umkm');
+
+		Route::get('event', 'EventController@getAll');
+		Route::get('event/{id}', 'EventController@getById');
 	});
 });

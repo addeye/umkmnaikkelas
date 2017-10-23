@@ -122,7 +122,7 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" name="bidang_pendampingan[]" multiple data-plugin="select2">
                         @foreach($BdPendampingan as $row)
-                            <option value="{{$row->nama}}" {{in_array($row->nama,$bd_pendampingan_arr)?'selected':''}} >{{$row->nama}}</option>
+                            <option value="{{$row->id}}" {{in_array($row->id,$data->rel_bd_pendampingan->pluck('bidang_pendampingan_id')->toArray())?'selected':''}} >{{$row->nama}}</option>
                         @endforeach
                     </select>
                     <span class="help-block">
@@ -136,27 +136,13 @@
                   <div class="col-sm-9 select2-warning">
                     <select class="form-control" multiple data-plugin="select2" name="bidang_keahlian[]">
                         @foreach($BdKeahlian as $row)
-                            <option value="{{$row->nama}}" {{in_array($row->nama,$bd_keahlian_arr)?'selected':''}} >{{$row->nama}}</option>
+                            <option value="{{$row->id}}" {{in_array($row->id,$data->rel_bd_keahlian->pluck('bidang_keahlian_id')->toArray())?'selected':''}} >{{$row->nama}}</option>
                         @endforeach
                     </select>
                     <span class="help-block">
                       <strong>{{ $errors->first('bidang_keahlian') }}</strong>
                     </span>
                   </div>
-                </div>
-
-                <div class="form-group {{ $errors->has('bidang_usaha') ? ' has-error' : '' }}">
-                    <label class="col-sm-3 control-label">Bidang Usaha</label>
-                    <div class="col-sm-9 select2-warning">
-                        <select class="form-control" multiple data-plugin="select2" name="bidang_usaha[]">
-                            @foreach($BdUsaha as $row)
-                                <option value="{{$row->nama}}" {{in_array($row->nama,$bd_usaha_arr)?'selected':''}} >{{$row->nama}}</option>
-                            @endforeach
-                        </select>
-                        <span class="help-block">
-                            <strong>{{ $errors->first('bidang_usaha') }}</strong>
-                        </span>
-                    </div>
                 </div>
 
                 <div class="form-group {{ $errors->has('kabkota_id') ? ' has-error' : '' }}">

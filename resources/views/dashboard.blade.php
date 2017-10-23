@@ -33,6 +33,11 @@
                             lunas@umkmnaikkelas.com
                         </span>
                     </strong>
+                    <p>Jika Telah Melakukan</p>
+                    <ul>
+                        <li>Pasang <strong>FOTO PROFIL</strong> anda. Berada di menu Setting Akun dipojok kanan</li>
+                        <li>Menyertakan <strong>FOTO SCAN KTP</strong> di tombol Lihat Profil -> Edit Profil </li>
+                    </ul>
                 </div>
             </div>
             @endif
@@ -128,6 +133,28 @@
                 <!-- End Page Widget -->
             </div>
             <div class="col-md-9">
+
+                @if (Auth::user()->role_id == ROLE_UMKM)
+                <div class="row">
+                    <div class="col-md-12">
+                        <form role="search" method="get" action="{{ route('data.pendamping') }}">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="cari" class="form-control" name="nama" placeholder="Cari Nama/Email Pendamping Untuk Konsultasi..." type="text" autofocus>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i aria-hidden="true" class="icon wb-search">
+                                        </i>
+                                    </button>
+                                </span>
+                            </input>
+                        </div>
+                    </div>
+                </form>
+                    </div>
+                </div>
+
+                @endif
                 <!-- Panel -->
                 <div class="panel">
                     <div class="panel-body">

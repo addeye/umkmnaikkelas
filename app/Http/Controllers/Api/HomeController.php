@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\BidangKeahlian;
 use App\BidangPendampingan;
-use App\BidangUsaha;
 use App\Http\Controllers\Controller;
-use Indonesia;
 
 class HomeController extends Controller {
 	public function bidang_pendampingan() {
@@ -47,45 +45,5 @@ class HomeController extends Controller {
 			]
 		);
 
-	}
-
-	public function kabkota() {
-		$data = Indonesia::allCities();
-		if ($data) {
-			return response()->json(
-				[
-					'status' => SUKSES,
-					'data' => $data,
-
-				]
-			);
-		}
-		return response()->json(
-			[
-				'status' => GAGAL,
-				'data' => [],
-
-			]
-		);
-	}
-
-	public function bidang_usaha() {
-		$data = BidangUsaha::all();
-		if ($data) {
-			return response()->json(
-				[
-					'status' => SUKSES,
-					'data' => $data,
-
-				]
-			);
-		}
-		return response()->json(
-			[
-				'status' => GAGAL,
-				'data' => [],
-
-			]
-		);
 	}
 }

@@ -211,11 +211,27 @@ class PageController extends Controller {
 
 	public function detailPendamping($id) {
 		$pendampingan = Pendamping::find($id);
+
+		$jasa = JasaPendampingan::where('pendamping_id', $id)->get();
+		foreach ($jasa as $key => $value) {
+			$jasa[$key]->image = $value->jasa_file->where('file_type', 'image');
+		}
+
+		$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
+		$jmlumkm = $umkm->unique();
+
+		$kegiatan = OrderChat::where('user_id', $pendampingan->user->id)->get();
+
 		$kabkota_tambahan = explode(", ", $pendampingan->kabkota_tambahan);
 		$data = [
 			'data' => $pendampingan,
 			'kabkota_tambahan_arr' => $kabkota_tambahan,
 		];
+
+		$data['jasa'] = $jasa;
+		$data['umkm'] = $jmlumkm;
+		$data['kegiatan'] = $kegiatan;
+		// return $data;
 		return view('pendamping_detail', $data);
 	}
 

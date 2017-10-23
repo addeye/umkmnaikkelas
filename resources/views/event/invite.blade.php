@@ -11,27 +11,34 @@
           <h3 class="panel-title">Invite User</h3>
         </header>
         <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="red" id="alert"></h3>
+              <div class="pull-right">
+                <button type="button" class="btn btn-success" onclick="inviteAll()">Invite All</button>
+                <a href="{{ route('event.show',['id'=>$event_id]) }}" class="btn btn-warning">Kembali</a>
+              </div>
+            </div>
+          </div>
           <table class="table table-hover dataTable table-striped width-full" data-plugin="dataTable">
             <thead>
               <tr>
-                <th><input id="checkAll" type="checkbox"></th>
-                <th>Email</th>
-                <th>Nama</th>
-                <th>No Telp</th>
-                <th>Sebagai</th>
-                <th>Action</th>
+                <th class="desktop tablet-l tablet-p mobile-1">Email</th>
+                <th class="desktop">Nama</th>
+                <th class="desktop">No Telp</th>
+                <th class="desktop">Sebagai</th>
+                <th class="desktop tablet-l tablet-p mobile-1">Action</th>
+                <th class="desktop tablet-l tablet-p mobile-1"><input id="checkAll" type="checkbox"></th>
               </tr>
             </thead>
             <tbody>
             <?php $no = 1;?>
             @foreach($data as $row)
               <tr>
-                <td><input type="checkbox" class="checkUser" name="user_id_yet[]" value="{{$row->id}}"></td>
                 <td>{{$row->email}}</td>
                 <td>{{$row->name}}</td>
                 <td>{{$row->telp}}</td>
                 <td>{{$row->role->nama}}</td>
-                <td>{{$row->role_level}}</td>
                 <td class="text-nowrap">
                   <a onclick="event.preventDefault(); Confirm({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Invite"><i class="icon wb-check" aria-hidden="true"> Invite</i></a>
 
@@ -41,7 +48,7 @@
                     <input type="hidden" name="user_id" value="{{$row->id}}">
                   </form>
                 </td>
-                </td>
+                <td><input type="checkbox" class="checkUser" name="user_id_yet[]" value="{{$row->id}}"></td>
               </tr>
              @endforeach
             </tbody>
@@ -52,7 +59,21 @@
     </div>
   </div>
   <!-- End Page -->
+  {{ csrf_field() }}
 @endsection
+
+@section('modals')
+
+    <div class="modal fade" id="loading" aria-hidden="false" aria-labelledby="exampleFormModalLabel"
+                  role="dialog" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-body">
+                         <h3>Loading.....</h3>
+                        </div>
+                    </div>
+                  </div>
+
+    @endsection
 
 @section('css')
   {{Html::style('remark/assets/vendor/datatables-bootstrap/dataTables.bootstrap.css')}}
@@ -69,6 +90,37 @@
   {{Html::script(asset('remark/assets/js/components/datatables.js'))}}
 
   <script type="text/javascript">
+    var token = $('input[name="_token"]').val();
+
+    function inviteAll()
+    {
+      var checkedValues = $('input.checkUser:checkbox:checked').map(function() {
+    return this.value;
+    }).get();
+      console.log(checkedValues);
+      var event_id = {{$event_id}};
+      $.ajax({
+        beforeSend: function(){
+           $("#loading").modal('show');
+         },
+         complete: function(){
+           $("#loading").modal('hide');
+         },
+        url: "{{ route('event.doinvite.all') }}",
+        method: 'POST',
+        dataType:'json',
+        data: {_token:token,datas:checkedValues,id_event:event_id}
+    }).done(function(response){
+      console.log(response);
+      if(response.status == 'sukses')
+      {
+        location.reload(true);
+      }
+      else{
+        $("#alert").html('Gagal invite semua. kesalahan sistem');
+      }
+    });
+    }
 
     $("#checkAll").change(function() {
     if(this.checked) {

@@ -24,14 +24,18 @@
                         <span class="badge badge-default">Rp. {{ number_format($data->harga, 2) }}</span>
                       </h1>
                       <div class="visible-lg-* padding-left-30">
-                                <form action="{{ route('konsultasi.select.jasa',['id'=>$order_konsultasi_id]) }}" method="post">
-                                {!! csrf_field() !!}
-                                <input type="hidden" name="_method" value="PUT">
-                                <input type="hidden" name="jasa_pendampingan_id" value="{{$data->id}}">
-                                <span><button type="submit" class="btn btn-primary">Order</button>
-                                    <a href="{{ route('konsultasi.list.jasa',['order_konsultasi_id'=>$order_konsultasi_id]) }}" class="btn btn-default">Kembali</a>
-                                </span>
-                            </form>
+                            @if (Auth::check())
+                                @if (Auth::user()->role_id == ROLE_UMKM)
+                                    <a href="{{ route('konsultasi.select.jasa_id',['id'=>$data->id]) }}" class="btn btn-primary">Order</a>
+                                @endif
+
+                                @else
+
+                                <button class="btn btn-primary" data-target="#exampleFormModal" data-toggle="modal"
+                  type="button">Order</button>
+                            @endif
+
+                            <a href="{{route('page.pendamping.detail',['id'=>$data->pendamping->id])}}" class="btn btn-default">Lihat Lainnya</a>
                             </div>
                     </div>
                     <div class="panel-body">
@@ -131,7 +135,7 @@
                 <div class="widget widget-shadow text-center">
                     <div class="widget-header">
                         <div class="widget-header-content">
-                            <a class="avatar avatar-lg" href="javascript:void(0)">
+                            <a class="avatar avatar-lg" href="{{route('page.pendamping.detail',['id'=>$data->pendamping->id])}}">
                                 @if($data->pendamping->user->image =='')
                                 <img alt="..." src="{{asset('remark/assets/portraits/5.jpg')}}">
                                     @else
@@ -141,7 +145,7 @@
                                 </img>
                             </a>
                             <div class="profile-user">
-                                {{$data->pendamping->user->name}}
+                                <a href="{{route('page.pendamping.detail',['id'=>$data->pendamping->id])}}">{{$data->pendamping->user->name}}</a>
                             </div>
                             <div class="example">
                                 <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="2">
@@ -186,12 +190,73 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <h4>Pengalaman</h4>
+                        <p>{{$data->pendamping->pengalaman}}</p>
+                        <hr>
+                        <h4>Bidang Pendampingan</h4>
+                        @foreach ($data->pendamping->rel_bd_pendampingan as $row)
+                            <span class="badge badge-md badge-danger">{{$row->bidang_pendampingan->nama}}</span>
+                        @endforeach
+                        <hr>
+                        <h4>Bidang Keahlian</h4>
+                        @foreach ($data->pendamping->rel_bd_keahlian as $row)
+                            <span class="badge badge-md badge-warning">{{$row->bidang_keahlian->nama}}</span>
+                        @endforeach
+                    </div>
+                </div>
                 <!-- End Page Widget -->
             </div>
         </div>
     </div>
 </div>
 <!-- End Page -->
+    @endsection
+
+    @section('modal')
+
+    <div class="modal fade" id="exampleFormModal" aria-hidden="false" aria-labelledby="exampleFormModalLabel"
+                  role="dialog" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="exampleFormModalLabel">Login Sebagai UMKM</h4>
+                          <small>Anda Harus Sebagai UMKM jika ingin order Jasa Ini</small>
+                        </div>
+                        <div class="modal-body">
+                          <form id="formlogin">
+                            <span id="alert" style="color: red;"></span>
+                            {{ csrf_field() }}
+                            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                              <label class="sr-only" for="inputEmail">Email</label>
+                              <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="{{old('email')}}" required>
+                            </div>
+                            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                              <label class="sr-only" for="inputPassword">Password</label>
+                              <input type="password" class="form-control" id="inputPassword" name="password"
+                              placeholder="Password" required>
+                            </div>
+                            <div class="form-group clearfix">
+                              <div class="checkbox-custom checkbox-inline pull-left">
+                                <input type="checkbox" id="inputCheckbox" name="remember">
+                                <label for="inputCheckbox">Ingatkan Saya</label>
+                              </div>
+                              <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block btn-login">Masuk</button>
+                          </form>
+                          <p>Tidak punya akun ? Silahkan</p>
+                          <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
+                          <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/pendamping')}}">Daftar Pendamping</a></p>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
     @endsection
 
 @section('js')
@@ -224,6 +289,31 @@
         }
       });
     });
+
+    $( ".btn-login" ).click(function() {
+    console.log( $( "form" ).serializeArray() );
+    data = $( "form" ).serializeArray();
+    $.ajax({
+        url: "{{ route('login.ajax') }}",
+        method: 'POST',
+        dataType:'json',
+        data: data
+    })
+    .done(function(response){
+        console.log(response);
+        if(response.status === 'gagal')
+        {
+            $('#alert').html('Periksa Lagi Email dan Password Anda');
+        }
+
+        if(response.status === 'sukses')
+        {
+            window.location.replace("{{ route('konsultasi.select.jasa_id',['id'=>$data->id]) }}");
+        }
+    });
+    // event.preventDefault();
+});
+
   </script>
 
     {{Html::script(asset('flexslider/demo/js/jquery.easing.js'))}}
