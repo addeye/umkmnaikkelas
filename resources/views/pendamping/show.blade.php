@@ -10,7 +10,7 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="con wb-minus"></i> Detail Pendamping</h3>
-                            <div class="panel-actions">            
+                            <div class="panel-actions">
                                 <div class="pull-left margin-right-20">
                                 <input type="checkbox" id="inputBasicOn" name="inputiCheckBasicCheckboxes" data-plugin="switchery"
                                 {{$data->validasi?'':'checked'}} />
@@ -28,7 +28,7 @@
                                         <div class="padding-top-20">
                                             <span class="text-center">Tidak Ada Scan KTP</span>
                                         </div>
-                                        @endif                                        
+                                        @endif
                                     </div>
                                     <div class="col-md-12">
                                         @if($data->user->image)
@@ -67,6 +67,10 @@
                                             <td>{{$data->email}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Deskripsi</th>
+                                            <td>{{$data->deskripsi}}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Pendidikan</th>
                                             <td>{{$data->pendidikan}}</td>
                                         </tr>
@@ -84,15 +88,23 @@
                                         </tr>
                                         <tr>
                                             <th>Bidang Pendampingan</th>
-                                            <td>{{$data->bidang_pendampingan}}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($data->rel_bd_pendampingan as $row)
+                                                    <li>{{$row->bidang_pendampingan->nama}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Bidang Keahlian</th>
-                                            <td>{{$data->bidang_keahlian}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Bidang Usaha</th>
-                                            <td>{{$data->bidang_usaha}}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($data->rel_bd_keahlian as $row)
+                                                    <li>{{$row->bidang_keahlian->nama}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Kabupaten/Kota Pendampingan</th>
@@ -134,11 +146,11 @@
                                             <th>Deskripsi</th>
                                             <th>Harga</th>
                                             <th>Diskon</th>
-                                            <th>Netto</th>                                            
+                                            <th>Netto</th>
                                         </tr>
-                                        </thead>                                        
+                                        </thead>
                                         <tbody>
-                                        <?php $no=1; ?>
+                                        <?php $no = 1;?>
                                         @foreach($jasapendampingan as $row)
                                             <tr>
                                                 <td>{{$no++}}</td>
@@ -146,11 +158,11 @@
                                                 <td>{{$row->deskripsi}}</td>
                                                 <td>Rp. {{ number_format($row->harga, 2) }}</td>
                                                 <td>{{$row->diskon}}%</td>
-                                                <td>Rp. {{number_format($row->netto,2)}}</td>   
+                                                <td>Rp. {{number_format($row->netto,2)}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>      
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -194,4 +206,4 @@ var token = $('input[name=_token]').val();
         });
   }
 </script>
-@endsection 
+@endsection

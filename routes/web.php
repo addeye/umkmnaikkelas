@@ -2,9 +2,13 @@
 
 use App\BidangKeahlian;
 use App\BidangPendampingan;
+use App\Events\SomeEvent;
+use App\JasaPendampingan;
+use App\OrderKonsultasi;
 use App\Pendamping;
 use App\PendampingRelBdKeahlian;
 use App\PendampingRelBdPendampingan;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +45,8 @@ Route::get('prosedur-umkm', 'PageController@prosedur_umkm')->name('prosedur.umkm
 Route::get('prosedur-pendamping', 'PageController@prosedur_pendamping')->name('prosedur.pendamping');
 Route::get('mitra-lunas', 'PageController@mitra_lunas')->name('mitra.lunas');
 Route::get('laporan-umkm', 'PageController@umkm')->name('page.umkm');
+Route::get('laporan-umkm/{id}', 'PageController@umkm_detail')->name('page.umkm.detail');
+
 Route::get('laporan-pendamping', 'PageController@pendamping')->name('page.pendamping');
 Route::get('laporan-pendamping/{id}', 'PageController@detailPendamping')->name('page.pendamping.detail');
 Route::get('informasi-terkini', 'LayananController@infoTerkini')->name('layanan.info_terkini');
@@ -49,6 +55,10 @@ Route::get('informasi-umkm', 'LayananController@infoUmkm')->name('layanan.info_u
 Route::get('informasi-produk', 'LayananController@infoProduk')->name('layanan.info.produk');
 Route::get('informasi-agenda', 'LayananController@infoAgenda')->name('layanan.info.agenda');
 Route::get('informasi-agenda/agenda/{judul}', 'LayananController@detailAgenda')->name('layanan.detail.agenda');
+
+Route::get('informasi-event', 'LayananController@event')->name('layanan.info.event');
+Route::get('informasi-event{id}', 'LayananController@event_detail')->name('layanan.info.event_detail');
+
 Route::get('forum', 'LayananController@infoForum')->name('layanan.info.forum');
 Route::get('kontak-kami', 'LayananController@kontak')->name('layanan.info.kontak');
 Route::post('kontak-kami', 'LayananController@kirimKontak')->name('layanan.kirim.kontak');
@@ -56,6 +66,9 @@ Route::get('page/{slug}', 'PageController@page');
 
 Route::get('data-pendamping', 'FrontPageController@pendamping')->name('data.pendamping');
 Route::get('jasa-pendampingan-detail/{id}', 'FrontPageController@jasa')->name('data.pendamping.jasa');
+
+Route::get('report-pendamping', 'PageController@pendamping')->name('data.pendamping.report');
+Route::get('report-pendamping-detil/{id}', 'PageController@detailPendampingReport')->name('data.pendamping.reportdetil');
 
 Route::group(['middleware' => 'auth'], function () {
 	// Route::get('/', 'HomeController@index')->name('home');
@@ -89,6 +102,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('jasa-pendampingan/delete_file/{id}', 'JasaPendampinganController@delete_file_jasa')->name('jasa-pendampingan.delete_file_jasa');
 	Route::get('lembaga-pendamping', 'HomeController@showLembaga')->name('lembaga.pendamping');
 
+	Route::get('event-diskusi-get/{id}', 'EventController@event_diskusi');
+	Route::post('event-diskusi-chat', 'EventController@event_diskusi_chat');
+	Route::get('room-chat-event/{id}', 'EventController@room_chat_event')->name('event.room.chat');
+
 	Route::group(['middleware' => 'admin'], function () {
 		Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 		Route::resource('bidang-usaha', 'BidangUsahaController');
@@ -101,6 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('pendamping-import', 'PendampingController@importExistData')->name('pendamping.import');
 		Route::put('validasi-pendamping/{id}', 'PendampingController@validasi')->name('pendamping.validasi');
 		Route::resource('umkm', 'UmkmController');
+		Route::put('validasi-umkm/{id}', 'UmkmController@validasi')->name('umkm.validasi');
 
 		Route::resource('user', 'UserController');
 		Route::get('user-profile/{id}', 'UserController@profile')->name('user-profile.user');
@@ -165,6 +183,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('event-invite', 'EventController@doInvite')->name('event.doinvite');
 		Route::post('event-invite-all', 'EventController@doInviteAll')->name('event.doinvite.all');
 		Route::delete('delete-follower/{id}', 'EventController@delete_follower')->name('event.delete.follower');
+		Route::delete('delete-file-event/{id}', 'EventController@delete_file_event')->name('event.delete.file');
 
 		Route::resource('broadcast', 'BroadcastController');
 		Route::put('broadcast-send/{id}', 'BroadcastController@send')->name('broadcast.send');
@@ -219,8 +238,8 @@ Route::get('new-register', function () {
 });
 
 Route::get('send_test_email', function () {
-	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function ($message) {
-		$message->to('mokhamad27@gmail.com');
+	Mail::raw('Test email lunas!', function ($message) {
+		$message->to('sofi@peacbromo.co.id');
 	});
 	// $job = (new SendFormEmail())->onConnection('database');
 	// dispatch($job);
@@ -336,4 +355,79 @@ Route::get('/validasi_rel_keahlian', function () {
 		}
 	}
 	return count($check_status);
+});
+
+Route::get('eventpusher', function () {
+	event(new SomeEvent("Message me from deye"));
+});
+
+Route::get('listenpusher', function () {
+	return view('listenBroadcast');
+});
+
+Route::get('soal', function () {
+	// return 'soal';
+
+	$lampunyala = 0;
+
+	for ($i = 1; $i <= 100; $i++) {
+		for ($ii = $i; $ii <= 100; $ii = $ii + $i) {
+			$lampunyala++;
+		}
+	}
+
+	return $lampunyala;
+
+});
+
+Route::get('rating-pendamping-check', function () {
+	$data = Pendamping::where('validasi', 0)->get();
+	$jmlrow = 1;
+	foreach ($data as $key => $value) {
+		$jasa = JasaPendampingan::where('pendamping_id', $value->id)->get();
+		$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
+		$jmlumkm = $umkm->unique();
+
+		$row = Pendamping::find($value->id);
+		$row->rating = count($jmlumkm);
+		$row->save();
+
+		$jmlrow++;
+	}
+	return $jmlrow;
+
+});
+
+Route::get('downloadfotopendamping', function () {
+
+	$filerow = array();
+
+	$pendamping = Pendamping::where('validasi', 0)->pluck('user_id');
+	$user = User::whereIn('id', $pendamping)->get();
+
+	foreach ($user as $value) {
+		if ($value->image != '') {
+			if ($value->image != 'default-user.jpg') {
+
+				$filerow[] = public_path('uploads/user/images/' . $value->image);
+			}
+		}
+
+	}
+	$filerow;
+
+	$filename = 'uploads/donwload/pendamping.zip';
+
+	Zipper::make($filename)->add($filerow)->close();
+
+	// dd($zipper);
+
+	$file_path = public_path($filename);
+
+	if (file_exists($file_path)) {
+		return response()->download($file_path);
+	}
+
+	// return redirect()->back()->with('error', $file->file_name . ' not exists!')
+
 });

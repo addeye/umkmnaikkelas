@@ -7,6 +7,7 @@ use App\JasaPendampingan;
 use App\OrderChat;
 use App\OrderChatFile;
 use App\OrderKonsultasi;
+use App\Pendamping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FileClass;
@@ -184,12 +185,23 @@ class KonsultasiController extends Controller {
 	}
 
 	public function terima($id) {
+		$user = Auth::user();
 		$order = OrderKonsultasi::find($id);
 		$order->status = 'Proses';
 		$order->save();
 		if ($order) {
+
+			$jasa = JasaPendampingan::where('pendamping_id', $user->pendamping->id)->get();
+			$umkm = OrderKonsultasi::whereIn('jasa_pendampingan_id', $jasa->pluck('id'))->pluck('umkm_id');
+			$jmlumkm = $umkm->unique();
+
+			$row = Pendamping::find($user->pendamping->id);
+			$row->rating = count($jmlumkm);
+			$row->save();
+
 			\Alert::success('Konsultasi Di Terima', 'Selamat !');
 			return redirect()->route('konsultasi-pendamping.show', ['id' => $id]);
+
 		}
 	}
 

@@ -72,6 +72,15 @@
                     </span>
                   </div>
                 </div>
+                <div class="form-group {{ $errors->has('deskripsi') ? ' has-error' : '' }}">
+                  <label class="col-sm-3 control-label">Deskripsi Tentang Anda</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" name="deskripsi" placeholder="Deskripsi tentang anda..">{{$data->deskripsi}}</textarea>
+                    <span class="help-block">
+                      <strong>{{ $errors->first('deskripsi') }}</strong>
+                    </span>
+                  </div>
+                </div>
                 <div class="form-group {{ $errors->has('pendidikan') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Pendidikan</label>
                   <div class="col-sm-9">

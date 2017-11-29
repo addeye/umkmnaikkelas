@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Umkm extends Model {
 	protected $table = 'umkm';
 
-	protected $appends = ['kota', 'kecamatan'];
+	protected $appends = ['provinsi', 'kota', 'kecamatan'];
 
 	public function getKotaAttribute() {
 		return \Indonesia::findCity($this->kabkota_id)->name;
+	}
+
+	public function getProvinsiAttribute() {
+		return \Indonesia::findCity($this->kabkota_id, ['province'])->province->name;
 	}
 
 	public function getKecamatanAttribute() {

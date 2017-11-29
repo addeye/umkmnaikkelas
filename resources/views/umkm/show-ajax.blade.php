@@ -14,6 +14,10 @@
     <div class="col-md-8">
         <table class="table table-bordered">
             <tr>
+                <th>NIU (Nomor Induk UMKM)</th>
+                <td>{{$data->id_umkm}}</td>
+            </tr>
+            <tr>
                 <th>Nama Usaha <br><a href="{{route('update.umkm',['id'=>Auth::user()->umkm->id])}}"><span class="icon fa-pencil"></span> Edit Profil</a></th>
                 <td>{{$data->nama_usaha}}</td>
             </tr>
@@ -64,6 +68,10 @@
             <tr>
                 <th>Bidang Usaha</th>
                 <td>{{$data->bidang_usaha->nama}}</td>
+            </tr>
+            <tr>
+                <th>Produk</th>
+                <td>{{$data->produk}}</td>
             </tr>
             <tr>
                 <th>Komunitas Asosiasi</th>

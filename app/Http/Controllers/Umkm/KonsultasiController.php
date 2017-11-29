@@ -105,6 +105,7 @@ class KonsultasiController extends Controller {
 					->onConnection('database');
 
 				dispatch($job);
+
 				\Alert::success('Order Menunggu Respon Pendamping', 'Berhasil!');
 				return redirect()->route('konsultasi.index');
 			}

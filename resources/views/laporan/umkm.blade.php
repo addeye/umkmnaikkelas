@@ -5,15 +5,16 @@
 <div class="page animsition">
   <div class="page-content">
     <div class="panel">
-      <div class="panel-body">    
+      <div class="panel-body">
       <div class="table-responsive">
         <table id="example" class="table table-hover dataTable table-striped width-full">
         <thead>
           <tr>
             <th>ID UMKM</th>
-            <th>Nama Usaha</th> 
+            <th>Nama Usaha</th>
             <th>Nama Pemilik</th>
             <th>Alamat</th>
+            <th>Provinsi</th>
             <th>Kabupaten/Kota</th>
             <th>Kecamatan</th>
             <th>No KTP</th>
@@ -33,8 +34,8 @@
             <th>Online</th>
             <th>Sentra UMKM</th>
           </tr>
-        </thead>        
-      </table>   
+        </thead>
+      </table>
       </div>
       </div>
     </div>
@@ -72,6 +73,7 @@ $('#example').DataTable( {
               { "data": "nama_usaha" },
               { "data": "nama_pemilik" },
               { "data": "alamat" },
+              { "data": "provinsi" },
               { "data": "kota" },
               { "data": "kecamatan" },
               { "data": "no_ktp" },
@@ -80,7 +82,7 @@ $('#example').DataTable( {
               { "data": "email" },
               { "data": "badan_hukum" },
               { "data": "tahun_mulai" },
-              { "data": "skala_usaha" },              
+              { "data": "skala_usaha" },
               { "data": "bidang_usaha.nama" },
               { "data": "komunitas_asosiasi" },
               { "data": "website" },

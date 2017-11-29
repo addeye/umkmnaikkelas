@@ -44,3 +44,22 @@ if (!function_exists('jangkauan_pemasaran')) {
 		];
 	}
 }
+
+if (!function_exists('rating')) {
+	function rating($value) {
+		$rating = 0;
+		if ($value > 0 && $value <= 10) {
+			$rating = 1;
+		} elseif ($value > 10 && $value <= 30) {
+			$rating = 2;
+		} elseif ($value > 30 && $value <= 60) {
+			$rating = 3;
+
+		} elseif ($value > 60 && $value <= 100) {
+			$rating = 4;
+		} elseif ($value > 100) {
+			$rating = 5;
+		}
+		return $rating;
+	}
+}

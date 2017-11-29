@@ -7,6 +7,8 @@ use App\EventDiscuss;
 use App\EventDiscussFile;
 use App\EventFollower;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmail;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FileClass;
@@ -50,6 +52,13 @@ class EventController extends Controller {
 
 		if ($cek == 0) {
 			$event->save();
+
+			$sendto = User::where('email', 'lunas@umkmnaikkelas.com')->first();
+
+			$job = (new SendEmail($event->load('event', 'user'), 'ikut-event', $sendto))
+				->onConnection('database');
+
+			dispatch($job);
 		}
 
 		if ($event) {

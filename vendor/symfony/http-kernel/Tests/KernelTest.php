@@ -12,7 +12,10 @@
 namespace Symfony\Component\HttpKernel\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\EnvParametersResource;
 use Symfony\Component\HttpKernel\Kernel;
@@ -21,9 +24,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForOverrideName;
+use Symfony\Component\HttpKernel\Tests\Fixtures\KernelWithoutBundles;
 
 class KernelTest extends TestCase
 {
+    public static function tearDownAfterClass()
+    {
+        $fs = new Filesystem();
+        $fs->remove(__DIR__.'/Fixtures/cache');
+    }
+
     public function testConstructor()
     {
         $env = 'test_env';
@@ -86,6 +96,9 @@ class KernelTest extends TestCase
         $this->assertTrue($kernel->isBooted());
     }
 
+    /**
+     * @group legacy
+     */
     public function testClassCacheIsLoaded()
     {
         $kernel = $this->getKernel(array('initializeBundles', 'initializeContainer', 'doLoadClassCache'));
@@ -106,6 +119,9 @@ class KernelTest extends TestCase
         $kernel->boot();
     }
 
+    /**
+     * @group legacy
+     */
     public function testClassCacheIsNotLoadedWhenKernelIsNotBooted()
     {
         $kernel = $this->getKernel(array('initializeBundles', 'initializeContainer', 'doLoadClassCache'));
@@ -395,6 +411,9 @@ EOF;
         $this->assertEquals(__DIR__.'/Fixtures/Bundle1Bundle/foo.txt', $kernel->locateResource('@Bundle1Bundle/foo.txt'));
     }
 
+    /**
+     * @group legacy
+     */
     public function testLocateResourceReturnsTheFirstThatMatchesWithParent()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/Bundle1Bundle');
@@ -411,6 +430,9 @@ EOF;
         $this->assertEquals(__DIR__.'/Fixtures/Bundle1Bundle/bar.txt', $kernel->locateResource('@ParentAABundle/bar.txt'));
     }
 
+    /**
+     * @group legacy
+     */
     public function testLocateResourceReturnsAllMatches()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/Bundle1Bundle');
@@ -429,6 +451,9 @@ EOF;
             $kernel->locateResource('@Bundle1Bundle/foo.txt', null, false));
     }
 
+    /**
+     * @group legacy
+     */
     public function testLocateResourceReturnsAllMatchesBis()
     {
         $kernel = $this->getKernel(array('getBundle'));
@@ -477,6 +502,9 @@ EOF;
         );
     }
 
+    /**
+     * @group legacy
+     */
     public function testLocateResourceReturnsTheDirOneForResourcesAndBundleOnes()
     {
         $kernel = $this->getKernel(array('getBundle'));
@@ -493,6 +521,9 @@ EOF;
         );
     }
 
+    /**
+     * @group legacy
+     */
     public function testLocateResourceOverrideBundleAndResourcesFolders()
     {
         $parent = $this->getBundle(__DIR__.'/Fixtures/BaseBundle', null, 'BaseBundle', 'BaseBundle');
@@ -566,6 +597,9 @@ EOF;
         );
     }
 
+    /**
+     * @group legacy
+     */
     public function testInitializeBundles()
     {
         $parent = $this->getBundle(null, null, 'ParentABundle');
@@ -584,6 +618,9 @@ EOF;
         $this->assertEquals(array($child, $parent), $map['ParentABundle']);
     }
 
+    /**
+     * @group legacy
+     */
     public function testInitializeBundlesSupportInheritanceCascade()
     {
         $grandparent = $this->getBundle(null, null, 'GrandParentBBundle');
@@ -606,6 +643,7 @@ EOF;
     }
 
     /**
+     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "ChildCBundle" extends bundle "FooBar", which is not registered.
      */
@@ -616,6 +654,9 @@ EOF;
         $kernel->boot();
     }
 
+    /**
+     * @group legacy
+     */
     public function testInitializeBundlesSupportsArbitraryBundleRegistrationOrder()
     {
         $grandparent = $this->getBundle(null, null, 'GrandParentCBundle');
@@ -638,6 +679,7 @@ EOF;
     }
 
     /**
+     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "ParentCBundle" is directly extended by two bundles "ChildC2Bundle" and "ChildC1Bundle".
      */
@@ -652,6 +694,7 @@ EOF;
     }
 
     /**
+     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Trying to register two bundles with the same name "DuplicateName"
      */
@@ -665,6 +708,7 @@ EOF;
     }
 
     /**
+     * @group legacy
      * @expectedException \LogicException
      * @expectedExceptionMessage Bundle "CircularRefBundle" can not extend itself.
      */
@@ -719,12 +763,81 @@ EOF;
         $kernel->terminate(Request::create('/'), new Response());
     }
 
+    public function testKernelWithoutBundles()
+    {
+        $kernel = new KernelWithoutBundles('test', true);
+        $kernel->boot();
+
+        $this->assertTrue($kernel->getContainer()->getParameter('test_executed'));
+    }
+
     public function testKernelRootDirNameStartingWithANumber()
     {
         $dir = __DIR__.'/Fixtures/123';
         require_once $dir.'/Kernel123.php';
         $kernel = new \Symfony\Component\HttpKernel\Tests\Fixtures\_123\Kernel123('dev', true);
         $this->assertEquals('_123', $kernel->getName());
+    }
+
+    /**
+     * @group legacy
+     * @expectedDeprecation The Symfony\Component\HttpKernel\Kernel::getEnvParameters() method is deprecated as of 3.3 and will be removed in 4.0. Use the %cenv()%c syntax to get the value of any environment variable from configuration files instead.
+     * @expectedDeprecation The support of special environment variables that start with SYMFONY__ (such as "SYMFONY__FOO__BAR") is deprecated as of 3.3 and will be removed in 4.0. Use the %cenv()%c syntax instead to get the value of environment variables in configuration files.
+     */
+    public function testSymfonyEnvironmentVariables()
+    {
+        $_SERVER['SYMFONY__FOO__BAR'] = 'baz';
+
+        $kernel = $this->getKernel();
+        $method = new \ReflectionMethod($kernel, 'getEnvParameters');
+        $method->setAccessible(true);
+
+        $envParameters = $method->invoke($kernel);
+        $this->assertSame('baz', $envParameters['foo.bar']);
+
+        unset($_SERVER['SYMFONY__FOO__BAR']);
+    }
+
+    public function testProjectDirExtension()
+    {
+        $kernel = new CustomProjectDirKernel();
+        $kernel->boot();
+
+        $this->assertSame('foo', $kernel->getProjectDir());
+        $this->assertSame('foo', $kernel->getContainer()->getParameter('kernel.project_dir'));
+    }
+
+    public function testKernelReset()
+    {
+        (new Filesystem())->remove(__DIR__.'/Fixtures/cache');
+
+        $kernel = new CustomProjectDirKernel();
+        $kernel->boot();
+
+        $containerClass = get_class($kernel->getContainer());
+        $containerFile = (new \ReflectionClass($kernel->getContainer()))->getFileName();
+        unlink(__DIR__.'/Fixtures/cache/custom/FixturesCustomDebugProjectContainer.php.meta');
+
+        $kernel = new CustomProjectDirKernel();
+        $kernel->boot();
+
+        $this->assertSame($containerClass, get_class($kernel->getContainer()));
+        $this->assertFileExists($containerFile);
+        unlink(__DIR__.'/Fixtures/cache/custom/FixturesCustomDebugProjectContainer.php.meta');
+
+        $kernel = new CustomProjectDirKernel(function ($container) { $container->register('foo', 'stdClass')->setPublic(true); });
+        $kernel->boot();
+
+        $this->assertTrue(get_class($kernel->getContainer()) !== $containerClass);
+        $this->assertFileNotExists($containerFile);
+    }
+
+    public function testKernelPass()
+    {
+        $kernel = new PassKernel();
+        $kernel->boot();
+
+        $this->assertTrue($kernel->getContainer()->getParameter('test.processed'));
     }
 
     /**
@@ -821,5 +934,59 @@ class TestKernel implements HttpKernelInterface
 
     public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
     {
+    }
+}
+
+class CustomProjectDirKernel extends Kernel
+{
+    private $baseDir;
+    private $buildContainer;
+
+    public function __construct(\Closure $buildContainer = null)
+    {
+        parent::__construct('custom', true);
+
+        $this->baseDir = 'foo';
+        $this->buildContainer = $buildContainer;
+    }
+
+    public function registerBundles()
+    {
+        return array();
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+    }
+
+    public function getProjectDir()
+    {
+        return $this->baseDir;
+    }
+
+    public function getRootDir()
+    {
+        return __DIR__.'/Fixtures';
+    }
+
+    protected function build(ContainerBuilder $container)
+    {
+        if ($build = $this->buildContainer) {
+            $build($container);
+        }
+    }
+}
+
+class PassKernel extends CustomProjectDirKernel implements CompilerPassInterface
+{
+    public function __construct(\Closure $buildContainer = null)
+    {
+        parent::__construct();
+        Kernel::__construct('pass', true);
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        $container->setParameter('test.processed', true);
     }
 }

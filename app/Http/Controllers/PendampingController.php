@@ -37,6 +37,7 @@ class PendampingController extends Controller {
 			'alamat_domisili' => 'required',
 			'jenis_kelamin' => 'required',
 			'telp' => 'required|numeric',
+			'deskripsi' => 'required',
 			'email' => 'required|email|unique:users',
 			'pendidikan' => 'required',
 			'tahun_mulai' => 'required',
@@ -78,6 +79,7 @@ class PendampingController extends Controller {
 		$pendamping->jenis_kelamin = $request->jenis_kelamin;
 		$pendamping->telp = $request->telp;
 		$pendamping->email = $request->email;
+		$pendamping->deskripsi = $request->deskripsi;
 		$pendamping->pendidikan = $request->pendidikan;
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;
@@ -180,6 +182,7 @@ class PendampingController extends Controller {
 		$pendamping->jenis_kelamin = $request->jenis_kelamin;
 		$pendamping->telp = $request->telp;
 		$pendamping->email = $request->email;
+		$pendamping->deskripsi = $request->deskripsi;
 		$pendamping->pendidikan = $request->pendidikan;
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;

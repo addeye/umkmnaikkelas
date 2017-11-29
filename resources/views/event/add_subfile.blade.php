@@ -74,7 +74,7 @@
 <script type="text/javascript">
     setup_file_uploader('#filer_one', ['jpg', 'jpeg', 'png', 'gif'], "Only Images are allowed to be uploaded.", "Choose Images to upload.", "Choose Image");
 
-        setup_file_uploader('#filer_two', ['docx', 'doc', 'pdf','xls'], "Only Documents are allowed to be uploaded.", "Choose Documents to Upload.", "Choose Docs");
+        setup_file_uploader('#filer_two', ['docx', 'doc', 'pdf','xls','ppt','pptx'], "Only Documents are allowed to be uploaded.", "Choose Documents to Upload.", "Choose Docs");
 
         function setup_file_uploader(ids, file_ext,filetype_error,caption_feedback,caption_btn) {
             $(ids).filer({

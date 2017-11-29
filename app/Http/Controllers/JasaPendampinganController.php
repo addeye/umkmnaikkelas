@@ -251,8 +251,7 @@ class JasaPendampinganController extends Controller {
 		$jasa->pendamping_id = $request->pendamping_id;
 		$jasa->lembaga_id = $request->lembaga_id;
 		$jasa->title = $request->title;
-		$jasa->bidang_pendampingan = implode(", ", $request->bidang_pendampingan);
-		$jasa->bidang_keahlian = implode(", ", $request->bidang_keahlian);
+
 		$jasa->deskripsi = $request->deskripsi;
 		$jasa->keterangan = $request->keterangan;
 		$jasa->harga = $request->harga;

@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -47,6 +47,8 @@ return [
     'in_array'             => 'ข้อมูล :attribute ไม่มีอยู่ภายในค่าของ :other',
     'integer'              => 'ข้อมูล :attribute ต้องเป็นตัวเลข',
     'ip'                   => 'ข้อมูล :attribute ต้องเป็น IP',
+    'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
+    'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
     'json'                 => 'ข้อมูล :attribute ต้องเป็นอักขระ JSON ที่สมบูรณ์',
     'max'                  => [
         'numeric' => 'ข้อมูล :attribute ต้องมีจำนวนไม่เกิน :max.',

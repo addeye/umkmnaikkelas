@@ -229,7 +229,7 @@ a:focus, a:hover {
                 </a>
             </div>
             <div class="col-md-4 col-xs-6 col-tiles">
-                <a id="{{route('page.pendamping')}}" href="">
+                <a id="{{route('data.pendamping.report')}}" href="{{ route('data.pendamping.report') }}">
                     <div class="tile" style="background:url('{{asset('images/box/pelaksana-mitra.jpg')}}') no-repeat center center;background-size: cover;">
                         <h4 class="tile-cap bg-blue-800">
                             PENDAMPING
@@ -238,7 +238,7 @@ a:focus, a:hover {
                 </a>
             </div>
             <div class="col-md-4 col-xs-6 col-tiles">
-                <a href="{{route('page.pendamping')}}">
+                <a href="{{route('layanan.info.event')}}">
                     <div class="tile" style="background:url('{{asset('images/box/forum.jpg')}}') no-repeat center center;background-size: cover;">
                         <h4 class="tile-cap bg-blue-800">
                             EVENT

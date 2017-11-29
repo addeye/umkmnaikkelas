@@ -48,6 +48,25 @@ class SendEmail implements ShouldQueue {
 			$user = $this->sendto;
 
 			$user->notify(new LunasNotification($user->name, $message, $url, $actionText, $subject));
+
+			$admin = User::where('email', 'lunas@umkmnaikkelas.com')->first();
+
+			$message_admin = $userumkm->name . ' Telah Membuat Order konsultasi kepada ' . $user->name;
+
+			$admin->notify(new LunasNotification($admin->name, $message_admin, url('/'), $actionText, $subject));
+
+		} elseif ($this->type == 'ikut-event') {
+			$eventfollower = $this->class;
+
+			$message = $eventfollower->user->name . ' Telah mengikuti event ' . $eventfollower->event->title . ' Silahkan di validasi';
+
+			$url = url('event/' . $eventfollower->event->id);
+
+			$subject = 'Notifikasi Event';
+
+			$user = $this->sendto;
+
+			$user->notify(new LunasNotification($user->name, $message, $url, $actionText, $subject));
 		}
 	}
 }

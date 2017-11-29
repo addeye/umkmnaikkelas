@@ -49,6 +49,13 @@
                                 <span class="badge badge-danger">{{count($data->event_follower)}}</span>
                             </a>
                         </li>
+                        <li role="presentation">
+                            <a href="{{ route('event.room.chat',['id'=>$data->id]) }}">
+                                <i aria-hidden="true" class="icon wb-chat-group">
+                                </i>
+                                Room Chat
+                            </a>
+                        </li>
                         <li class="dropdown" role="presentation">
                             <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <span class="caret">
@@ -154,114 +161,27 @@
                                     <p class="btn btn-danger disabled"> <i class="icon wb-bookmark" aria-hidden="true"></i> Telah diikuti</p>
                                     @endif
                                 </div>
-                            </div>
-                            <div class="col-md-12 row">
+                                <div class="col-md-12">
+                                    <div class="col-md-12 row">
                                 <h4><i class="icon wb-chat-group"></i> Diskusi</h4>
-                                @if (count($check_follow) > 0 AND $check_follow->validation=='Yes')
-                                    <ul class="list-group list-group-dividered list-group-full">
-                                    @foreach($data->event_discuss as $row)
-                                    <li class="list-group-item">
-                                        <div class="media comment">
-                                            <div class="media-left">
-                                                <a class="avatar avatar-online" href="javascript:void(0)">
-                                                    <img alt="..." src="{{asset('uploads/user/images/'.$row->event_follower->user->image)}}">
-                                                        <i>
-                                                        </i>
-                                                    </img>
-                                                </a>
-                                            </div>
-                                            <div class="media-body comment-body">
-                                                <a class="comment-author">
-                                                    {{$row->event_follower->user->name}}
-                                                </a>
-                                                <div class="comment-meta">
-                                                    <span class="date">
-                                                        {{$row->textdate}}
-                                                    </span>
-                                                </div>
-                                                <div class="comment-content">
-                                                    <p>
-                                                        {{$row->comment}}
-                                                    </p>
-                                                    @if (count($row->event_discuss_file) > 0)
-                                                            <div class="profile-brief">
-                                                                @foreach ($row->event_discuss_file as $row)
-                                                                    @if ($row->type == 'image')
-                                                                        <a href="{{ asset($row->path.$row->file_name) }}">
-                                                                            <img class="img-responsive profile-uploaded" src="{{ asset($row->path.'thumbs/'.$row->file_name) }}">
-                                                                        </a>
-                                                                    @else
-                                                                    <p class="padding-top-10"><a href="{{ asset($row->path.$row->file_name) }}">
-                                                                        <i class="icon wb-file"></i> {{$row->file_name}}</a></p>
-                                                                    @endif
+                                    <input id="event_id" type="hidden" value="{{$data->id}}">
+                                    <input id="event_follower_id" type="hidden" value="{{$check_follow->id}}">
+                                    <chat-messages-event :messages="messages"></chat-messages-event>
 
-                                                                @endforeach
-                                                          </div>
-                                                        @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                @if (Auth::user()->role_id==ROLE_PENDAMPING)
-                                    <form action="{{ route('event.akun.diskusi') }}" method="post" enctype="multipart/form-data">
-                                        @else
-                                    <form action="{{ route('event.akun.diskusi_umkm') }}" method="post" enctype="multipart/form-data">
-                                @endif
-
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="event_follower_id" value="{{$check_follow->id}}">
-                                    <input type="hidden" name="event_id" value="{{$data->id}}">
-                                    <div class="form-group row {{ $errors->has('comment') ? ' has-error' : '' }}">
-                                                <div class="col-md-12">
-                                                    <textarea class="form-control" name="comment" placeholder="Tulis komentar anda.." rows="3">{{old('comment')}}</textarea>
-                                                </div>
-                                                <span class="help-block">
-                                            <strong>{{ $errors->first('comment') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="form-group">
-                                {!! Form::label('images', 'Gambar Pendukung', ['class'=>'control-label col-sm-3']) !!}
-                                <div class="col-md-9">
-                                    <div class="input">
-                                        {!! Form::file('images[]', array('multiple'=>true, 'class'=>'btn', 'id'=>'filer_one', 'accept'=>'image/*')) !!}
-                                        <div class="error-input">
-                                            @foreach($errors->get('images') as $message)
-                                        {{ $message }}
-                                        @endforeach
-                                        </div>
+                                     <div class="panel-footer">
+                                        <chat-form-event
+                                            v-on:messagesentevent="addMessage"
+                                        ></chat-form-event>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('images', 'File Pendukung', ['class'=>'control-label col-sm-3']) !!}
-                                <div class="col-md-9">
-                                    <div class="input">
-                                        {!! Form::file('docs[]', array('multiple'=>true, 'class'=>'btn', 'id'=>'filer_two')) !!}
-                                        <div class="error-input">
-                                            @foreach($errors->get('images') as $message)
-                                        {{ $message }}
-                                        @endforeach
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                                    <div class="form-group row">
-                                                <div class="col-md-12 text-right">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        Kirim
-                                                    </button>
-                                                </div>
-                                            </div>
-                                    </form>
-                                @else
-                                <h3><i class="icon fa-ban"></i> Belum ada validasi</h3>
-                                @endif
                             </div>
                         </div>
                         <div class="tab-pane" id="exampleTabsLineTwo" role="tabpanel">
-                            @if (count($check_follow) > 0 AND $check_follow->validation=='Yes')
+                            @if (count($check_follow) > 0)
+                                @if ($check_follow->validation=='Yes')
+                                    {{-- expr --}}
+
                             <ul>
                                 @foreach ($data->event_file as $row)
                                 <li>
@@ -271,6 +191,7 @@
                                 </li>
                                 @endforeach
                             </ul>
+                            @endif
                                 @else
                                 <h3><i class="icon fa-ban"></i> Belum ada validasi</h3>
                             @endif
@@ -280,30 +201,35 @@
                             <div class="tables-responsive">
                                 <table class="table">
                                     <tr>
+                                        <th>No</th>
                                         <th>
                                             Nama
                                         </th>
                                         <th>
-                                            Email
+                                            Kab/Kota
                                         </th>
                                         <th>
-                                            No Telp
+                                            Jenis Akun
                                         </th>
                                         <th>
                                             Validasi
                                         </th>
                                     </tr>
+                                    <?php $no = 1;?>
                                     @foreach ($data->event_follower as $row)
                                     <tr>
+                                        <td>{{$no++}}</td>
                                         <td>
                                             {{$row->user->name}}
                                         </td>
-                                        <td>
-                                            {{$row->user->email}}
-                                        </td>
-                                        <td>
-                                            {{$row->user->telp}}
-                                        </td>
+                                        @if ($row->user->role_id==ROLE_UMKM)
+                                            <td>{{$row->user->umkm->kota}}</td>
+                                            @elseif($row->user->role_id==ROLE_PENDAMPING)
+                                            <td>{{$row->user->pendamping?$row->user->pendamping->kota:''}}</td>
+                                            @else
+                                            <td>-</td>
+                                        @endif
+                                        <td>{{$row->user->role->nama}}</td>
                                         <td>
                                             {{$row->validation}}
                                         </td>
@@ -325,6 +251,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('css')

@@ -119,14 +119,18 @@
                                                 <i aria-hidden="true" class="icon wb-user-circle margin-right-10">
                                                 </i>
                                                 <span class="text-break">
-                                                    {{$row->rel_bd_keahlian[0]->bidang_keahlian->nama}}
+                                                    @if (count($row->rel_bd_keahlian)>0)
+                                                        {{$row->rel_bd_keahlian[0]->bidang_keahlian->nama}}
+                                                    @endif
                                                 </span>
                                             </p>
                                             <p class="margin-bottom-5 text-nowrap">
                                                 <i aria-hidden="true" class="icon wb-plugin margin-right-10">
                                                 </i>
                                                 <span class="text-break">
-                                                    {{$row->rel_bd_pendampingan[0]->bidang_pendampingan->nama}}
+                                                    @if (count($row->rel_bd_pendampingan) > 0)
+                                                        {{$row->rel_bd_pendampingan[0]->bidang_pendampingan->nama}}
+                                                    @endif
                                                 </span>
                                             </p>
                                             <p class="margin-bottom-5 text-nowrap">

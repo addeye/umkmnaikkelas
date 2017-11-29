@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\BidangKeahlian;
 use App\BidangPendampingan;
 use App\Http\Controllers\Controller;
+use App\Mail\KontakSend;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller {
 	public function bidang_pendampingan() {
@@ -45,5 +48,15 @@ class HomeController extends Controller {
 			]
 		);
 
+	}
+
+	public function feedback(Request $request) {
+		$data = $request->all();
+		Mail::to('lunas@umkmnaikkelas.com')->send(new KontakSend($data));
+		return response()->json(
+			[
+				'status' => SUKSES,
+			]
+		);
 	}
 }

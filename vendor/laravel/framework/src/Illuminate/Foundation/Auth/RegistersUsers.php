@@ -5,8 +5,6 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\NewRegister;
 
 trait RegistersUsers
 {
@@ -59,7 +57,6 @@ trait RegistersUsers
      */
     protected function registered(Request $request, $user)
     {
-        Mail::to($request->email)->send(new NewRegister($request));
-        Mail::to('umkmnaikkelas@gmail.com')->send(new NewRegister($request));
+        //
     }
 }

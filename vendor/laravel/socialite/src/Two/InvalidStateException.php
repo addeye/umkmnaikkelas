@@ -2,9 +2,6 @@
 
 namespace Laravel\Socialite\Two;
 
-use InvalidArgumentException;
-
-class InvalidStateException extends InvalidArgumentException
+class InvalidStateException extends \InvalidArgumentException
 {
-    //
 }

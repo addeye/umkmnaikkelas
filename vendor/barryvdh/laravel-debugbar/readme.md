@@ -25,6 +25,7 @@ This package includes some custom collectors:
  - LogsCollector: Show the latest log entries from the storage logs. (disabled by default)
  - FilesCollector: Show the files that are included/required by PHP. (disabled by default)
  - ConfigCollector: Display the values from the config files. (disabled by default)
+ - CacheCollector: Display all cache events. (disabled by default)
 
 Bootstraps the following collectors for Laravel:
  - LogCollector: Show all Log messages
@@ -44,10 +45,11 @@ It also provides a Facade interface for easy logging Messages, Exceptions and Ti
 Require this package with composer:
 
 ```shell
-composer require barryvdh/laravel-debugbar
+composer require barryvdh/laravel-debugbar:~2.4
 ```
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
+
 > If you use a catch-all/fallback route, make sure you load the Debugbar ServiceProvider before your own App ServiceProviders.
 
 ### Laravel 5.x:
@@ -116,7 +118,7 @@ Or log exceptions:
 try {
     throw new Exception('foobar');
 } catch (Exception $e) {
-    Debugbar::addException($e);
+    Debugbar::addThrowable($e);
 }
 ```
 

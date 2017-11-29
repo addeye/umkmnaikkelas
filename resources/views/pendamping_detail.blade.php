@@ -56,7 +56,7 @@
                                 {{$data->user->name}}
                             </div>
                             <div class="example">
-                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="2">
+                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="{{rating($data->rating)}}">
                                 </div>
                             </div>
                             <div class="example">
@@ -67,6 +67,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <button id="{{Auth::check()?'islogin':'isnotlogin'}}" type="button" class="btn btn-success padding-horizontal-40 btn-contact-me"><i class="icon wb-envelope"></i> Contact Me</button>
                         </div>
                     </div>
                     <div class="widget-footer">
@@ -101,6 +102,9 @@
                 <!-- End Page Widget -->
                 <div class="panel">
                     <div class="panel-body">
+                        <h4>Deskripsi</h4>
+                        <p>{{$data->deskripsi}}</p>
+                        <hr>
                         <h4>Lembaga</h4>
                         <p>{{$data->lembaga->nama_lembaga}}</p>
                         <hr>
@@ -164,6 +168,68 @@
 <!-- End Page -->
     @endsection
 
+    @section('modal')
+
+    <div class="modal fade" id="exampleFormModal" aria-hidden="false" aria-labelledby="exampleFormModalLabel"
+                  role="dialog" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="exampleFormModalLabel">Login Sebagai UMKM</h4>
+                          <small>Anda Harus Sebagai UMKM jika ingin kirim pesan</small>
+                        </div>
+                        <div class="modal-body">
+                          <form id="formlogin">
+                            <span id="alert" style="color: red;"></span>
+                            {{ csrf_field() }}
+                            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                              <label class="sr-only" for="inputEmail">Email</label>
+                              <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="{{old('email')}}" required>
+                            </div>
+                            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                              <label class="sr-only" for="inputPassword">Password</label>
+                              <input type="password" class="form-control" id="inputPassword" name="password"
+                              placeholder="Password" required>
+                            </div>
+                            <div class="form-group clearfix">
+                              <div class="checkbox-custom checkbox-inline pull-left">
+                                <input type="checkbox" id="inputCheckbox" name="remember">
+                                <label for="inputCheckbox">Ingatkan Saya</label>
+                              </div>
+                              <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block btn-login">Masuk</button>
+                          </form>
+                          <p>Tidak punya akun ? Silahkan</p>
+                          <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+        <div class="modal fade" id="message" aria-hidden="false" aria-labelledby="exampleFormModalLabel"
+                  role="dialog" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="exampleFormModalLabel">Contact Me</h4>
+                          <small>Kirim pesan kepada penamping untuk lebih lengkapnya</small>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+    @endsection
+
 @section('js')
 {{Html::script(asset('remark/assets/vendor/raty/jquery.raty.js'))}}
 {{Html::script(asset('remark/assets/js/components/raty.js'))}}
@@ -176,6 +242,44 @@
     {{Html::script(asset('remark/assets/js/apps/projects.js'))}}
 
 <script type="text/javascript">
+
+    $('.btn-contact-me').click(function(){
+        var status = this.id;
+        if(status=='islogin')
+        {
+            $('#message').modal('show');
+        }
+        else
+        {
+            $('#exampleFormModal').modal('show');
+        }
+    });
+
+    $( ".btn-login" ).click(function() {
+    console.log( $( "form" ).serializeArray() );
+    data = $( "form" ).serializeArray();
+    $.ajax({
+        url: "{{ route('login.ajax') }}",
+        method: 'POST',
+        dataType:'json',
+        data: data
+    })
+    .done(function(response){
+        console.log(response);
+        if(response.status === 'gagal')
+        {
+            $('#alert').html(response.message);
+        }
+
+        if(response.status === 'sukses')
+        {
+            $('#exampleFormModal').modal('hide');
+            $('#message').modal('show');
+        }
+    });
+    // event.preventDefault();
+});
+
     $(window).load(function(){
       $('#carousel').flexslider({
         animation: "slide",

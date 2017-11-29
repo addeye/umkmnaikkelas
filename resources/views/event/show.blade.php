@@ -260,6 +260,14 @@
                                     <a href="{{ asset($row->path.$row->file_name) }}">
                                         {{$row->file_name}}
                                     </a>
+                                    &nbsp;
+
+                                    <a class="red-800" onclick="event.preventDefault(); ConfirmDeleteFile({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Hapus"><i class="icon wb-trash" aria-hidden="true"></i></a>
+
+                                            <form id="delete-form-file-{{$row->id}}" action="{{route('event.delete.file',['id'=>$row->id])}}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                              </form>
                                 </li>
                                 @endforeach
                             </ul>
@@ -559,6 +567,30 @@
                     if (isConfirm) {
                         // swal("Deleted!", "Your imaginary file has been deleted.", "success");
                         document.getElementById('delete-form-follower-'+id).submit();
+                    } else {
+                        swal("Dibatalkan", "Data tidak jadi dihapus", "error");
+                    }
+                });
+        }
+
+        function ConfirmDeleteFile(id)
+        {
+            var id = id;
+            swal({
+                    title: "Apakah Yakin?",
+                    text: "Data akan benar-benar dihapus!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, Hapus!",
+                    cancelButtonText: "Tidak, Batalkan!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        document.getElementById('delete-form-file-'+id).submit();
                     } else {
                         swal("Dibatalkan", "Data tidak jadi dihapus", "error");
                     }

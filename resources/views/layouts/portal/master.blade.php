@@ -10,6 +10,11 @@
     <title>@yield('title') | {{config('app.name')}}</title>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        window.Laravel = <?php echo json_encode([
+	'csrfToken' => csrf_token(),
+]); ?>
+</script>
 
     <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('images/logo-small.png')}}">
@@ -85,16 +90,18 @@ a:focus, a:hover {
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
+<div id="app">
 
 @include('layouts.portal.header')
 
+<div id="appEvent">
+    @yield('content')
+</div>
 <!-- Page -->
-@yield('content')
 <!-- End Page -->
 @yield('modal')
 
 @include('layouts.portal.footer')
-
 <!-- Core  -->
 {{Html::script(asset('remark/assets/vendor/jquery/jquery.js'))}}
 {{Html::script(asset('remark/assets/vendor/bootstrap/bootstrap.js'))}}
@@ -190,9 +197,8 @@ a:focus, a:hover {
         });
     })(document, window, jQuery);
 </script>
-
 @yield('js')
-
+</div>
 </body>
 
 </html>

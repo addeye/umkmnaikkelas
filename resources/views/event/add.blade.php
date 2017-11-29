@@ -127,9 +127,15 @@
 
                 <div class="form-group ">
                   <label class="col-sm-3 control-label">Publish</label>
-                  <div class="col-sm-9">
+                  <div class="col-sm-3">
                     <div class="pull-left margin-right-20">
                       <input type="checkbox" id="inputBasicOn" name="publish" data-plugin="switchery" value="Yes" checked/>
+                    </div>
+                  </div>
+                  <label class="col-sm-3 control-label">Show Frontpage</label>
+                  <div class="col-sm-3">
+                    <div class="pull-left margin-right-20">
+                      <input type="checkbox" id="show_front" name="show_front" data-plugin="switchery" value="Yes" checked/>
                     </div>
                   </div>
                 </div>

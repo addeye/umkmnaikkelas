@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -47,6 +47,8 @@ return [
     'in_array'             => 'O campo :attribute não existe em :other.',
     'integer'              => 'O campo :attribute deve conter um número inteiro.',
     'ip'                   => 'O campo :attribute deve conter um IP válido.',
+    'ipv4'                 => 'O campo :attribute deve conter um IPv4 válido.',
+    'ipv6'                 => 'O campo :attribute deve conter um IPv6 válido.',
     'json'                 => 'O campo :attribute deve conter uma string JSON válida.',
     'max'                  => [
         'numeric' => 'O campo :attribute não pode conter um valor superior a :max.',
@@ -140,6 +142,7 @@ return [
         'sex'                   => 'sexo',
         'state'                 => 'estado',
         'subject'               => 'assunto',
+        'text'                  => 'texto',
         'time'                  => 'hora',
         'title'                 => 'título',
         'username'              => 'usuário',

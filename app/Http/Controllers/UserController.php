@@ -178,6 +178,7 @@ class UserController extends Controller {
 	}
 
 	public function updateFoto(Request $request) {
+		return $request->all();
 		$file = $request->cropped;
 
 		list($type, $file) = explode(';', $file);

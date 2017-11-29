@@ -55,6 +55,7 @@ class FrontPageController extends Controller {
 			$content[$key]->totkegiatan = OrderChat::where('user_id', $value->user_id)->count();
 			$content[$key]->totumkm = count($jmlumkm);
 		}
+
 		$pendampingNotValidasi = Pendamping::where('validasi', 1)->pluck('id');
 
 		$data = array(

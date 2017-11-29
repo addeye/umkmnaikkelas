@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use App\Jobs\ResetPasswordEmail;
 use App\Jobs\SendPasswordEmail;
@@ -12,6 +13,7 @@ use App\Umkm;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Nasution\ZenzivaSms\Client as Sms;
 use Validator;
 
 class RegistrasiController extends Controller {
@@ -65,9 +67,9 @@ class RegistrasiController extends Controller {
 
 			if ($user) {
 
-				// $sms = new Sms('irte7f', 'addeye27');
-				// // Simple usage
-				// $sms->send($request->telp, 'Hai ini dikirim dari Apps LUNAS ( Password anda adalah ' . $pass . ' )');
+				$sms = new Sms('irte7f', 'addeye27');
+				// Simple usage
+				$sms->send($request->telp, 'Hai ini dikirim dari Apps LUNAS ( Password anda adalah ' . $pass . ' )');
 
 				$job = (new SendPasswordEmail($user, $pass))->onConnection('database');
 				dispatch($job);
@@ -115,6 +117,7 @@ class RegistrasiController extends Controller {
 			'nama_pendamping' => 'required',
 			'alamat_domisili' => 'required',
 			'jenis_kelamin' => 'required',
+			'deskripsi' => 'required',
 			'pendidikan' => 'required',
 			'tahun_mulai' => 'required',
 			'pengalaman' => 'nullable',
@@ -135,6 +138,8 @@ class RegistrasiController extends Controller {
 				]);
 		}
 
+		$user = Auth::guard('api')->user();
+
 		$id_pendamping = $request->kabkota_id . '02' . rand(111111, 999999);
 
 		$pendamping = new Pendamping();
@@ -144,8 +149,9 @@ class RegistrasiController extends Controller {
 		$pendamping->lat = 0;
 		$pendamping->lng = 0;
 		$pendamping->jenis_kelamin = $request->jenis_kelamin;
-		$pendamping->telp = Auth::guard('api')->user()->telp;
-		$pendamping->email = $request->email;
+		$pendamping->telp = $user->telp;
+		$pendamping->email = $user->email;
+		$pendamping->deskripsi = $request->deskripsi;
 		$pendamping->pendidikan = $request->pendidikan;
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;
@@ -183,7 +189,6 @@ class RegistrasiController extends Controller {
 
 		$user = User::find(Auth::guard('api')->user()->id);
 		$user->name = $request->nama_pendamping;
-		$user->telp = $request->telp;
 		$user->role_id = ROLE_PENDAMPING;
 
 		$user->save();

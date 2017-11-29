@@ -2,7 +2,7 @@
 
     @section('css')
 <!-- Plugin -->
-{{Html::style('remark/assets/vendor/raty/jquery.raty.css')}}
+{{-- {{Html::style('remark/assets/vendor/raty/jquery.raty.css')}} --}}
     {{Html::style('remark/assets/css/pages/profile.css')}}
     @endsection
 
@@ -103,8 +103,19 @@
                                 {{Auth::user()->name}}
                             </div>
                             <div class="example">
-                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="2">
+
+                                @if (Auth::user()->role_id == ROLE_PENDAMPING)
+
+                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="{{rating(Auth::user()->pendamping->rating)}}">
                                 </div>
+
+                                @elseif(Auth::user()->role_id == ROLE_UMKM)
+
+                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="{{Auth::user()->umkm->rating}}">
+                                </div>
+
+                                @endif
+
                             </div>
                             <div class="profile-job">
                                 @if(Auth::user()->role_id == ROLE_CALON)

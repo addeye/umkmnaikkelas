@@ -15,6 +15,15 @@
               {!! Form::open(['route' => ['umkm.update',$data->id],'files'=>true,'class' => 'form-horizontal']) !!}
               <input type="hidden" name="_method" value="PUT">
               <div class="form-group">
+                <label class="col-sm-3 control-label">NIU *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="id_umkm" placeholder="Nomor Induk UMKM" value="{{$data->id_umkm}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('id_umkm') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-3 control-label">Nama Usaha *</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" name="nama_usaha" placeholder="Nama Usaha" value="{{$data->nama_usaha}}" required/>
@@ -173,6 +182,15 @@
                   </select>
                   <span class="help-block">
                       <strong>{{ $errors->first('bidang_usaha_id') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('produk') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Produk</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="produk" placeholder="Produk.." value="{{$data->produk}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('produk') }}</strong>
                     </span>
                 </div>
               </div>

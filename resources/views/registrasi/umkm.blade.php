@@ -167,6 +167,17 @@
                     </span>
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->has('produk') ? ' has-error' : '' }}">
+                                <label class="col-sm-3 control-label">Produk</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="komunitas_asosiasi" placeholder="Produk.." value="{{old('produk')}}" />
+                                    <span class="help-block">
+                      <strong>{{ $errors->first('produk') }}</strong>
+                    </span>
+                                </div>
+                            </div>
+
                             <div class="form-group {{ $errors->has('komunitas_asosiasi') ? ' has-error' : '' }}">
                                 <label class="col-sm-3 control-label">Komunitas Asosiasi</label>
                                 <div class="col-sm-9">

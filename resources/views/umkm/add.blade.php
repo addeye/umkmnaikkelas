@@ -14,6 +14,15 @@
             <div class="panel-body ">
               {!! Form::open(['route' => 'umkm.store','files'=>true,'class' => 'form-horizontal']) !!}
               <div class="form-group">
+                <label class="col-sm-3 control-label">NIU *</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="id_umkm" placeholder="Nomor Induk UMKM" value="{{old('id_umkm')}}" required/>
+                  <span class="help-block">
+                      <strong>{{ $errors->first('id_umkm') }}</strong>
+                    </span>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-3 control-label">Nama Usaha *</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control" name="nama_usaha" placeholder="Nama Usaha" value="{{old('nama_usaha')}}" required/>
@@ -172,6 +181,17 @@
                     </span>
                 </div>
               </div>
+
+              <div class="form-group {{ $errors->has('produk') ? ' has-error' : '' }}">
+                <label class="col-sm-3 control-label">Produk</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="produk" placeholder="Produk.." value="{{old('produk')}}" />
+                  <span class="help-block">
+                      <strong>{{ $errors->first('produk') }}</strong>
+                    </span>
+                </div>
+              </div>
+
               <div class="form-group {{ $errors->has('komunitas_asosiasi') ? ' has-error' : '' }}">
                 <label class="col-sm-3 control-label">Komunitas Asosiasi</label>
                 <div class="col-sm-9">
@@ -286,12 +306,12 @@
 //            thousandsSeparator: '.'
 //        });
 
-        
+
         $('#kabkota').change(function () {
             kecamatan_ajax(urlkec,this.value,oldkec);
         })
     })
-    
+
     function kecamatan_ajax(urlkec,id,old) {
         $.ajax({
             url : urlkec+'/'+id+'/kecamatan/'+old,

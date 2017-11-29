@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -40,13 +40,15 @@ return [
     'distinct'             => 'Данните в полето :attribute се дублират.',
     'email'                => 'Полето :attribute е в невалиден формат.',
     'exists'               => 'Избранато поле :attribute вече съществува.',
-    'file'                 => 'The :attribute must be a file.',
+    'file'                 => 'Полето :attribute трябва да бъде файл.',
     'filled'               => 'Полето :attribute е задължително.',
     'image'                => 'Полето :attribute трябва да бъде изображение.',
     'in'                   => 'Избраното поле :attribute е невалидно.',
     'in_array'             => 'The :attribute field does not exist in :other.',
     'integer'              => 'Полето :attribute трябва да бъде цяло число.',
     'ip'                   => 'Полето :attribute трябва да бъде IP адрес.',
+    'ipv4'                 => 'Полето :attribute трябва да бъде IPv4 адрес.',
+    'ipv6'                 => 'Полето :attribute трябва да бъде IPv6 адрес.',
     'json'                 => 'Полето :attribute трябва да бъде JSON низ.',
     'max'                  => [
         'numeric' => 'Полето :attribute трябва да бъде по-малко от :max.',

@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -47,6 +47,8 @@ return [
     'in_array'             => 'Kentän :attribute arvo ei sisälly kentän :other arvoon.',
     'integer'              => 'Kentän :attribute arvon tulee olla numero.',
     'ip'                   => 'Kentän :attribute arvon tulee olla validi IP-osoite.',
+    'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
+    'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
     'json'                 => 'Kentän :attribute arvon tulee olla validia JSON:ia.',
     'max'                  => [
         'numeric' => 'Kentän arvon :attribute tulee olla enintään :max.',

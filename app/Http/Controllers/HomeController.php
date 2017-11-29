@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 use Laravolt\Indonesia\Indonesia;
 use Nasution\ZenzivaSms\Client as Sms;
 
@@ -206,6 +207,7 @@ class HomeController extends Controller {
 			'jenis_kelamin' => 'required',
 			'telp' => 'required|numeric',
 			'email' => 'required|email',
+			'deskripsi' => 'required',
 			'pendidikan' => 'required',
 			'tahun_mulai' => 'required',
 			'pengalaman' => 'nullable',
@@ -234,6 +236,7 @@ class HomeController extends Controller {
 		$pendamping->jenis_kelamin = $request->jenis_kelamin;
 		$pendamping->telp = $request->telp;
 		$pendamping->email = $request->email;
+		$pendamping->deskripsi = $request->deskripsi;
 		$pendamping->pendidikan = $request->pendidikan;
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;
@@ -374,6 +377,7 @@ class HomeController extends Controller {
 		$rules = [
 			'nama_pendamping' => 'required',
 			'alamat_domisili' => 'required',
+			'deskripsi' => 'required',
 			'jenis_kelamin' => 'required',
 			'pendidikan' => 'required',
 			'tahun_mulai' => 'required',
@@ -384,7 +388,7 @@ class HomeController extends Controller {
 			'kabkota_id' => 'required',
 			'kabkota_tambahan' => 'nullable',
 			'lembaga_id' => 'required',
-			'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png|max:300',
+			'foto_ktp' => 'nullable|image|mimes:jpeg,jpg,png',
 		];
 
 		$validator = Validator::make($request->all(), $rules);
@@ -406,6 +410,7 @@ class HomeController extends Controller {
 		$pendamping->jenis_kelamin = $request->jenis_kelamin;
 		$pendamping->telp = Auth::user()->telp;
 		$pendamping->email = $request->email;
+		$pendamping->deskripsi = $request->deskripsi;
 		$pendamping->pendidikan = $request->pendidikan;
 		$pendamping->tahun_mulai = $request->tahun_mulai;
 		$pendamping->pengalaman = $request->pengalaman;
@@ -423,6 +428,9 @@ class HomeController extends Controller {
 		if ($request->hasFile('foto_ktp')) {
 			$file = Input::file('foto_ktp');
 			$name = $this->upload_image($file, 'uploads/pendamping/images');
+			$destinationPath = 'uploads/pendamping/images';
+
+			$imgimg = Image::make($destinationPath . '/' . $name)->resize(300, 300)->save($destinationPath . '/' . $name);
 			$pendamping->foto_ktp = $name;
 		}
 
@@ -522,12 +530,19 @@ class HomeController extends Controller {
 		if ($request->hasFile('path_ktp')) {
 			$file = Input::file('path_ktp');
 			$name = $this->upload_image($file, 'uploads/umkm/images');
+			$destinationPath = 'uploads/umkm/images';
+
+			$imgimg = Image::make($destinationPath . '/' . $name)->resize(300, 300)->save($destinationPath . '/' . $name);
 			$umkm->path_ktp = $name;
 		}
 
 		if ($request->hasFile('path_npwp')) {
 			$file = Input::file('path_npwp');
 			$name = $this->upload_image($file, 'uploads/umkm/images');
+			$destinationPath = 'uploads/umkm/images';
+
+			$imgimg = Image::make($destinationPath . '/' . $name)->resize(300, 300)->save($destinationPath . '/' . $name);
+
 			$umkm->path_npwp = $name;
 		}
 
@@ -601,6 +616,7 @@ class HomeController extends Controller {
 	}
 
 	public function updateFoto(Request $request) {
+		// return $request->all();
 		$file = $request->cropped;
 
 		list($type, $file) = explode(';', $file);

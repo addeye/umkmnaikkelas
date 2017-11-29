@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -47,6 +47,8 @@ return [
     'in_array'             => ':attribute sa nenachádza v :other.',
     'integer'              => ':attribute musí byť celé číslo.',
     'ip'                   => ':attribute musí byť platná IP adresa.',
+    'ipv4'                 => ':attribute musí byť platná IPv4 adresa.',
+    'ipv6'                 => ':attribute musí byť platná IPv6 adresa.',
     'json'                 => ':attribute musí byť platný JSON reťazec.',
     'max'                  => [
         'numeric' => ':attribute nemôže byť väčší ako :max.',

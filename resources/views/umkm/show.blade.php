@@ -10,6 +10,13 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="con wb-minus"></i> Detail UMKM</h3>
+                            <div class="panel-actions">
+                                <div class="pull-left margin-right-20">
+                                <input type="checkbox" id="inputBasicOn" name="inputiCheckBasicCheckboxes" data-plugin="switchery"
+                                {{$data->validasi?'':'checked'}} />
+                                </div>
+                              <label class="padding-top-3" for="inputBasicOn">Validasi</label>
+                              </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -23,6 +30,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
+                                        <tr>
+                                            <th>NIU (Nomor Induk UMKM)</th>
+                                            <td>{{$data->id_umkm}}</td>
+                                        </tr>
                                         <tr>
                                             <th>Nama Usaha</th>
                                             <td>{{$data->nama_usaha}}</td>
@@ -76,6 +87,10 @@
                                             <td>{{$data->bidang_usaha->nama}}</td>
                                         </tr>
                                         <tr>
+                                            <th>Produk</th>
+                                            <td>{{$data->produk}}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Komunitas Asosiasi</th>
                                             <td>{{$data->komuitas_asosiasi}}</td>
                                         </tr>
@@ -119,4 +134,36 @@
     </div>
     <!-- End Page -->
 
+    <input type="hidden" id="url" value="{{route('umkm.validasi',['id'=>$data->id])}}">
+  {{ csrf_field() }}
+
+@endsection
+
+@section('js')
+<script type="text/javascript">
+var url = $('#url').val();
+var token = $('input[name=_token]').val();
+  $("#inputBasicOn").change(function() {
+    if(this.checked) {
+        validasi(0);
+    }
+    else
+    {
+      validasi(1);
+    }
+});
+
+  function validasi(val)
+  {
+    $.ajax({
+        method: "PUT",
+        url: url,
+        data: { _token:token,status: val }
+      })
+        .done(function( msg ) {
+            console.log(msg);
+            alert(msg);
+        });
+  }
+</script>
 @endsection

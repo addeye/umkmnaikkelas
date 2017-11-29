@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agenda;
+use App\Event;
 use App\InfoTerkini;
 use App\Mail\KontakSend;
 use App\Mail\NewAgenda;
@@ -123,4 +124,21 @@ class LayananController extends Controller {
 			return redirect()->route('layanan.create.agenda');
 		}
 	}
+
+	public function event() {
+		$event = Event::where('status', 'Open')->where('publish', 'Yes')->where('show_front', 'Yes')->get();
+		$data = array(
+			'data' => $event,
+		);
+		return view('event', $data);
+	}
+
+	public function event_detail($id) {
+		$event = Event::find($id);
+		$data = array(
+			'data' => $event,
+		);
+		return view('event_detail', $data);
+	}
+
 }

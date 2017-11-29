@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\BidangPendampingan;
 use App\BidangUsaha;
 use App\Http\Controllers\Controller;
+use App\Lembaga;
 use Indonesia;
 
 class MasterController extends Controller {
@@ -63,6 +65,42 @@ class MasterController extends Controller {
 
 	public function bidangusaha() {
 		$data = BidangUsaha::all();
+		if ($data) {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => SUKSES,
+					'data' => $data,
+				]);
+		}
+		return response()->json(
+			[
+				'errors' => [],
+				'status' => GAGAL,
+				'data' => [],
+			]);
+	}
+
+	public function bidangpendampingan() {
+		$data = BidangPendampingan::all();
+		if ($data) {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => SUKSES,
+					'data' => $data,
+				]);
+		}
+		return response()->json(
+			[
+				'errors' => [],
+				'status' => GAGAL,
+				'data' => [],
+			]);
+	}
+
+	public function lembaga() {
+		$data = Lembaga::all();
 		if ($data) {
 			return response()->json(
 				[

@@ -9,6 +9,8 @@
 
     <title>@yield('title') | {{config('app.name')}}</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="apple-touch-icon" href="{{url('remark/assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('images/logo-small.png')}}">
 

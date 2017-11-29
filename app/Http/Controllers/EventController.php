@@ -7,10 +7,12 @@ use App\EventDiscuss;
 use App\EventDiscussFile;
 use App\EventFile;
 use App\EventFollower;
+use App\Events\MessageSentEvent;
 use App\Pendamping;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\File as FileClass;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -82,8 +84,13 @@ class EventController extends Controller {
 		$event->alamat = $request->alamat;
 		$event->description = $request->description;
 		$event->content = $request->content;
+
 		if ($request->has('publish')) {
 			$event->publish = $request->publish;
+		}
+
+		if ($request->has('show_front')) {
+			$event->show_front = $request->show_front;
 		}
 
 		$event->quota = $request->quota;
@@ -184,6 +191,14 @@ class EventController extends Controller {
 		$event->content = $request->content;
 		if ($request->has('publish')) {
 			$event->publish = $request->publish;
+		} else {
+			$event->publish = 'No';
+		}
+
+		if ($request->has('show_front')) {
+			$event->show_front = $request->show_front;
+		} else {
+			$event->show_front = 'No';
 		}
 
 		$event->quota = $request->quota;
@@ -225,6 +240,7 @@ class EventController extends Controller {
 		$files = $request->images;
 
 		if (count($files) != 0) {
+			$uploadcount = 0;
 			foreach ($files as $file) {
 				$destinationPath = 'uploads/event/images/';
 
@@ -241,7 +257,7 @@ class EventController extends Controller {
 				$fi = new EventFile();
 				$fi->file_name = $filename;
 				$fi->path = $destinationPath;
-				$fi->file_type = "image";
+				$fi->type = "image";
 				$fi->event_id = $id;
 				$fi->save();
 			}
@@ -317,6 +333,27 @@ class EventController extends Controller {
 		if ($follower) {
 			\Alert::success('Data berhasil dirubah', 'Selamat !');
 			return redirect()->route('event.show', ['id' => $request->event_id]);
+		}
+	}
+
+	public function delete_file_event($id) {
+		$event = EventFile::find($id);
+		$event_id = $event->event_id;
+
+		if (File::exists($event->path . $event->file_name)) {
+			unlink($event->path . $event->file_name);
+		}
+
+		if ($event->type == 'image') {
+			if (File::exists($event->path . 'thumbs/' . $event->file_name)) {
+				unlink($event->path . 'thumbs/' . $event->file_name);
+			}
+		}
+		$event->delete();
+
+		if ($event) {
+			\Alert::success('File berhasil dihapus', 'Selamat !');
+			return redirect()->route('event.show', ['id' => $event_id]);
 		}
 	}
 
@@ -479,5 +516,102 @@ class EventController extends Controller {
 				]
 			);
 		}
+	}
+
+	public function event_diskusi($id) {
+
+		$user = Auth::user();
+
+		$data = EventDiscuss::with(['event_follower' => function ($q) {
+			$q->with('user');
+		}])->where('event_id', $id)->get();
+
+		$rowdata = array();
+
+		foreach ($data as $key => $value) {
+			$rowdata[] = array(
+				'image' => $value->event_follower->user->image,
+				'name' => $value->event_follower->user->name,
+				'date' => $value->textdate,
+				'comment' => $value->comment,
+				'position' => $user->id == $value->event_follower->user->id ? '' : 'chat-left',
+			);
+		}
+
+		if ($data) {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => SUKSES,
+					'data' => $rowdata,
+				]);
+		} else {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => GAGAL,
+					'data' => [],
+				]);
+		}
+	}
+
+	public function event_diskusi_chat(Request $request) {
+		// dd($request->all());
+
+		$diskusi = new EventDiscuss();
+		$diskusi->event_follower_id = $request->event_follower_id;
+		$diskusi->comment = $request->comment;
+		$diskusi->event_id = $request->event_id;
+		$diskusi->save();
+
+		$data = EventDiscuss::with(['event_follower' => function ($q) {
+			$q->with('user');
+		}])->where('id', $diskusi->id)->first();
+
+		$rowdata = array(
+			'image' => $data->event_follower->user->image,
+			'name' => $data->event_follower->user->name,
+			'date' => $data->textdate,
+			'comment' => $data->comment,
+			'position' => '',
+		);
+
+		$rowdataPusher = array(
+			'image' => $data->event_follower->user->image,
+			'name' => $data->event_follower->user->name,
+			'date' => $data->textdate,
+			'comment' => $data->comment,
+			'position' => 'chat-left',
+		);
+
+		broadcast(new MessageSentEvent($rowdataPusher, $request->event_id))->toOthers();
+
+		if ($diskusi) {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => SUKSES,
+					'data' => $rowdata,
+				]);
+		} else {
+			return response()->json(
+				[
+					'errors' => [],
+					'status' => GAGAL,
+					'data' => [],
+				]);
+		}
+	}
+
+	public function room_chat_event($id) {
+		$user = Auth::user();
+
+		$eventfollower = EventFollower::where('event_id', $id)->where('user_id', $user->id)->first();
+
+		$data = array(
+			'data' => Event::find($id),
+			'check_follow' => $eventfollower,
+		);
+		return view('event.roomchat', $data);
 	}
 }

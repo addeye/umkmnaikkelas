@@ -99,7 +99,7 @@ trait AuthenticatesUsers
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-        \Alert::success('Selamat Datang', 'Hi '.Auth::user()->name.' !');
+
         return $this->authenticated($request, $this->guard()->user())
                 ?: redirect()->intended($this->redirectPath());
     }
@@ -155,11 +155,8 @@ trait AuthenticatesUsers
     {
         $this->guard()->logout();
 
-        $request->session()->flush();
+        $request->session()->invalidate();
 
-        $request->session()->regenerate();
-
-        \Alert::success('Anda Berhasil Logout', 'Hi !');
         return redirect('/');
     }
 

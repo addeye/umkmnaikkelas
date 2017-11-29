@@ -26,9 +26,6 @@ class AutoExpireFlashBagTest extends TestCase
      */
     private $bag;
 
-    /**
-     * @var array
-     */
     protected $array = array();
 
     protected function setUp()
@@ -62,7 +59,7 @@ class AutoExpireFlashBagTest extends TestCase
 
     public function testGetStorageKey()
     {
-        $this->assertEquals('_sf2_flashes', $this->bag->getStorageKey());
+        $this->assertEquals('_symfony_flashes', $this->bag->getStorageKey());
         $attributeBag = new FlashBag('test');
         $this->assertEquals('test', $attributeBag->getStorageKey());
     }

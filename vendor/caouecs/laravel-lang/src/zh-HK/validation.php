@@ -9,7 +9,7 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
@@ -47,6 +47,8 @@ return [
     'in_array'             => ':attribute 沒有在 :other 中。',
     'integer'              => ':attribute 必須是一個整數。',
     'ip'                   => ':attribute 必須是一個有效的 IP 地址。',
+    'ipv4'                 => ':attribute 必須是一個有效的 IPv4 地址。',
+    'ipv6'                 => ':attribute 必須是一個有效的 IPv6 地址。',
     'json'                 => ':attribute 必須是正確的 JSON 格式。',
     'max'                  => [
         'numeric' => ':attribute 不能大於 :max。',

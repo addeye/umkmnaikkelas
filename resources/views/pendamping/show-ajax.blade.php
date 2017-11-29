@@ -55,6 +55,10 @@
                         <td>{{$data->email}}</td>
                     </tr>
                     <tr>
+                        <th>Deskripsi</th>
+                        <td>{{$data->deskripsi}}</td>
+                    </tr>
+                    <tr>
                         <th>Pendidikan</th>
                         <td>{{$data->pendidikan}}</td>
                     </tr>

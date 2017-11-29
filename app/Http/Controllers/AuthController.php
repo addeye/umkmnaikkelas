@@ -54,6 +54,7 @@ class AuthController extends Controller {
 				[
 					'errors' => $validator->errors(),
 					'status' => GAGAL,
+					'message' => 'Perikas email dan password anda',
 				]);
 		}
 
@@ -62,17 +63,29 @@ class AuthController extends Controller {
 		$remember = $request->remember;
 
 		if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-			return response()->json(
-				[
-					'data' => Auth::user(),
-					'status' => 'sukses',
-				]
-			);
+			if (Auth::user()->role_id == ROLE_UMKM) {
+				return response()->json(
+					[
+						'data' => Auth::user(),
+						'status' => 'sukses',
+					]
+				);
+			} else {
+				Auth::logout();
+				return response()->json(
+					[
+						'errors' => [],
+						'status' => GAGAL,
+						'message' => 'Anda terdaftar bukan sebagai UMKM',
+					]);
+			}
+
 		} else {
 			return response()->json(
 				[
-					'errors' => ['message' => 'Email dan password salah'],
+					'errors' => [],
 					'status' => GAGAL,
+					'message' => 'Email dan Password Salah!',
 				]);
 		}
 

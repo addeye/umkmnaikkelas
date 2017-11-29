@@ -35,7 +35,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     public function fire()
     {
-        if (parent::fire() === false) {
+        if (parent::fire() === false && ! $this->option('force')) {
             return;
         }
 
@@ -51,7 +51,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     protected function writeMarkdownTemplate()
     {
-        $path = resource_path('views/'.str_replace('.', '/', $this->option('markdown'))).'prosedur_pendamping.blade.php';
+        $path = resource_path('views/'.str_replace('.', '/', $this->option('markdown'))).'.blade.php';
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
@@ -108,6 +108,8 @@ class MailMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
+            ['force', 'f', InputOption::VALUE_NONE, 'Create the class even if the mailable already exists.'],
+
             ['markdown', 'm', InputOption::VALUE_OPTIONAL, 'Create a new Markdown template for the mailable.'],
         ];
     }

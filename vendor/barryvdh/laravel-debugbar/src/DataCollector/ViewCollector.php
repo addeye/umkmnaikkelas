@@ -60,7 +60,7 @@ class ViewCollector extends TwigCollector
                 $path = ltrim(str_replace(base_path(), '', realpath($path)), '/');
             }
 
-            if (substr($path, -10) == 'prosedur_pendamping.blade.php') {
+            if (substr($path, -10) == '.blade.php') {
                 $type = 'blade';
             } else {
                 $type = pathinfo($path, PATHINFO_EXTENSION);

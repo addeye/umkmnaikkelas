@@ -46,7 +46,7 @@ class LunasNotification extends Notification {
 	public function toMail($notifiable) {
 		return (new MailMessage)
 			->greeting('Hi ' . $this->receiver . '!')
-			->subject($subject)
+			->subject($this->subject)
 			->line($this->message)
 			->action($this->actionText, $this->url);
 		// ->line('Thank you for using our application!');

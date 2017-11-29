@@ -24,6 +24,7 @@ class CreateEventTable extends Migration {
 			$table->text('content');
 			$table->string('image')->nullable();
 			$table->string('publish', 5)->default('No');
+			$table->string('show_front', 5)->default('No');
 			$table->string('status', 10)->default('Open');
 			$table->integer('quota');
 			$table->string('role_level')->default('Semua');

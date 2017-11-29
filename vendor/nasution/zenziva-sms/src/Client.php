@@ -6,6 +6,7 @@ use Requests;
 
 class Client
 {
+    const TIMEOUT = 60;
     const TYPE_REGULER = 'reguler';
     const TYPE_MASKING = 'masking';
 
@@ -14,7 +15,7 @@ class Client
      *
      * @var string
      */
-    protected $url = 'https://reguler.zenziva.net/apps/smsapi.php';
+    protected $url = 'https://{subdomain}.zenziva.net/apps/smsapi.php';
 
     /**
      * Zenziva username
@@ -68,6 +69,20 @@ class Client
     {
         $this->username = $username;
         $this->password = $password;
+    }
+
+    /**
+     * Change default URL or get current URL
+     *
+     * @param string $url
+     */
+    public function url($url = '')
+    {
+        if (!$url) return $this->url;
+
+        $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -165,7 +180,11 @@ class Client
      */
     private function doRequest($url)
     {
-        return Requests::get($url);
+        $options = [
+            'timeout' => self::TIMEOUT,
+        ];
+
+        return Requests::get($url, [], $options);
     }
 
     /**
@@ -188,7 +207,7 @@ class Client
             'nohp'    => $this->to,
             'pesan'   => $this->text,
         ]);
-        
+
         $params = urldecode($params);
 
         return $url . '?' . $params;

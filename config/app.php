@@ -179,13 +179,14 @@ return [
 		UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 		Maatwebsite\Excel\ExcelServiceProvider::class,
 		Nasution\ZenzivaSms\NotificationServiceProvider::class,
+		Chumper\Zipper\ZipperServiceProvider::class,
 
 		/*
 			         * Application Service Providers...
 		*/
 		App\Providers\AppServiceProvider::class,
 		App\Providers\AuthServiceProvider::class,
-		// App\Providers\BroadcastServiceProvider::class,
+		App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
 
@@ -246,6 +247,7 @@ return [
 		'Geocode' => Jcf\Geocode\Facades\Geocode::class,
 		'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+		'Zipper' => Chumper\Zipper\Zipper::class,
 	],
 
 ];

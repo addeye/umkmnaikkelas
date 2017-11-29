@@ -192,6 +192,9 @@
                 </div>
                 <div class="panel">
                     <div class="panel-body">
+                        <h4>Deskripsi</h4>
+                        <p>{{$data->pendamping->deskripsi}}</p>
+                        <hr>
                         <h4>Pengalaman</h4>
                         <p>{{$data->pendamping->pengalaman}}</p>
                         <hr>
@@ -218,44 +221,44 @@
 
     <div class="modal fade" id="exampleFormModal" aria-hidden="false" aria-labelledby="exampleFormModalLabel"
                   role="dialog" tabindex="-1">
-                    <div class="modal-dialog">
-                      <form class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                          <h4 class="modal-title" id="exampleFormModalLabel">Login Sebagai UMKM</h4>
-                          <small>Anda Harus Sebagai UMKM jika ingin order Jasa Ini</small>
-                        </div>
-                        <div class="modal-body">
-                          <form id="formlogin">
-                            <span id="alert" style="color: red;"></span>
-                            {{ csrf_field() }}
-                            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                              <label class="sr-only" for="inputEmail">Email</label>
-                              <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="{{old('email')}}" required>
-                            </div>
-                            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-                              <label class="sr-only" for="inputPassword">Password</label>
-                              <input type="password" class="form-control" id="inputPassword" name="password"
-                              placeholder="Password" required>
-                            </div>
-                            <div class="form-group clearfix">
-                              <div class="checkbox-custom checkbox-inline pull-left">
-                                <input type="checkbox" id="inputCheckbox" name="remember">
-                                <label for="inputCheckbox">Ingatkan Saya</label>
-                              </div>
-                              <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block btn-login">Masuk</button>
-                          </form>
-                          <p>Tidak punya akun ? Silahkan</p>
-                          <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
-                          <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/pendamping')}}">Daftar Pendamping</a></p>
-                        </div>
-                      </form>
-                    </div>
+        <div class="modal-dialog">
+          <form class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="exampleFormModalLabel">Login Sebagai UMKM</h4>
+              <small>Anda Harus Sebagai UMKM jika ingin order Jasa Ini</small>
+            </div>
+            <div class="modal-body">
+              <form id="formlogin">
+                <span id="alert" style="color: red;"></span>
+                {{ csrf_field() }}
+                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                  <label class="sr-only" for="inputEmail">Email</label>
+                  <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="{{old('email')}}" required>
+                </div>
+                <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                  <label class="sr-only" for="inputPassword">Password</label>
+                  <input type="password" class="form-control" id="inputPassword" name="password"
+                  placeholder="Password" required>
+                </div>
+                <div class="form-group clearfix">
+                  <div class="checkbox-custom checkbox-inline pull-left">
+                    <input type="checkbox" id="inputCheckbox" name="remember">
+                    <label for="inputCheckbox">Ingatkan Saya</label>
                   </div>
+                  <a class="pull-right" href="{{ route('password.request') }}">Lupa password?</a>
+                </div>
+                <button type="button" class="btn btn-primary btn-block btn-login">Masuk</button>
+              </form>
+              <p>Tidak punya akun ? Silahkan</p>
+              <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/umkm')}}">Daftar UMKM</a></p>
+              <p><a style="color: #f16f35;font-weight: bold;" href="{{url('register/pendamping')}}">Daftar Pendamping</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
 
     @endsection
 

@@ -93,6 +93,17 @@
                     </span>
                   </div>
                 </div>
+
+                <div class="form-group {{ $errors->has('deskripsi') ? ' has-error' : '' }}">
+                  <label class="col-sm-3 control-label">Deskripsi</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" name="deskripsi" placeholder="Deskripsi pendamping..">{{old('deskripsi')}}</textarea>
+                    <span class="help-block">
+                      <strong>{{ $errors->first('deskripsi') }}</strong>
+                    </span>
+                  </div>
+                </div>
+
                 <div class="form-group {{ $errors->has('pendidikan') ? ' has-error' : '' }}">
                   <label class="col-sm-3 control-label">Pendidikan</label>
                   <div class="col-sm-9">
@@ -162,20 +173,6 @@
                     <span class="help-block">
                       <strong>{{ $errors->first('bidang_keahlian') }}</strong>
                     </span>
-                  </div>
-                </div>
-
-                <div class="form-group {{ $errors->has('bidang_usaha') ? ' has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Bidang Usaha</label>
-                  <div class="col-sm-9 select2-warning">
-                    <select class="form-control" multiple data-plugin="select2" name="bidang_usaha[]">
-                      @foreach($BdUsaha as $row)
-                        <option value="{{$row->nama}}" {{in_array($row->nama,old('bidang_usaha')?old('bidang_usaha'):[])?'selected':''}} >{{$row->nama}}</option>
-                      @endforeach
-                    </select>
-                    <span class="help-block">
-                            <strong>{{ $errors->first('bidang_usaha') }}</strong>
-                        </span>
                   </div>
                 </div>
 
