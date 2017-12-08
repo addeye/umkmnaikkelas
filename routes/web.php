@@ -225,6 +225,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('event-all', 'EventController@event_all')->name('event.all');
 		Route::put('event-follower/{id}', 'EventController@event_follower')->name('event.follower');
 		Route::post('event-diskusi-akun', 'EventController@diskusi')->name('event.akun.diskusi');
+
+		Route::get('profil-umkm/{id}', 'ProfilController@profilUmkm');
 	});
 
 });

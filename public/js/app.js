@@ -11305,13 +11305,15 @@ var app = new Vue({
         if (document.getElementById('event_id')) {
             var event_id = document.getElementById('event_id').value;
             this.fetchMessages(event_id);
+            // $('#panel-body').scrollTop($('#panel-body').prop("scrollHeight"));
         }
 
         Echo.private('chat-event-' + event_id).listen('MessageSentEvent', function (e) {
             _this.messages.push(e.event_discuss);
             console.log(e.event_discuss);
             console.log('deye');
-            toastr.info('Pesan dari ' + e.event_discuss.name);
+            // toastr.info('Pesan dari '+e.event_discuss.name);            
+            // $('#panel-body').scrollTop($('#panel-body').prop("scrollHeight"));
         });
     },
 
@@ -12198,16 +12200,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -12239,8 +12231,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -37100,12 +37090,8 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "form"
-  }, [_c('div', {
-    staticClass: "form-group row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('textarea', {
+    staticClass: "input-group"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37116,8 +37102,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "btn-input",
       "name": "message",
-      "placeholder": "Tulis komentar...",
-      "rows": "3"
+      "placeholder": "Tulis komentar..."
     },
     domProps: {
       "value": (_vm.newMessage)
@@ -37132,21 +37117,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.newMessage = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "help-block"
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group row"
-  }, [_c('div', {
-    staticClass: "col-md-12 text-right"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
   }, [_c('button', {
-    staticClass: "btn btn-primary btn-sm",
+    staticClass: "btn btn-warning btn-sm",
     attrs: {
       "id": "btn-chat"
     },
     on: {
       "click": _vm.sendMessage
     }
-  }, [_vm._v("\n            Kirim\n        ")])])])])
+  }, [_vm._v("Kirim")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -37165,33 +37146,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "chats"
   }, _vm._l((_vm.messages), function(message) {
     return _c('div', {
-      class: message.position + ' chat'
-    }, [_c('div', {
-      staticClass: "chat-avatar"
-    }, [_c('a', {
-      staticClass: "avatar avatar-online",
-      attrs: {
-        "data-toggle": "tooltip",
-        "href": "#",
-        "data-placement": "left",
-        "title": "",
-        "data-original-title": message.name
-      }
+      staticClass: "chat"
+    }, [_c('li', {
+      class: message.position_text + ' clearfix'
+    }, [_c('span', {
+      class: 'chat-img ' + message.position
     }, [_c('img', {
+      staticClass: "img-circle",
       attrs: {
-        "alt": "...",
-        "src": '/uploads/user/images/' + message.image
+        "src": message.image,
+        "alt": "User Avatar"
       }
-    }), _vm._v(" "), _c('i')])]), _vm._v(" "), _c('div', {
-      staticClass: "chat-body"
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "chat-body clearfix"
     }, [_c('div', {
-      staticClass: "chat-content"
-    }, [_c('b', [_vm._v(_vm._s(message.name))]), _vm._v(" "), _c('p', [_vm._v("\n                    " + _vm._s(message.comment) + "\n                  ")]), _vm._v(" "), _c('time', {
-      staticClass: "chat-time",
-      attrs: {
-        "datetime": "2015-07-01T11:37"
-      }
-    }, [_vm._v(_vm._s(message.date))])])])])
+      staticClass: "header"
+    }, [_c('strong', {
+      class: message.position + ' primary-font'
+    }, [_vm._v(_vm._s(message.name))]), _vm._v(" "), _c('small', {
+      class: message.position_time + ' text-muted'
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-time"
+    }), _vm._v(_vm._s(message.date) + "\n                                    ")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', {
+      class: message.position
+    }, [_vm._v(_vm._s(message.comment))])])])])
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true

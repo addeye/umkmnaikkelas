@@ -71,13 +71,11 @@
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         </form>
-                            @else
-                            <a href="javascript:void" style="color: red;"><i class="icon wb-bookmark"></i> Mengikuti</a>
+                        @else
+                            <a href="javascript:void" style="color: red;"><i class="icon wb-bookmark"></i> Telah Diikuti</a>
                         @endif
-
-
                       </p>
-                      <p class="text-right"><i class="icon wb-user-add"></i> Telah Diikuti : {{count($row->event_follower)}}</p>
+                      <p class="text-right"><i class="icon wb-user-add"></i> Diikuti Peserta : {{count($row->event_follower)}}</p>
                     </div>
                   </div>
                     </div>

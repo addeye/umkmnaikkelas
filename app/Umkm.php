@@ -29,4 +29,8 @@ class Umkm extends Model {
 
 		return $this->belongsTo('App\User', 'user_id');
 	}
+
+	public function konsultasi() {
+		return $this->hasMany('App\OrderKonsultasi', 'umkm_id');
+	}
 }

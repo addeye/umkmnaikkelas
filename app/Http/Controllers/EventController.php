@@ -529,12 +529,20 @@ class EventController extends Controller {
 		$rowdata = array();
 
 		foreach ($data as $key => $value) {
+			$imageuser = $value->event_follower->user->image;
+			if ($imageuser == '') {
+				$imageuserfinal = '/images/default-user.jpg';
+			} else {
+				$imageuserfinal = '/uploads/user/images/' . $imageuser;
+			}
 			$rowdata[] = array(
-				'image' => $value->event_follower->user->image,
+				'image' => $imageuserfinal,
 				'name' => $value->event_follower->user->name,
 				'date' => $value->textdate,
 				'comment' => $value->comment,
-				'position' => $user->id == $value->event_follower->user->id ? '' : 'chat-left',
+				'position' => $user->id == $value->event_follower->user->id ? 'pull-right' : 'pull-left',
+				'position_text' => $user->id == $value->event_follower->user->id ? 'right' : 'left',
+				'position_time' => $user->id == $value->event_follower->user->id ? 'pull-left' : 'pull-right',
 			);
 		}
 
@@ -556,6 +564,7 @@ class EventController extends Controller {
 	}
 
 	public function event_diskusi_chat(Request $request) {
+		$user = Auth::user();
 		// dd($request->all());
 
 		$diskusi = new EventDiscuss();
@@ -568,20 +577,31 @@ class EventController extends Controller {
 			$q->with('user');
 		}])->where('id', $diskusi->id)->first();
 
+		$imageuser = $data->event_follower->user->image;
+		if ($imageuser == '') {
+			$imageuserfinal = '/images/default-user.jpg';
+		} else {
+			$imageuserfinal = '/uploads/user/images/' . $imageuser;
+		}
+
 		$rowdata = array(
-			'image' => $data->event_follower->user->image,
+			'image' => $imageuserfinal,
 			'name' => $data->event_follower->user->name,
 			'date' => $data->textdate,
 			'comment' => $data->comment,
-			'position' => '',
+			'position' => $user->id == $data->event_follower->user->id ? 'pull-right' : 'pull-left',
+			'position_text' => $user->id == $data->event_follower->user->id ? 'right' : 'left',
+			'position_time' => $user->id == $data->event_follower->user->id ? 'pull-left' : 'pull-right',
 		);
 
 		$rowdataPusher = array(
-			'image' => $data->event_follower->user->image,
+			'image' => $imageuserfinal,
 			'name' => $data->event_follower->user->name,
 			'date' => $data->textdate,
 			'comment' => $data->comment,
-			'position' => 'chat-left',
+			'position' => 'pull-left',
+			'position_text' => 'left',
+			'position_time' => 'pull-right',
 		);
 
 		broadcast(new MessageSentEvent($rowdataPusher, $request->event_id))->toOthers();

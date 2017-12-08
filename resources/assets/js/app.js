@@ -29,6 +29,7 @@ const app = new Vue({
         if (document.getElementById('event_id')) {
             var event_id = document.getElementById('event_id').value;
             this.fetchMessages(event_id);
+            // $('#panel-body').scrollTop($('#panel-body').prop("scrollHeight"));
         }
     	
     	
@@ -37,7 +38,8 @@ const app = new Vue({
             this.messages.push(e.event_discuss);
             console.log(e.event_discuss);
             console.log('deye');
-            toastr.info('Pesan dari '+e.event_discuss.name);
+            // toastr.info('Pesan dari '+e.event_discuss.name);            
+            // $('#panel-body').scrollTop($('#panel-body').prop("scrollHeight"));
           });
     },
 

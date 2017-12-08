@@ -66,6 +66,10 @@
                             Status : {{$data->status}} <br>
                         </span>
                     </h3>
+
+                    @if (Auth::user()->role_id==ROLE_PENDAMPING)
+                        <span class="padding-30"><a href="{{ url('profil-umkm/'.$data->umkm_id) }}"><i class="icon wb-eye"></i> Lihat Profil UMKM : {{$data->umkm->nama_usaha}}</a></span>
+                    @endif
                     </div>
                     <div class="panel-body">
                         <div class="row">

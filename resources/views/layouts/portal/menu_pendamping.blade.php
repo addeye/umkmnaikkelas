@@ -1,6 +1,7 @@
 @if (Auth::user()->pendamping)
   <ul class="nav navbar-toolbar navbar-right">
     <li class="{{set_active(['/','home'],'active')}}"><a href="{{url('/')}}">Dashboard <span class="sr-only">(current)</span></a></li>
+    <li class="{{set_active(['profil'],'active')}}"><a href="{{url('/profil')}}">Profil</a></li>
     <li class="dropdown {{set_active(['lembaga-pendamping','jasa-pendampingan','jasa-pendampingan/*'],'active')}}">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
       role="button">Pendampingan <span class="caret"></span></a>

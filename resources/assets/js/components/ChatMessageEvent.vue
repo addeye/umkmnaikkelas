@@ -1,24 +1,22 @@
 <template>
-
-    <div class="chats">
-                <div :class="message.position+' chat'" v-for="message in messages">
-                  <div class="chat-avatar">
-                    <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" :data-original-title="message.name">
-                      <img alt="..." :src="'/uploads/user/images/'+message.image">
-                      <i></i>
-                    </a>
-                  </div>
-                  <div class="chat-body">
-                    <div class="chat-content">                        
-                        <b>{{message.name}}</b>
-                      <p>
-                        {{message.comment}}
-                      </p>
-                      <time class="chat-time" datetime="2015-07-01T11:37">{{message.date}}</time>
+  <div class="chats">
+  <div class="chat" v-for="message in messages">
+  <li :class="message.position_text+' clearfix'"><span :class="'chat-img '+message.position">
+                            <img :src="message.image" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong :class="message.position+' primary-font'">{{message.name}}</strong>
+                                    <small :class="message.position_time+' text-muted'">
+                                        <span class="glyphicon glyphicon-time"></span>{{message.date}}
+                                      </small>
+                                </div>
+                                <br>                                
+                                    <p :class="message.position">{{message.comment}}</p>
+                            </div>                            
+                        </li>
                     </div>
                   </div>
-                </div>                
-              </div>
 </template>
 
 <script>

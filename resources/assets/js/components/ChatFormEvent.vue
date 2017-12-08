@@ -1,19 +1,9 @@
 <template>
-    <div class="form">
-        <div class="form-group row">
-                    <div class="col-md-12">
-                        <textarea id="btn-input" class="form-control" name="message" placeholder="Tulis komentar..." v-model="newMessage" @keyup.enter="sendMessage" rows="3"></textarea>
-                    </div>
-                    <span class="help-block">            
-            </span>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary btn-sm" id="btn-chat" @click="sendMessage">
-                Kirim
-            </button>
-            </div>
-        </div>
+    <div class="input-group">
+    <input id="btn-input" class="form-control" name="message" placeholder="Tulis komentar..." v-model="newMessage" @keyup.enter="sendMessage"/>
+    <span class="input-group-btn">
+    <button class="btn btn-warning btn-sm" id="btn-chat" @click="sendMessage">Kirim</button>
+                    </span>
     </div>
 </template>
 
@@ -36,7 +26,7 @@
                     comment: this.newMessage
                 });
 
-                this.newMessage = ''
+                this.newMessage = '';                
             }
         }    
     }

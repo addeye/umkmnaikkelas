@@ -110,7 +110,7 @@ class AuthController extends Controller {
 			dispatch($job);
 
 			\Alert::success('Silahkan Cek di email anda perikasa Inbox / Spam', 'Berhasil');
-			return redirect()->route('password.request');
+			return redirect('login')->with('success', 'Proses telah dikirim ke email anda');
 		} else {
 
 			\Alert::warning('Email tersebut tidak ada di database kami silahkan hubungi Admin', 'Gagal')->persistent('Tutup');
