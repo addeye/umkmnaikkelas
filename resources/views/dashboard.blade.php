@@ -67,10 +67,20 @@
 
                         @if(!in_array($row->id, $event_id->toArray()))
                         <a onclick="event.preventDefault(); ConfirmDelete({{$row->id}});" href="javascript:void(0)" role="menuitem" data-toggle="tooltip" data-original-title="Ikut Event"><i class="icon wb-bookmark" aria-hidden="true"></i> Ikut Event</a>
-                        <form id="delete-form-{{$row->id}}" action="{{route('event.follower',['id'=>$row->id])}}" method="POST" style="display: none;">{{ csrf_field() }}
+
+
+                        @if (Auth::user()->role_id==ROLE_PENDAMPING)
+                                            <form id="delete-form-{{$row->id}}" action="{{route('event.follower',['id'=>$row->id])}}" method="POST" style="display: none;">
+                                                @else
+                                            <form id="delete-form-{{$row->id}}" action="{{route('event.follower_umkm',['id'=>$row->id])}}" method="POST" style="display: none;">
+                                        @endif
+
+
+                            {{ csrf_field() }}
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         </form>
+
                         @else
                             <a href="javascript:void" style="color: red;"><i class="icon wb-bookmark"></i> Telah Diikuti</a>
                         @endif
@@ -109,7 +119,7 @@
 
                                 @elseif(Auth::user()->role_id == ROLE_UMKM)
 
-                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="{{Auth::user()->umkm->rating}}">
+                                <div class="rating rating-lg" data-number="5" data-plugin="rating" data-read-only="true" data-score="{{Auth::user()->umkm?Auth::user()->umkm->rating:0}}">
                                 </div>
 
                                 @endif

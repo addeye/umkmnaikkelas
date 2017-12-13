@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DataUmkmController extends Controller {
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,6 +17,10 @@ class DataUmkmController extends Controller {
 	 */
 	public function index() {
 		$user = Auth::user();
+		if (!$user->umkm) {
+			\Alert::success('Silahkan lengkapi data UMKM', 'Hi ' . $user->name)->persistent("Tutup");
+			return redirect()->route('daftar.umkm');
+		}
 		$umkm_id = $user->umkm->id;
 		$data = array(
 			'data' => DataUmkm::with('umkm')->where('umkm_id', $umkm_id)->get(),

@@ -626,6 +626,13 @@ class EventController extends Controller {
 	public function room_chat_event($id) {
 		$user = Auth::user();
 
+		if ($user->role_id == ROLE_UMKM) {
+			if (!$user->umkm) {
+				\Alert::success('Silahkan lengkapi data UMKM', 'Hi ' . $user->name)->persistent("Tutup");
+				return redirect()->route('daftar.umkm');
+			}
+		}
+
 		$eventfollower = EventFollower::where('event_id', $id)->where('user_id', $user->id)->first();
 
 		$data = array(

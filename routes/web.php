@@ -227,6 +227,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('event-diskusi-akun', 'EventController@diskusi')->name('event.akun.diskusi');
 
 		Route::get('profil-umkm/{id}', 'ProfilController@profilUmkm');
+		Route::get('profil', 'ProfilController@profilDetilPendamping');
 	});
 
 });

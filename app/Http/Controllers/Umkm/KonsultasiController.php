@@ -26,7 +26,13 @@ class KonsultasiController extends Controller {
 	 */
 	public function index() {
 
-		$umkm_id = Auth::user()->umkm->id;
+		$user = Auth::user();
+		if (!$user->umkm) {
+			\Alert::success('Silahkan lengkapi data UMKM', 'Hi ' . $user->name)->persistent("Tutup");
+			return redirect()->route('daftar.umkm');
+		}
+
+		$umkm_id = $user->umkm->id;
 
 		$data = array(
 			'data' => OrderKonsultasi::where('umkm_id', $umkm_id)->orderBy('created_at', 'DESC')->get(),
@@ -310,7 +316,17 @@ class KonsultasiController extends Controller {
 	}
 
 	public function createWithJasa($id) {
-		$umkm_id = Auth::user()->umkm->id;
+		$user = Auth::user();
+
+		if ($user->role_id == ROLE_UMKM) {
+			if (!$user->umkm) {
+				\Alert::success('Silahkan lengkapi data UMKM Sebelum Order Konsultasi', 'Hi ' . $user->name)->persistent("Tutup");
+				return redirect()->route('daftar.umkm');
+			}
+		}
+
+		$umkm_id = $user->umkm->id;
+
 		$data = array(
 			'bidang' => BidangPendampingan::all(),
 			'riwayat' => OrderKonsultasi::where('umkm_id', $umkm_id)->get(),

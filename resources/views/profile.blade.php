@@ -32,7 +32,7 @@
         .content-wrapper:first-of-type{
             border-top:0;
         }
-        
+
         i.material-icons{
             float: right;
             margin-left: 5px;
@@ -196,7 +196,7 @@
     <div class="image-crop-wrapper">
         <!-- <img src="" class="image-crop-content"> -->
         <div class="image-cropper">
-            
+
         </div>
         <div class="pull-right">
             <button type="button" class="btn btn-default btn-cancel">Cancel</button>
@@ -282,12 +282,12 @@
       function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                    
+
                 reader.onload = function (e) {
                     // $('.image-crop-content').attr('src', e.target.result);
-                    $uploadCrop.croppie('bind', e.target.result);   
+                    $uploadCrop.croppie('bind', e.target.result);
                 }
-                    
+
                 reader.readAsDataURL(input.files[0]);
             }
         }

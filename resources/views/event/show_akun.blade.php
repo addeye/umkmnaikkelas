@@ -78,6 +78,11 @@
                                         Peserta
                                     </a>
                                 </li>
+                                <li role="presentation">
+                                    <a aria-controls="exampleTabsLineThree" data-toggle="tab" href="{{ route('event.room.chat',['id'=>$data->id]) }} role="tab">
+                                        Room Chat
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -160,20 +165,6 @@
                                     @else
                                     <p class="btn btn-danger disabled"> <i class="icon wb-bookmark" aria-hidden="true"></i> Telah diikuti</p>
                                     @endif
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-12 row">
-                                <h4><i class="icon wb-chat-group"></i> Diskusi</h4>
-                                    <input id="event_id" type="hidden" value="{{$data->id}}">
-                                    <input id="event_follower_id" type="hidden" value="{{$check_follow->id}}">
-                                    <chat-messages-event :messages="messages"></chat-messages-event>
-
-                                     <div class="panel-footer">
-                                        <chat-form-event
-                                            v-on:messagesentevent="addMessage"
-                                        ></chat-form-event>
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         </div>

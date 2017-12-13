@@ -87,25 +87,36 @@ class HomeController extends Controller {
 
 			} elseif ($user->role_id == ROLE_UMKM) {
 
+				// if (!$user->umkm) {
+				// 	\Alert::success('Tolong isi dengan benar', 'Selamat Datang ' . $user->name)->persistent("Tutup");
+				// 	return redirect()->route('daftar.umkm');
+				// }
+				//
 				if (!$user->umkm) {
-					\Alert::success('Tolong isi dengan benar', 'Selamat Datang ' . $user->name)->persistent("Tutup");
-					return redirect()->route('daftar.umkm');
+
+					$data['pendamping'] = [];
+					$data['kegiatan'] = [];
+
+					$data['order'] = [];
+
+				} else {
+					$umkm_id = $user->umkm->id;
+
+					$order = OrderKonsultasi::where('umkm_id', $umkm_id)->orderBy('id', 'DESC')->get();
+					$jasa_pendampingan_id = $order->pluck('jasa_pendampingan_id');
+					$pendamping_id = JasaPendampingan::whereIn('id', $jasa_pendampingan_id)->pluck('pendamping_id');
+					$pendamping = $pendamping_id->unique();
+
+					$kegiatan = OrderChat::where('user_id', $user->id)->get();
+
+					$data['pendamping'] = $pendamping;
+					$data['kegiatan'] = $kegiatan;
+
+					$data['order'] = $order;
 				}
 
-				$umkm_id = $user->umkm->id;
-
-				$order = OrderKonsultasi::where('umkm_id', $umkm_id)->orderBy('id', 'DESC')->get();
-				$jasa_pendampingan_id = $order->pluck('jasa_pendampingan_id');
-				$pendamping_id = JasaPendampingan::whereIn('id', $jasa_pendampingan_id)->pluck('pendamping_id');
-				$pendamping = $pendamping_id->unique();
-
-				$kegiatan = OrderChat::where('user_id', $user->id)->get();
-
-				$data['pendamping'] = $pendamping;
-				$data['kegiatan'] = $kegiatan;
-
-				$data['order'] = $order;
 				$data['event'] = Event::whereIn('role_level', ['Umkm', 'Semua'])->where('status', 'Open')->whereNotIn('id', $event_id)->get();
+
 			} elseif ($user->role_id == ROLE_CALON) {
 				$data['event'] = [];
 			}

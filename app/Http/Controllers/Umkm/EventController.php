@@ -23,6 +23,7 @@ class EventController extends Controller {
 			'recent' => Event::where('id', '!=', $id)->where('status', 'Open')->where('role_level', 'Semua')->get(),
 			'check_follow' => $check_user_follower,
 		);
+		// return $data;
 
 		return view('event.show_akun', $data);
 	}
@@ -46,6 +47,15 @@ class EventController extends Controller {
 
 	public function event_follower(Request $request, $id) {
 		// dd($request->all());
+		//
+		$user = Auth::user();
+
+		if ($user->role_id == ROLE_UMKM) {
+			if (!$user->umkm) {
+				\Alert::success('Silahkan lengkapi data UMKM', 'Hi ' . $user->name)->persistent("Tutup");
+				return redirect()->route('daftar.umkm');
+			}
+		}
 
 		$event = new EventFollower();
 		$event->event_id = $id;
